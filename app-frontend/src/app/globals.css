@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "./styles/shadcn.css";
+
+@theme {
+    --color-primary: #d1cb8f;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #ffed4a;
+    --color-secondary-foreground: #000000;
+}
