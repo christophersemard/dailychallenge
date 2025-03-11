@@ -11,10 +11,6 @@ async function bootstrap() {
         options: { port },
     });
 
-    // Charge uniquement le .env de ms-gateway
-    dotenv.config({ path: path.resolve(__dirname, "../.env") });
-    console.log("Chargement .env :", process.env.PORT, process.env.JWT_SECRET);
-
     await app.listen();
     console.log(`🚀 ms-users démarré sur port TCP: ${port}`);
 }
