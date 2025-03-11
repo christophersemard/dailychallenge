@@ -3,12 +3,18 @@ import {
     ConflictException,
     BadRequestException,
 } from "@nestjs/common";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../prisma/prisma.service";
 
 @Injectable()
 export class UsersService {
+    async getAllUsers() {
+        console.log("🚀 Prisma client instanciated");
+        console.log(await prisma.user.findFirst());
+        console.log("getAllUsers");
+        console.log();
+        return await prisma.user.findMany();
+    }
+
     async createUser(email: string, password: string) {
         if (!email || !password) {
             throw new BadRequestException(
@@ -17,6 +23,7 @@ export class UsersService {
         }
 
         try {
+            // return { email, password };
             return await prisma.user.create({ data: { email, password } });
         } catch (error) {
             if (error.code === "P2002") {
@@ -38,6 +45,7 @@ export class UsersService {
         const user = await prisma.user.findUnique({
             where: { email, deletedAt: null },
         });
+        // const user = { email, password };
 
         if (!user) {
             throw new BadRequestException("Email incorrect.");

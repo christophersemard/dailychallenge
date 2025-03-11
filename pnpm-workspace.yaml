@@ -1,3 +1,7 @@
 packages:
-  - 'app-frontend'
-  - 'backend/ms-*'
+  - "packages/*"
+  - "backend/*"
+  - "app-frontend"
+catalogs:
+  prisma:
+    prisma: latest

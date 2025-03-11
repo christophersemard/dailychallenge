@@ -33,4 +33,9 @@ export class AuthController {
     async generateJwt(user: { id: number; email: string; role: string }) {
         return { token: await this.authService.generateToken(user) };
     }
+
+    @MessagePattern("get_all_users")
+    async getAllUsers() {
+        return await this.usersService.getAllUsers();
+    }
 }

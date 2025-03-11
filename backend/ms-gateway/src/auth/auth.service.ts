@@ -46,4 +46,17 @@ export class AuthService {
             throw new BadRequestException("Erreur interne");
         }
     }
+
+    async getUsers(): Promise<UserDto[]> {
+        try {
+            return await lastValueFrom(
+                this.client.send<UserDto[]>("get_all_users", {})
+            );
+        } catch (error) {
+            if (isError(error)) {
+                throw new BadRequestException(error.message);
+            }
+            throw new BadRequestException("Erreur interne");
+        }
+    }
 }

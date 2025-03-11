@@ -1,6 +1,7 @@
-import { Controller, Get, Inject } from "@nestjs/common";
+import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
+import { JwtAuthGuard } from "./auth/auth.guard";
 
 @Controller("test")
 export class AppController {
@@ -9,6 +10,14 @@ export class AppController {
         @Inject("GAME_CINEMA_1_SERVICE") private cinemaClient: ClientProxy,
         @Inject("FRIENDS_SERVICE") private friendsClient: ClientProxy
     ) {}
+
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    async protectedRoute(@Req() req) {
+        return {
+            message: `Bienvenue ${req.user.email}, votre rôle est ${req.user.role}`,
+        };
+    }
 
     @Get("leaderboard")
     async testLeaderboard() {
@@ -25,5 +34,10 @@ export class AppController {
     @Get("friends")
     async testFriends() {
         return lastValueFrom(this.friendsClient.send("ping_friends", {}));
+    }
+
+    @Get("posts")
+    async getPosts() {
+        return lastValueFrom(this.friendsClient.send("get_all_posts", {}));
     }
 }
