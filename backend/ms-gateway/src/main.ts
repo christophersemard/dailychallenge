@@ -12,6 +12,7 @@ async function bootstrap() {
 
     console.log("Chargement .env :", process.env.PORT, process.env.JWT_SECRET);
 
+    console.log(process.env.HOST ?? "ms-users");
     console.log(`ms-gateway lancé sur le port ${process.env.PORT}`);
     console.log(process.env.JWT_SECRET);
 }

@@ -1,4 +1,4 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 import { MessagePattern, RpcException } from "@nestjs/microservices";
 import { UsersService } from "../users/users.service";
 import { AuthService } from "./auth.service";
@@ -9,6 +9,12 @@ export class AuthController {
         private readonly usersService: UsersService,
         private readonly authService: AuthService
     ) {}
+
+    // Route GET pour teser la connexion
+    @Get()
+    async test() {
+        return "Auth service is up and running!";
+    }
 
     @MessagePattern("register_user")
     async register({ email, password }: { email: string; password: string }) {

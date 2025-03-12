@@ -19,6 +19,11 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
         if (err || !user) {
             const errorMessage = info instanceof Error ? info.message : null;
 
+            console.log(
+                "🚀 ~ file: auth.guard.ts ~ line 41 ~ JwtAuthGuard ~ errorMessage",
+                errorMessage
+            );
+
             if (errorMessage === "No auth token") {
                 throw new UnauthorizedException(
                     "Token d’authentification manquant."

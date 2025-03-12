@@ -2,11 +2,12 @@ import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { AuthController } from "./auth/auth.controller";
 import { AuthService } from "./auth/auth.service";
-import { AppController } from "./app.controller";
 import { JwtStrategy } from "./auth/jwt.strategy";
 import { ConfigModule } from "@nestjs/config";
-import { UsersController } from "./users/users.controller";
-import { UsersService } from "./users/users.service";
+import { FriendsService } from "./friends/friends.service";
+import { FriendsController } from "./friends/friends.controller";
+
+const isDocker = process.env.IS_DOCKER === "true";
 
 @Module({
     imports: [
@@ -18,26 +19,38 @@ import { UsersService } from "./users/users.service";
             {
                 name: "USERS_SERVICE",
                 transport: Transport.TCP,
-                options: { host: "localhost", port: 3001 },
+                options: {
+                    host: isDocker ? "ms-users" : "localhost",
+                    port: 3001,
+                },
             },
             {
                 name: "FRIENDS_SERVICE",
                 transport: Transport.TCP,
-                options: { host: "localhost", port: 3002 },
+                options: {
+                    host: isDocker ? "ms-friends" : "localhost",
+                    port: 3002,
+                },
             },
             {
                 name: "LEADERBOARD_SERVICE",
                 transport: Transport.TCP,
-                options: { host: "localhost", port: 3003 },
+                options: {
+                    host: isDocker ? "ms-leaderboard" : "localhost",
+                    port: 3003,
+                },
             },
             {
                 name: "GAME_CINEMA_1_SERVICE",
                 transport: Transport.TCP,
-                options: { host: "localhost", port: 3004 },
+                options: {
+                    host: isDocker ? "ms-game-cinema-1" : "localhost",
+                    port: 3004,
+                },
             },
         ]),
     ],
-    controllers: [AuthController, AppController, UsersController],
-    providers: [AuthService, JwtStrategy, UsersService],
+    controllers: [AuthController, FriendsController],
+    providers: [AuthService, JwtStrategy, FriendsService],
 })
 export class AppModule {}

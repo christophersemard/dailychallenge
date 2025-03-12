@@ -1,15 +1,28 @@
+# Utiliser une image Node.js légère
 FROM node:20-alpine
 
-WORKDIR /usr/src/app
+# Définir le répertoire de travail
+WORKDIR /app
 
-COPY package*.json ./
+# Installer les dépendances système
+RUN apk add --no-cache libc6-compat curl
 
-RUN pnpm install
+# Copier les fichiers PNPM et package.json
+COPY pnpm-lock.yaml ./pnpm-lock.yaml
+COPY backend/ms-leaderboard/package.json ./package.json
+COPY packages/database ./packages/database
 
-COPY . .
+# Installer PNPM via NPM
+RUN npm install -g pnpm@latest
 
-RUN pnpm run build
+# Installer les dépendances
+RUN pnpm install --no-frozen-lockfile --recursive
 
+# Copier le reste du code du microservice
+COPY backend/ms-leaderboard/ .
+
+# Exposer le port du microservice
 EXPOSE 3003
 
-CMD ["pnpm", "run", "start:prod"]
+# Démarrer le service NestJS
+CMD ["pnpm", "run", "start:dev"]

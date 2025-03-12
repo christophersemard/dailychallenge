@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:services": "pnpm --parallel --filter=ms-* run start:dev",
+    "stop:services": "taskkill /F /IM node.exe /T"
   },
   "keywords": [],
   "author": "",

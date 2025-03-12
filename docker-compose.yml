@@ -1,9 +1,8 @@
-
 services:
   postgres:
-    image: postgres:15-alpine
-    container_name: dailychallenge_postgres
+    image: postgres:15
     restart: always
+    container_name: database-dailychallenge
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
@@ -11,7 +10,42 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+
+  ms-users:
+    build:
+      context: .
+      dockerfile: backend/ms-users/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - JWT_SECRET=test_env_docker_or_not
+      - JWT_EXPIRES_IN=7d
+      - HOST=0.0.0.0
+
+  ms-friends:
+    build:
+      context: .
+      dockerfile: backend/ms-friends/Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - HOST=0.0.0.0
+
+  ms-gateway:
+    build:
+      context: .
+      dockerfile: backend/ms-gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - IS_DOCKER=true
+      - PORT=3000
+      - JWT_SECRET=test_env_docker_or_not
+      - JWT_EXPIRES_IN=7d
+
 
 volumes:
-  postgres_data:
+  pgdata:
