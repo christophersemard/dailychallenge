@@ -2,18 +2,45 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import * as dotenv from "dotenv";
 import * as path from "path";
+import { Logger } from "@nestjs/common";
+import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { GlobalExceptionFilter } from "./filters/exception.filter";
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    await app.listen(process.env.PORT ?? 3000);
-
-    // Charge uniquement le .env de ms-gateway
+    // Charger les variables d'environnement (.env spécifique à ms-gateway)
     dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-    console.log("Chargement .env :", process.env.PORT, process.env.JWT_SECRET);
+    const logger = new Logger("Gateway");
+    const app = await NestFactory.create(AppModule);
 
-    console.log(process.env.HOST ?? "ms-users");
-    console.log(`ms-gateway lancé sur le port ${process.env.PORT}`);
-    console.log(process.env.JWT_SECRET);
+    // Activer le filtre global pour les erreurs
+    app.useGlobalFilters(new GlobalExceptionFilter());
+
+    // Swagger - Documentation API
+    const swaggerConfig = new DocumentBuilder()
+        .setTitle("DailyChallenge API")
+        .setDescription("Documentation des microservices")
+        .setVersion("1.0")
+        .build();
+
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
+    SwaggerModule.setup("docs", app, document);
+
+    await app.listen(process.env.PORT ?? 3000);
+
+    // Logs d'information
+    logger.log(`🚀 ms-gateway lancé sur le port ${process.env.PORT ?? 3000}`);
+    logger.log(
+        `📄 Swagger disponible sur http://localhost:${
+            process.env.PORT ?? 3000
+        }/docs`
+    );
+    logger.log(
+        `🔐 JWT Secret chargé: ${process.env.JWT_SECRET ? "OK" : "NON DÉFINI"}`
+    );
+    logger.log(
+        `🔗 Connexion au microservice USERS: ${process.env.HOST ?? "ms-users"}`
+    );
 }
+
 bootstrap();

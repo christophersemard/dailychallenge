@@ -26,6 +26,7 @@ export class UsersService {
             // return { email, password };
             return await prisma.user.create({ data: { email, password } });
         } catch (error) {
+            console.error(error);
             if (error.code === "P2002") {
                 throw new ConflictException("Cet email est déjà utilisé.");
             }
