@@ -8,6 +8,7 @@ import { FriendsService } from "./friends/friends.service";
 import { FriendsController } from "./friends/friends.controller";
 
 const isDocker = process.env.IS_DOCKER === "true";
+console.log("isDocker", isDocker);
 
 @Module({
     imports: [

@@ -19,6 +19,7 @@ services:
     ports:
       - "3001:3001"
     environment:
+      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
       - PORT=3001
       - JWT_SECRET=test_env_docker_or_not
       - JWT_EXPIRES_IN=7d
@@ -31,6 +32,7 @@ services:
     ports:
       - "3002:3002"
     environment:
+      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
       - PORT=3002
       - HOST=0.0.0.0
 
