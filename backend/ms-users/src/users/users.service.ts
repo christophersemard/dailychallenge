@@ -82,7 +82,29 @@ export class UsersService {
         const userStats = await prisma.userStats.findUnique({
             where: { userId },
         });
+
         if (!userStats) throw new BadRequestException("Utilisateur non trouvé");
+
+        // Vérifier si le streak doit être reset
+        const today = new Date();
+        if (userStats.lastPlayedAt) {
+            console.log("Last played at:", userStats.lastPlayedAt);
+            const lastPlayed = new Date(userStats.lastPlayedAt);
+            const diffDays = Math.floor(
+                (today.getTime() - lastPlayed.getTime()) / (1000 * 60 * 60 * 24)
+            );
+
+            if (diffDays > 1) {
+                // 🔥 Réinitialisation du streak
+                await prisma.userStats.update({
+                    where: { userId },
+                    data: { streak: 0 },
+                });
+
+                userStats.streak = 0; // Mettre à jour la valeur retournée
+            }
+        }
+
         return userStats;
     }
 

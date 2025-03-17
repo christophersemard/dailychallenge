@@ -1,6 +1,8 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { Transport } from "@nestjs/microservices";
+import { PrismaRpcExceptionFilter } from "./filters/prisma-rpc-exception.filter";
+import { GlobalRpcExceptionFilter } from "./filters/global-rpc-exception.filter";
 
 async function bootstrap() {
     const app = await NestFactory.createMicroservice(AppModule, {
@@ -12,6 +14,11 @@ async function bootstrap() {
     });
     await app.listen();
     console.log("ms-friends démarré sur le port 3002");
+
+    app.useGlobalFilters(
+        new PrismaRpcExceptionFilter(),
+        new GlobalRpcExceptionFilter()
+    );
 }
 
 bootstrap();

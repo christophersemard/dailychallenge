@@ -132,7 +132,8 @@ exports.Prisma.FriendScalarFieldEnum = {
   userId: 'userId',
   friendId: 'friendId',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.UserStatsScalarFieldEnum = {
@@ -152,6 +153,34 @@ exports.Prisma.UserEventScalarFieldEnum = {
   type: 'type',
   details: 'details',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.GameResultScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  score: 'score',
+  xpGained: 'xpGained',
+  status: 'status',
+  date: 'date',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.GameScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  gameCategoryId: 'gameCategoryId'
+};
+
+exports.Prisma.GameCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -174,7 +203,10 @@ exports.Prisma.ModelName = {
   User: 'User',
   Friend: 'Friend',
   UserStats: 'UserStats',
-  UserEvent: 'UserEvent'
+  UserEvent: 'UserEvent',
+  GameResult: 'GameResult',
+  Game: 'Game',
+  GameCategory: 'GameCategory'
 };
 
 /**

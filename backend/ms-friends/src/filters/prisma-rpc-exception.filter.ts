@@ -36,8 +36,6 @@ export class PrismaRpcExceptionFilter implements ExceptionFilter {
         }
 
         this.logger.warn(`📌 Prisma Error Captured: ${message}`);
-        console.error(exception);
-        console.error(status);
         return throwError(
             () =>
                 new RpcException({

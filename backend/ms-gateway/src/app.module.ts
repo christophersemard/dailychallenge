@@ -10,6 +10,8 @@ import { RpcExceptionHandlerService } from "./common/rpc-exception-handler.servi
 import { CacheService } from "./common/cache.service";
 import { UsersController } from "./users/users.controller";
 import { UsersService } from "./users/users.service";
+import { LeaderboardService } from "./leaderboard/leaderboard.service";
+import { LeaderboardController } from "./leaderboard/leaderboard.controller";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -55,7 +57,12 @@ console.log("isDocker", isDocker);
             },
         ]),
     ],
-    controllers: [AuthController, FriendsController, UsersController],
+    controllers: [
+        AuthController,
+        FriendsController,
+        UsersController,
+        LeaderboardController,
+    ],
     providers: [
         AuthService,
         JwtStrategy,
@@ -63,6 +70,7 @@ console.log("isDocker", isDocker);
         RpcExceptionHandlerService,
         CacheService,
         UsersService,
+        LeaderboardService,
     ],
     exports: [RpcExceptionHandlerService],
 })

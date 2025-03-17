@@ -8,9 +8,12 @@ import * as path from "path";
 import { ConfigModule } from "@nestjs/config";
 import { UsersController } from "./users/users.controller";
 import { UserEventsService } from "./user-events/user-events.service";
+import { StreakResetJob } from "./jobs/streakReset.cron";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
     imports: [
+        ScheduleModule.forRoot(),
         ConfigModule.forRoot({
             isGlobal: true, // Rend le module global pour toute l'application
             envFilePath: ".env", // Chemin vers votre fichier .env
@@ -21,6 +24,6 @@ import { UserEventsService } from "./user-events/user-events.service";
         }),
     ],
     controllers: [AuthController, UsersController],
-    providers: [AuthService, UsersService, UserEventsService],
+    providers: [AuthService, UsersService, UserEventsService, StreakResetJob],
 })
 export class AppModule {}

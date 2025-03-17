@@ -22,40 +22,38 @@ model User {
   role      String    @default("user")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  deletedAt DateTime? // ✅ Soft delete
 
-  // Relation avec les amis
-  friends Friend[] @relation("UserFriends")
-
-  // Relation avec les demandes d'amis
-  friend    Friend[]    @relation("FriendUser")
-  UserStats UserStats?
-  UserEvent UserEvent[]
+  // Relations
+  friends     Friend[]     @relation("UserFriends")
+  friend      Friend[]     @relation("FriendUser")
+  userStats   UserStats?
+  userEvents  UserEvent[]
+  gameResults GameResult[]
 }
 
 model Friend {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   userId    Int
   friendId  Int
-  status    String   @default("pending") // pending | accepted | rejected
-  createdAt DateTime @default(now())
+  status    String    @default("pending") // "pending", "accepted", "rejected"
+  createdAt DateTime  @default(now())
+  deletedAt DateTime? // ✅ Soft delete
 
-  // Relation avec l'utilisateur
-  user User @relation("UserFriends", fields: [userId], references: [id])
-
-  // Relation avec l'ami
+  // Relations
+  user   User @relation("UserFriends", fields: [userId], references: [id])
   friend User @relation("FriendUser", fields: [friendId], references: [id])
 
-  @@unique([userId, friendId]) // Evite les doublons
+  @@unique([userId, friendId]) // ✅ Évite les doublons
 }
 
 model UserStats {
   id           Int       @id @default(autoincrement())
   userId       Int       @unique
-  xp           Int       @default(0) // XP total accumulé
-  level        Int       @default(1) // Niveau actuel du joueur
-  streak       Int       @default(0) // Nombre de jours consécutifs joués
-  lastPlayedAt DateTime? // Date de la dernière partie
+  xp           Int       @default(0)
+  level        Int       @default(1)
+  streak       Int       @default(0)
+  lastPlayedAt DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
@@ -65,9 +63,49 @@ model UserStats {
 model UserEvent {
   id        Int      @id @default(autoincrement())
   userId    Int
-  type      String // Type d’événement : "level_up", "streak_bonus", "game_completed"
-  details   String? // Informations additionnelles (ex: "Level 5 atteint")
+  type      String // "level_up", "streak_bonus", "game_completed"
+  details   String? // Informations additionnelles
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
+}
+
+model GameResult {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  gameId    Int
+  score     Int
+  xpGained  Int       @default(0) // XP gagné lors de cette partie
+  status    String // "passed" ou "failed"
+  date      DateTime  @default(now())
+  deletedAt DateTime? // ✅ Soft delete
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+  game Game @relation(fields: [gameId], references: [id])
+
+  @@index([score]) // ✅ Index pour accélérer les classements
+  @@index([date]) // ✅ Index pour accélérer les filtres par période
+}
+
+model Game {
+  id             Int          @id @default(autoincrement())
+  name           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime? // ✅ Soft delete
+  gameCategoryId Int
+  gameCategory   GameCategory @relation(fields: [gameCategoryId], references: [id])
+
+  results GameResult[]
+}
+
+model GameCategory {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // ✅ Soft delete
+
+  games Game[]
 }

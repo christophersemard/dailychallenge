@@ -1,6 +1,5 @@
-// ms-users/src/prisma.service.ts
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient } from "database"; // 👈 Import du PrismaClient depuis `database`
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient(); // 👈 Chaque microservice instancie son propre client
 
 export default prisma;
