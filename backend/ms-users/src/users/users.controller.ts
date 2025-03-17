@@ -15,11 +15,6 @@ export class UsersController {
         return this.usersService.getUserStats(userId);
     }
 
-    @MessagePattern("add_xp_to_user")
-    async addXP(@Payload() data: { userId: number; xp: number }) {
-        return this.usersService.addXP(data.userId, data.xp);
-    }
-
     @MessagePattern("get_user_events")
     async getUserEvents(@Payload() userId: number) {
         return this.userEventsService.getUserEvents(userId);

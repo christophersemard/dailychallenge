@@ -10,6 +10,9 @@ import { UsersController } from "./users/users.controller";
 import { UserEventsService } from "./user-events/user-events.service";
 import { StreakResetJob } from "./jobs/streakReset.cron";
 import { ScheduleModule } from "@nestjs/schedule";
+import { UserGameService } from "./user-game/user-game.service";
+import { UserGameController } from "./user-game/user-game.controller";
+import { EventCleanupJob } from "./jobs/eventCleanUp.cron";
 
 @Module({
     imports: [
@@ -23,7 +26,14 @@ import { ScheduleModule } from "@nestjs/schedule";
             signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
         }),
     ],
-    controllers: [AuthController, UsersController],
-    providers: [AuthService, UsersService, UserEventsService, StreakResetJob],
+    controllers: [AuthController, UsersController, UserGameController],
+    providers: [
+        AuthService,
+        UsersService,
+        UserEventsService,
+        StreakResetJob,
+        EventCleanupJob,
+        UserGameService,
+    ],
 })
 export class AppModule {}

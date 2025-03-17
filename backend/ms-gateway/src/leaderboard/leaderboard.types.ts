@@ -1,7 +1,13 @@
+import { UserStats } from "src/users/users.types";
+
 export class LeaderboardEntry {
-    userId: number;
+    user: User;
     score: number;
     xpGained?: number;
 }
 
-
+class User {
+    id: number;
+    email: string;
+    userStats: UserStats;
+}
