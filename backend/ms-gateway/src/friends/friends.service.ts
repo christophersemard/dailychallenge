@@ -7,11 +7,15 @@ import {
     FriendResponse,
     FriendsListResponse,
 } from "./friends.types";
+import { RpcExceptionHandlerService } from "../common/rpc-exception-handler.service";
+import { CacheService } from "../common/cache.service";
 
 @Injectable()
 export class FriendsService {
     constructor(
-        @Inject("FRIENDS_SERVICE") private friendsClient: ClientProxy
+        @Inject("FRIENDS_SERVICE") private friendsClient: ClientProxy,
+        private readonly cacheService: CacheService,
+        private readonly rpcExceptionHandler: RpcExceptionHandlerService
     ) {}
 
     async addFriend(
@@ -19,9 +23,14 @@ export class FriendsService {
         friendId: number
     ): Promise<FriendResponse> {
         const payload: FriendRequestPayload = { userId: user.id, friendId };
-        return await lastValueFrom(
+        const result = await lastValueFrom(
             this.friendsClient.send<FriendResponse>("add_friend", payload)
-        );
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
+
+        this.cacheService.delete(`friends_list_${user.id}`);
+        this.cacheService.delete(`friends_list_${friendId}`);
+
+        return result;
     }
 
     async removeFriend(
@@ -29,9 +38,14 @@ export class FriendsService {
         friendId: number
     ): Promise<FriendResponse> {
         const payload: FriendRequestPayload = { userId: user.id, friendId };
-        return await lastValueFrom(
+        const result = await lastValueFrom(
             this.friendsClient.send<FriendResponse>("remove_friend", payload)
-        );
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
+
+        this.cacheService.delete(`friends_list_${user.id}`);
+        this.cacheService.delete(`friends_list_${friendId}`);
+
+        return result;
     }
 
     async respondFriendRequest(
@@ -44,19 +58,34 @@ export class FriendsService {
             friendId,
             accept,
         };
-        return await lastValueFrom(
+        const result = await lastValueFrom(
             this.friendsClient.send<FriendResponse>(
                 "respond_friend_request",
                 payload
             )
-        );
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
+
+        this.cacheService.delete(`friends_list_${user.id}`);
+        this.cacheService.delete(`friends_list_${friendId}`);
+
+        return result;
     }
 
     async getFriendsList(user: { id: number }): Promise<FriendsListResponse> {
-        return await lastValueFrom(
+        const cacheKey = `friends_list_${user.id}`;
+        const cachedData = this.cacheService.get<FriendsListResponse>(cacheKey);
+
+        if (cachedData) {
+            return cachedData;
+        }
+
+        const result = await lastValueFrom(
             this.friendsClient.send<FriendsListResponse>("get_friends_list", {
                 userId: user.id,
             })
-        );
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
+
+        this.cacheService.set<FriendsListResponse>(cacheKey, result);
+        return result;
     }
 }

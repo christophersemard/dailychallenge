@@ -1,62 +1,37 @@
-import { Injectable, Inject, BadRequestException } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
 import { UserDto } from "../dto/user.dto";
-
-// Type guard explicite pour les erreurs
-function isError(error: unknown): error is { message: string } {
-    return (
-        typeof error === "object" &&
-        error !== null &&
-        "message" in error &&
-        typeof error.message === "string"
-    );
-}
+import { RpcExceptionHandlerService } from "../common/rpc-exception-handler.service";
 
 @Injectable()
 export class AuthService {
-    constructor(@Inject("USERS_SERVICE") private client: ClientProxy) {}
+    constructor(
+        @Inject("USERS_SERVICE") private client: ClientProxy,
+        private readonly rpcExceptionHandler: RpcExceptionHandlerService
+    ) {}
 
     async register(email: string, password: string): Promise<UserDto> {
-        try {
-            return await lastValueFrom(
-                this.client.send<UserDto>("register_user", { email, password })
-            );
-        } catch (error) {
-            if (isError(error)) {
-                throw new BadRequestException(error.message);
-            }
-            throw new BadRequestException("Erreur interne");
-        }
+        return lastValueFrom(
+            this.client.send<UserDto>("register_user", { email, password })
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 
     async login(email: string, password: string): Promise<{ token: string }> {
-        try {
-            const user = await lastValueFrom(
-                this.client.send<UserDto>("validate_user", { email, password })
-            );
-
-            return await lastValueFrom(
-                this.client.send<{ token: string }>("generate_jwt", user)
-            );
-        } catch (error) {
-            if (isError(error)) {
-                throw new BadRequestException(error.message);
-            }
-            throw new BadRequestException("Erreur interne");
-        }
+        return lastValueFrom(
+            this.client.send<UserDto>("validate_user", { email, password })
+        )
+            .then((user) => {
+                return lastValueFrom(
+                    this.client.send<{ token: string }>("generate_jwt", user)
+                );
+            })
+            .catch((error) => this.rpcExceptionHandler.handle(error));
     }
 
     async getUsers(): Promise<UserDto[]> {
-        try {
-            return await lastValueFrom(
-                this.client.send<UserDto[]>("get_all_users", {})
-            );
-        } catch (error) {
-            if (isError(error)) {
-                throw new BadRequestException(error.message);
-            }
-            throw new BadRequestException("Erreur interne");
-        }
+        return lastValueFrom(
+            this.client.send<UserDto[]>("get_all_users", {})
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 }

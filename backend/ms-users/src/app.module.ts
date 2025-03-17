@@ -6,6 +6,8 @@ import { JwtModule } from "@nestjs/jwt";
 import * as dotenv from "dotenv";
 import * as path from "path";
 import { ConfigModule } from "@nestjs/config";
+import { UsersController } from "./users/users.controller";
+import { UserEventsService } from "./user-events/user-events.service";
 
 @Module({
     imports: [
@@ -18,7 +20,7 @@ import { ConfigModule } from "@nestjs/config";
             signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
         }),
     ],
-    controllers: [AuthController],
-    providers: [AuthService, UsersService],
+    controllers: [AuthController, UsersController],
+    providers: [AuthService, UsersService, UserEventsService],
 })
 export class AppModule {}

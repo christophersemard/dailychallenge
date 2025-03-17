@@ -6,6 +6,10 @@ import { JwtStrategy } from "./auth/jwt.strategy";
 import { ConfigModule } from "@nestjs/config";
 import { FriendsService } from "./friends/friends.service";
 import { FriendsController } from "./friends/friends.controller";
+import { RpcExceptionHandlerService } from "./common/rpc-exception-handler.service";
+import { CacheService } from "./common/cache.service";
+import { UsersController } from "./users/users.controller";
+import { UsersService } from "./users/users.service";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -51,7 +55,15 @@ console.log("isDocker", isDocker);
             },
         ]),
     ],
-    controllers: [AuthController, FriendsController],
-    providers: [AuthService, JwtStrategy, FriendsService],
+    controllers: [AuthController, FriendsController, UsersController],
+    providers: [
+        AuthService,
+        JwtStrategy,
+        FriendsService,
+        RpcExceptionHandlerService,
+        CacheService,
+        UsersService,
+    ],
+    exports: [RpcExceptionHandlerService],
 })
 export class AppModule {}

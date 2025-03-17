@@ -135,6 +135,25 @@ exports.Prisma.FriendScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserStatsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  xp: 'xp',
+  level: 'level',
+  streak: 'streak',
+  lastPlayedAt: 'lastPlayedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  details: 'details',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -153,7 +172,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Friend: 'Friend'
+  Friend: 'Friend',
+  UserStats: 'UserStats',
+  UserEvent: 'UserEvent'
 };
 
 /**

@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: backend/ms-users/Dockerfile
+    depends_on:
+      - postgres
     ports:
       - "3001:3001"
     environment:
@@ -24,22 +26,31 @@ services:
       - JWT_SECRET=test_env_docker_or_not
       - JWT_EXPIRES_IN=7d
       - HOST=0.0.0.0
+    volumes:
+      - /app/node_modules
 
   ms-friends:
     build:
       context: .
       dockerfile: backend/ms-friends/Dockerfile
+    depends_on:
+      - postgres
     ports:
       - "3002:3002"
     environment:
       - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
       - PORT=3002
       - HOST=0.0.0.0
+    volumes:
+      - /app/node_modules
 
   ms-gateway:
     build:
       context: .
       dockerfile: backend/ms-gateway/Dockerfile
+    depends_on:
+      - ms-users
+      - ms-friends
     ports:
       - "3000:3000"
     environment:
@@ -47,7 +58,8 @@ services:
       - PORT=3000
       - JWT_SECRET=test_env_docker_or_not
       - JWT_EXPIRES_IN=7d
-
+    volumes:
+      - /app/node_modules
 
 volumes:
   pgdata:

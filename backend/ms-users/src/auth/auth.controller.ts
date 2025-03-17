@@ -18,21 +18,12 @@ export class AuthController {
 
     @MessagePattern("register_user")
     async register({ email, password }: { email: string; password: string }) {
-        try {
-            return await this.usersService.createUser(email, password);
-        } catch (error) {
-            console.log(error);
-            throw new RpcException(error.message);
-        }
+        return await this.usersService.createUser(email, password);
     }
 
     @MessagePattern("validate_user")
     async validate({ email, password }: { email: string; password: string }) {
-        try {
-            return await this.usersService.validateUser(email, password);
-        } catch (error) {
-            throw new RpcException(error.message);
-        }
+        return await this.usersService.validateUser(email, password);
     }
 
     @MessagePattern("generate_jwt")

@@ -3,6 +3,8 @@ import { AppModule } from "./app.module";
 import { Transport } from "@nestjs/microservices";
 import * as dotenv from "dotenv";
 import * as path from "path";
+import { PrismaRpcExceptionFilter } from "./filters/prisma-rpc-exception.filter";
+import { GlobalRpcExceptionFilter } from "./filters/global-rpc-exception.filter";
 
 async function bootstrap() {
     const port = parseInt(process.env.PORT || "3001", 10);
@@ -13,6 +15,11 @@ async function bootstrap() {
             port,
         },
     });
+
+    app.useGlobalFilters(
+        new PrismaRpcExceptionFilter(),
+        new GlobalRpcExceptionFilter()
+    );
 
     await app.listen();
     console.log(`🚀 ms-users démarré sur port TCP: ${port}`);

@@ -1,5 +1,5 @@
 # Utiliser une image Node.js légère
-FROM node:20-alpine
+FROM node:20-alpine AS base
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -7,31 +7,43 @@ WORKDIR /app
 # Installer les dépendances système
 RUN apk add --no-cache libc6-compat curl
 
-
-# Copier les fichiers PNPM et package.json
-COPY pnpm-lock.yaml ./pnpm-lock.yaml
-COPY backend/ms-users/package.json ./package.json
-COPY packages/database ./packages/database
-
 # Installer PNPM via NPM
 RUN npm install -g pnpm@latest
 
-# Copier le reste du code du microservice
-COPY backend/ms-users/ .
+# Étape de build pour gérer le cache des dépendances
+FROM base AS deps
 
-# Installer les dépendances
-RUN pnpm install --no-frozen-lockfile --recursive
-
-# Générer les fichiers de migration
-RUN cd packages/database && pnpm prisma generate && cd ../../
-
-# Retourné au répertoire de travail
 WORKDIR /app
 
-# Exposer le port du microservice
+# Copier uniquement les fichiers essentiels pour le cache de pnpm
+COPY pnpm-lock.yaml ./
+COPY backend/ms-users/package.json ./package.json
+COPY packages/database/package.json ./packages/database/package.json
+
+# Installer les dépendances sans exécuter de scripts inutiles
+RUN pnpm install --no-frozen-lockfile --recursive
+
+# Étape pour générer Prisma (seulement si le schéma change)
+FROM base AS prisma
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY packages/database ./packages/database
+RUN pnpm prisma generate --schema=packages/database/prisma/schema.prisma
+
+# Étape finale
+FROM base AS final
+
+WORKDIR /app
+
+# Copier les fichiers du projet
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=prisma /app/packages/database ./packages/database
+COPY backend/ms-users/ .
+
+# Exposer le port
 EXPOSE 3001
 
-# Démarrer le service NestJS
-CMD ["sh", "-c", "cd /app && pnpm run start:dev"]
-
-
+# Lancer l'application
+CMD ["sh", "-c", "pnpm run start:dev"]

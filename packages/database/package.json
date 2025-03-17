@@ -10,7 +10,8 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "migrate": "prisma migrate deploy --schema=prisma/schema.prisma"
+    "migrate": "prisma migrate deploy --schema=prisma/schema.prisma",
+    "db:seed": "pnpm prisma db push && node prisma/seed.js"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
