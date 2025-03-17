@@ -63,4 +63,65 @@ export class LeaderboardController {
             dateEnd ? new Date(dateEnd) : undefined
         );
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("friends")
+    @ApiOperation({ summary: "Classement des amis" })
+    async getFriendsLeaderboard(
+        @Query("userId") userId: number,
+        @Query("limit") limit = 10,
+        @Query("offset") offset = 0,
+        @Query("dateStart") dateStart?: string,
+        @Query("dateEnd") dateEnd?: string
+    ): Promise<LeaderboardEntry[]> {
+        return await this.leaderboardService.getFriendsLeaderboard(
+            userId,
+            limit,
+            offset,
+            dateStart ? new Date(dateStart) : undefined,
+            dateEnd ? new Date(dateEnd) : undefined
+        );
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("friends/category")
+    @ApiOperation({ summary: "Classement des amis par catégorie" })
+    async getFriendsCategoryLeaderboard(
+        @Query("userId") userId: number,
+        @Query("category") category: string,
+        @Query("limit") limit = 10,
+        @Query("offset") offset = 0,
+        @Query("dateStart") dateStart?: string,
+        @Query("dateEnd") dateEnd?: string
+    ): Promise<LeaderboardEntry[]> {
+        return await this.leaderboardService.getFriendsCategoryLeaderboard(
+            userId,
+            category,
+            limit,
+            offset,
+            dateStart ? new Date(dateStart) : undefined,
+            dateEnd ? new Date(dateEnd) : undefined
+        );
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("friends/game")
+    @ApiOperation({ summary: "Classement des amis pour un jeu spécifique" })
+    async getFriendsGameLeaderboard(
+        @Query("userId") userId: number,
+        @Query("gameId") gameId: number,
+        @Query("limit") limit = 10,
+        @Query("offset") offset = 0,
+        @Query("dateStart") dateStart?: string,
+        @Query("dateEnd") dateEnd?: string
+    ): Promise<LeaderboardEntry[]> {
+        return await this.leaderboardService.getFriendsGameLeaderboard(
+            userId,
+            gameId,
+            limit,
+            offset,
+            dateStart ? new Date(dateStart) : undefined,
+            dateEnd ? new Date(dateEnd) : undefined
+        );
+    }
 }

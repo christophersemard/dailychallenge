@@ -31,10 +31,16 @@ export class UserGameService {
         }
 
         if (status === "passed" && isSameDay) {
-            score = Math.max(
-                100 - Math.floor((attempts / maxAttempts) * 100),
-                0
-            ); // 100 points max, dégressif avec les essais
+            // Si le joueur réussit en 1 essai, il obtient 100 points
+            if (attempts === 1) {
+                score = 100;
+            } else {
+                // Si le joueur réussit mais avec plus d'essais, on applique la dégressivité
+                score = Math.max(
+                    100 - Math.floor((attempts / maxAttempts) * 100), // Dégressif avec le nombre d'essais
+                    30 // On garde un minimum de 30 points si le joueur réussit après plusieurs essais
+                );
+            }
         } else {
             score = 0; // Si échoué, le score est 0
         }
@@ -43,7 +49,9 @@ export class UserGameService {
         const { finalXP, newStreak } = await this.calculateXPAndStreak(
             userId,
             score,
-            gameId
+            gameId,
+            gameDate,
+            status
         );
 
         // Enregistrer le résultat du jeu
@@ -156,7 +164,13 @@ export class UserGameService {
     }
 
     // Calcul de l'XP et des streaks
-    async calculateXPAndStreak(userId: number, score: number, gameId: number) {
+    async calculateXPAndStreak(
+        userId: number,
+        score: number,
+        gameId: number,
+        gameDate: Date,
+        status: "passed" | "failed"
+    ) {
         const userStats = await prisma.userStats.findUnique({
             where: { userId },
         });
@@ -167,9 +181,9 @@ export class UserGameService {
         const lastPlayed = userStats.lastPlayedAt
             ? new Date(userStats.lastPlayedAt)
             : null;
-
         let newStreak = userStats.streak;
 
+        // Si le joueur a joué au jeu du jour
         if (lastPlayed) {
             const lastPlayedDay = new Date(
                 lastPlayed.getFullYear(),
@@ -187,16 +201,33 @@ export class UserGameService {
                     (1000 * 60 * 60 * 24)
             );
 
-            if (diffDays === 1) newStreak++;
-            // Joué consécutivement
-            else if (diffDays > 1) newStreak = 1; // Reset si plus d'un jour d'écart
+            // Vérifier si le joueur a joué au jeu du jour
+            if (diffDays === 1 && status === "passed" && score > 0) {
+                // Joué consécutivement et réussi
+                newStreak++;
+            } else if (diffDays > 1) {
+                // Si plus d'un jour d'écart
+                if (
+                    gameDate.toLocaleDateString() ===
+                        today.toLocaleDateString() &&
+                    status === "passed" &&
+                    score > 0
+                ) {
+                    // Réinitialiser seulement si ce n'est pas le jeu du jour et qu'il a réussi
+                    newStreak = 1;
+                } else {
+                    // Réinitialiser le streak s'il n'a pas réussi
+                    newStreak = 0;
+                }
+            }
         } else {
             newStreak = 1; // Premier jour
         }
 
         // Calcul de l'XP (par exemple, multiplier par le streak)
         const streakMultiplier = Math.min(1 + newStreak * 0.1, 2); // Limiter à x2
-        const finalXP = Math.floor(score * streakMultiplier);
+        const baseXP = 20;
+        const finalXP = Math.max(score * streakMultiplier, baseXP);
 
         return { finalXP, newStreak };
     }
