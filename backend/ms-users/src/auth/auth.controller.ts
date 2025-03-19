@@ -10,12 +10,6 @@ export class AuthController {
         private readonly authService: AuthService
     ) {}
 
-    // Route GET pour teser la connexion
-    @Get()
-    async test() {
-        return "Auth service is up and running!";
-    }
-
     @MessagePattern("register_user")
     async register({ email, password }: { email: string; password: string }) {
         return await this.usersService.createUser(email, password);
