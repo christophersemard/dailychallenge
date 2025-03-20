@@ -10,12 +10,11 @@ async function bootstrap() {
         options: { port: 3004 },
     });
 
-    await app.listen();
-    console.log("ms-game-cinema-1 lancé sur le port 3004");
-
     app.useGlobalFilters(
         new PrismaRpcExceptionFilter(),
         new GlobalRpcExceptionFilter()
     );
+    await app.listen();
+    console.log("ms-game-cinema-1 lancé sur le port 3004");
 }
 bootstrap();

@@ -48,6 +48,21 @@ export type Game = $Result.DefaultSelection<Prisma.$GamePayload>
  * 
  */
 export type GameCategory = $Result.DefaultSelection<Prisma.$GameCategoryPayload>
+/**
+ * Model DataMovie
+ * 
+ */
+export type DataMovie = $Result.DefaultSelection<Prisma.$DataMoviePayload>
+/**
+ * Model GameCinema1Days
+ * 
+ */
+export type GameCinema1Days = $Result.DefaultSelection<Prisma.$GameCinema1DaysPayload>
+/**
+ * Model GameCinema1Tries
+ * 
+ */
+export type GameCinema1Tries = $Result.DefaultSelection<Prisma.$GameCinema1TriesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +258,36 @@ export class PrismaClient<
     * ```
     */
   get gameCategory(): Prisma.GameCategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dataMovie`: Exposes CRUD operations for the **DataMovie** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DataMovies
+    * const dataMovies = await prisma.dataMovie.findMany()
+    * ```
+    */
+  get dataMovie(): Prisma.DataMovieDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameCinema1Days`: Exposes CRUD operations for the **GameCinema1Days** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameCinema1Days
+    * const gameCinema1Days = await prisma.gameCinema1Days.findMany()
+    * ```
+    */
+  get gameCinema1Days(): Prisma.GameCinema1DaysDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameCinema1Tries`: Exposes CRUD operations for the **GameCinema1Tries** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameCinema1Tries
+    * const gameCinema1Tries = await prisma.gameCinema1Tries.findMany()
+    * ```
+    */
+  get gameCinema1Tries(): Prisma.GameCinema1TriesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +734,10 @@ export namespace Prisma {
     UserEvent: 'UserEvent',
     GameResult: 'GameResult',
     Game: 'Game',
-    GameCategory: 'GameCategory'
+    GameCategory: 'GameCategory',
+    DataMovie: 'DataMovie',
+    GameCinema1Days: 'GameCinema1Days',
+    GameCinema1Tries: 'GameCinema1Tries'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -705,7 +753,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory"
+      modelProps: "user" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1227,6 +1275,228 @@ export namespace Prisma {
           }
         }
       }
+      DataMovie: {
+        payload: Prisma.$DataMoviePayload<ExtArgs>
+        fields: Prisma.DataMovieFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DataMovieFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DataMovieFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          findFirst: {
+            args: Prisma.DataMovieFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DataMovieFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          findMany: {
+            args: Prisma.DataMovieFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>[]
+          }
+          create: {
+            args: Prisma.DataMovieCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          createMany: {
+            args: Prisma.DataMovieCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DataMovieCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>[]
+          }
+          delete: {
+            args: Prisma.DataMovieDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          update: {
+            args: Prisma.DataMovieUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          deleteMany: {
+            args: Prisma.DataMovieDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DataMovieUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DataMovieUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>[]
+          }
+          upsert: {
+            args: Prisma.DataMovieUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataMoviePayload>
+          }
+          aggregate: {
+            args: Prisma.DataMovieAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDataMovie>
+          }
+          groupBy: {
+            args: Prisma.DataMovieGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DataMovieGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DataMovieCountArgs<ExtArgs>
+            result: $Utils.Optional<DataMovieCountAggregateOutputType> | number
+          }
+        }
+      }
+      GameCinema1Days: {
+        payload: Prisma.$GameCinema1DaysPayload<ExtArgs>
+        fields: Prisma.GameCinema1DaysFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameCinema1DaysFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameCinema1DaysFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          findFirst: {
+            args: Prisma.GameCinema1DaysFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameCinema1DaysFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          findMany: {
+            args: Prisma.GameCinema1DaysFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>[]
+          }
+          create: {
+            args: Prisma.GameCinema1DaysCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          createMany: {
+            args: Prisma.GameCinema1DaysCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameCinema1DaysCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>[]
+          }
+          delete: {
+            args: Prisma.GameCinema1DaysDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          update: {
+            args: Prisma.GameCinema1DaysUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameCinema1DaysDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameCinema1DaysUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameCinema1DaysUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameCinema1DaysUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1DaysPayload>
+          }
+          aggregate: {
+            args: Prisma.GameCinema1DaysAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameCinema1Days>
+          }
+          groupBy: {
+            args: Prisma.GameCinema1DaysGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema1DaysGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameCinema1DaysCountArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema1DaysCountAggregateOutputType> | number
+          }
+        }
+      }
+      GameCinema1Tries: {
+        payload: Prisma.$GameCinema1TriesPayload<ExtArgs>
+        fields: Prisma.GameCinema1TriesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameCinema1TriesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameCinema1TriesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          findFirst: {
+            args: Prisma.GameCinema1TriesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameCinema1TriesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          findMany: {
+            args: Prisma.GameCinema1TriesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>[]
+          }
+          create: {
+            args: Prisma.GameCinema1TriesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          createMany: {
+            args: Prisma.GameCinema1TriesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameCinema1TriesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>[]
+          }
+          delete: {
+            args: Prisma.GameCinema1TriesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          update: {
+            args: Prisma.GameCinema1TriesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameCinema1TriesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameCinema1TriesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameCinema1TriesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameCinema1TriesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema1TriesPayload>
+          }
+          aggregate: {
+            args: Prisma.GameCinema1TriesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameCinema1Tries>
+          }
+          groupBy: {
+            args: Prisma.GameCinema1TriesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema1TriesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameCinema1TriesCountArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema1TriesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1318,6 +1588,9 @@ export namespace Prisma {
     gameResult?: GameResultOmit
     game?: GameOmit
     gameCategory?: GameCategoryOmit
+    dataMovie?: DataMovieOmit
+    gameCinema1Days?: GameCinema1DaysOmit
+    gameCinema1Tries?: GameCinema1TriesOmit
   }
 
   /* Types for Logging */
@@ -1524,6 +1797,68 @@ export namespace Prisma {
    */
   export type GameCategoryCountOutputTypeCountGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GameWhereInput
+  }
+
+
+  /**
+   * Count Type DataMovieCountOutputType
+   */
+
+  export type DataMovieCountOutputType = {
+    gameDays: number
+  }
+
+  export type DataMovieCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameDays?: boolean | DataMovieCountOutputTypeCountGameDaysArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DataMovieCountOutputType without action
+   */
+  export type DataMovieCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovieCountOutputType
+     */
+    select?: DataMovieCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DataMovieCountOutputType without action
+   */
+  export type DataMovieCountOutputTypeCountGameDaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema1DaysWhereInput
+  }
+
+
+  /**
+   * Count Type GameCinema1DaysCountOutputType
+   */
+
+  export type GameCinema1DaysCountOutputType = {
+    tries: number
+  }
+
+  export type GameCinema1DaysCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tries?: boolean | GameCinema1DaysCountOutputTypeCountTriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameCinema1DaysCountOutputType without action
+   */
+  export type GameCinema1DaysCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1DaysCountOutputType
+     */
+    select?: GameCinema1DaysCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema1DaysCountOutputType without action
+   */
+  export type GameCinema1DaysCountOutputTypeCountTriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema1TriesWhereInput
   }
 
 
@@ -9531,6 +9866,3715 @@ export namespace Prisma {
 
 
   /**
+   * Model DataMovie
+   */
+
+  export type AggregateDataMovie = {
+    _count: DataMovieCountAggregateOutputType | null
+    _avg: DataMovieAvgAggregateOutputType | null
+    _sum: DataMovieSumAggregateOutputType | null
+    _min: DataMovieMinAggregateOutputType | null
+    _max: DataMovieMaxAggregateOutputType | null
+  }
+
+  export type DataMovieAvgAggregateOutputType = {
+    id: number | null
+    tmdbId: number | null
+    year: number | null
+    runtime: number | null
+    voteAverage: number | null
+    voteCount: number | null
+    popularity: number | null
+    budget: number | null
+  }
+
+  export type DataMovieSumAggregateOutputType = {
+    id: number | null
+    tmdbId: number | null
+    year: number | null
+    runtime: number | null
+    voteAverage: number | null
+    voteCount: number | null
+    popularity: number | null
+    budget: number | null
+  }
+
+  export type DataMovieMinAggregateOutputType = {
+    id: number | null
+    tmdbId: number | null
+    title: string | null
+    originalTitle: string | null
+    year: number | null
+    releaseDate: Date | null
+    runtime: number | null
+    director: string | null
+    actors: string | null
+    genres: string | null
+    synopsis: string | null
+    production: string | null
+    country: string | null
+    language: string | null
+    voteAverage: number | null
+    voteCount: number | null
+    popularity: number | null
+    budget: number | null
+    keywords: string | null
+    posterPath: string | null
+    backdropPath: string | null
+    image1: string | null
+    image2: string | null
+    image3: string | null
+    image4: string | null
+    image5: string | null
+    image6: string | null
+    image7: string | null
+    image8: string | null
+    image9: string | null
+    image10: string | null
+    createdAt: Date | null
+  }
+
+  export type DataMovieMaxAggregateOutputType = {
+    id: number | null
+    tmdbId: number | null
+    title: string | null
+    originalTitle: string | null
+    year: number | null
+    releaseDate: Date | null
+    runtime: number | null
+    director: string | null
+    actors: string | null
+    genres: string | null
+    synopsis: string | null
+    production: string | null
+    country: string | null
+    language: string | null
+    voteAverage: number | null
+    voteCount: number | null
+    popularity: number | null
+    budget: number | null
+    keywords: string | null
+    posterPath: string | null
+    backdropPath: string | null
+    image1: string | null
+    image2: string | null
+    image3: string | null
+    image4: string | null
+    image5: string | null
+    image6: string | null
+    image7: string | null
+    image8: string | null
+    image9: string | null
+    image10: string | null
+    createdAt: Date | null
+  }
+
+  export type DataMovieCountAggregateOutputType = {
+    id: number
+    tmdbId: number
+    title: number
+    originalTitle: number
+    year: number
+    releaseDate: number
+    runtime: number
+    director: number
+    actors: number
+    genres: number
+    synopsis: number
+    production: number
+    country: number
+    language: number
+    voteAverage: number
+    voteCount: number
+    popularity: number
+    budget: number
+    keywords: number
+    posterPath: number
+    backdropPath: number
+    image1: number
+    image2: number
+    image3: number
+    image4: number
+    image5: number
+    image6: number
+    image7: number
+    image8: number
+    image9: number
+    image10: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DataMovieAvgAggregateInputType = {
+    id?: true
+    tmdbId?: true
+    year?: true
+    runtime?: true
+    voteAverage?: true
+    voteCount?: true
+    popularity?: true
+    budget?: true
+  }
+
+  export type DataMovieSumAggregateInputType = {
+    id?: true
+    tmdbId?: true
+    year?: true
+    runtime?: true
+    voteAverage?: true
+    voteCount?: true
+    popularity?: true
+    budget?: true
+  }
+
+  export type DataMovieMinAggregateInputType = {
+    id?: true
+    tmdbId?: true
+    title?: true
+    originalTitle?: true
+    year?: true
+    releaseDate?: true
+    runtime?: true
+    director?: true
+    actors?: true
+    genres?: true
+    synopsis?: true
+    production?: true
+    country?: true
+    language?: true
+    voteAverage?: true
+    voteCount?: true
+    popularity?: true
+    budget?: true
+    keywords?: true
+    posterPath?: true
+    backdropPath?: true
+    image1?: true
+    image2?: true
+    image3?: true
+    image4?: true
+    image5?: true
+    image6?: true
+    image7?: true
+    image8?: true
+    image9?: true
+    image10?: true
+    createdAt?: true
+  }
+
+  export type DataMovieMaxAggregateInputType = {
+    id?: true
+    tmdbId?: true
+    title?: true
+    originalTitle?: true
+    year?: true
+    releaseDate?: true
+    runtime?: true
+    director?: true
+    actors?: true
+    genres?: true
+    synopsis?: true
+    production?: true
+    country?: true
+    language?: true
+    voteAverage?: true
+    voteCount?: true
+    popularity?: true
+    budget?: true
+    keywords?: true
+    posterPath?: true
+    backdropPath?: true
+    image1?: true
+    image2?: true
+    image3?: true
+    image4?: true
+    image5?: true
+    image6?: true
+    image7?: true
+    image8?: true
+    image9?: true
+    image10?: true
+    createdAt?: true
+  }
+
+  export type DataMovieCountAggregateInputType = {
+    id?: true
+    tmdbId?: true
+    title?: true
+    originalTitle?: true
+    year?: true
+    releaseDate?: true
+    runtime?: true
+    director?: true
+    actors?: true
+    genres?: true
+    synopsis?: true
+    production?: true
+    country?: true
+    language?: true
+    voteAverage?: true
+    voteCount?: true
+    popularity?: true
+    budget?: true
+    keywords?: true
+    posterPath?: true
+    backdropPath?: true
+    image1?: true
+    image2?: true
+    image3?: true
+    image4?: true
+    image5?: true
+    image6?: true
+    image7?: true
+    image8?: true
+    image9?: true
+    image10?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DataMovieAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataMovie to aggregate.
+     */
+    where?: DataMovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataMovies to fetch.
+     */
+    orderBy?: DataMovieOrderByWithRelationInput | DataMovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DataMovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DataMovies
+    **/
+    _count?: true | DataMovieCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DataMovieAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DataMovieSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DataMovieMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DataMovieMaxAggregateInputType
+  }
+
+  export type GetDataMovieAggregateType<T extends DataMovieAggregateArgs> = {
+        [P in keyof T & keyof AggregateDataMovie]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDataMovie[P]>
+      : GetScalarType<T[P], AggregateDataMovie[P]>
+  }
+
+
+
+
+  export type DataMovieGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataMovieWhereInput
+    orderBy?: DataMovieOrderByWithAggregationInput | DataMovieOrderByWithAggregationInput[]
+    by: DataMovieScalarFieldEnum[] | DataMovieScalarFieldEnum
+    having?: DataMovieScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DataMovieCountAggregateInputType | true
+    _avg?: DataMovieAvgAggregateInputType
+    _sum?: DataMovieSumAggregateInputType
+    _min?: DataMovieMinAggregateInputType
+    _max?: DataMovieMaxAggregateInputType
+  }
+
+  export type DataMovieGroupByOutputType = {
+    id: number
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date
+    runtime: number | null
+    director: string | null
+    actors: string | null
+    genres: string
+    synopsis: string | null
+    production: string | null
+    country: string | null
+    language: string | null
+    voteAverage: number | null
+    voteCount: number | null
+    popularity: number | null
+    budget: number | null
+    keywords: string | null
+    posterPath: string | null
+    backdropPath: string | null
+    image1: string | null
+    image2: string | null
+    image3: string | null
+    image4: string | null
+    image5: string | null
+    image6: string | null
+    image7: string | null
+    image8: string | null
+    image9: string | null
+    image10: string | null
+    createdAt: Date
+    _count: DataMovieCountAggregateOutputType | null
+    _avg: DataMovieAvgAggregateOutputType | null
+    _sum: DataMovieSumAggregateOutputType | null
+    _min: DataMovieMinAggregateOutputType | null
+    _max: DataMovieMaxAggregateOutputType | null
+  }
+
+  type GetDataMovieGroupByPayload<T extends DataMovieGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DataMovieGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DataMovieGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DataMovieGroupByOutputType[P]>
+            : GetScalarType<T[P], DataMovieGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DataMovieSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tmdbId?: boolean
+    title?: boolean
+    originalTitle?: boolean
+    year?: boolean
+    releaseDate?: boolean
+    runtime?: boolean
+    director?: boolean
+    actors?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    production?: boolean
+    country?: boolean
+    language?: boolean
+    voteAverage?: boolean
+    voteCount?: boolean
+    popularity?: boolean
+    budget?: boolean
+    keywords?: boolean
+    posterPath?: boolean
+    backdropPath?: boolean
+    image1?: boolean
+    image2?: boolean
+    image3?: boolean
+    image4?: boolean
+    image5?: boolean
+    image6?: boolean
+    image7?: boolean
+    image8?: boolean
+    image9?: boolean
+    image10?: boolean
+    createdAt?: boolean
+    gameDays?: boolean | DataMovie$gameDaysArgs<ExtArgs>
+    _count?: boolean | DataMovieCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataMovie"]>
+
+  export type DataMovieSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tmdbId?: boolean
+    title?: boolean
+    originalTitle?: boolean
+    year?: boolean
+    releaseDate?: boolean
+    runtime?: boolean
+    director?: boolean
+    actors?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    production?: boolean
+    country?: boolean
+    language?: boolean
+    voteAverage?: boolean
+    voteCount?: boolean
+    popularity?: boolean
+    budget?: boolean
+    keywords?: boolean
+    posterPath?: boolean
+    backdropPath?: boolean
+    image1?: boolean
+    image2?: boolean
+    image3?: boolean
+    image4?: boolean
+    image5?: boolean
+    image6?: boolean
+    image7?: boolean
+    image8?: boolean
+    image9?: boolean
+    image10?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["dataMovie"]>
+
+  export type DataMovieSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tmdbId?: boolean
+    title?: boolean
+    originalTitle?: boolean
+    year?: boolean
+    releaseDate?: boolean
+    runtime?: boolean
+    director?: boolean
+    actors?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    production?: boolean
+    country?: boolean
+    language?: boolean
+    voteAverage?: boolean
+    voteCount?: boolean
+    popularity?: boolean
+    budget?: boolean
+    keywords?: boolean
+    posterPath?: boolean
+    backdropPath?: boolean
+    image1?: boolean
+    image2?: boolean
+    image3?: boolean
+    image4?: boolean
+    image5?: boolean
+    image6?: boolean
+    image7?: boolean
+    image8?: boolean
+    image9?: boolean
+    image10?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["dataMovie"]>
+
+  export type DataMovieSelectScalar = {
+    id?: boolean
+    tmdbId?: boolean
+    title?: boolean
+    originalTitle?: boolean
+    year?: boolean
+    releaseDate?: boolean
+    runtime?: boolean
+    director?: boolean
+    actors?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    production?: boolean
+    country?: boolean
+    language?: boolean
+    voteAverage?: boolean
+    voteCount?: boolean
+    popularity?: boolean
+    budget?: boolean
+    keywords?: boolean
+    posterPath?: boolean
+    backdropPath?: boolean
+    image1?: boolean
+    image2?: boolean
+    image3?: boolean
+    image4?: boolean
+    image5?: boolean
+    image6?: boolean
+    image7?: boolean
+    image8?: boolean
+    image9?: boolean
+    image10?: boolean
+    createdAt?: boolean
+  }
+
+  export type DataMovieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tmdbId" | "title" | "originalTitle" | "year" | "releaseDate" | "runtime" | "director" | "actors" | "genres" | "synopsis" | "production" | "country" | "language" | "voteAverage" | "voteCount" | "popularity" | "budget" | "keywords" | "posterPath" | "backdropPath" | "image1" | "image2" | "image3" | "image4" | "image5" | "image6" | "image7" | "image8" | "image9" | "image10" | "createdAt", ExtArgs["result"]["dataMovie"]>
+  export type DataMovieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gameDays?: boolean | DataMovie$gameDaysArgs<ExtArgs>
+    _count?: boolean | DataMovieCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DataMovieIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DataMovieIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DataMoviePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DataMovie"
+    objects: {
+      gameDays: Prisma.$GameCinema1DaysPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      tmdbId: number
+      title: string
+      originalTitle: string
+      year: number
+      releaseDate: Date
+      runtime: number | null
+      director: string | null
+      actors: string | null
+      genres: string
+      synopsis: string | null
+      production: string | null
+      country: string | null
+      language: string | null
+      voteAverage: number | null
+      voteCount: number | null
+      popularity: number | null
+      budget: number | null
+      keywords: string | null
+      posterPath: string | null
+      backdropPath: string | null
+      image1: string | null
+      image2: string | null
+      image3: string | null
+      image4: string | null
+      image5: string | null
+      image6: string | null
+      image7: string | null
+      image8: string | null
+      image9: string | null
+      image10: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["dataMovie"]>
+    composites: {}
+  }
+
+  type DataMovieGetPayload<S extends boolean | null | undefined | DataMovieDefaultArgs> = $Result.GetResult<Prisma.$DataMoviePayload, S>
+
+  type DataMovieCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DataMovieFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DataMovieCountAggregateInputType | true
+    }
+
+  export interface DataMovieDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataMovie'], meta: { name: 'DataMovie' } }
+    /**
+     * Find zero or one DataMovie that matches the filter.
+     * @param {DataMovieFindUniqueArgs} args - Arguments to find a DataMovie
+     * @example
+     * // Get one DataMovie
+     * const dataMovie = await prisma.dataMovie.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DataMovieFindUniqueArgs>(args: SelectSubset<T, DataMovieFindUniqueArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one DataMovie that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DataMovieFindUniqueOrThrowArgs} args - Arguments to find a DataMovie
+     * @example
+     * // Get one DataMovie
+     * const dataMovie = await prisma.dataMovie.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DataMovieFindUniqueOrThrowArgs>(args: SelectSubset<T, DataMovieFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataMovie that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieFindFirstArgs} args - Arguments to find a DataMovie
+     * @example
+     * // Get one DataMovie
+     * const dataMovie = await prisma.dataMovie.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DataMovieFindFirstArgs>(args?: SelectSubset<T, DataMovieFindFirstArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataMovie that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieFindFirstOrThrowArgs} args - Arguments to find a DataMovie
+     * @example
+     * // Get one DataMovie
+     * const dataMovie = await prisma.dataMovie.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DataMovieFindFirstOrThrowArgs>(args?: SelectSubset<T, DataMovieFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more DataMovies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DataMovies
+     * const dataMovies = await prisma.dataMovie.findMany()
+     * 
+     * // Get first 10 DataMovies
+     * const dataMovies = await prisma.dataMovie.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dataMovieWithIdOnly = await prisma.dataMovie.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DataMovieFindManyArgs>(args?: SelectSubset<T, DataMovieFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a DataMovie.
+     * @param {DataMovieCreateArgs} args - Arguments to create a DataMovie.
+     * @example
+     * // Create one DataMovie
+     * const DataMovie = await prisma.dataMovie.create({
+     *   data: {
+     *     // ... data to create a DataMovie
+     *   }
+     * })
+     * 
+     */
+    create<T extends DataMovieCreateArgs>(args: SelectSubset<T, DataMovieCreateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many DataMovies.
+     * @param {DataMovieCreateManyArgs} args - Arguments to create many DataMovies.
+     * @example
+     * // Create many DataMovies
+     * const dataMovie = await prisma.dataMovie.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DataMovieCreateManyArgs>(args?: SelectSubset<T, DataMovieCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DataMovies and returns the data saved in the database.
+     * @param {DataMovieCreateManyAndReturnArgs} args - Arguments to create many DataMovies.
+     * @example
+     * // Create many DataMovies
+     * const dataMovie = await prisma.dataMovie.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DataMovies and only return the `id`
+     * const dataMovieWithIdOnly = await prisma.dataMovie.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DataMovieCreateManyAndReturnArgs>(args?: SelectSubset<T, DataMovieCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a DataMovie.
+     * @param {DataMovieDeleteArgs} args - Arguments to delete one DataMovie.
+     * @example
+     * // Delete one DataMovie
+     * const DataMovie = await prisma.dataMovie.delete({
+     *   where: {
+     *     // ... filter to delete one DataMovie
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DataMovieDeleteArgs>(args: SelectSubset<T, DataMovieDeleteArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one DataMovie.
+     * @param {DataMovieUpdateArgs} args - Arguments to update one DataMovie.
+     * @example
+     * // Update one DataMovie
+     * const dataMovie = await prisma.dataMovie.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DataMovieUpdateArgs>(args: SelectSubset<T, DataMovieUpdateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more DataMovies.
+     * @param {DataMovieDeleteManyArgs} args - Arguments to filter DataMovies to delete.
+     * @example
+     * // Delete a few DataMovies
+     * const { count } = await prisma.dataMovie.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DataMovieDeleteManyArgs>(args?: SelectSubset<T, DataMovieDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DataMovies
+     * const dataMovie = await prisma.dataMovie.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DataMovieUpdateManyArgs>(args: SelectSubset<T, DataMovieUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataMovies and returns the data updated in the database.
+     * @param {DataMovieUpdateManyAndReturnArgs} args - Arguments to update many DataMovies.
+     * @example
+     * // Update many DataMovies
+     * const dataMovie = await prisma.dataMovie.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DataMovies and only return the `id`
+     * const dataMovieWithIdOnly = await prisma.dataMovie.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DataMovieUpdateManyAndReturnArgs>(args: SelectSubset<T, DataMovieUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one DataMovie.
+     * @param {DataMovieUpsertArgs} args - Arguments to update or create a DataMovie.
+     * @example
+     * // Update or create a DataMovie
+     * const dataMovie = await prisma.dataMovie.upsert({
+     *   create: {
+     *     // ... data to create a DataMovie
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DataMovie we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DataMovieUpsertArgs>(args: SelectSubset<T, DataMovieUpsertArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of DataMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieCountArgs} args - Arguments to filter DataMovies to count.
+     * @example
+     * // Count the number of DataMovies
+     * const count = await prisma.dataMovie.count({
+     *   where: {
+     *     // ... the filter for the DataMovies we want to count
+     *   }
+     * })
+    **/
+    count<T extends DataMovieCountArgs>(
+      args?: Subset<T, DataMovieCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DataMovieCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DataMovie.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DataMovieAggregateArgs>(args: Subset<T, DataMovieAggregateArgs>): Prisma.PrismaPromise<GetDataMovieAggregateType<T>>
+
+    /**
+     * Group by DataMovie.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataMovieGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DataMovieGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DataMovieGroupByArgs['orderBy'] }
+        : { orderBy?: DataMovieGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DataMovieGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDataMovieGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DataMovie model
+   */
+  readonly fields: DataMovieFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DataMovie.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DataMovieClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gameDays<T extends DataMovie$gameDaysArgs<ExtArgs> = {}>(args?: Subset<T, DataMovie$gameDaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DataMovie model
+   */ 
+  interface DataMovieFieldRefs {
+    readonly id: FieldRef<"DataMovie", 'Int'>
+    readonly tmdbId: FieldRef<"DataMovie", 'Int'>
+    readonly title: FieldRef<"DataMovie", 'String'>
+    readonly originalTitle: FieldRef<"DataMovie", 'String'>
+    readonly year: FieldRef<"DataMovie", 'Int'>
+    readonly releaseDate: FieldRef<"DataMovie", 'DateTime'>
+    readonly runtime: FieldRef<"DataMovie", 'Int'>
+    readonly director: FieldRef<"DataMovie", 'String'>
+    readonly actors: FieldRef<"DataMovie", 'String'>
+    readonly genres: FieldRef<"DataMovie", 'String'>
+    readonly synopsis: FieldRef<"DataMovie", 'String'>
+    readonly production: FieldRef<"DataMovie", 'String'>
+    readonly country: FieldRef<"DataMovie", 'String'>
+    readonly language: FieldRef<"DataMovie", 'String'>
+    readonly voteAverage: FieldRef<"DataMovie", 'Float'>
+    readonly voteCount: FieldRef<"DataMovie", 'Int'>
+    readonly popularity: FieldRef<"DataMovie", 'Float'>
+    readonly budget: FieldRef<"DataMovie", 'Int'>
+    readonly keywords: FieldRef<"DataMovie", 'String'>
+    readonly posterPath: FieldRef<"DataMovie", 'String'>
+    readonly backdropPath: FieldRef<"DataMovie", 'String'>
+    readonly image1: FieldRef<"DataMovie", 'String'>
+    readonly image2: FieldRef<"DataMovie", 'String'>
+    readonly image3: FieldRef<"DataMovie", 'String'>
+    readonly image4: FieldRef<"DataMovie", 'String'>
+    readonly image5: FieldRef<"DataMovie", 'String'>
+    readonly image6: FieldRef<"DataMovie", 'String'>
+    readonly image7: FieldRef<"DataMovie", 'String'>
+    readonly image8: FieldRef<"DataMovie", 'String'>
+    readonly image9: FieldRef<"DataMovie", 'String'>
+    readonly image10: FieldRef<"DataMovie", 'String'>
+    readonly createdAt: FieldRef<"DataMovie", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DataMovie findUnique
+   */
+  export type DataMovieFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter, which DataMovie to fetch.
+     */
+    where: DataMovieWhereUniqueInput
+  }
+
+  /**
+   * DataMovie findUniqueOrThrow
+   */
+  export type DataMovieFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter, which DataMovie to fetch.
+     */
+    where: DataMovieWhereUniqueInput
+  }
+
+  /**
+   * DataMovie findFirst
+   */
+  export type DataMovieFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter, which DataMovie to fetch.
+     */
+    where?: DataMovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataMovies to fetch.
+     */
+    orderBy?: DataMovieOrderByWithRelationInput | DataMovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataMovies.
+     */
+    cursor?: DataMovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataMovies.
+     */
+    distinct?: DataMovieScalarFieldEnum | DataMovieScalarFieldEnum[]
+  }
+
+  /**
+   * DataMovie findFirstOrThrow
+   */
+  export type DataMovieFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter, which DataMovie to fetch.
+     */
+    where?: DataMovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataMovies to fetch.
+     */
+    orderBy?: DataMovieOrderByWithRelationInput | DataMovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataMovies.
+     */
+    cursor?: DataMovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataMovies.
+     */
+    distinct?: DataMovieScalarFieldEnum | DataMovieScalarFieldEnum[]
+  }
+
+  /**
+   * DataMovie findMany
+   */
+  export type DataMovieFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter, which DataMovies to fetch.
+     */
+    where?: DataMovieWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataMovies to fetch.
+     */
+    orderBy?: DataMovieOrderByWithRelationInput | DataMovieOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DataMovies.
+     */
+    cursor?: DataMovieWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataMovies.
+     */
+    skip?: number
+    distinct?: DataMovieScalarFieldEnum | DataMovieScalarFieldEnum[]
+  }
+
+  /**
+   * DataMovie create
+   */
+  export type DataMovieCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DataMovie.
+     */
+    data: XOR<DataMovieCreateInput, DataMovieUncheckedCreateInput>
+  }
+
+  /**
+   * DataMovie createMany
+   */
+  export type DataMovieCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DataMovies.
+     */
+    data: DataMovieCreateManyInput | DataMovieCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataMovie createManyAndReturn
+   */
+  export type DataMovieCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * The data used to create many DataMovies.
+     */
+    data: DataMovieCreateManyInput | DataMovieCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataMovie update
+   */
+  export type DataMovieUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DataMovie.
+     */
+    data: XOR<DataMovieUpdateInput, DataMovieUncheckedUpdateInput>
+    /**
+     * Choose, which DataMovie to update.
+     */
+    where: DataMovieWhereUniqueInput
+  }
+
+  /**
+   * DataMovie updateMany
+   */
+  export type DataMovieUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DataMovies.
+     */
+    data: XOR<DataMovieUpdateManyMutationInput, DataMovieUncheckedUpdateManyInput>
+    /**
+     * Filter which DataMovies to update
+     */
+    where?: DataMovieWhereInput
+    /**
+     * Limit how many DataMovies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataMovie updateManyAndReturn
+   */
+  export type DataMovieUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * The data used to update DataMovies.
+     */
+    data: XOR<DataMovieUpdateManyMutationInput, DataMovieUncheckedUpdateManyInput>
+    /**
+     * Filter which DataMovies to update
+     */
+    where?: DataMovieWhereInput
+    /**
+     * Limit how many DataMovies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataMovie upsert
+   */
+  export type DataMovieUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DataMovie to update in case it exists.
+     */
+    where: DataMovieWhereUniqueInput
+    /**
+     * In case the DataMovie found by the `where` argument doesn't exist, create a new DataMovie with this data.
+     */
+    create: XOR<DataMovieCreateInput, DataMovieUncheckedCreateInput>
+    /**
+     * In case the DataMovie was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DataMovieUpdateInput, DataMovieUncheckedUpdateInput>
+  }
+
+  /**
+   * DataMovie delete
+   */
+  export type DataMovieDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+    /**
+     * Filter which DataMovie to delete.
+     */
+    where: DataMovieWhereUniqueInput
+  }
+
+  /**
+   * DataMovie deleteMany
+   */
+  export type DataMovieDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataMovies to delete
+     */
+    where?: DataMovieWhereInput
+    /**
+     * Limit how many DataMovies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataMovie.gameDays
+   */
+  export type DataMovie$gameDaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    where?: GameCinema1DaysWhereInput
+    orderBy?: GameCinema1DaysOrderByWithRelationInput | GameCinema1DaysOrderByWithRelationInput[]
+    cursor?: GameCinema1DaysWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameCinema1DaysScalarFieldEnum | GameCinema1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * DataMovie without action
+   */
+  export type DataMovieDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataMovie
+     */
+    select?: DataMovieSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataMovie
+     */
+    omit?: DataMovieOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataMovieInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GameCinema1Days
+   */
+
+  export type AggregateGameCinema1Days = {
+    _count: GameCinema1DaysCountAggregateOutputType | null
+    _avg: GameCinema1DaysAvgAggregateOutputType | null
+    _sum: GameCinema1DaysSumAggregateOutputType | null
+    _min: GameCinema1DaysMinAggregateOutputType | null
+    _max: GameCinema1DaysMaxAggregateOutputType | null
+  }
+
+  export type GameCinema1DaysAvgAggregateOutputType = {
+    id: number | null
+    movieId: number | null
+  }
+
+  export type GameCinema1DaysSumAggregateOutputType = {
+    id: number | null
+    movieId: number | null
+  }
+
+  export type GameCinema1DaysMinAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    movieId: number | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema1DaysMaxAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    movieId: number | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema1DaysCountAggregateOutputType = {
+    id: number
+    date: number
+    movieId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameCinema1DaysAvgAggregateInputType = {
+    id?: true
+    movieId?: true
+  }
+
+  export type GameCinema1DaysSumAggregateInputType = {
+    id?: true
+    movieId?: true
+  }
+
+  export type GameCinema1DaysMinAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+  }
+
+  export type GameCinema1DaysMaxAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+  }
+
+  export type GameCinema1DaysCountAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameCinema1DaysAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema1Days to aggregate.
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Days to fetch.
+     */
+    orderBy?: GameCinema1DaysOrderByWithRelationInput | GameCinema1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameCinema1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameCinema1Days
+    **/
+    _count?: true | GameCinema1DaysCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameCinema1DaysAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameCinema1DaysSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameCinema1DaysMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameCinema1DaysMaxAggregateInputType
+  }
+
+  export type GetGameCinema1DaysAggregateType<T extends GameCinema1DaysAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameCinema1Days]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameCinema1Days[P]>
+      : GetScalarType<T[P], AggregateGameCinema1Days[P]>
+  }
+
+
+
+
+  export type GameCinema1DaysGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema1DaysWhereInput
+    orderBy?: GameCinema1DaysOrderByWithAggregationInput | GameCinema1DaysOrderByWithAggregationInput[]
+    by: GameCinema1DaysScalarFieldEnum[] | GameCinema1DaysScalarFieldEnum
+    having?: GameCinema1DaysScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameCinema1DaysCountAggregateInputType | true
+    _avg?: GameCinema1DaysAvgAggregateInputType
+    _sum?: GameCinema1DaysSumAggregateInputType
+    _min?: GameCinema1DaysMinAggregateInputType
+    _max?: GameCinema1DaysMaxAggregateInputType
+  }
+
+  export type GameCinema1DaysGroupByOutputType = {
+    id: number
+    date: Date
+    movieId: number
+    createdAt: Date
+    _count: GameCinema1DaysCountAggregateOutputType | null
+    _avg: GameCinema1DaysAvgAggregateOutputType | null
+    _sum: GameCinema1DaysSumAggregateOutputType | null
+    _min: GameCinema1DaysMinAggregateOutputType | null
+    _max: GameCinema1DaysMaxAggregateOutputType | null
+  }
+
+  type GetGameCinema1DaysGroupByPayload<T extends GameCinema1DaysGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameCinema1DaysGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameCinema1DaysGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameCinema1DaysGroupByOutputType[P]>
+            : GetScalarType<T[P], GameCinema1DaysGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameCinema1DaysSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+    tries?: boolean | GameCinema1Days$triesArgs<ExtArgs>
+    _count?: boolean | GameCinema1DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Days"]>
+
+  export type GameCinema1DaysSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Days"]>
+
+  export type GameCinema1DaysSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Days"]>
+
+  export type GameCinema1DaysSelectScalar = {
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameCinema1DaysOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "movieId" | "createdAt", ExtArgs["result"]["gameCinema1Days"]>
+  export type GameCinema1DaysInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+    tries?: boolean | GameCinema1Days$triesArgs<ExtArgs>
+    _count?: boolean | GameCinema1DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GameCinema1DaysIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }
+  export type GameCinema1DaysIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }
+
+  export type $GameCinema1DaysPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameCinema1Days"
+    objects: {
+      movie: Prisma.$DataMoviePayload<ExtArgs>
+      tries: Prisma.$GameCinema1TriesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      date: Date
+      movieId: number
+      createdAt: Date
+    }, ExtArgs["result"]["gameCinema1Days"]>
+    composites: {}
+  }
+
+  type GameCinema1DaysGetPayload<S extends boolean | null | undefined | GameCinema1DaysDefaultArgs> = $Result.GetResult<Prisma.$GameCinema1DaysPayload, S>
+
+  type GameCinema1DaysCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameCinema1DaysFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameCinema1DaysCountAggregateInputType | true
+    }
+
+  export interface GameCinema1DaysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema1Days'], meta: { name: 'GameCinema1Days' } }
+    /**
+     * Find zero or one GameCinema1Days that matches the filter.
+     * @param {GameCinema1DaysFindUniqueArgs} args - Arguments to find a GameCinema1Days
+     * @example
+     * // Get one GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameCinema1DaysFindUniqueArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one GameCinema1Days that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameCinema1DaysFindUniqueOrThrowArgs} args - Arguments to find a GameCinema1Days
+     * @example
+     * // Get one GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameCinema1DaysFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameCinema1Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysFindFirstArgs} args - Arguments to find a GameCinema1Days
+     * @example
+     * // Get one GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameCinema1DaysFindFirstArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameCinema1Days that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysFindFirstOrThrowArgs} args - Arguments to find a GameCinema1Days
+     * @example
+     * // Get one GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameCinema1DaysFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more GameCinema1Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findMany()
+     * 
+     * // Get first 10 GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameCinema1DaysWithIdOnly = await prisma.gameCinema1Days.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameCinema1DaysFindManyArgs>(args?: SelectSubset<T, GameCinema1DaysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a GameCinema1Days.
+     * @param {GameCinema1DaysCreateArgs} args - Arguments to create a GameCinema1Days.
+     * @example
+     * // Create one GameCinema1Days
+     * const GameCinema1Days = await prisma.gameCinema1Days.create({
+     *   data: {
+     *     // ... data to create a GameCinema1Days
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameCinema1DaysCreateArgs>(args: SelectSubset<T, GameCinema1DaysCreateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many GameCinema1Days.
+     * @param {GameCinema1DaysCreateManyArgs} args - Arguments to create many GameCinema1Days.
+     * @example
+     * // Create many GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameCinema1DaysCreateManyArgs>(args?: SelectSubset<T, GameCinema1DaysCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameCinema1Days and returns the data saved in the database.
+     * @param {GameCinema1DaysCreateManyAndReturnArgs} args - Arguments to create many GameCinema1Days.
+     * @example
+     * // Create many GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameCinema1Days and only return the `id`
+     * const gameCinema1DaysWithIdOnly = await prisma.gameCinema1Days.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameCinema1DaysCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1DaysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a GameCinema1Days.
+     * @param {GameCinema1DaysDeleteArgs} args - Arguments to delete one GameCinema1Days.
+     * @example
+     * // Delete one GameCinema1Days
+     * const GameCinema1Days = await prisma.gameCinema1Days.delete({
+     *   where: {
+     *     // ... filter to delete one GameCinema1Days
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameCinema1DaysDeleteArgs>(args: SelectSubset<T, GameCinema1DaysDeleteArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one GameCinema1Days.
+     * @param {GameCinema1DaysUpdateArgs} args - Arguments to update one GameCinema1Days.
+     * @example
+     * // Update one GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameCinema1DaysUpdateArgs>(args: SelectSubset<T, GameCinema1DaysUpdateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more GameCinema1Days.
+     * @param {GameCinema1DaysDeleteManyArgs} args - Arguments to filter GameCinema1Days to delete.
+     * @example
+     * // Delete a few GameCinema1Days
+     * const { count } = await prisma.gameCinema1Days.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameCinema1DaysDeleteManyArgs>(args?: SelectSubset<T, GameCinema1DaysDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameCinema1DaysUpdateManyArgs>(args: SelectSubset<T, GameCinema1DaysUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema1Days and returns the data updated in the database.
+     * @param {GameCinema1DaysUpdateManyAndReturnArgs} args - Arguments to update many GameCinema1Days.
+     * @example
+     * // Update many GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameCinema1Days and only return the `id`
+     * const gameCinema1DaysWithIdOnly = await prisma.gameCinema1Days.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameCinema1DaysUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1DaysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one GameCinema1Days.
+     * @param {GameCinema1DaysUpsertArgs} args - Arguments to update or create a GameCinema1Days.
+     * @example
+     * // Update or create a GameCinema1Days
+     * const gameCinema1Days = await prisma.gameCinema1Days.upsert({
+     *   create: {
+     *     // ... data to create a GameCinema1Days
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameCinema1Days we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameCinema1DaysUpsertArgs>(args: SelectSubset<T, GameCinema1DaysUpsertArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of GameCinema1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysCountArgs} args - Arguments to filter GameCinema1Days to count.
+     * @example
+     * // Count the number of GameCinema1Days
+     * const count = await prisma.gameCinema1Days.count({
+     *   where: {
+     *     // ... the filter for the GameCinema1Days we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameCinema1DaysCountArgs>(
+      args?: Subset<T, GameCinema1DaysCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameCinema1DaysCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameCinema1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameCinema1DaysAggregateArgs>(args: Subset<T, GameCinema1DaysAggregateArgs>): Prisma.PrismaPromise<GetGameCinema1DaysAggregateType<T>>
+
+    /**
+     * Group by GameCinema1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1DaysGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameCinema1DaysGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameCinema1DaysGroupByArgs['orderBy'] }
+        : { orderBy?: GameCinema1DaysGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameCinema1DaysGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameCinema1DaysGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameCinema1Days model
+   */
+  readonly fields: GameCinema1DaysFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameCinema1Days.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameCinema1DaysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    movie<T extends DataMovieDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataMovieDefaultArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    tries<T extends GameCinema1Days$triesArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1Days$triesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameCinema1Days model
+   */ 
+  interface GameCinema1DaysFieldRefs {
+    readonly id: FieldRef<"GameCinema1Days", 'Int'>
+    readonly date: FieldRef<"GameCinema1Days", 'DateTime'>
+    readonly movieId: FieldRef<"GameCinema1Days", 'Int'>
+    readonly createdAt: FieldRef<"GameCinema1Days", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameCinema1Days findUnique
+   */
+  export type GameCinema1DaysFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Days to fetch.
+     */
+    where: GameCinema1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Days findUniqueOrThrow
+   */
+  export type GameCinema1DaysFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Days to fetch.
+     */
+    where: GameCinema1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Days findFirst
+   */
+  export type GameCinema1DaysFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Days to fetch.
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Days to fetch.
+     */
+    orderBy?: GameCinema1DaysOrderByWithRelationInput | GameCinema1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema1Days.
+     */
+    cursor?: GameCinema1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema1Days.
+     */
+    distinct?: GameCinema1DaysScalarFieldEnum | GameCinema1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Days findFirstOrThrow
+   */
+  export type GameCinema1DaysFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Days to fetch.
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Days to fetch.
+     */
+    orderBy?: GameCinema1DaysOrderByWithRelationInput | GameCinema1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema1Days.
+     */
+    cursor?: GameCinema1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema1Days.
+     */
+    distinct?: GameCinema1DaysScalarFieldEnum | GameCinema1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Days findMany
+   */
+  export type GameCinema1DaysFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Days to fetch.
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Days to fetch.
+     */
+    orderBy?: GameCinema1DaysOrderByWithRelationInput | GameCinema1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameCinema1Days.
+     */
+    cursor?: GameCinema1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Days.
+     */
+    skip?: number
+    distinct?: GameCinema1DaysScalarFieldEnum | GameCinema1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Days create
+   */
+  export type GameCinema1DaysCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameCinema1Days.
+     */
+    data: XOR<GameCinema1DaysCreateInput, GameCinema1DaysUncheckedCreateInput>
+  }
+
+  /**
+   * GameCinema1Days createMany
+   */
+  export type GameCinema1DaysCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameCinema1Days.
+     */
+    data: GameCinema1DaysCreateManyInput | GameCinema1DaysCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameCinema1Days createManyAndReturn
+   */
+  export type GameCinema1DaysCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameCinema1Days.
+     */
+    data: GameCinema1DaysCreateManyInput | GameCinema1DaysCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema1Days update
+   */
+  export type GameCinema1DaysUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameCinema1Days.
+     */
+    data: XOR<GameCinema1DaysUpdateInput, GameCinema1DaysUncheckedUpdateInput>
+    /**
+     * Choose, which GameCinema1Days to update.
+     */
+    where: GameCinema1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Days updateMany
+   */
+  export type GameCinema1DaysUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameCinema1Days.
+     */
+    data: XOR<GameCinema1DaysUpdateManyMutationInput, GameCinema1DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema1Days to update
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * Limit how many GameCinema1Days to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema1Days updateManyAndReturn
+   */
+  export type GameCinema1DaysUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * The data used to update GameCinema1Days.
+     */
+    data: XOR<GameCinema1DaysUpdateManyMutationInput, GameCinema1DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema1Days to update
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * Limit how many GameCinema1Days to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema1Days upsert
+   */
+  export type GameCinema1DaysUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameCinema1Days to update in case it exists.
+     */
+    where: GameCinema1DaysWhereUniqueInput
+    /**
+     * In case the GameCinema1Days found by the `where` argument doesn't exist, create a new GameCinema1Days with this data.
+     */
+    create: XOR<GameCinema1DaysCreateInput, GameCinema1DaysUncheckedCreateInput>
+    /**
+     * In case the GameCinema1Days was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameCinema1DaysUpdateInput, GameCinema1DaysUncheckedUpdateInput>
+  }
+
+  /**
+   * GameCinema1Days delete
+   */
+  export type GameCinema1DaysDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+    /**
+     * Filter which GameCinema1Days to delete.
+     */
+    where: GameCinema1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Days deleteMany
+   */
+  export type GameCinema1DaysDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema1Days to delete
+     */
+    where?: GameCinema1DaysWhereInput
+    /**
+     * Limit how many GameCinema1Days to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema1Days.tries
+   */
+  export type GameCinema1Days$triesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    where?: GameCinema1TriesWhereInput
+    orderBy?: GameCinema1TriesOrderByWithRelationInput | GameCinema1TriesOrderByWithRelationInput[]
+    cursor?: GameCinema1TriesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameCinema1TriesScalarFieldEnum | GameCinema1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Days without action
+   */
+  export type GameCinema1DaysDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Days
+     */
+    select?: GameCinema1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Days
+     */
+    omit?: GameCinema1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1DaysInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GameCinema1Tries
+   */
+
+  export type AggregateGameCinema1Tries = {
+    _count: GameCinema1TriesCountAggregateOutputType | null
+    _avg: GameCinema1TriesAvgAggregateOutputType | null
+    _sum: GameCinema1TriesSumAggregateOutputType | null
+    _min: GameCinema1TriesMinAggregateOutputType | null
+    _max: GameCinema1TriesMaxAggregateOutputType | null
+  }
+
+  export type GameCinema1TriesAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameCinema1TriesSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameCinema1TriesMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema1TriesMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema1TriesCountAggregateOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: number
+    correct: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameCinema1TriesAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameCinema1TriesSumAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameCinema1TriesMinAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameCinema1TriesMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameCinema1TriesCountAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameCinema1TriesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema1Tries to aggregate.
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Tries to fetch.
+     */
+    orderBy?: GameCinema1TriesOrderByWithRelationInput | GameCinema1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameCinema1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameCinema1Tries
+    **/
+    _count?: true | GameCinema1TriesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameCinema1TriesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameCinema1TriesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameCinema1TriesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameCinema1TriesMaxAggregateInputType
+  }
+
+  export type GetGameCinema1TriesAggregateType<T extends GameCinema1TriesAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameCinema1Tries]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameCinema1Tries[P]>
+      : GetScalarType<T[P], AggregateGameCinema1Tries[P]>
+  }
+
+
+
+
+  export type GameCinema1TriesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema1TriesWhereInput
+    orderBy?: GameCinema1TriesOrderByWithAggregationInput | GameCinema1TriesOrderByWithAggregationInput[]
+    by: GameCinema1TriesScalarFieldEnum[] | GameCinema1TriesScalarFieldEnum
+    having?: GameCinema1TriesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameCinema1TriesCountAggregateInputType | true
+    _avg?: GameCinema1TriesAvgAggregateInputType
+    _sum?: GameCinema1TriesSumAggregateInputType
+    _min?: GameCinema1TriesMinAggregateInputType
+    _max?: GameCinema1TriesMaxAggregateInputType
+  }
+
+  export type GameCinema1TriesGroupByOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: string
+    correct: boolean
+    createdAt: Date
+    _count: GameCinema1TriesCountAggregateOutputType | null
+    _avg: GameCinema1TriesAvgAggregateOutputType | null
+    _sum: GameCinema1TriesSumAggregateOutputType | null
+    _min: GameCinema1TriesMinAggregateOutputType | null
+    _max: GameCinema1TriesMaxAggregateOutputType | null
+  }
+
+  type GetGameCinema1TriesGroupByPayload<T extends GameCinema1TriesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameCinema1TriesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameCinema1TriesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameCinema1TriesGroupByOutputType[P]>
+            : GetScalarType<T[P], GameCinema1TriesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameCinema1TriesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Tries"]>
+
+  export type GameCinema1TriesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Tries"]>
+
+  export type GameCinema1TriesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema1Tries"]>
+
+  export type GameCinema1TriesSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameCinema1TriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "dayId" | "guess" | "correct" | "createdAt", ExtArgs["result"]["gameCinema1Tries"]>
+  export type GameCinema1TriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }
+  export type GameCinema1TriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }
+  export type GameCinema1TriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema1DaysDefaultArgs<ExtArgs>
+  }
+
+  export type $GameCinema1TriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameCinema1Tries"
+    objects: {
+      day: Prisma.$GameCinema1DaysPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      dayId: number
+      guess: string
+      correct: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["gameCinema1Tries"]>
+    composites: {}
+  }
+
+  type GameCinema1TriesGetPayload<S extends boolean | null | undefined | GameCinema1TriesDefaultArgs> = $Result.GetResult<Prisma.$GameCinema1TriesPayload, S>
+
+  type GameCinema1TriesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameCinema1TriesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameCinema1TriesCountAggregateInputType | true
+    }
+
+  export interface GameCinema1TriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema1Tries'], meta: { name: 'GameCinema1Tries' } }
+    /**
+     * Find zero or one GameCinema1Tries that matches the filter.
+     * @param {GameCinema1TriesFindUniqueArgs} args - Arguments to find a GameCinema1Tries
+     * @example
+     * // Get one GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameCinema1TriesFindUniqueArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one GameCinema1Tries that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameCinema1TriesFindUniqueOrThrowArgs} args - Arguments to find a GameCinema1Tries
+     * @example
+     * // Get one GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameCinema1TriesFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameCinema1Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesFindFirstArgs} args - Arguments to find a GameCinema1Tries
+     * @example
+     * // Get one GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameCinema1TriesFindFirstArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameCinema1Tries that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesFindFirstOrThrowArgs} args - Arguments to find a GameCinema1Tries
+     * @example
+     * // Get one GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameCinema1TriesFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more GameCinema1Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findMany()
+     * 
+     * // Get first 10 GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameCinema1TriesWithIdOnly = await prisma.gameCinema1Tries.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameCinema1TriesFindManyArgs>(args?: SelectSubset<T, GameCinema1TriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a GameCinema1Tries.
+     * @param {GameCinema1TriesCreateArgs} args - Arguments to create a GameCinema1Tries.
+     * @example
+     * // Create one GameCinema1Tries
+     * const GameCinema1Tries = await prisma.gameCinema1Tries.create({
+     *   data: {
+     *     // ... data to create a GameCinema1Tries
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameCinema1TriesCreateArgs>(args: SelectSubset<T, GameCinema1TriesCreateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many GameCinema1Tries.
+     * @param {GameCinema1TriesCreateManyArgs} args - Arguments to create many GameCinema1Tries.
+     * @example
+     * // Create many GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameCinema1TriesCreateManyArgs>(args?: SelectSubset<T, GameCinema1TriesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameCinema1Tries and returns the data saved in the database.
+     * @param {GameCinema1TriesCreateManyAndReturnArgs} args - Arguments to create many GameCinema1Tries.
+     * @example
+     * // Create many GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameCinema1Tries and only return the `id`
+     * const gameCinema1TriesWithIdOnly = await prisma.gameCinema1Tries.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameCinema1TriesCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1TriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a GameCinema1Tries.
+     * @param {GameCinema1TriesDeleteArgs} args - Arguments to delete one GameCinema1Tries.
+     * @example
+     * // Delete one GameCinema1Tries
+     * const GameCinema1Tries = await prisma.gameCinema1Tries.delete({
+     *   where: {
+     *     // ... filter to delete one GameCinema1Tries
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameCinema1TriesDeleteArgs>(args: SelectSubset<T, GameCinema1TriesDeleteArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one GameCinema1Tries.
+     * @param {GameCinema1TriesUpdateArgs} args - Arguments to update one GameCinema1Tries.
+     * @example
+     * // Update one GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameCinema1TriesUpdateArgs>(args: SelectSubset<T, GameCinema1TriesUpdateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more GameCinema1Tries.
+     * @param {GameCinema1TriesDeleteManyArgs} args - Arguments to filter GameCinema1Tries to delete.
+     * @example
+     * // Delete a few GameCinema1Tries
+     * const { count } = await prisma.gameCinema1Tries.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameCinema1TriesDeleteManyArgs>(args?: SelectSubset<T, GameCinema1TriesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameCinema1TriesUpdateManyArgs>(args: SelectSubset<T, GameCinema1TriesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema1Tries and returns the data updated in the database.
+     * @param {GameCinema1TriesUpdateManyAndReturnArgs} args - Arguments to update many GameCinema1Tries.
+     * @example
+     * // Update many GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameCinema1Tries and only return the `id`
+     * const gameCinema1TriesWithIdOnly = await prisma.gameCinema1Tries.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameCinema1TriesUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1TriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one GameCinema1Tries.
+     * @param {GameCinema1TriesUpsertArgs} args - Arguments to update or create a GameCinema1Tries.
+     * @example
+     * // Update or create a GameCinema1Tries
+     * const gameCinema1Tries = await prisma.gameCinema1Tries.upsert({
+     *   create: {
+     *     // ... data to create a GameCinema1Tries
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameCinema1Tries we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameCinema1TriesUpsertArgs>(args: SelectSubset<T, GameCinema1TriesUpsertArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of GameCinema1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesCountArgs} args - Arguments to filter GameCinema1Tries to count.
+     * @example
+     * // Count the number of GameCinema1Tries
+     * const count = await prisma.gameCinema1Tries.count({
+     *   where: {
+     *     // ... the filter for the GameCinema1Tries we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameCinema1TriesCountArgs>(
+      args?: Subset<T, GameCinema1TriesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameCinema1TriesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameCinema1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameCinema1TriesAggregateArgs>(args: Subset<T, GameCinema1TriesAggregateArgs>): Prisma.PrismaPromise<GetGameCinema1TriesAggregateType<T>>
+
+    /**
+     * Group by GameCinema1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema1TriesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameCinema1TriesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameCinema1TriesGroupByArgs['orderBy'] }
+        : { orderBy?: GameCinema1TriesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameCinema1TriesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameCinema1TriesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameCinema1Tries model
+   */
+  readonly fields: GameCinema1TriesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameCinema1Tries.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameCinema1TriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    day<T extends GameCinema1DaysDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1DaysDefaultArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameCinema1Tries model
+   */ 
+  interface GameCinema1TriesFieldRefs {
+    readonly id: FieldRef<"GameCinema1Tries", 'Int'>
+    readonly userId: FieldRef<"GameCinema1Tries", 'Int'>
+    readonly dayId: FieldRef<"GameCinema1Tries", 'Int'>
+    readonly guess: FieldRef<"GameCinema1Tries", 'String'>
+    readonly correct: FieldRef<"GameCinema1Tries", 'Boolean'>
+    readonly createdAt: FieldRef<"GameCinema1Tries", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameCinema1Tries findUnique
+   */
+  export type GameCinema1TriesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Tries to fetch.
+     */
+    where: GameCinema1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Tries findUniqueOrThrow
+   */
+  export type GameCinema1TriesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Tries to fetch.
+     */
+    where: GameCinema1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Tries findFirst
+   */
+  export type GameCinema1TriesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Tries to fetch.
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Tries to fetch.
+     */
+    orderBy?: GameCinema1TriesOrderByWithRelationInput | GameCinema1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema1Tries.
+     */
+    cursor?: GameCinema1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema1Tries.
+     */
+    distinct?: GameCinema1TriesScalarFieldEnum | GameCinema1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Tries findFirstOrThrow
+   */
+  export type GameCinema1TriesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Tries to fetch.
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Tries to fetch.
+     */
+    orderBy?: GameCinema1TriesOrderByWithRelationInput | GameCinema1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema1Tries.
+     */
+    cursor?: GameCinema1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema1Tries.
+     */
+    distinct?: GameCinema1TriesScalarFieldEnum | GameCinema1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Tries findMany
+   */
+  export type GameCinema1TriesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema1Tries to fetch.
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema1Tries to fetch.
+     */
+    orderBy?: GameCinema1TriesOrderByWithRelationInput | GameCinema1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameCinema1Tries.
+     */
+    cursor?: GameCinema1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema1Tries.
+     */
+    skip?: number
+    distinct?: GameCinema1TriesScalarFieldEnum | GameCinema1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema1Tries create
+   */
+  export type GameCinema1TriesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameCinema1Tries.
+     */
+    data: XOR<GameCinema1TriesCreateInput, GameCinema1TriesUncheckedCreateInput>
+  }
+
+  /**
+   * GameCinema1Tries createMany
+   */
+  export type GameCinema1TriesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameCinema1Tries.
+     */
+    data: GameCinema1TriesCreateManyInput | GameCinema1TriesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameCinema1Tries createManyAndReturn
+   */
+  export type GameCinema1TriesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameCinema1Tries.
+     */
+    data: GameCinema1TriesCreateManyInput | GameCinema1TriesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema1Tries update
+   */
+  export type GameCinema1TriesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameCinema1Tries.
+     */
+    data: XOR<GameCinema1TriesUpdateInput, GameCinema1TriesUncheckedUpdateInput>
+    /**
+     * Choose, which GameCinema1Tries to update.
+     */
+    where: GameCinema1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Tries updateMany
+   */
+  export type GameCinema1TriesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameCinema1Tries.
+     */
+    data: XOR<GameCinema1TriesUpdateManyMutationInput, GameCinema1TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema1Tries to update
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * Limit how many GameCinema1Tries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema1Tries updateManyAndReturn
+   */
+  export type GameCinema1TriesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * The data used to update GameCinema1Tries.
+     */
+    data: XOR<GameCinema1TriesUpdateManyMutationInput, GameCinema1TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema1Tries to update
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * Limit how many GameCinema1Tries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema1Tries upsert
+   */
+  export type GameCinema1TriesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameCinema1Tries to update in case it exists.
+     */
+    where: GameCinema1TriesWhereUniqueInput
+    /**
+     * In case the GameCinema1Tries found by the `where` argument doesn't exist, create a new GameCinema1Tries with this data.
+     */
+    create: XOR<GameCinema1TriesCreateInput, GameCinema1TriesUncheckedCreateInput>
+    /**
+     * In case the GameCinema1Tries was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameCinema1TriesUpdateInput, GameCinema1TriesUncheckedUpdateInput>
+  }
+
+  /**
+   * GameCinema1Tries delete
+   */
+  export type GameCinema1TriesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+    /**
+     * Filter which GameCinema1Tries to delete.
+     */
+    where: GameCinema1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema1Tries deleteMany
+   */
+  export type GameCinema1TriesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema1Tries to delete
+     */
+    where?: GameCinema1TriesWhereInput
+    /**
+     * Limit how many GameCinema1Tries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema1Tries without action
+   */
+  export type GameCinema1TriesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema1Tries
+     */
+    select?: GameCinema1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema1Tries
+     */
+    omit?: GameCinema1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema1TriesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9631,6 +13675,66 @@ export namespace Prisma {
   export type GameCategoryScalarFieldEnum = (typeof GameCategoryScalarFieldEnum)[keyof typeof GameCategoryScalarFieldEnum]
 
 
+  export const DataMovieScalarFieldEnum: {
+    id: 'id',
+    tmdbId: 'tmdbId',
+    title: 'title',
+    originalTitle: 'originalTitle',
+    year: 'year',
+    releaseDate: 'releaseDate',
+    runtime: 'runtime',
+    director: 'director',
+    actors: 'actors',
+    genres: 'genres',
+    synopsis: 'synopsis',
+    production: 'production',
+    country: 'country',
+    language: 'language',
+    voteAverage: 'voteAverage',
+    voteCount: 'voteCount',
+    popularity: 'popularity',
+    budget: 'budget',
+    keywords: 'keywords',
+    posterPath: 'posterPath',
+    backdropPath: 'backdropPath',
+    image1: 'image1',
+    image2: 'image2',
+    image3: 'image3',
+    image4: 'image4',
+    image5: 'image5',
+    image6: 'image6',
+    image7: 'image7',
+    image8: 'image8',
+    image9: 'image9',
+    image10: 'image10',
+    createdAt: 'createdAt'
+  };
+
+  export type DataMovieScalarFieldEnum = (typeof DataMovieScalarFieldEnum)[keyof typeof DataMovieScalarFieldEnum]
+
+
+  export const GameCinema1DaysScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    movieId: 'movieId',
+    createdAt: 'createdAt'
+  };
+
+  export type GameCinema1DaysScalarFieldEnum = (typeof GameCinema1DaysScalarFieldEnum)[keyof typeof GameCinema1DaysScalarFieldEnum]
+
+
+  export const GameCinema1TriesScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    dayId: 'dayId',
+    guess: 'guess',
+    correct: 'correct',
+    createdAt: 'createdAt'
+  };
+
+  export type GameCinema1TriesScalarFieldEnum = (typeof GameCinema1TriesScalarFieldEnum)[keyof typeof GameCinema1TriesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -9713,6 +13817,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -10190,6 +14301,315 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"GameCategory"> | Date | string | null
   }
 
+  export type DataMovieWhereInput = {
+    AND?: DataMovieWhereInput | DataMovieWhereInput[]
+    OR?: DataMovieWhereInput[]
+    NOT?: DataMovieWhereInput | DataMovieWhereInput[]
+    id?: IntFilter<"DataMovie"> | number
+    tmdbId?: IntFilter<"DataMovie"> | number
+    title?: StringFilter<"DataMovie"> | string
+    originalTitle?: StringFilter<"DataMovie"> | string
+    year?: IntFilter<"DataMovie"> | number
+    releaseDate?: DateTimeFilter<"DataMovie"> | Date | string
+    runtime?: IntNullableFilter<"DataMovie"> | number | null
+    director?: StringNullableFilter<"DataMovie"> | string | null
+    actors?: StringNullableFilter<"DataMovie"> | string | null
+    genres?: StringFilter<"DataMovie"> | string
+    synopsis?: StringNullableFilter<"DataMovie"> | string | null
+    production?: StringNullableFilter<"DataMovie"> | string | null
+    country?: StringNullableFilter<"DataMovie"> | string | null
+    language?: StringNullableFilter<"DataMovie"> | string | null
+    voteAverage?: FloatNullableFilter<"DataMovie"> | number | null
+    voteCount?: IntNullableFilter<"DataMovie"> | number | null
+    popularity?: FloatNullableFilter<"DataMovie"> | number | null
+    budget?: IntNullableFilter<"DataMovie"> | number | null
+    keywords?: StringNullableFilter<"DataMovie"> | string | null
+    posterPath?: StringNullableFilter<"DataMovie"> | string | null
+    backdropPath?: StringNullableFilter<"DataMovie"> | string | null
+    image1?: StringNullableFilter<"DataMovie"> | string | null
+    image2?: StringNullableFilter<"DataMovie"> | string | null
+    image3?: StringNullableFilter<"DataMovie"> | string | null
+    image4?: StringNullableFilter<"DataMovie"> | string | null
+    image5?: StringNullableFilter<"DataMovie"> | string | null
+    image6?: StringNullableFilter<"DataMovie"> | string | null
+    image7?: StringNullableFilter<"DataMovie"> | string | null
+    image8?: StringNullableFilter<"DataMovie"> | string | null
+    image9?: StringNullableFilter<"DataMovie"> | string | null
+    image10?: StringNullableFilter<"DataMovie"> | string | null
+    createdAt?: DateTimeFilter<"DataMovie"> | Date | string
+    gameDays?: GameCinema1DaysListRelationFilter
+  }
+
+  export type DataMovieOrderByWithRelationInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    title?: SortOrder
+    originalTitle?: SortOrder
+    year?: SortOrder
+    releaseDate?: SortOrder
+    runtime?: SortOrderInput | SortOrder
+    director?: SortOrderInput | SortOrder
+    actors?: SortOrderInput | SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrderInput | SortOrder
+    production?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    language?: SortOrderInput | SortOrder
+    voteAverage?: SortOrderInput | SortOrder
+    voteCount?: SortOrderInput | SortOrder
+    popularity?: SortOrderInput | SortOrder
+    budget?: SortOrderInput | SortOrder
+    keywords?: SortOrderInput | SortOrder
+    posterPath?: SortOrderInput | SortOrder
+    backdropPath?: SortOrderInput | SortOrder
+    image1?: SortOrderInput | SortOrder
+    image2?: SortOrderInput | SortOrder
+    image3?: SortOrderInput | SortOrder
+    image4?: SortOrderInput | SortOrder
+    image5?: SortOrderInput | SortOrder
+    image6?: SortOrderInput | SortOrder
+    image7?: SortOrderInput | SortOrder
+    image8?: SortOrderInput | SortOrder
+    image9?: SortOrderInput | SortOrder
+    image10?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    gameDays?: GameCinema1DaysOrderByRelationAggregateInput
+  }
+
+  export type DataMovieWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    tmdbId?: number
+    AND?: DataMovieWhereInput | DataMovieWhereInput[]
+    OR?: DataMovieWhereInput[]
+    NOT?: DataMovieWhereInput | DataMovieWhereInput[]
+    title?: StringFilter<"DataMovie"> | string
+    originalTitle?: StringFilter<"DataMovie"> | string
+    year?: IntFilter<"DataMovie"> | number
+    releaseDate?: DateTimeFilter<"DataMovie"> | Date | string
+    runtime?: IntNullableFilter<"DataMovie"> | number | null
+    director?: StringNullableFilter<"DataMovie"> | string | null
+    actors?: StringNullableFilter<"DataMovie"> | string | null
+    genres?: StringFilter<"DataMovie"> | string
+    synopsis?: StringNullableFilter<"DataMovie"> | string | null
+    production?: StringNullableFilter<"DataMovie"> | string | null
+    country?: StringNullableFilter<"DataMovie"> | string | null
+    language?: StringNullableFilter<"DataMovie"> | string | null
+    voteAverage?: FloatNullableFilter<"DataMovie"> | number | null
+    voteCount?: IntNullableFilter<"DataMovie"> | number | null
+    popularity?: FloatNullableFilter<"DataMovie"> | number | null
+    budget?: IntNullableFilter<"DataMovie"> | number | null
+    keywords?: StringNullableFilter<"DataMovie"> | string | null
+    posterPath?: StringNullableFilter<"DataMovie"> | string | null
+    backdropPath?: StringNullableFilter<"DataMovie"> | string | null
+    image1?: StringNullableFilter<"DataMovie"> | string | null
+    image2?: StringNullableFilter<"DataMovie"> | string | null
+    image3?: StringNullableFilter<"DataMovie"> | string | null
+    image4?: StringNullableFilter<"DataMovie"> | string | null
+    image5?: StringNullableFilter<"DataMovie"> | string | null
+    image6?: StringNullableFilter<"DataMovie"> | string | null
+    image7?: StringNullableFilter<"DataMovie"> | string | null
+    image8?: StringNullableFilter<"DataMovie"> | string | null
+    image9?: StringNullableFilter<"DataMovie"> | string | null
+    image10?: StringNullableFilter<"DataMovie"> | string | null
+    createdAt?: DateTimeFilter<"DataMovie"> | Date | string
+    gameDays?: GameCinema1DaysListRelationFilter
+  }, "id" | "tmdbId">
+
+  export type DataMovieOrderByWithAggregationInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    title?: SortOrder
+    originalTitle?: SortOrder
+    year?: SortOrder
+    releaseDate?: SortOrder
+    runtime?: SortOrderInput | SortOrder
+    director?: SortOrderInput | SortOrder
+    actors?: SortOrderInput | SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrderInput | SortOrder
+    production?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    language?: SortOrderInput | SortOrder
+    voteAverage?: SortOrderInput | SortOrder
+    voteCount?: SortOrderInput | SortOrder
+    popularity?: SortOrderInput | SortOrder
+    budget?: SortOrderInput | SortOrder
+    keywords?: SortOrderInput | SortOrder
+    posterPath?: SortOrderInput | SortOrder
+    backdropPath?: SortOrderInput | SortOrder
+    image1?: SortOrderInput | SortOrder
+    image2?: SortOrderInput | SortOrder
+    image3?: SortOrderInput | SortOrder
+    image4?: SortOrderInput | SortOrder
+    image5?: SortOrderInput | SortOrder
+    image6?: SortOrderInput | SortOrder
+    image7?: SortOrderInput | SortOrder
+    image8?: SortOrderInput | SortOrder
+    image9?: SortOrderInput | SortOrder
+    image10?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DataMovieCountOrderByAggregateInput
+    _avg?: DataMovieAvgOrderByAggregateInput
+    _max?: DataMovieMaxOrderByAggregateInput
+    _min?: DataMovieMinOrderByAggregateInput
+    _sum?: DataMovieSumOrderByAggregateInput
+  }
+
+  export type DataMovieScalarWhereWithAggregatesInput = {
+    AND?: DataMovieScalarWhereWithAggregatesInput | DataMovieScalarWhereWithAggregatesInput[]
+    OR?: DataMovieScalarWhereWithAggregatesInput[]
+    NOT?: DataMovieScalarWhereWithAggregatesInput | DataMovieScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"DataMovie"> | number
+    tmdbId?: IntWithAggregatesFilter<"DataMovie"> | number
+    title?: StringWithAggregatesFilter<"DataMovie"> | string
+    originalTitle?: StringWithAggregatesFilter<"DataMovie"> | string
+    year?: IntWithAggregatesFilter<"DataMovie"> | number
+    releaseDate?: DateTimeWithAggregatesFilter<"DataMovie"> | Date | string
+    runtime?: IntNullableWithAggregatesFilter<"DataMovie"> | number | null
+    director?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    actors?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    genres?: StringWithAggregatesFilter<"DataMovie"> | string
+    synopsis?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    production?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    country?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    language?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    voteAverage?: FloatNullableWithAggregatesFilter<"DataMovie"> | number | null
+    voteCount?: IntNullableWithAggregatesFilter<"DataMovie"> | number | null
+    popularity?: FloatNullableWithAggregatesFilter<"DataMovie"> | number | null
+    budget?: IntNullableWithAggregatesFilter<"DataMovie"> | number | null
+    keywords?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    posterPath?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    backdropPath?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image1?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image2?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image3?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image4?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image5?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image6?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image7?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image8?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image9?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    image10?: StringNullableWithAggregatesFilter<"DataMovie"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DataMovie"> | Date | string
+  }
+
+  export type GameCinema1DaysWhereInput = {
+    AND?: GameCinema1DaysWhereInput | GameCinema1DaysWhereInput[]
+    OR?: GameCinema1DaysWhereInput[]
+    NOT?: GameCinema1DaysWhereInput | GameCinema1DaysWhereInput[]
+    id?: IntFilter<"GameCinema1Days"> | number
+    date?: DateTimeFilter<"GameCinema1Days"> | Date | string
+    movieId?: IntFilter<"GameCinema1Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema1Days"> | Date | string
+    movie?: XOR<DataMovieScalarRelationFilter, DataMovieWhereInput>
+    tries?: GameCinema1TriesListRelationFilter
+  }
+
+  export type GameCinema1DaysOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+    movie?: DataMovieOrderByWithRelationInput
+    tries?: GameCinema1TriesOrderByRelationAggregateInput
+  }
+
+  export type GameCinema1DaysWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    date?: Date | string
+    AND?: GameCinema1DaysWhereInput | GameCinema1DaysWhereInput[]
+    OR?: GameCinema1DaysWhereInput[]
+    NOT?: GameCinema1DaysWhereInput | GameCinema1DaysWhereInput[]
+    movieId?: IntFilter<"GameCinema1Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema1Days"> | Date | string
+    movie?: XOR<DataMovieScalarRelationFilter, DataMovieWhereInput>
+    tries?: GameCinema1TriesListRelationFilter
+  }, "id" | "date">
+
+  export type GameCinema1DaysOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameCinema1DaysCountOrderByAggregateInput
+    _avg?: GameCinema1DaysAvgOrderByAggregateInput
+    _max?: GameCinema1DaysMaxOrderByAggregateInput
+    _min?: GameCinema1DaysMinOrderByAggregateInput
+    _sum?: GameCinema1DaysSumOrderByAggregateInput
+  }
+
+  export type GameCinema1DaysScalarWhereWithAggregatesInput = {
+    AND?: GameCinema1DaysScalarWhereWithAggregatesInput | GameCinema1DaysScalarWhereWithAggregatesInput[]
+    OR?: GameCinema1DaysScalarWhereWithAggregatesInput[]
+    NOT?: GameCinema1DaysScalarWhereWithAggregatesInput | GameCinema1DaysScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameCinema1Days"> | number
+    date?: DateTimeWithAggregatesFilter<"GameCinema1Days"> | Date | string
+    movieId?: IntWithAggregatesFilter<"GameCinema1Days"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"GameCinema1Days"> | Date | string
+  }
+
+  export type GameCinema1TriesWhereInput = {
+    AND?: GameCinema1TriesWhereInput | GameCinema1TriesWhereInput[]
+    OR?: GameCinema1TriesWhereInput[]
+    NOT?: GameCinema1TriesWhereInput | GameCinema1TriesWhereInput[]
+    id?: IntFilter<"GameCinema1Tries"> | number
+    userId?: IntFilter<"GameCinema1Tries"> | number
+    dayId?: IntFilter<"GameCinema1Tries"> | number
+    guess?: StringFilter<"GameCinema1Tries"> | string
+    correct?: BoolFilter<"GameCinema1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema1Tries"> | Date | string
+    day?: XOR<GameCinema1DaysScalarRelationFilter, GameCinema1DaysWhereInput>
+  }
+
+  export type GameCinema1TriesOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    day?: GameCinema1DaysOrderByWithRelationInput
+  }
+
+  export type GameCinema1TriesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GameCinema1TriesWhereInput | GameCinema1TriesWhereInput[]
+    OR?: GameCinema1TriesWhereInput[]
+    NOT?: GameCinema1TriesWhereInput | GameCinema1TriesWhereInput[]
+    userId?: IntFilter<"GameCinema1Tries"> | number
+    dayId?: IntFilter<"GameCinema1Tries"> | number
+    guess?: StringFilter<"GameCinema1Tries"> | string
+    correct?: BoolFilter<"GameCinema1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema1Tries"> | Date | string
+    day?: XOR<GameCinema1DaysScalarRelationFilter, GameCinema1DaysWhereInput>
+  }, "id">
+
+  export type GameCinema1TriesOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameCinema1TriesCountOrderByAggregateInput
+    _avg?: GameCinema1TriesAvgOrderByAggregateInput
+    _max?: GameCinema1TriesMaxOrderByAggregateInput
+    _min?: GameCinema1TriesMinOrderByAggregateInput
+    _sum?: GameCinema1TriesSumOrderByAggregateInput
+  }
+
+  export type GameCinema1TriesScalarWhereWithAggregatesInput = {
+    AND?: GameCinema1TriesScalarWhereWithAggregatesInput | GameCinema1TriesScalarWhereWithAggregatesInput[]
+    OR?: GameCinema1TriesScalarWhereWithAggregatesInput[]
+    NOT?: GameCinema1TriesScalarWhereWithAggregatesInput | GameCinema1TriesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameCinema1Tries"> | number
+    userId?: IntWithAggregatesFilter<"GameCinema1Tries"> | number
+    dayId?: IntWithAggregatesFilter<"GameCinema1Tries"> | number
+    guess?: StringWithAggregatesFilter<"GameCinema1Tries"> | string
+    correct?: BoolWithAggregatesFilter<"GameCinema1Tries"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"GameCinema1Tries"> | Date | string
+  }
+
   export type UserCreateInput = {
     email: string
     password: string
@@ -10650,6 +15070,360 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DataMovieCreateInput = {
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+    gameDays?: GameCinema1DaysCreateNestedManyWithoutMovieInput
+  }
+
+  export type DataMovieUncheckedCreateInput = {
+    id?: number
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+    gameDays?: GameCinema1DaysUncheckedCreateNestedManyWithoutMovieInput
+  }
+
+  export type DataMovieUpdateInput = {
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays?: GameCinema1DaysUpdateManyWithoutMovieNestedInput
+  }
+
+  export type DataMovieUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays?: GameCinema1DaysUncheckedUpdateManyWithoutMovieNestedInput
+  }
+
+  export type DataMovieCreateManyInput = {
+    id?: number
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DataMovieUpdateManyMutationInput = {
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataMovieUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1DaysCreateInput = {
+    date: Date | string
+    createdAt?: Date | string
+    movie: DataMovieCreateNestedOneWithoutGameDaysInput
+    tries?: GameCinema1TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema1DaysUncheckedCreateInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+    tries?: GameCinema1TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema1DaysUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movie?: DataMovieUpdateOneRequiredWithoutGameDaysNestedInput
+    tries?: GameCinema1TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema1DaysUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema1TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema1DaysCreateManyInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1DaysUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1DaysUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesCreateInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+    day: GameCinema1DaysCreateNestedOneWithoutTriesInput
+  }
+
+  export type GameCinema1TriesUncheckedCreateInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1TriesUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: GameCinema1DaysUpdateOneRequiredWithoutTriesNestedInput
+  }
+
+  export type GameCinema1TriesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesCreateManyInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1TriesUpdateManyMutationInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11143,6 +15917,300 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type GameCinema1DaysListRelationFilter = {
+    every?: GameCinema1DaysWhereInput
+    some?: GameCinema1DaysWhereInput
+    none?: GameCinema1DaysWhereInput
+  }
+
+  export type GameCinema1DaysOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DataMovieCountOrderByAggregateInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    title?: SortOrder
+    originalTitle?: SortOrder
+    year?: SortOrder
+    releaseDate?: SortOrder
+    runtime?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrder
+    production?: SortOrder
+    country?: SortOrder
+    language?: SortOrder
+    voteAverage?: SortOrder
+    voteCount?: SortOrder
+    popularity?: SortOrder
+    budget?: SortOrder
+    keywords?: SortOrder
+    posterPath?: SortOrder
+    backdropPath?: SortOrder
+    image1?: SortOrder
+    image2?: SortOrder
+    image3?: SortOrder
+    image4?: SortOrder
+    image5?: SortOrder
+    image6?: SortOrder
+    image7?: SortOrder
+    image8?: SortOrder
+    image9?: SortOrder
+    image10?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataMovieAvgOrderByAggregateInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    year?: SortOrder
+    runtime?: SortOrder
+    voteAverage?: SortOrder
+    voteCount?: SortOrder
+    popularity?: SortOrder
+    budget?: SortOrder
+  }
+
+  export type DataMovieMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    title?: SortOrder
+    originalTitle?: SortOrder
+    year?: SortOrder
+    releaseDate?: SortOrder
+    runtime?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrder
+    production?: SortOrder
+    country?: SortOrder
+    language?: SortOrder
+    voteAverage?: SortOrder
+    voteCount?: SortOrder
+    popularity?: SortOrder
+    budget?: SortOrder
+    keywords?: SortOrder
+    posterPath?: SortOrder
+    backdropPath?: SortOrder
+    image1?: SortOrder
+    image2?: SortOrder
+    image3?: SortOrder
+    image4?: SortOrder
+    image5?: SortOrder
+    image6?: SortOrder
+    image7?: SortOrder
+    image8?: SortOrder
+    image9?: SortOrder
+    image10?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataMovieMinOrderByAggregateInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    title?: SortOrder
+    originalTitle?: SortOrder
+    year?: SortOrder
+    releaseDate?: SortOrder
+    runtime?: SortOrder
+    director?: SortOrder
+    actors?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrder
+    production?: SortOrder
+    country?: SortOrder
+    language?: SortOrder
+    voteAverage?: SortOrder
+    voteCount?: SortOrder
+    popularity?: SortOrder
+    budget?: SortOrder
+    keywords?: SortOrder
+    posterPath?: SortOrder
+    backdropPath?: SortOrder
+    image1?: SortOrder
+    image2?: SortOrder
+    image3?: SortOrder
+    image4?: SortOrder
+    image5?: SortOrder
+    image6?: SortOrder
+    image7?: SortOrder
+    image8?: SortOrder
+    image9?: SortOrder
+    image10?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataMovieSumOrderByAggregateInput = {
+    id?: SortOrder
+    tmdbId?: SortOrder
+    year?: SortOrder
+    runtime?: SortOrder
+    voteAverage?: SortOrder
+    voteCount?: SortOrder
+    popularity?: SortOrder
+    budget?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type DataMovieScalarRelationFilter = {
+    is?: DataMovieWhereInput
+    isNot?: DataMovieWhereInput
+  }
+
+  export type GameCinema1TriesListRelationFilter = {
+    every?: GameCinema1TriesWhereInput
+    some?: GameCinema1TriesWhereInput
+    none?: GameCinema1TriesWhereInput
+  }
+
+  export type GameCinema1TriesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameCinema1DaysCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1DaysAvgOrderByAggregateInput = {
+    id?: SortOrder
+    movieId?: SortOrder
+  }
+
+  export type GameCinema1DaysMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1DaysMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1DaysSumOrderByAggregateInput = {
+    id?: SortOrder
+    movieId?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type GameCinema1DaysScalarRelationFilter = {
+    is?: GameCinema1DaysWhereInput
+    isNot?: GameCinema1DaysWhereInput
+  }
+
+  export type GameCinema1TriesCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1TriesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type GameCinema1TriesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1TriesMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema1TriesSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type FriendCreateNestedManyWithoutUserInput = {
     create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
@@ -11549,6 +16617,138 @@ export namespace Prisma {
     deleteMany?: GameScalarWhereInput | GameScalarWhereInput[]
   }
 
+  export type GameCinema1DaysCreateNestedManyWithoutMovieInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
+    createMany?: GameCinema1DaysCreateManyMovieInputEnvelope
+    connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+  }
+
+  export type GameCinema1DaysUncheckedCreateNestedManyWithoutMovieInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
+    createMany?: GameCinema1DaysCreateManyMovieInputEnvelope
+    connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type GameCinema1DaysUpdateManyWithoutMovieNestedInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
+    upsert?: GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput | GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput[]
+    createMany?: GameCinema1DaysCreateManyMovieInputEnvelope
+    set?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    disconnect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    delete?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    update?: GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput | GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput[]
+    updateMany?: GameCinema1DaysUpdateManyWithWhereWithoutMovieInput | GameCinema1DaysUpdateManyWithWhereWithoutMovieInput[]
+    deleteMany?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
+  }
+
+  export type GameCinema1DaysUncheckedUpdateManyWithoutMovieNestedInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
+    upsert?: GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput | GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput[]
+    createMany?: GameCinema1DaysCreateManyMovieInputEnvelope
+    set?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    disconnect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    delete?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+    update?: GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput | GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput[]
+    updateMany?: GameCinema1DaysUpdateManyWithWhereWithoutMovieInput | GameCinema1DaysUpdateManyWithWhereWithoutMovieInput[]
+    deleteMany?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
+  }
+
+  export type DataMovieCreateNestedOneWithoutGameDaysInput = {
+    create?: XOR<DataMovieCreateWithoutGameDaysInput, DataMovieUncheckedCreateWithoutGameDaysInput>
+    connectOrCreate?: DataMovieCreateOrConnectWithoutGameDaysInput
+    connect?: DataMovieWhereUniqueInput
+  }
+
+  export type GameCinema1TriesCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput> | GameCinema1TriesCreateWithoutDayInput[] | GameCinema1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema1TriesCreateOrConnectWithoutDayInput | GameCinema1TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameCinema1TriesCreateManyDayInputEnvelope
+    connect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+  }
+
+  export type GameCinema1TriesUncheckedCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput> | GameCinema1TriesCreateWithoutDayInput[] | GameCinema1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema1TriesCreateOrConnectWithoutDayInput | GameCinema1TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameCinema1TriesCreateManyDayInputEnvelope
+    connect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+  }
+
+  export type DataMovieUpdateOneRequiredWithoutGameDaysNestedInput = {
+    create?: XOR<DataMovieCreateWithoutGameDaysInput, DataMovieUncheckedCreateWithoutGameDaysInput>
+    connectOrCreate?: DataMovieCreateOrConnectWithoutGameDaysInput
+    upsert?: DataMovieUpsertWithoutGameDaysInput
+    connect?: DataMovieWhereUniqueInput
+    update?: XOR<XOR<DataMovieUpdateToOneWithWhereWithoutGameDaysInput, DataMovieUpdateWithoutGameDaysInput>, DataMovieUncheckedUpdateWithoutGameDaysInput>
+  }
+
+  export type GameCinema1TriesUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput> | GameCinema1TriesCreateWithoutDayInput[] | GameCinema1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema1TriesCreateOrConnectWithoutDayInput | GameCinema1TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput | GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameCinema1TriesCreateManyDayInputEnvelope
+    set?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    disconnect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    delete?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    connect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    update?: GameCinema1TriesUpdateWithWhereUniqueWithoutDayInput | GameCinema1TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameCinema1TriesUpdateManyWithWhereWithoutDayInput | GameCinema1TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameCinema1TriesScalarWhereInput | GameCinema1TriesScalarWhereInput[]
+  }
+
+  export type GameCinema1TriesUncheckedUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput> | GameCinema1TriesCreateWithoutDayInput[] | GameCinema1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema1TriesCreateOrConnectWithoutDayInput | GameCinema1TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput | GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameCinema1TriesCreateManyDayInputEnvelope
+    set?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    disconnect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    delete?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    connect?: GameCinema1TriesWhereUniqueInput | GameCinema1TriesWhereUniqueInput[]
+    update?: GameCinema1TriesUpdateWithWhereUniqueWithoutDayInput | GameCinema1TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameCinema1TriesUpdateManyWithWhereWithoutDayInput | GameCinema1TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameCinema1TriesScalarWhereInput | GameCinema1TriesScalarWhereInput[]
+  }
+
+  export type GameCinema1DaysCreateNestedOneWithoutTriesInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutTriesInput, GameCinema1DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutTriesInput
+    connect?: GameCinema1DaysWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type GameCinema1DaysUpdateOneRequiredWithoutTriesNestedInput = {
+    create?: XOR<GameCinema1DaysCreateWithoutTriesInput, GameCinema1DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutTriesInput
+    upsert?: GameCinema1DaysUpsertWithoutTriesInput
+    connect?: GameCinema1DaysWhereUniqueInput
+    update?: XOR<XOR<GameCinema1DaysUpdateToOneWithWhereWithoutTriesInput, GameCinema1DaysUpdateWithoutTriesInput>, GameCinema1DaysUncheckedUpdateWithoutTriesInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11708,6 +16908,62 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FriendCreateWithoutUserInput = {
@@ -12513,6 +17769,304 @@ export namespace Prisma {
     gameCategoryId?: IntFilter<"Game"> | number
   }
 
+  export type GameCinema1DaysCreateWithoutMovieInput = {
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameCinema1TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema1DaysUncheckedCreateWithoutMovieInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameCinema1TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema1DaysCreateOrConnectWithoutMovieInput = {
+    where: GameCinema1DaysWhereUniqueInput
+    create: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput>
+  }
+
+  export type GameCinema1DaysCreateManyMovieInputEnvelope = {
+    data: GameCinema1DaysCreateManyMovieInput | GameCinema1DaysCreateManyMovieInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput = {
+    where: GameCinema1DaysWhereUniqueInput
+    update: XOR<GameCinema1DaysUpdateWithoutMovieInput, GameCinema1DaysUncheckedUpdateWithoutMovieInput>
+    create: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput>
+  }
+
+  export type GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput = {
+    where: GameCinema1DaysWhereUniqueInput
+    data: XOR<GameCinema1DaysUpdateWithoutMovieInput, GameCinema1DaysUncheckedUpdateWithoutMovieInput>
+  }
+
+  export type GameCinema1DaysUpdateManyWithWhereWithoutMovieInput = {
+    where: GameCinema1DaysScalarWhereInput
+    data: XOR<GameCinema1DaysUpdateManyMutationInput, GameCinema1DaysUncheckedUpdateManyWithoutMovieInput>
+  }
+
+  export type GameCinema1DaysScalarWhereInput = {
+    AND?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
+    OR?: GameCinema1DaysScalarWhereInput[]
+    NOT?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
+    id?: IntFilter<"GameCinema1Days"> | number
+    date?: DateTimeFilter<"GameCinema1Days"> | Date | string
+    movieId?: IntFilter<"GameCinema1Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema1Days"> | Date | string
+  }
+
+  export type DataMovieCreateWithoutGameDaysInput = {
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DataMovieUncheckedCreateWithoutGameDaysInput = {
+    id?: number
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DataMovieCreateOrConnectWithoutGameDaysInput = {
+    where: DataMovieWhereUniqueInput
+    create: XOR<DataMovieCreateWithoutGameDaysInput, DataMovieUncheckedCreateWithoutGameDaysInput>
+  }
+
+  export type GameCinema1TriesCreateWithoutDayInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1TriesUncheckedCreateWithoutDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1TriesCreateOrConnectWithoutDayInput = {
+    where: GameCinema1TriesWhereUniqueInput
+    create: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameCinema1TriesCreateManyDayInputEnvelope = {
+    data: GameCinema1TriesCreateManyDayInput | GameCinema1TriesCreateManyDayInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DataMovieUpsertWithoutGameDaysInput = {
+    update: XOR<DataMovieUpdateWithoutGameDaysInput, DataMovieUncheckedUpdateWithoutGameDaysInput>
+    create: XOR<DataMovieCreateWithoutGameDaysInput, DataMovieUncheckedCreateWithoutGameDaysInput>
+    where?: DataMovieWhereInput
+  }
+
+  export type DataMovieUpdateToOneWithWhereWithoutGameDaysInput = {
+    where?: DataMovieWhereInput
+    data: XOR<DataMovieUpdateWithoutGameDaysInput, DataMovieUncheckedUpdateWithoutGameDaysInput>
+  }
+
+  export type DataMovieUpdateWithoutGameDaysInput = {
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataMovieUncheckedUpdateWithoutGameDaysInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput = {
+    where: GameCinema1TriesWhereUniqueInput
+    update: XOR<GameCinema1TriesUpdateWithoutDayInput, GameCinema1TriesUncheckedUpdateWithoutDayInput>
+    create: XOR<GameCinema1TriesCreateWithoutDayInput, GameCinema1TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameCinema1TriesUpdateWithWhereUniqueWithoutDayInput = {
+    where: GameCinema1TriesWhereUniqueInput
+    data: XOR<GameCinema1TriesUpdateWithoutDayInput, GameCinema1TriesUncheckedUpdateWithoutDayInput>
+  }
+
+  export type GameCinema1TriesUpdateManyWithWhereWithoutDayInput = {
+    where: GameCinema1TriesScalarWhereInput
+    data: XOR<GameCinema1TriesUpdateManyMutationInput, GameCinema1TriesUncheckedUpdateManyWithoutDayInput>
+  }
+
+  export type GameCinema1TriesScalarWhereInput = {
+    AND?: GameCinema1TriesScalarWhereInput | GameCinema1TriesScalarWhereInput[]
+    OR?: GameCinema1TriesScalarWhereInput[]
+    NOT?: GameCinema1TriesScalarWhereInput | GameCinema1TriesScalarWhereInput[]
+    id?: IntFilter<"GameCinema1Tries"> | number
+    userId?: IntFilter<"GameCinema1Tries"> | number
+    dayId?: IntFilter<"GameCinema1Tries"> | number
+    guess?: StringFilter<"GameCinema1Tries"> | string
+    correct?: BoolFilter<"GameCinema1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema1Tries"> | Date | string
+  }
+
+  export type GameCinema1DaysCreateWithoutTriesInput = {
+    date: Date | string
+    createdAt?: Date | string
+    movie: DataMovieCreateNestedOneWithoutGameDaysInput
+  }
+
+  export type GameCinema1DaysUncheckedCreateWithoutTriesInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1DaysCreateOrConnectWithoutTriesInput = {
+    where: GameCinema1DaysWhereUniqueInput
+    create: XOR<GameCinema1DaysCreateWithoutTriesInput, GameCinema1DaysUncheckedCreateWithoutTriesInput>
+  }
+
+  export type GameCinema1DaysUpsertWithoutTriesInput = {
+    update: XOR<GameCinema1DaysUpdateWithoutTriesInput, GameCinema1DaysUncheckedUpdateWithoutTriesInput>
+    create: XOR<GameCinema1DaysCreateWithoutTriesInput, GameCinema1DaysUncheckedCreateWithoutTriesInput>
+    where?: GameCinema1DaysWhereInput
+  }
+
+  export type GameCinema1DaysUpdateToOneWithWhereWithoutTriesInput = {
+    where?: GameCinema1DaysWhereInput
+    data: XOR<GameCinema1DaysUpdateWithoutTriesInput, GameCinema1DaysUncheckedUpdateWithoutTriesInput>
+  }
+
+  export type GameCinema1DaysUpdateWithoutTriesInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movie?: DataMovieUpdateOneRequiredWithoutGameDaysNestedInput
+  }
+
+  export type GameCinema1DaysUncheckedUpdateWithoutTriesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FriendCreateManyUserInput = {
     id?: number
     friendId: number
@@ -12711,6 +18265,62 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GameCinema1DaysCreateManyMovieInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1DaysUpdateWithoutMovieInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema1TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema1DaysUncheckedUpdateWithoutMovieInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema1TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema1DaysUncheckedUpdateManyWithoutMovieInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesCreateManyDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema1TriesUpdateWithoutDayInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesUncheckedUpdateWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema1TriesUncheckedUpdateManyWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -12,6 +12,13 @@ import { UsersController } from "./users/users.controller";
 import { UsersService } from "./users/users.service";
 import { LeaderboardService } from "./leaderboard/leaderboard.service";
 import { LeaderboardController } from "./leaderboard/leaderboard.controller";
+import { APP_GUARD } from "@nestjs/core";
+import { RolesGuard } from "./auth/roles.guard";
+import { AdminGameCinema1Controller } from "./admin/admin-game-cinema1.controller";
+import { GameCinema1Controller } from "./game-cinema/game-cinema-1.controller";
+import { AdminGameCinema1Service } from "./admin/admin-game-cinema1.service";
+import { GameCinema1Service } from "./game-cinema/game-cinema-1.service";
+import { JwtAuthGuard } from "./auth/auth.guard";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -62,6 +69,8 @@ console.log("isDocker", isDocker);
         FriendsController,
         UsersController,
         LeaderboardController,
+        AdminGameCinema1Controller,
+        GameCinema1Controller,
     ],
     providers: [
         AuthService,
@@ -71,6 +80,17 @@ console.log("isDocker", isDocker);
         CacheService,
         UsersService,
         LeaderboardService,
+        AdminGameCinema1Service,
+        GameCinema1Service,
+
+        {
+            provide: APP_GUARD,
+            useClass: JwtAuthGuard, // ✅ Vérifie le JWT avant d'accéder aux routes
+        },
+        {
+            provide: APP_GUARD,
+            useClass: RolesGuard, // ✅ Active la gestion des rôles sur les routes avec @Roles()
+        },
     ],
     exports: [RpcExceptionHandlerService],
 })

@@ -15,6 +15,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/////////////// USER MODELS ///////////////
+
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
@@ -70,6 +72,10 @@ model UserEvent {
   user User @relation(fields: [userId], references: [id])
 }
 
+/////////////////////////////////////////////
+
+/////////////// GAME MODELS ///////////////
+
 model GameResult {
   id        Int       @id @default(autoincrement())
   userId    Int
@@ -109,3 +115,77 @@ model GameCategory {
 
   games Game[]
 }
+
+/////////////////////////////////////////////
+
+/////////////// DATA MODELS ///////////////
+
+model DataMovie {
+  id            Int      @id @default(autoincrement())
+  tmdbId        Int      @unique // ID du film sur TMDB
+  title         String
+  originalTitle String
+  year          Int
+  releaseDate   DateTime
+  runtime       Int? // Durée du film en minutes
+  director      String? // Réalisateur
+  actors        String? // Acteurs principaux séparés par des virgules
+  genres        String // Liste des genres (ex: "Action, Aventure, Sci-Fi")
+  synopsis      String? // Résumé du film
+  production    String? // Studios de production séparés par des virgules
+  country       String? // Pays de production
+  language      String? // Langue principale du film
+  voteAverage   Float?
+  voteCount     Int?
+  popularity    Float?
+  budget        Int? // Budget du film
+  keywords      String? // Mots-clés du film, séparés par des virgules
+  posterPath    String? // URL du poster TMDB
+  backdropPath  String? // URL de l'image de fond TMDB
+
+  // ✅ Liste des images du film (pour les jeux basés sur les images)
+  image1  String?
+  image2  String?
+  image3  String?
+  image4  String?
+  image5  String?
+  image6  String?
+  image7  String?
+  image8  String?
+  image9  String?
+  image10 String?
+
+  createdAt DateTime @default(now())
+
+  // Relation avec GameCinema1Days (films sélectionnés pour un jour de jeu)
+  gameDays GameCinema1Days[]
+}
+
+/////////////////////////////////////////////
+
+/////////////// GAME CINEMA 1 ///////////////
+
+model GameCinema1Days {
+  id        Int       @id @default(autoincrement())
+  date      DateTime  @unique // Un jour ne peut avoir qu'un seul film
+  movieId   Int // 
+  movie     DataMovie @relation(fields: [movieId], references: [id])
+  createdAt DateTime  @default(now())
+
+  // Relation avec les essais des joueurs
+  tries GameCinema1Tries[]
+}
+
+model GameCinema1Tries {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  dayId     Int
+  guess     String
+  correct   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relation avec le jour du jeu
+  day GameCinema1Days @relation(fields: [dayId], references: [id])
+}
+
+/////////////////////////////////////////////

@@ -183,6 +183,57 @@ exports.Prisma.GameCategoryScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.DataMovieScalarFieldEnum = {
+  id: 'id',
+  tmdbId: 'tmdbId',
+  title: 'title',
+  originalTitle: 'originalTitle',
+  year: 'year',
+  releaseDate: 'releaseDate',
+  runtime: 'runtime',
+  director: 'director',
+  actors: 'actors',
+  genres: 'genres',
+  synopsis: 'synopsis',
+  production: 'production',
+  country: 'country',
+  language: 'language',
+  voteAverage: 'voteAverage',
+  voteCount: 'voteCount',
+  popularity: 'popularity',
+  budget: 'budget',
+  keywords: 'keywords',
+  posterPath: 'posterPath',
+  backdropPath: 'backdropPath',
+  image1: 'image1',
+  image2: 'image2',
+  image3: 'image3',
+  image4: 'image4',
+  image5: 'image5',
+  image6: 'image6',
+  image7: 'image7',
+  image8: 'image8',
+  image9: 'image9',
+  image10: 'image10',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GameCinema1DaysScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  movieId: 'movieId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GameCinema1TriesScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dayId: 'dayId',
+  guess: 'guess',
+  correct: 'correct',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -206,7 +257,10 @@ exports.Prisma.ModelName = {
   UserEvent: 'UserEvent',
   GameResult: 'GameResult',
   Game: 'Game',
-  GameCategory: 'GameCategory'
+  GameCategory: 'GameCategory',
+  DataMovie: 'DataMovie',
+  GameCinema1Days: 'GameCinema1Days',
+  GameCinema1Tries: 'GameCinema1Tries'
 };
 
 /**

@@ -15,6 +15,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/////////////// USER MODELS ///////////////
+
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
@@ -22,27 +24,169 @@ model User {
   role      String    @default("user")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  deletedAt DateTime? // ✅ Soft delete
 
-  // Relation avec les amis
-  friends Friend[] @relation("UserFriends")
-
-  // Relation avec les demandes d'amis
-  friend Friend[] @relation("FriendUser")
+  // Relations
+  friends     Friend[]     @relation("UserFriends")
+  friend      Friend[]     @relation("FriendUser")
+  userStats   UserStats?
+  userEvents  UserEvent[]
+  gameResults GameResult[]
 }
 
 model Friend {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   userId    Int
   friendId  Int
-  status    String   @default("pending") // pending | accepted | rejected
-  createdAt DateTime @default(now())
+  status    String    @default("pending") // "pending", "accepted", "rejected"
+  createdAt DateTime  @default(now())
+  deletedAt DateTime? // ✅ Soft delete
 
-  // Relation avec l'utilisateur
-  user User @relation("UserFriends", fields: [userId], references: [id])
-
-  // Relation avec l'ami
+  // Relations
+  user   User @relation("UserFriends", fields: [userId], references: [id])
   friend User @relation("FriendUser", fields: [friendId], references: [id])
 
-  @@unique([userId, friendId]) // Evite les doublons
+  @@unique([userId, friendId]) // ✅ Évite les doublons
 }
+
+model UserStats {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @unique
+  xp           Int       @default(0)
+  level        Int       @default(1)
+  streak       Int       @default(0)
+  lastPlayedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model UserEvent {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  type      String // "level_up", "streak_bonus", "game_completed"
+  details   String? // Informations additionnelles
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+/////////////////////////////////////////////
+
+/////////////// GAME MODELS ///////////////
+
+model GameResult {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  gameId    Int
+  score     Int
+  xpGained  Int       @default(0) // XP gagné lors de cette partie
+  status    String // "passed" ou "failed"
+  date      DateTime  @default(now())
+  deletedAt DateTime? // ✅ Soft delete
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+  game Game @relation(fields: [gameId], references: [id])
+
+  @@index([score]) // ✅ Index pour accélérer les classements
+  @@index([date]) // ✅ Index pour accélérer les filtres par période
+}
+
+model Game {
+  id             Int          @id @default(autoincrement())
+  name           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime? // ✅ Soft delete
+  gameCategoryId Int
+  gameCategory   GameCategory @relation(fields: [gameCategoryId], references: [id])
+
+  results GameResult[]
+}
+
+model GameCategory {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // ✅ Soft delete
+
+  games Game[]
+}
+
+/////////////////////////////////////////////
+
+/////////////// DATA MODELS ///////////////
+
+model DataMovie {
+  id            Int      @id @default(autoincrement())
+  tmdbId        Int      @unique // ID du film sur TMDB
+  title         String
+  originalTitle String
+  year          Int
+  releaseDate   DateTime
+  runtime       Int? // Durée du film en minutes
+  director      String? // Réalisateur
+  actors        String? // Acteurs principaux séparés par des virgules
+  genres        String // Liste des genres (ex: "Action, Aventure, Sci-Fi")
+  synopsis      String? // Résumé du film
+  production    String? // Studios de production séparés par des virgules
+  country       String? // Pays de production
+  language      String? // Langue principale du film
+  voteAverage   Float?
+  voteCount     Int?
+  popularity    Float?
+  budget        Int? // Budget du film
+  keywords      String? // Mots-clés du film, séparés par des virgules
+  posterPath    String? // URL du poster TMDB
+  backdropPath  String? // URL de l'image de fond TMDB
+
+  // ✅ Liste des images du film (pour les jeux basés sur les images)
+  image1  String?
+  image2  String?
+  image3  String?
+  image4  String?
+  image5  String?
+  image6  String?
+  image7  String?
+  image8  String?
+  image9  String?
+  image10 String?
+
+  createdAt DateTime @default(now())
+
+  // Relation avec GameCinema1Days (films sélectionnés pour un jour de jeu)
+  gameDays GameCinema1Days[]
+}
+
+/////////////////////////////////////////////
+
+/////////////// GAME CINEMA 1 ///////////////
+
+model GameCinema1Days {
+  id        Int       @id @default(autoincrement())
+  date      DateTime  @unique // Un jour ne peut avoir qu'un seul film
+  movieId   Int // 
+  movie     DataMovie @relation(fields: [movieId], references: [id])
+  createdAt DateTime  @default(now())
+
+  // Relation avec les essais des joueurs
+  tries GameCinema1Tries[]
+}
+
+model GameCinema1Tries {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  dayId     Int
+  guess     String
+  attempt   Int
+  correct   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relation avec le jour du jeu
+  day GameCinema1Days @relation(fields: [dayId], references: [id])
+}
+
+/////////////////////////////////////////////

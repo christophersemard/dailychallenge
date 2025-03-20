@@ -4,12 +4,14 @@ import { RegisterDto } from "../dto/register.dto";
 import { LoginDto } from "../dto/login.dto";
 import { UserDto } from "../dto/user.dto";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { Public } from "./public.decorator";
 
 @Controller("auth")
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post("register")
+    @Public()
     @ApiOperation({ summary: "Créer un nouvel utilisateur" })
     @ApiResponse({ status: 201, description: "Utilisateur créé avec succès" })
     @ApiResponse({ status: 400, description: "Données invalides" })
@@ -18,6 +20,7 @@ export class AuthController {
     }
 
     @Post("login")
+    @Public()
     @ApiOperation({ summary: "Se connecter" })
     @ApiResponse({ status: 200, description: "Connexion réussie" })
     @ApiResponse({ status: 400, description: "Données invalides" })
