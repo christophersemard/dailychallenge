@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { FriendsController } from "./friends/friends.controllers";
+import { FriendsController } from "./friends/friends.controller";
 import { FriendsService } from "./friends/friends.service";
 
 @Module({

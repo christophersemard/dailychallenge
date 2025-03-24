@@ -41,9 +41,9 @@ describe("UserGameController", () => {
         expect(userGameService.processGameResult).toHaveBeenCalledWith(
             80,
             1,
-            "passed",
             3,
             5,
+            "passed",
             expect.any(Date)
         );
     });
@@ -341,8 +341,11 @@ describe("UserGameService", () => {
             expect(userEventsService.addEvent).toHaveBeenCalledWith(
                 80,
                 "game_completed",
+
                 expect.stringContaining(
-                    "Jeu 1 du 19/03/2025 terminé avec succès en 3 essais (40 points)"
+                    "Jeu 1 du " +
+                        new Date().toLocaleDateString() +
+                        " terminé avec succès en 3 essais (40 points)"
                 )
             );
         });
@@ -436,7 +439,9 @@ describe("UserGameService", () => {
                 80,
                 "game_completed",
                 expect.stringContaining(
-                    "Jeu 1 du 19/03/2025 terminé avec succès en 3 essais (40 points)"
+                    "Jeu 1 du " +
+                        new Date().toLocaleDateString() +
+                        " terminé avec succès en 3 essais (40 points)"
                 )
             );
         });

@@ -1,0 +1,121 @@
+import { Test, TestingModule } from "@nestjs/testing";
+import { FriendsService } from "./friends.service";
+import prisma from "../prisma/prisma.service";
+import { RpcException } from "@nestjs/microservices";
+
+describe("FriendsService", () => {
+    let service: FriendsService;
+
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            providers: [FriendsService],
+        }).compile();
+
+        service = module.get<FriendsService>(FriendsService);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    describe("addFriend", () => {
+        it("should throw if userId or friendId is invalid", async () => {
+            await expect(service.addFriend(1, 1)).rejects.toThrow(RpcException);
+        });
+
+        it("should throw if user or friend does not exist", async () => {
+            jest.spyOn(prisma.user, "findUnique").mockResolvedValueOnce(null);
+            await expect(service.addFriend(1, 2)).rejects.toThrow("Utilisateur introuvable.");
+        });
+
+        it("should throw if friendship already exists", async () => {
+            jest.spyOn(prisma.user, "findUnique").mockResolvedValue({} as any);
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({} as any);
+
+            await expect(service.addFriend(1, 2)).rejects.toThrow("Vous êtes déjà amis");
+        });
+
+        it("should create and return friend request", async () => {
+            jest.spyOn(prisma.user, "findUnique").mockResolvedValue({} as any);
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue(null);
+            jest.spyOn(prisma.friend, "create").mockResolvedValue({ id: 1 } as any);
+
+            const result = await service.addFriend(1, 2);
+            expect(result).toHaveProperty("message");
+            expect(result.friendRequest.id).toBe(1);
+        });
+    });
+
+    describe("removeFriend", () => {
+        it("should throw if no friendship found", async () => {
+            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({ count: 0 });
+
+            await expect(service.removeFriend(1, 2)).rejects.toThrow("Aucune relation d'amitié trouvée.");
+        });
+
+        it("should return success message if deleted", async () => {
+            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({ count: 1 });
+
+            const result = await service.removeFriend(1, 2);
+            expect(result.message).toBe("Ami supprimé avec succès");
+        });
+    });
+
+    describe("respondFriendRequest", () => {
+        it("should throw if no pending request", async () => {
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue(null);
+
+            await expect(service.respondFriendRequest(2, 1, true)).rejects.toThrow("Aucune demande en attente.");
+        });
+
+        it("should update and return accepted request", async () => {
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({ id: 1 } as any);
+            jest.spyOn(prisma.friend, "update").mockResolvedValue({
+                id: 1,
+                status: "accepted",
+            } as any);
+
+            const result = await service.respondFriendRequest(2, 1, true);
+            expect(result.message).toBe("Ami accepté !");
+            expect(result.friendRequest.status).toBe("accepted");
+        });
+    });
+
+    describe("getFriendsList", () => {
+        it("should return formatted friends list", async () => {
+            jest.spyOn(prisma.friend, "findMany").mockResolvedValue([
+                {
+                    userId: 1,
+                    friendId: 2,
+                    status: "accepted",
+                    friend: { id: 2, email: "b@b.com" },
+                    user: { id: 1, email: "a@a.com" },
+                },
+            ] as any);
+
+            const result = await service.getFriendsList(1);
+            expect(result.friends).toHaveLength(1);
+            expect(result.friends[0]).toHaveProperty("id", 2);
+            expect(result.friends[0]).toHaveProperty("email", "b@b.com");
+        });
+    });
+
+    describe("getPendingRequests", () => {
+        it("should return pending requests with requester info", async () => {
+            jest.spyOn(prisma.friend, "findMany").mockResolvedValue([
+                {
+                    id: 1,
+                    userId: 2,
+                    friendId: 1,
+                    status: "pending",
+                    createdAt: new Date(),
+                    user: { email: "a@a.com" },
+                },
+            ] as any);
+
+            const result = await service.getPendingRequests(1);
+            expect(result.requests).toHaveLength(1);
+            expect(result.requests[0].requesterEmail).toBe("a@a.com");
+        });
+    });
+});

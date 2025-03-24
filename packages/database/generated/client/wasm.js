@@ -121,10 +121,45 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
+  pseudo: 'pseudo',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  birthdate: 'birthdate',
+  avatarId: 'avatarId',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.AvatarScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  shapeId: 'shapeId',
+  eyesId: 'eyesId',
+  mouthId: 'mouthId',
+  patternId: 'patternId',
+  colorShapeId: 'colorShapeId',
+  colorEyesId: 'colorEyesId',
+  colorMouthId: 'colorMouthId',
+  colorPatternId: 'colorPatternId'
+};
+
+exports.Prisma.ColorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value',
+  level: 'level',
+  vip: 'vip'
+};
+
+exports.Prisma.AvatarAssetScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  name: 'name',
+  url: 'url',
+  level: 'level',
+  vipOnly: 'vipOnly'
 };
 
 exports.Prisma.FriendScalarFieldEnum = {
@@ -252,6 +287,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Avatar: 'Avatar',
+  Color: 'Color',
+  AvatarAsset: 'AvatarAsset',
   Friend: 'Friend',
   UserStats: 'UserStats',
   UserEvent: 'UserEvent',

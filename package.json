@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:services": "pnpm --parallel --filter=ms-* run start:dev",
-    "stop:services": "taskkill /F /IM node.exe /T"
+    "stop:services": "taskkill /F /IM node.exe /T",
+    "test:all": "pnpm -r --filter ./backend/ms-* test",
+    "test:all2": "pnpm -r --filter ./backend/ms-* --workspace-concurrency=1 test"
   },
   "keywords": [],
   "author": "",

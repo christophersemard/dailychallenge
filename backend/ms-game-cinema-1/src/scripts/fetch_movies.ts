@@ -119,6 +119,9 @@ async function fetchMovies(fullFetch: boolean = false) {
 
         let sqlStatements: string[] = [];
 
+        // inverser l'ordre pour traiter les films les plus récents en premier
+        movies.reverse();
+
         for (const movie of movies) {
             console.log(`📦 Récupération des détails pour ${movie.title}...`);
             const details = await fetchFromTMDB(
@@ -126,13 +129,16 @@ async function fetchMovies(fullFetch: boolean = false) {
             );
 
             const genres = details.genres.map((g: any) => g.name).join(", ");
-            const actors = details.credits.cast
-                .slice(0, 5)
-                .map((a: any) => a.name)
-                .join(", ");
-            const director =
-                details.credits.crew.find((c: any) => c.job === "Director")
-                    ?.name || "Inconnu";
+            const actors = details.credits
+                ? details.credits.cast
+                      .slice(0, 5)
+                      .map((a: any) => a.name)
+                      .join(", ")
+                : "Inconnu";
+            const director = details.credits
+                ? details.credits.crew.find((c: any) => c.job === "Director")
+                      ?.name || "Inconnu"
+                : "Inconnu";
             const production = details.production_companies
                 .map((p: any) => p.name)
                 .join(", ");

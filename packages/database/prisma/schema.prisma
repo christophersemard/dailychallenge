@@ -21,10 +21,18 @@ model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
   password  String
+  pseudo    String    @unique
+  firstName String?
+  lastName  String?
+  birthdate DateTime? // Seulement la date 
+
+  avatar   Avatar? @relation(fields: [avatarId], references: [id])
+  avatarId Int?    @unique
+
   role      String    @default("user")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  deletedAt DateTime? // ✅ Soft delete
+  deletedAt DateTime?
 
   // Relations
   friends     Friend[]     @relation("UserFriends")
@@ -32,6 +40,62 @@ model User {
   userStats   UserStats?
   userEvents  UserEvent[]
   gameResults GameResult[]
+}
+
+model Avatar {
+  id             Int    @id @default(autoincrement())
+  url            String
+  shapeId        Int
+  eyesId         Int
+  mouthId        Int
+  patternId      Int?
+  colorShapeId   Int
+  colorEyesId    Int
+  colorMouthId   Int
+  colorPatternId Int?
+
+  // Relations
+  shape   AvatarAsset  @relation("Shape", fields: [shapeId], references: [id])
+  eyes    AvatarAsset  @relation("Eyes", fields: [eyesId], references: [id])
+  mouth   AvatarAsset  @relation("Mouth", fields: [mouthId], references: [id])
+  pattern AvatarAsset? @relation("Pattern", fields: [patternId], references: [id])
+
+  colorShape   Color  @relation("ColorShape", fields: [colorShapeId], references: [id])
+  colorEyes    Color  @relation("ColorEyes", fields: [colorEyesId], references: [id])
+  colorMouth   Color  @relation("ColorMouth", fields: [colorMouthId], references: [id])
+  colorPattern Color? @relation("ColorPattern", fields: [colorPatternId], references: [id])
+
+  // Relations
+  user User?
+}
+
+model Color {
+  id    Int     @id @default(autoincrement())
+  name  String
+  value String
+  level Int     @default(0) // Niveau requis
+  vip   Boolean @default(false)
+
+  // Relations
+  colorShape   Avatar[] @relation("ColorShape")
+  colorEyes    Avatar[] @relation("ColorEyes")
+  colorMouth   Avatar[] @relation("ColorMouth")
+  colorPattern Avatar[] @relation("ColorPattern")
+}
+
+model AvatarAsset {
+  id      Int     @id @default(autoincrement())
+  type    String // "shape", "eyes", "mouth", "color", "pattern"
+  name    String
+  url     String
+  level   Int     @default(0) // Niveau requis
+  vipOnly Boolean @default(false)
+
+  // Relations
+  shapes   Avatar[] @relation("Shape")
+  eyes     Avatar[] @relation("Eyes")
+  mouths   Avatar[] @relation("Mouth")
+  patterns Avatar[] @relation("Pattern")
 }
 
 model Friend {

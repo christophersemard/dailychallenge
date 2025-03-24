@@ -25,6 +25,7 @@ export class GlobalRpcExceptionFilter implements ExceptionFilter {
     ) {
         let status = 400;
         let message = "Erreur inconnue.";
+        console.log("ICI ON A EU LERREUR");
 
         if (exception instanceof RpcException) {
             // ✅ Si l'exception est une `RpcException`, on récupère son message

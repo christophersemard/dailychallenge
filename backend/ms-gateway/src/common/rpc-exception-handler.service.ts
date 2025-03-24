@@ -16,8 +16,6 @@ export class RpcExceptionHandlerService {
     private readonly logger = new Logger(RpcExceptionHandlerService.name);
 
     handle(error: unknown): never {
-        this.logger.error("🚨 Erreur capturée:", error);
-
         if (typeof error === "object" && error !== null) {
             // ✅ Vérifier si `error` a une propriété `error` contenant `message` et `statusCode`
             const rpcError = (error as { error?: RpcError }).error;

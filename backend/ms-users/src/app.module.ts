@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { AuthController } from "./auth/auth.controller";
 import { AuthService } from "./auth/auth.service";
-import { UsersService } from "./users/users.service";
 import { JwtModule } from "@nestjs/jwt";
 import * as dotenv from "dotenv";
 import * as path from "path";
@@ -13,6 +12,11 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { UserGameService } from "./user-game/user-game.service";
 import { UserGameController } from "./user-game/user-game.controller";
 import { EventCleanupJob } from "./jobs/eventCleanUp.cron";
+import { ProfileController } from "./profile/profile.controller";
+import { ProfileService } from "./profile/profile.service";
+import { AvatarService } from "./avatar/avatar.service";
+import { AvatarController } from "./avatar/avatar.controller";
+import { UsersService } from "./users/users.service";
 
 @Module({
     imports: [
@@ -26,14 +30,22 @@ import { EventCleanupJob } from "./jobs/eventCleanUp.cron";
             signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
         }),
     ],
-    controllers: [AuthController, UsersController, UserGameController],
+    controllers: [
+        AuthController,
+        UsersController,
+        UserGameController,
+        ProfileController,
+        AvatarController,
+    ],
     providers: [
         AuthService,
-        UsersService,
         UserEventsService,
         StreakResetJob,
         EventCleanupJob,
         UserGameService,
+        ProfileService,
+        AvatarService,
+        UsersService,
     ],
 })
 export class AppModule {}

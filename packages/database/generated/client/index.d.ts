@@ -19,6 +19,21 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Avatar
+ * 
+ */
+export type Avatar = $Result.DefaultSelection<Prisma.$AvatarPayload>
+/**
+ * Model Color
+ * 
+ */
+export type Color = $Result.DefaultSelection<Prisma.$ColorPayload>
+/**
+ * Model AvatarAsset
+ * 
+ */
+export type AvatarAsset = $Result.DefaultSelection<Prisma.$AvatarAssetPayload>
+/**
  * Model Friend
  * 
  */
@@ -198,6 +213,36 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.avatar`: Exposes CRUD operations for the **Avatar** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Avatars
+    * const avatars = await prisma.avatar.findMany()
+    * ```
+    */
+  get avatar(): Prisma.AvatarDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.color`: Exposes CRUD operations for the **Color** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Colors
+    * const colors = await prisma.color.findMany()
+    * ```
+    */
+  get color(): Prisma.ColorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.avatarAsset`: Exposes CRUD operations for the **AvatarAsset** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AvatarAssets
+    * const avatarAssets = await prisma.avatarAsset.findMany()
+    * ```
+    */
+  get avatarAsset(): Prisma.AvatarAssetDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.friend`: Exposes CRUD operations for the **Friend** model.
@@ -729,6 +774,9 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Avatar: 'Avatar',
+    Color: 'Color',
+    AvatarAsset: 'AvatarAsset',
     Friend: 'Friend',
     UserStats: 'UserStats',
     UserEvent: 'UserEvent',
@@ -753,7 +801,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries"
+      modelProps: "user" | "avatar" | "color" | "avatarAsset" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -828,6 +876,228 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Avatar: {
+        payload: Prisma.$AvatarPayload<ExtArgs>
+        fields: Prisma.AvatarFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AvatarFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AvatarFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          findFirst: {
+            args: Prisma.AvatarFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AvatarFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          findMany: {
+            args: Prisma.AvatarFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>[]
+          }
+          create: {
+            args: Prisma.AvatarCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          createMany: {
+            args: Prisma.AvatarCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AvatarCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>[]
+          }
+          delete: {
+            args: Prisma.AvatarDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          update: {
+            args: Prisma.AvatarUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          deleteMany: {
+            args: Prisma.AvatarDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AvatarUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AvatarUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>[]
+          }
+          upsert: {
+            args: Prisma.AvatarUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarPayload>
+          }
+          aggregate: {
+            args: Prisma.AvatarAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAvatar>
+          }
+          groupBy: {
+            args: Prisma.AvatarGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AvatarGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AvatarCountArgs<ExtArgs>
+            result: $Utils.Optional<AvatarCountAggregateOutputType> | number
+          }
+        }
+      }
+      Color: {
+        payload: Prisma.$ColorPayload<ExtArgs>
+        fields: Prisma.ColorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ColorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ColorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          findFirst: {
+            args: Prisma.ColorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ColorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          findMany: {
+            args: Prisma.ColorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>[]
+          }
+          create: {
+            args: Prisma.ColorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          createMany: {
+            args: Prisma.ColorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ColorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>[]
+          }
+          delete: {
+            args: Prisma.ColorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          update: {
+            args: Prisma.ColorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          deleteMany: {
+            args: Prisma.ColorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ColorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ColorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>[]
+          }
+          upsert: {
+            args: Prisma.ColorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ColorPayload>
+          }
+          aggregate: {
+            args: Prisma.ColorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateColor>
+          }
+          groupBy: {
+            args: Prisma.ColorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ColorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ColorCountArgs<ExtArgs>
+            result: $Utils.Optional<ColorCountAggregateOutputType> | number
+          }
+        }
+      }
+      AvatarAsset: {
+        payload: Prisma.$AvatarAssetPayload<ExtArgs>
+        fields: Prisma.AvatarAssetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AvatarAssetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AvatarAssetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          findFirst: {
+            args: Prisma.AvatarAssetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AvatarAssetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          findMany: {
+            args: Prisma.AvatarAssetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>[]
+          }
+          create: {
+            args: Prisma.AvatarAssetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          createMany: {
+            args: Prisma.AvatarAssetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AvatarAssetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>[]
+          }
+          delete: {
+            args: Prisma.AvatarAssetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          update: {
+            args: Prisma.AvatarAssetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          deleteMany: {
+            args: Prisma.AvatarAssetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AvatarAssetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AvatarAssetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>[]
+          }
+          upsert: {
+            args: Prisma.AvatarAssetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarAssetPayload>
+          }
+          aggregate: {
+            args: Prisma.AvatarAssetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAvatarAsset>
+          }
+          groupBy: {
+            args: Prisma.AvatarAssetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AvatarAssetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AvatarAssetCountArgs<ExtArgs>
+            result: $Utils.Optional<AvatarAssetCountAggregateOutputType> | number
           }
         }
       }
@@ -1582,6 +1852,9 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    avatar?: AvatarOmit
+    color?: ColorOmit
+    avatarAsset?: AvatarAssetOmit
     friend?: FriendOmit
     userStats?: UserStatsOmit
     userEvent?: UserEventOmit
@@ -1739,6 +2012,122 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ColorCountOutputType
+   */
+
+  export type ColorCountOutputType = {
+    colorShape: number
+    colorEyes: number
+    colorMouth: number
+    colorPattern: number
+  }
+
+  export type ColorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    colorShape?: boolean | ColorCountOutputTypeCountColorShapeArgs
+    colorEyes?: boolean | ColorCountOutputTypeCountColorEyesArgs
+    colorMouth?: boolean | ColorCountOutputTypeCountColorMouthArgs
+    colorPattern?: boolean | ColorCountOutputTypeCountColorPatternArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ColorCountOutputType
+     */
+    select?: ColorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeCountColorShapeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeCountColorEyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeCountColorMouthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * ColorCountOutputType without action
+   */
+  export type ColorCountOutputTypeCountColorPatternArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+
+  /**
+   * Count Type AvatarAssetCountOutputType
+   */
+
+  export type AvatarAssetCountOutputType = {
+    shapes: number
+    eyes: number
+    mouths: number
+    patterns: number
+  }
+
+  export type AvatarAssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    shapes?: boolean | AvatarAssetCountOutputTypeCountShapesArgs
+    eyes?: boolean | AvatarAssetCountOutputTypeCountEyesArgs
+    mouths?: boolean | AvatarAssetCountOutputTypeCountMouthsArgs
+    patterns?: boolean | AvatarAssetCountOutputTypeCountPatternsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAssetCountOutputType
+     */
+    select?: AvatarAssetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeCountShapesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeCountEyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeCountMouthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeCountPatternsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+  }
+
+
+  /**
    * Count Type GameCountOutputType
    */
 
@@ -1880,16 +2269,23 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     id: number | null
+    avatarId: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
+    avatarId: number | null
   }
 
   export type UserMinAggregateOutputType = {
     id: number | null
     email: string | null
     password: string | null
+    pseudo: string | null
+    firstName: string | null
+    lastName: string | null
+    birthdate: Date | null
+    avatarId: number | null
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1900,6 +2296,11 @@ export namespace Prisma {
     id: number | null
     email: string | null
     password: string | null
+    pseudo: string | null
+    firstName: string | null
+    lastName: string | null
+    birthdate: Date | null
+    avatarId: number | null
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1910,6 +2311,11 @@ export namespace Prisma {
     id: number
     email: number
     password: number
+    pseudo: number
+    firstName: number
+    lastName: number
+    birthdate: number
+    avatarId: number
     role: number
     createdAt: number
     updatedAt: number
@@ -1920,16 +2326,23 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     id?: true
+    avatarId?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
+    avatarId?: true
   }
 
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
     password?: true
+    pseudo?: true
+    firstName?: true
+    lastName?: true
+    birthdate?: true
+    avatarId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -1940,6 +2353,11 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
+    pseudo?: true
+    firstName?: true
+    lastName?: true
+    birthdate?: true
+    avatarId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -1950,6 +2368,11 @@ export namespace Prisma {
     id?: true
     email?: true
     password?: true
+    pseudo?: true
+    firstName?: true
+    lastName?: true
+    birthdate?: true
+    avatarId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -2047,6 +2470,11 @@ export namespace Prisma {
     id: number
     email: string
     password: string
+    pseudo: string
+    firstName: string | null
+    lastName: string | null
+    birthdate: Date | null
+    avatarId: number | null
     role: string
     createdAt: Date
     updatedAt: Date
@@ -2076,10 +2504,16 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    pseudo?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    birthdate?: boolean
+    avatarId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    avatar?: boolean | User$avatarArgs<ExtArgs>
     friends?: boolean | User$friendsArgs<ExtArgs>
     friend?: boolean | User$friendArgs<ExtArgs>
     userStats?: boolean | User$userStatsArgs<ExtArgs>
@@ -2092,34 +2526,52 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     password?: boolean
+    pseudo?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    birthdate?: boolean
+    avatarId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
     password?: boolean
+    pseudo?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    birthdate?: boolean
+    avatarId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
     password?: boolean
+    pseudo?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    birthdate?: boolean
+    avatarId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "pseudo" | "firstName" | "lastName" | "birthdate" | "avatarId" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatar?: boolean | User$avatarArgs<ExtArgs>
     friends?: boolean | User$friendsArgs<ExtArgs>
     friend?: boolean | User$friendArgs<ExtArgs>
     userStats?: boolean | User$userStatsArgs<ExtArgs>
@@ -2127,12 +2579,17 @@ export namespace Prisma {
     gameResults?: boolean | User$gameResultsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatar?: boolean | User$avatarArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatar?: boolean | User$avatarArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      avatar: Prisma.$AvatarPayload<ExtArgs> | null
       friends: Prisma.$FriendPayload<ExtArgs>[]
       friend: Prisma.$FriendPayload<ExtArgs>[]
       userStats: Prisma.$UserStatsPayload<ExtArgs> | null
@@ -2143,6 +2600,11 @@ export namespace Prisma {
       id: number
       email: string
       password: string
+      pseudo: string
+      firstName: string | null
+      lastName: string | null
+      birthdate: Date | null
+      avatarId: number | null
       role: string
       createdAt: Date
       updatedAt: Date
@@ -2541,6 +3003,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     friend<T extends User$friendArgs<ExtArgs> = {}>(args?: Subset<T, User$friendArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     userStats<T extends User$userStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$userStatsArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
@@ -2578,6 +3041,11 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly pseudo: FieldRef<"User", 'String'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
+    readonly birthdate: FieldRef<"User", 'DateTime'>
+    readonly avatarId: FieldRef<"User", 'Int'>
     readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -2831,6 +3299,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2901,6 +3373,10 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2967,6 +3443,25 @@ export namespace Prisma {
      * Limit how many Users to delete.
      */
     limit?: number
+  }
+
+  /**
+   * User.avatar
+   */
+  export type User$avatarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
   }
 
   /**
@@ -3100,6 +3595,3709 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Avatar
+   */
+
+  export type AggregateAvatar = {
+    _count: AvatarCountAggregateOutputType | null
+    _avg: AvatarAvgAggregateOutputType | null
+    _sum: AvatarSumAggregateOutputType | null
+    _min: AvatarMinAggregateOutputType | null
+    _max: AvatarMaxAggregateOutputType | null
+  }
+
+  export type AvatarAvgAggregateOutputType = {
+    id: number | null
+    shapeId: number | null
+    eyesId: number | null
+    mouthId: number | null
+    patternId: number | null
+    colorShapeId: number | null
+    colorEyesId: number | null
+    colorMouthId: number | null
+    colorPatternId: number | null
+  }
+
+  export type AvatarSumAggregateOutputType = {
+    id: number | null
+    shapeId: number | null
+    eyesId: number | null
+    mouthId: number | null
+    patternId: number | null
+    colorShapeId: number | null
+    colorEyesId: number | null
+    colorMouthId: number | null
+    colorPatternId: number | null
+  }
+
+  export type AvatarMinAggregateOutputType = {
+    id: number | null
+    url: string | null
+    shapeId: number | null
+    eyesId: number | null
+    mouthId: number | null
+    patternId: number | null
+    colorShapeId: number | null
+    colorEyesId: number | null
+    colorMouthId: number | null
+    colorPatternId: number | null
+  }
+
+  export type AvatarMaxAggregateOutputType = {
+    id: number | null
+    url: string | null
+    shapeId: number | null
+    eyesId: number | null
+    mouthId: number | null
+    patternId: number | null
+    colorShapeId: number | null
+    colorEyesId: number | null
+    colorMouthId: number | null
+    colorPatternId: number | null
+  }
+
+  export type AvatarCountAggregateOutputType = {
+    id: number
+    url: number
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId: number
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId: number
+    _all: number
+  }
+
+
+  export type AvatarAvgAggregateInputType = {
+    id?: true
+    shapeId?: true
+    eyesId?: true
+    mouthId?: true
+    patternId?: true
+    colorShapeId?: true
+    colorEyesId?: true
+    colorMouthId?: true
+    colorPatternId?: true
+  }
+
+  export type AvatarSumAggregateInputType = {
+    id?: true
+    shapeId?: true
+    eyesId?: true
+    mouthId?: true
+    patternId?: true
+    colorShapeId?: true
+    colorEyesId?: true
+    colorMouthId?: true
+    colorPatternId?: true
+  }
+
+  export type AvatarMinAggregateInputType = {
+    id?: true
+    url?: true
+    shapeId?: true
+    eyesId?: true
+    mouthId?: true
+    patternId?: true
+    colorShapeId?: true
+    colorEyesId?: true
+    colorMouthId?: true
+    colorPatternId?: true
+  }
+
+  export type AvatarMaxAggregateInputType = {
+    id?: true
+    url?: true
+    shapeId?: true
+    eyesId?: true
+    mouthId?: true
+    patternId?: true
+    colorShapeId?: true
+    colorEyesId?: true
+    colorMouthId?: true
+    colorPatternId?: true
+  }
+
+  export type AvatarCountAggregateInputType = {
+    id?: true
+    url?: true
+    shapeId?: true
+    eyesId?: true
+    mouthId?: true
+    patternId?: true
+    colorShapeId?: true
+    colorEyesId?: true
+    colorMouthId?: true
+    colorPatternId?: true
+    _all?: true
+  }
+
+  export type AvatarAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Avatar to aggregate.
+     */
+    where?: AvatarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Avatars to fetch.
+     */
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AvatarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Avatars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Avatars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Avatars
+    **/
+    _count?: true | AvatarCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AvatarAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AvatarSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AvatarMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AvatarMaxAggregateInputType
+  }
+
+  export type GetAvatarAggregateType<T extends AvatarAggregateArgs> = {
+        [P in keyof T & keyof AggregateAvatar]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAvatar[P]>
+      : GetScalarType<T[P], AggregateAvatar[P]>
+  }
+
+
+
+
+  export type AvatarGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithAggregationInput | AvatarOrderByWithAggregationInput[]
+    by: AvatarScalarFieldEnum[] | AvatarScalarFieldEnum
+    having?: AvatarScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AvatarCountAggregateInputType | true
+    _avg?: AvatarAvgAggregateInputType
+    _sum?: AvatarSumAggregateInputType
+    _min?: AvatarMinAggregateInputType
+    _max?: AvatarMaxAggregateInputType
+  }
+
+  export type AvatarGroupByOutputType = {
+    id: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId: number | null
+    _count: AvatarCountAggregateOutputType | null
+    _avg: AvatarAvgAggregateOutputType | null
+    _sum: AvatarSumAggregateOutputType | null
+    _min: AvatarMinAggregateOutputType | null
+    _max: AvatarMaxAggregateOutputType | null
+  }
+
+  type GetAvatarGroupByPayload<T extends AvatarGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AvatarGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AvatarGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AvatarGroupByOutputType[P]>
+            : GetScalarType<T[P], AvatarGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AvatarSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    shapeId?: boolean
+    eyesId?: boolean
+    mouthId?: boolean
+    patternId?: boolean
+    colorShapeId?: boolean
+    colorEyesId?: boolean
+    colorMouthId?: boolean
+    colorPatternId?: boolean
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+    user?: boolean | Avatar$userArgs<ExtArgs>
+  }, ExtArgs["result"]["avatar"]>
+
+  export type AvatarSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    shapeId?: boolean
+    eyesId?: boolean
+    mouthId?: boolean
+    patternId?: boolean
+    colorShapeId?: boolean
+    colorEyesId?: boolean
+    colorMouthId?: boolean
+    colorPatternId?: boolean
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+  }, ExtArgs["result"]["avatar"]>
+
+  export type AvatarSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    shapeId?: boolean
+    eyesId?: boolean
+    mouthId?: boolean
+    patternId?: boolean
+    colorShapeId?: boolean
+    colorEyesId?: boolean
+    colorMouthId?: boolean
+    colorPatternId?: boolean
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+  }, ExtArgs["result"]["avatar"]>
+
+  export type AvatarSelectScalar = {
+    id?: boolean
+    url?: boolean
+    shapeId?: boolean
+    eyesId?: boolean
+    mouthId?: boolean
+    patternId?: boolean
+    colorShapeId?: boolean
+    colorEyesId?: boolean
+    colorMouthId?: boolean
+    colorPatternId?: boolean
+  }
+
+  export type AvatarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "shapeId" | "eyesId" | "mouthId" | "patternId" | "colorShapeId" | "colorEyesId" | "colorMouthId" | "colorPatternId", ExtArgs["result"]["avatar"]>
+  export type AvatarInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+    user?: boolean | Avatar$userArgs<ExtArgs>
+  }
+  export type AvatarIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+  }
+  export type AvatarIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
+    pattern?: boolean | Avatar$patternArgs<ExtArgs>
+    colorShape?: boolean | ColorDefaultArgs<ExtArgs>
+    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
+    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
+    colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
+  }
+
+  export type $AvatarPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Avatar"
+    objects: {
+      shape: Prisma.$AvatarAssetPayload<ExtArgs>
+      eyes: Prisma.$AvatarAssetPayload<ExtArgs>
+      mouth: Prisma.$AvatarAssetPayload<ExtArgs>
+      pattern: Prisma.$AvatarAssetPayload<ExtArgs> | null
+      colorShape: Prisma.$ColorPayload<ExtArgs>
+      colorEyes: Prisma.$ColorPayload<ExtArgs>
+      colorMouth: Prisma.$ColorPayload<ExtArgs>
+      colorPattern: Prisma.$ColorPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      url: string
+      shapeId: number
+      eyesId: number
+      mouthId: number
+      patternId: number | null
+      colorShapeId: number
+      colorEyesId: number
+      colorMouthId: number
+      colorPatternId: number | null
+    }, ExtArgs["result"]["avatar"]>
+    composites: {}
+  }
+
+  type AvatarGetPayload<S extends boolean | null | undefined | AvatarDefaultArgs> = $Result.GetResult<Prisma.$AvatarPayload, S>
+
+  type AvatarCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AvatarFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AvatarCountAggregateInputType | true
+    }
+
+  export interface AvatarDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Avatar'], meta: { name: 'Avatar' } }
+    /**
+     * Find zero or one Avatar that matches the filter.
+     * @param {AvatarFindUniqueArgs} args - Arguments to find a Avatar
+     * @example
+     * // Get one Avatar
+     * const avatar = await prisma.avatar.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AvatarFindUniqueArgs>(args: SelectSubset<T, AvatarFindUniqueArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Avatar that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AvatarFindUniqueOrThrowArgs} args - Arguments to find a Avatar
+     * @example
+     * // Get one Avatar
+     * const avatar = await prisma.avatar.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AvatarFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Avatar that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarFindFirstArgs} args - Arguments to find a Avatar
+     * @example
+     * // Get one Avatar
+     * const avatar = await prisma.avatar.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AvatarFindFirstArgs>(args?: SelectSubset<T, AvatarFindFirstArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Avatar that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarFindFirstOrThrowArgs} args - Arguments to find a Avatar
+     * @example
+     * // Get one Avatar
+     * const avatar = await prisma.avatar.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AvatarFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Avatars that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Avatars
+     * const avatars = await prisma.avatar.findMany()
+     * 
+     * // Get first 10 Avatars
+     * const avatars = await prisma.avatar.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const avatarWithIdOnly = await prisma.avatar.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AvatarFindManyArgs>(args?: SelectSubset<T, AvatarFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Avatar.
+     * @param {AvatarCreateArgs} args - Arguments to create a Avatar.
+     * @example
+     * // Create one Avatar
+     * const Avatar = await prisma.avatar.create({
+     *   data: {
+     *     // ... data to create a Avatar
+     *   }
+     * })
+     * 
+     */
+    create<T extends AvatarCreateArgs>(args: SelectSubset<T, AvatarCreateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Avatars.
+     * @param {AvatarCreateManyArgs} args - Arguments to create many Avatars.
+     * @example
+     * // Create many Avatars
+     * const avatar = await prisma.avatar.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AvatarCreateManyArgs>(args?: SelectSubset<T, AvatarCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Avatars and returns the data saved in the database.
+     * @param {AvatarCreateManyAndReturnArgs} args - Arguments to create many Avatars.
+     * @example
+     * // Create many Avatars
+     * const avatar = await prisma.avatar.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Avatars and only return the `id`
+     * const avatarWithIdOnly = await prisma.avatar.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AvatarCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Avatar.
+     * @param {AvatarDeleteArgs} args - Arguments to delete one Avatar.
+     * @example
+     * // Delete one Avatar
+     * const Avatar = await prisma.avatar.delete({
+     *   where: {
+     *     // ... filter to delete one Avatar
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AvatarDeleteArgs>(args: SelectSubset<T, AvatarDeleteArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Avatar.
+     * @param {AvatarUpdateArgs} args - Arguments to update one Avatar.
+     * @example
+     * // Update one Avatar
+     * const avatar = await prisma.avatar.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AvatarUpdateArgs>(args: SelectSubset<T, AvatarUpdateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Avatars.
+     * @param {AvatarDeleteManyArgs} args - Arguments to filter Avatars to delete.
+     * @example
+     * // Delete a few Avatars
+     * const { count } = await prisma.avatar.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AvatarDeleteManyArgs>(args?: SelectSubset<T, AvatarDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Avatars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Avatars
+     * const avatar = await prisma.avatar.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AvatarUpdateManyArgs>(args: SelectSubset<T, AvatarUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Avatars and returns the data updated in the database.
+     * @param {AvatarUpdateManyAndReturnArgs} args - Arguments to update many Avatars.
+     * @example
+     * // Update many Avatars
+     * const avatar = await prisma.avatar.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Avatars and only return the `id`
+     * const avatarWithIdOnly = await prisma.avatar.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AvatarUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Avatar.
+     * @param {AvatarUpsertArgs} args - Arguments to update or create a Avatar.
+     * @example
+     * // Update or create a Avatar
+     * const avatar = await prisma.avatar.upsert({
+     *   create: {
+     *     // ... data to create a Avatar
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Avatar we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AvatarUpsertArgs>(args: SelectSubset<T, AvatarUpsertArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Avatars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarCountArgs} args - Arguments to filter Avatars to count.
+     * @example
+     * // Count the number of Avatars
+     * const count = await prisma.avatar.count({
+     *   where: {
+     *     // ... the filter for the Avatars we want to count
+     *   }
+     * })
+    **/
+    count<T extends AvatarCountArgs>(
+      args?: Subset<T, AvatarCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AvatarCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Avatar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AvatarAggregateArgs>(args: Subset<T, AvatarAggregateArgs>): Prisma.PrismaPromise<GetAvatarAggregateType<T>>
+
+    /**
+     * Group by Avatar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AvatarGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AvatarGroupByArgs['orderBy'] }
+        : { orderBy?: AvatarGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AvatarGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvatarGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Avatar model
+   */
+  readonly fields: AvatarFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Avatar.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AvatarClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    shape<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    eyes<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    mouth<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    pattern<T extends Avatar$patternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$patternArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    colorShape<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    colorEyes<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    colorMouth<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    colorPattern<T extends Avatar$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$colorPatternArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    user<T extends Avatar$userArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Avatar model
+   */ 
+  interface AvatarFieldRefs {
+    readonly id: FieldRef<"Avatar", 'Int'>
+    readonly url: FieldRef<"Avatar", 'String'>
+    readonly shapeId: FieldRef<"Avatar", 'Int'>
+    readonly eyesId: FieldRef<"Avatar", 'Int'>
+    readonly mouthId: FieldRef<"Avatar", 'Int'>
+    readonly patternId: FieldRef<"Avatar", 'Int'>
+    readonly colorShapeId: FieldRef<"Avatar", 'Int'>
+    readonly colorEyesId: FieldRef<"Avatar", 'Int'>
+    readonly colorMouthId: FieldRef<"Avatar", 'Int'>
+    readonly colorPatternId: FieldRef<"Avatar", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Avatar findUnique
+   */
+  export type AvatarFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter, which Avatar to fetch.
+     */
+    where: AvatarWhereUniqueInput
+  }
+
+  /**
+   * Avatar findUniqueOrThrow
+   */
+  export type AvatarFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter, which Avatar to fetch.
+     */
+    where: AvatarWhereUniqueInput
+  }
+
+  /**
+   * Avatar findFirst
+   */
+  export type AvatarFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter, which Avatar to fetch.
+     */
+    where?: AvatarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Avatars to fetch.
+     */
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Avatars.
+     */
+    cursor?: AvatarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Avatars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Avatars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Avatars.
+     */
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Avatar findFirstOrThrow
+   */
+  export type AvatarFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter, which Avatar to fetch.
+     */
+    where?: AvatarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Avatars to fetch.
+     */
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Avatars.
+     */
+    cursor?: AvatarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Avatars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Avatars.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Avatars.
+     */
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Avatar findMany
+   */
+  export type AvatarFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter, which Avatars to fetch.
+     */
+    where?: AvatarWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Avatars to fetch.
+     */
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Avatars.
+     */
+    cursor?: AvatarWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Avatars from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Avatars.
+     */
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Avatar create
+   */
+  export type AvatarCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Avatar.
+     */
+    data: XOR<AvatarCreateInput, AvatarUncheckedCreateInput>
+  }
+
+  /**
+   * Avatar createMany
+   */
+  export type AvatarCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Avatars.
+     */
+    data: AvatarCreateManyInput | AvatarCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Avatar createManyAndReturn
+   */
+  export type AvatarCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * The data used to create many Avatars.
+     */
+    data: AvatarCreateManyInput | AvatarCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Avatar update
+   */
+  export type AvatarUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Avatar.
+     */
+    data: XOR<AvatarUpdateInput, AvatarUncheckedUpdateInput>
+    /**
+     * Choose, which Avatar to update.
+     */
+    where: AvatarWhereUniqueInput
+  }
+
+  /**
+   * Avatar updateMany
+   */
+  export type AvatarUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Avatars.
+     */
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyInput>
+    /**
+     * Filter which Avatars to update
+     */
+    where?: AvatarWhereInput
+    /**
+     * Limit how many Avatars to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Avatar updateManyAndReturn
+   */
+  export type AvatarUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * The data used to update Avatars.
+     */
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyInput>
+    /**
+     * Filter which Avatars to update
+     */
+    where?: AvatarWhereInput
+    /**
+     * Limit how many Avatars to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Avatar upsert
+   */
+  export type AvatarUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Avatar to update in case it exists.
+     */
+    where: AvatarWhereUniqueInput
+    /**
+     * In case the Avatar found by the `where` argument doesn't exist, create a new Avatar with this data.
+     */
+    create: XOR<AvatarCreateInput, AvatarUncheckedCreateInput>
+    /**
+     * In case the Avatar was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AvatarUpdateInput, AvatarUncheckedUpdateInput>
+  }
+
+  /**
+   * Avatar delete
+   */
+  export type AvatarDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    /**
+     * Filter which Avatar to delete.
+     */
+    where: AvatarWhereUniqueInput
+  }
+
+  /**
+   * Avatar deleteMany
+   */
+  export type AvatarDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Avatars to delete
+     */
+    where?: AvatarWhereInput
+    /**
+     * Limit how many Avatars to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Avatar.pattern
+   */
+  export type Avatar$patternArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    where?: AvatarAssetWhereInput
+  }
+
+  /**
+   * Avatar.colorPattern
+   */
+  export type Avatar$colorPatternArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    where?: ColorWhereInput
+  }
+
+  /**
+   * Avatar.user
+   */
+  export type Avatar$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Avatar without action
+   */
+  export type AvatarDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Color
+   */
+
+  export type AggregateColor = {
+    _count: ColorCountAggregateOutputType | null
+    _avg: ColorAvgAggregateOutputType | null
+    _sum: ColorSumAggregateOutputType | null
+    _min: ColorMinAggregateOutputType | null
+    _max: ColorMaxAggregateOutputType | null
+  }
+
+  export type ColorAvgAggregateOutputType = {
+    id: number | null
+    level: number | null
+  }
+
+  export type ColorSumAggregateOutputType = {
+    id: number | null
+    level: number | null
+  }
+
+  export type ColorMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    value: string | null
+    level: number | null
+    vip: boolean | null
+  }
+
+  export type ColorMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    value: string | null
+    level: number | null
+    vip: boolean | null
+  }
+
+  export type ColorCountAggregateOutputType = {
+    id: number
+    name: number
+    value: number
+    level: number
+    vip: number
+    _all: number
+  }
+
+
+  export type ColorAvgAggregateInputType = {
+    id?: true
+    level?: true
+  }
+
+  export type ColorSumAggregateInputType = {
+    id?: true
+    level?: true
+  }
+
+  export type ColorMinAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+    level?: true
+    vip?: true
+  }
+
+  export type ColorMaxAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+    level?: true
+    vip?: true
+  }
+
+  export type ColorCountAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+    level?: true
+    vip?: true
+    _all?: true
+  }
+
+  export type ColorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Color to aggregate.
+     */
+    where?: ColorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Colors to fetch.
+     */
+    orderBy?: ColorOrderByWithRelationInput | ColorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ColorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Colors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Colors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Colors
+    **/
+    _count?: true | ColorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ColorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ColorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ColorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ColorMaxAggregateInputType
+  }
+
+  export type GetColorAggregateType<T extends ColorAggregateArgs> = {
+        [P in keyof T & keyof AggregateColor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateColor[P]>
+      : GetScalarType<T[P], AggregateColor[P]>
+  }
+
+
+
+
+  export type ColorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ColorWhereInput
+    orderBy?: ColorOrderByWithAggregationInput | ColorOrderByWithAggregationInput[]
+    by: ColorScalarFieldEnum[] | ColorScalarFieldEnum
+    having?: ColorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ColorCountAggregateInputType | true
+    _avg?: ColorAvgAggregateInputType
+    _sum?: ColorSumAggregateInputType
+    _min?: ColorMinAggregateInputType
+    _max?: ColorMaxAggregateInputType
+  }
+
+  export type ColorGroupByOutputType = {
+    id: number
+    name: string
+    value: string
+    level: number
+    vip: boolean
+    _count: ColorCountAggregateOutputType | null
+    _avg: ColorAvgAggregateOutputType | null
+    _sum: ColorSumAggregateOutputType | null
+    _min: ColorMinAggregateOutputType | null
+    _max: ColorMaxAggregateOutputType | null
+  }
+
+  type GetColorGroupByPayload<T extends ColorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ColorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ColorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ColorGroupByOutputType[P]>
+            : GetScalarType<T[P], ColorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ColorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+    level?: boolean
+    vip?: boolean
+    colorShape?: boolean | Color$colorShapeArgs<ExtArgs>
+    colorEyes?: boolean | Color$colorEyesArgs<ExtArgs>
+    colorMouth?: boolean | Color$colorMouthArgs<ExtArgs>
+    colorPattern?: boolean | Color$colorPatternArgs<ExtArgs>
+    _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["color"]>
+
+  export type ColorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+    level?: boolean
+    vip?: boolean
+  }, ExtArgs["result"]["color"]>
+
+  export type ColorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+    level?: boolean
+    vip?: boolean
+  }, ExtArgs["result"]["color"]>
+
+  export type ColorSelectScalar = {
+    id?: boolean
+    name?: boolean
+    value?: boolean
+    level?: boolean
+    vip?: boolean
+  }
+
+  export type ColorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "value" | "level" | "vip", ExtArgs["result"]["color"]>
+  export type ColorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    colorShape?: boolean | Color$colorShapeArgs<ExtArgs>
+    colorEyes?: boolean | Color$colorEyesArgs<ExtArgs>
+    colorMouth?: boolean | Color$colorMouthArgs<ExtArgs>
+    colorPattern?: boolean | Color$colorPatternArgs<ExtArgs>
+    _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ColorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ColorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ColorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Color"
+    objects: {
+      colorShape: Prisma.$AvatarPayload<ExtArgs>[]
+      colorEyes: Prisma.$AvatarPayload<ExtArgs>[]
+      colorMouth: Prisma.$AvatarPayload<ExtArgs>[]
+      colorPattern: Prisma.$AvatarPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      value: string
+      level: number
+      vip: boolean
+    }, ExtArgs["result"]["color"]>
+    composites: {}
+  }
+
+  type ColorGetPayload<S extends boolean | null | undefined | ColorDefaultArgs> = $Result.GetResult<Prisma.$ColorPayload, S>
+
+  type ColorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ColorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ColorCountAggregateInputType | true
+    }
+
+  export interface ColorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Color'], meta: { name: 'Color' } }
+    /**
+     * Find zero or one Color that matches the filter.
+     * @param {ColorFindUniqueArgs} args - Arguments to find a Color
+     * @example
+     * // Get one Color
+     * const color = await prisma.color.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ColorFindUniqueArgs>(args: SelectSubset<T, ColorFindUniqueArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one Color that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ColorFindUniqueOrThrowArgs} args - Arguments to find a Color
+     * @example
+     * // Get one Color
+     * const color = await prisma.color.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ColorFindUniqueOrThrowArgs>(args: SelectSubset<T, ColorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Color that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorFindFirstArgs} args - Arguments to find a Color
+     * @example
+     * // Get one Color
+     * const color = await prisma.color.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ColorFindFirstArgs>(args?: SelectSubset<T, ColorFindFirstArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first Color that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorFindFirstOrThrowArgs} args - Arguments to find a Color
+     * @example
+     * // Get one Color
+     * const color = await prisma.color.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ColorFindFirstOrThrowArgs>(args?: SelectSubset<T, ColorFindFirstOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more Colors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Colors
+     * const colors = await prisma.color.findMany()
+     * 
+     * // Get first 10 Colors
+     * const colors = await prisma.color.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const colorWithIdOnly = await prisma.color.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ColorFindManyArgs>(args?: SelectSubset<T, ColorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a Color.
+     * @param {ColorCreateArgs} args - Arguments to create a Color.
+     * @example
+     * // Create one Color
+     * const Color = await prisma.color.create({
+     *   data: {
+     *     // ... data to create a Color
+     *   }
+     * })
+     * 
+     */
+    create<T extends ColorCreateArgs>(args: SelectSubset<T, ColorCreateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many Colors.
+     * @param {ColorCreateManyArgs} args - Arguments to create many Colors.
+     * @example
+     * // Create many Colors
+     * const color = await prisma.color.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ColorCreateManyArgs>(args?: SelectSubset<T, ColorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Colors and returns the data saved in the database.
+     * @param {ColorCreateManyAndReturnArgs} args - Arguments to create many Colors.
+     * @example
+     * // Create many Colors
+     * const color = await prisma.color.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Colors and only return the `id`
+     * const colorWithIdOnly = await prisma.color.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ColorCreateManyAndReturnArgs>(args?: SelectSubset<T, ColorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a Color.
+     * @param {ColorDeleteArgs} args - Arguments to delete one Color.
+     * @example
+     * // Delete one Color
+     * const Color = await prisma.color.delete({
+     *   where: {
+     *     // ... filter to delete one Color
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ColorDeleteArgs>(args: SelectSubset<T, ColorDeleteArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one Color.
+     * @param {ColorUpdateArgs} args - Arguments to update one Color.
+     * @example
+     * // Update one Color
+     * const color = await prisma.color.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ColorUpdateArgs>(args: SelectSubset<T, ColorUpdateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more Colors.
+     * @param {ColorDeleteManyArgs} args - Arguments to filter Colors to delete.
+     * @example
+     * // Delete a few Colors
+     * const { count } = await prisma.color.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ColorDeleteManyArgs>(args?: SelectSubset<T, ColorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Colors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Colors
+     * const color = await prisma.color.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ColorUpdateManyArgs>(args: SelectSubset<T, ColorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Colors and returns the data updated in the database.
+     * @param {ColorUpdateManyAndReturnArgs} args - Arguments to update many Colors.
+     * @example
+     * // Update many Colors
+     * const color = await prisma.color.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Colors and only return the `id`
+     * const colorWithIdOnly = await prisma.color.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ColorUpdateManyAndReturnArgs>(args: SelectSubset<T, ColorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one Color.
+     * @param {ColorUpsertArgs} args - Arguments to update or create a Color.
+     * @example
+     * // Update or create a Color
+     * const color = await prisma.color.upsert({
+     *   create: {
+     *     // ... data to create a Color
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Color we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ColorUpsertArgs>(args: SelectSubset<T, ColorUpsertArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of Colors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorCountArgs} args - Arguments to filter Colors to count.
+     * @example
+     * // Count the number of Colors
+     * const count = await prisma.color.count({
+     *   where: {
+     *     // ... the filter for the Colors we want to count
+     *   }
+     * })
+    **/
+    count<T extends ColorCountArgs>(
+      args?: Subset<T, ColorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ColorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Color.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ColorAggregateArgs>(args: Subset<T, ColorAggregateArgs>): Prisma.PrismaPromise<GetColorAggregateType<T>>
+
+    /**
+     * Group by Color.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ColorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ColorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ColorGroupByArgs['orderBy'] }
+        : { orderBy?: ColorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ColorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetColorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Color model
+   */
+  readonly fields: ColorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Color.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ColorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    colorShape<T extends Color$colorShapeArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorShapeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    colorEyes<T extends Color$colorEyesArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorEyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    colorMouth<T extends Color$colorMouthArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorMouthArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    colorPattern<T extends Color$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorPatternArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Color model
+   */ 
+  interface ColorFieldRefs {
+    readonly id: FieldRef<"Color", 'Int'>
+    readonly name: FieldRef<"Color", 'String'>
+    readonly value: FieldRef<"Color", 'String'>
+    readonly level: FieldRef<"Color", 'Int'>
+    readonly vip: FieldRef<"Color", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Color findUnique
+   */
+  export type ColorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter, which Color to fetch.
+     */
+    where: ColorWhereUniqueInput
+  }
+
+  /**
+   * Color findUniqueOrThrow
+   */
+  export type ColorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter, which Color to fetch.
+     */
+    where: ColorWhereUniqueInput
+  }
+
+  /**
+   * Color findFirst
+   */
+  export type ColorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter, which Color to fetch.
+     */
+    where?: ColorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Colors to fetch.
+     */
+    orderBy?: ColorOrderByWithRelationInput | ColorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Colors.
+     */
+    cursor?: ColorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Colors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Colors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Colors.
+     */
+    distinct?: ColorScalarFieldEnum | ColorScalarFieldEnum[]
+  }
+
+  /**
+   * Color findFirstOrThrow
+   */
+  export type ColorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter, which Color to fetch.
+     */
+    where?: ColorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Colors to fetch.
+     */
+    orderBy?: ColorOrderByWithRelationInput | ColorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Colors.
+     */
+    cursor?: ColorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Colors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Colors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Colors.
+     */
+    distinct?: ColorScalarFieldEnum | ColorScalarFieldEnum[]
+  }
+
+  /**
+   * Color findMany
+   */
+  export type ColorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter, which Colors to fetch.
+     */
+    where?: ColorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Colors to fetch.
+     */
+    orderBy?: ColorOrderByWithRelationInput | ColorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Colors.
+     */
+    cursor?: ColorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Colors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Colors.
+     */
+    skip?: number
+    distinct?: ColorScalarFieldEnum | ColorScalarFieldEnum[]
+  }
+
+  /**
+   * Color create
+   */
+  export type ColorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Color.
+     */
+    data: XOR<ColorCreateInput, ColorUncheckedCreateInput>
+  }
+
+  /**
+   * Color createMany
+   */
+  export type ColorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Colors.
+     */
+    data: ColorCreateManyInput | ColorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Color createManyAndReturn
+   */
+  export type ColorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * The data used to create many Colors.
+     */
+    data: ColorCreateManyInput | ColorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Color update
+   */
+  export type ColorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Color.
+     */
+    data: XOR<ColorUpdateInput, ColorUncheckedUpdateInput>
+    /**
+     * Choose, which Color to update.
+     */
+    where: ColorWhereUniqueInput
+  }
+
+  /**
+   * Color updateMany
+   */
+  export type ColorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Colors.
+     */
+    data: XOR<ColorUpdateManyMutationInput, ColorUncheckedUpdateManyInput>
+    /**
+     * Filter which Colors to update
+     */
+    where?: ColorWhereInput
+    /**
+     * Limit how many Colors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Color updateManyAndReturn
+   */
+  export type ColorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * The data used to update Colors.
+     */
+    data: XOR<ColorUpdateManyMutationInput, ColorUncheckedUpdateManyInput>
+    /**
+     * Filter which Colors to update
+     */
+    where?: ColorWhereInput
+    /**
+     * Limit how many Colors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Color upsert
+   */
+  export type ColorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Color to update in case it exists.
+     */
+    where: ColorWhereUniqueInput
+    /**
+     * In case the Color found by the `where` argument doesn't exist, create a new Color with this data.
+     */
+    create: XOR<ColorCreateInput, ColorUncheckedCreateInput>
+    /**
+     * In case the Color was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ColorUpdateInput, ColorUncheckedUpdateInput>
+  }
+
+  /**
+   * Color delete
+   */
+  export type ColorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+    /**
+     * Filter which Color to delete.
+     */
+    where: ColorWhereUniqueInput
+  }
+
+  /**
+   * Color deleteMany
+   */
+  export type ColorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Colors to delete
+     */
+    where?: ColorWhereInput
+    /**
+     * Limit how many Colors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Color.colorShape
+   */
+  export type Color$colorShapeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Color.colorEyes
+   */
+  export type Color$colorEyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Color.colorMouth
+   */
+  export type Color$colorMouthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Color.colorPattern
+   */
+  export type Color$colorPatternArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * Color without action
+   */
+  export type ColorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Color
+     */
+    select?: ColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Color
+     */
+    omit?: ColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AvatarAsset
+   */
+
+  export type AggregateAvatarAsset = {
+    _count: AvatarAssetCountAggregateOutputType | null
+    _avg: AvatarAssetAvgAggregateOutputType | null
+    _sum: AvatarAssetSumAggregateOutputType | null
+    _min: AvatarAssetMinAggregateOutputType | null
+    _max: AvatarAssetMaxAggregateOutputType | null
+  }
+
+  export type AvatarAssetAvgAggregateOutputType = {
+    id: number | null
+    level: number | null
+  }
+
+  export type AvatarAssetSumAggregateOutputType = {
+    id: number | null
+    level: number | null
+  }
+
+  export type AvatarAssetMinAggregateOutputType = {
+    id: number | null
+    type: string | null
+    name: string | null
+    url: string | null
+    level: number | null
+    vipOnly: boolean | null
+  }
+
+  export type AvatarAssetMaxAggregateOutputType = {
+    id: number | null
+    type: string | null
+    name: string | null
+    url: string | null
+    level: number | null
+    vipOnly: boolean | null
+  }
+
+  export type AvatarAssetCountAggregateOutputType = {
+    id: number
+    type: number
+    name: number
+    url: number
+    level: number
+    vipOnly: number
+    _all: number
+  }
+
+
+  export type AvatarAssetAvgAggregateInputType = {
+    id?: true
+    level?: true
+  }
+
+  export type AvatarAssetSumAggregateInputType = {
+    id?: true
+    level?: true
+  }
+
+  export type AvatarAssetMinAggregateInputType = {
+    id?: true
+    type?: true
+    name?: true
+    url?: true
+    level?: true
+    vipOnly?: true
+  }
+
+  export type AvatarAssetMaxAggregateInputType = {
+    id?: true
+    type?: true
+    name?: true
+    url?: true
+    level?: true
+    vipOnly?: true
+  }
+
+  export type AvatarAssetCountAggregateInputType = {
+    id?: true
+    type?: true
+    name?: true
+    url?: true
+    level?: true
+    vipOnly?: true
+    _all?: true
+  }
+
+  export type AvatarAssetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvatarAsset to aggregate.
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarAssets to fetch.
+     */
+    orderBy?: AvatarAssetOrderByWithRelationInput | AvatarAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AvatarAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AvatarAssets
+    **/
+    _count?: true | AvatarAssetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AvatarAssetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AvatarAssetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AvatarAssetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AvatarAssetMaxAggregateInputType
+  }
+
+  export type GetAvatarAssetAggregateType<T extends AvatarAssetAggregateArgs> = {
+        [P in keyof T & keyof AggregateAvatarAsset]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAvatarAsset[P]>
+      : GetScalarType<T[P], AggregateAvatarAsset[P]>
+  }
+
+
+
+
+  export type AvatarAssetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarAssetWhereInput
+    orderBy?: AvatarAssetOrderByWithAggregationInput | AvatarAssetOrderByWithAggregationInput[]
+    by: AvatarAssetScalarFieldEnum[] | AvatarAssetScalarFieldEnum
+    having?: AvatarAssetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AvatarAssetCountAggregateInputType | true
+    _avg?: AvatarAssetAvgAggregateInputType
+    _sum?: AvatarAssetSumAggregateInputType
+    _min?: AvatarAssetMinAggregateInputType
+    _max?: AvatarAssetMaxAggregateInputType
+  }
+
+  export type AvatarAssetGroupByOutputType = {
+    id: number
+    type: string
+    name: string
+    url: string
+    level: number
+    vipOnly: boolean
+    _count: AvatarAssetCountAggregateOutputType | null
+    _avg: AvatarAssetAvgAggregateOutputType | null
+    _sum: AvatarAssetSumAggregateOutputType | null
+    _min: AvatarAssetMinAggregateOutputType | null
+    _max: AvatarAssetMaxAggregateOutputType | null
+  }
+
+  type GetAvatarAssetGroupByPayload<T extends AvatarAssetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AvatarAssetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AvatarAssetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AvatarAssetGroupByOutputType[P]>
+            : GetScalarType<T[P], AvatarAssetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AvatarAssetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    name?: boolean
+    url?: boolean
+    level?: boolean
+    vipOnly?: boolean
+    shapes?: boolean | AvatarAsset$shapesArgs<ExtArgs>
+    eyes?: boolean | AvatarAsset$eyesArgs<ExtArgs>
+    mouths?: boolean | AvatarAsset$mouthsArgs<ExtArgs>
+    patterns?: boolean | AvatarAsset$patternsArgs<ExtArgs>
+    _count?: boolean | AvatarAssetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avatarAsset"]>
+
+  export type AvatarAssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    name?: boolean
+    url?: boolean
+    level?: boolean
+    vipOnly?: boolean
+  }, ExtArgs["result"]["avatarAsset"]>
+
+  export type AvatarAssetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    name?: boolean
+    url?: boolean
+    level?: boolean
+    vipOnly?: boolean
+  }, ExtArgs["result"]["avatarAsset"]>
+
+  export type AvatarAssetSelectScalar = {
+    id?: boolean
+    type?: boolean
+    name?: boolean
+    url?: boolean
+    level?: boolean
+    vipOnly?: boolean
+  }
+
+  export type AvatarAssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "name" | "url" | "level" | "vipOnly", ExtArgs["result"]["avatarAsset"]>
+  export type AvatarAssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    shapes?: boolean | AvatarAsset$shapesArgs<ExtArgs>
+    eyes?: boolean | AvatarAsset$eyesArgs<ExtArgs>
+    mouths?: boolean | AvatarAsset$mouthsArgs<ExtArgs>
+    patterns?: boolean | AvatarAsset$patternsArgs<ExtArgs>
+    _count?: boolean | AvatarAssetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AvatarAssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AvatarAssetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AvatarAssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AvatarAsset"
+    objects: {
+      shapes: Prisma.$AvatarPayload<ExtArgs>[]
+      eyes: Prisma.$AvatarPayload<ExtArgs>[]
+      mouths: Prisma.$AvatarPayload<ExtArgs>[]
+      patterns: Prisma.$AvatarPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      type: string
+      name: string
+      url: string
+      level: number
+      vipOnly: boolean
+    }, ExtArgs["result"]["avatarAsset"]>
+    composites: {}
+  }
+
+  type AvatarAssetGetPayload<S extends boolean | null | undefined | AvatarAssetDefaultArgs> = $Result.GetResult<Prisma.$AvatarAssetPayload, S>
+
+  type AvatarAssetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AvatarAssetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AvatarAssetCountAggregateInputType | true
+    }
+
+  export interface AvatarAssetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AvatarAsset'], meta: { name: 'AvatarAsset' } }
+    /**
+     * Find zero or one AvatarAsset that matches the filter.
+     * @param {AvatarAssetFindUniqueArgs} args - Arguments to find a AvatarAsset
+     * @example
+     * // Get one AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AvatarAssetFindUniqueArgs>(args: SelectSubset<T, AvatarAssetFindUniqueArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one AvatarAsset that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AvatarAssetFindUniqueOrThrowArgs} args - Arguments to find a AvatarAsset
+     * @example
+     * // Get one AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AvatarAssetFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarAssetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first AvatarAsset that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetFindFirstArgs} args - Arguments to find a AvatarAsset
+     * @example
+     * // Get one AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AvatarAssetFindFirstArgs>(args?: SelectSubset<T, AvatarAssetFindFirstArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first AvatarAsset that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetFindFirstOrThrowArgs} args - Arguments to find a AvatarAsset
+     * @example
+     * // Get one AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AvatarAssetFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarAssetFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more AvatarAssets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AvatarAssets
+     * const avatarAssets = await prisma.avatarAsset.findMany()
+     * 
+     * // Get first 10 AvatarAssets
+     * const avatarAssets = await prisma.avatarAsset.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const avatarAssetWithIdOnly = await prisma.avatarAsset.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AvatarAssetFindManyArgs>(args?: SelectSubset<T, AvatarAssetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a AvatarAsset.
+     * @param {AvatarAssetCreateArgs} args - Arguments to create a AvatarAsset.
+     * @example
+     * // Create one AvatarAsset
+     * const AvatarAsset = await prisma.avatarAsset.create({
+     *   data: {
+     *     // ... data to create a AvatarAsset
+     *   }
+     * })
+     * 
+     */
+    create<T extends AvatarAssetCreateArgs>(args: SelectSubset<T, AvatarAssetCreateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many AvatarAssets.
+     * @param {AvatarAssetCreateManyArgs} args - Arguments to create many AvatarAssets.
+     * @example
+     * // Create many AvatarAssets
+     * const avatarAsset = await prisma.avatarAsset.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AvatarAssetCreateManyArgs>(args?: SelectSubset<T, AvatarAssetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AvatarAssets and returns the data saved in the database.
+     * @param {AvatarAssetCreateManyAndReturnArgs} args - Arguments to create many AvatarAssets.
+     * @example
+     * // Create many AvatarAssets
+     * const avatarAsset = await prisma.avatarAsset.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AvatarAssets and only return the `id`
+     * const avatarAssetWithIdOnly = await prisma.avatarAsset.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AvatarAssetCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarAssetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a AvatarAsset.
+     * @param {AvatarAssetDeleteArgs} args - Arguments to delete one AvatarAsset.
+     * @example
+     * // Delete one AvatarAsset
+     * const AvatarAsset = await prisma.avatarAsset.delete({
+     *   where: {
+     *     // ... filter to delete one AvatarAsset
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AvatarAssetDeleteArgs>(args: SelectSubset<T, AvatarAssetDeleteArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one AvatarAsset.
+     * @param {AvatarAssetUpdateArgs} args - Arguments to update one AvatarAsset.
+     * @example
+     * // Update one AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AvatarAssetUpdateArgs>(args: SelectSubset<T, AvatarAssetUpdateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more AvatarAssets.
+     * @param {AvatarAssetDeleteManyArgs} args - Arguments to filter AvatarAssets to delete.
+     * @example
+     * // Delete a few AvatarAssets
+     * const { count } = await prisma.avatarAsset.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AvatarAssetDeleteManyArgs>(args?: SelectSubset<T, AvatarAssetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvatarAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AvatarAssets
+     * const avatarAsset = await prisma.avatarAsset.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AvatarAssetUpdateManyArgs>(args: SelectSubset<T, AvatarAssetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvatarAssets and returns the data updated in the database.
+     * @param {AvatarAssetUpdateManyAndReturnArgs} args - Arguments to update many AvatarAssets.
+     * @example
+     * // Update many AvatarAssets
+     * const avatarAsset = await prisma.avatarAsset.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AvatarAssets and only return the `id`
+     * const avatarAssetWithIdOnly = await prisma.avatarAsset.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AvatarAssetUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarAssetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one AvatarAsset.
+     * @param {AvatarAssetUpsertArgs} args - Arguments to update or create a AvatarAsset.
+     * @example
+     * // Update or create a AvatarAsset
+     * const avatarAsset = await prisma.avatarAsset.upsert({
+     *   create: {
+     *     // ... data to create a AvatarAsset
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AvatarAsset we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AvatarAssetUpsertArgs>(args: SelectSubset<T, AvatarAssetUpsertArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of AvatarAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetCountArgs} args - Arguments to filter AvatarAssets to count.
+     * @example
+     * // Count the number of AvatarAssets
+     * const count = await prisma.avatarAsset.count({
+     *   where: {
+     *     // ... the filter for the AvatarAssets we want to count
+     *   }
+     * })
+    **/
+    count<T extends AvatarAssetCountArgs>(
+      args?: Subset<T, AvatarAssetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AvatarAssetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AvatarAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AvatarAssetAggregateArgs>(args: Subset<T, AvatarAssetAggregateArgs>): Prisma.PrismaPromise<GetAvatarAssetAggregateType<T>>
+
+    /**
+     * Group by AvatarAsset.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarAssetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AvatarAssetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AvatarAssetGroupByArgs['orderBy'] }
+        : { orderBy?: AvatarAssetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AvatarAssetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvatarAssetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AvatarAsset model
+   */
+  readonly fields: AvatarAssetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AvatarAsset.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AvatarAssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    shapes<T extends AvatarAsset$shapesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$shapesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    eyes<T extends AvatarAsset$eyesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$eyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    mouths<T extends AvatarAsset$mouthsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$mouthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    patterns<T extends AvatarAsset$patternsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$patternsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AvatarAsset model
+   */ 
+  interface AvatarAssetFieldRefs {
+    readonly id: FieldRef<"AvatarAsset", 'Int'>
+    readonly type: FieldRef<"AvatarAsset", 'String'>
+    readonly name: FieldRef<"AvatarAsset", 'String'>
+    readonly url: FieldRef<"AvatarAsset", 'String'>
+    readonly level: FieldRef<"AvatarAsset", 'Int'>
+    readonly vipOnly: FieldRef<"AvatarAsset", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AvatarAsset findUnique
+   */
+  export type AvatarAssetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarAsset to fetch.
+     */
+    where: AvatarAssetWhereUniqueInput
+  }
+
+  /**
+   * AvatarAsset findUniqueOrThrow
+   */
+  export type AvatarAssetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarAsset to fetch.
+     */
+    where: AvatarAssetWhereUniqueInput
+  }
+
+  /**
+   * AvatarAsset findFirst
+   */
+  export type AvatarAssetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarAsset to fetch.
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarAssets to fetch.
+     */
+    orderBy?: AvatarAssetOrderByWithRelationInput | AvatarAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvatarAssets.
+     */
+    cursor?: AvatarAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvatarAssets.
+     */
+    distinct?: AvatarAssetScalarFieldEnum | AvatarAssetScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset findFirstOrThrow
+   */
+  export type AvatarAssetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarAsset to fetch.
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarAssets to fetch.
+     */
+    orderBy?: AvatarAssetOrderByWithRelationInput | AvatarAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvatarAssets.
+     */
+    cursor?: AvatarAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvatarAssets.
+     */
+    distinct?: AvatarAssetScalarFieldEnum | AvatarAssetScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset findMany
+   */
+  export type AvatarAssetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarAssets to fetch.
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarAssets to fetch.
+     */
+    orderBy?: AvatarAssetOrderByWithRelationInput | AvatarAssetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AvatarAssets.
+     */
+    cursor?: AvatarAssetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarAssets.
+     */
+    skip?: number
+    distinct?: AvatarAssetScalarFieldEnum | AvatarAssetScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset create
+   */
+  export type AvatarAssetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AvatarAsset.
+     */
+    data: XOR<AvatarAssetCreateInput, AvatarAssetUncheckedCreateInput>
+  }
+
+  /**
+   * AvatarAsset createMany
+   */
+  export type AvatarAssetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AvatarAssets.
+     */
+    data: AvatarAssetCreateManyInput | AvatarAssetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AvatarAsset createManyAndReturn
+   */
+  export type AvatarAssetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * The data used to create many AvatarAssets.
+     */
+    data: AvatarAssetCreateManyInput | AvatarAssetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AvatarAsset update
+   */
+  export type AvatarAssetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AvatarAsset.
+     */
+    data: XOR<AvatarAssetUpdateInput, AvatarAssetUncheckedUpdateInput>
+    /**
+     * Choose, which AvatarAsset to update.
+     */
+    where: AvatarAssetWhereUniqueInput
+  }
+
+  /**
+   * AvatarAsset updateMany
+   */
+  export type AvatarAssetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AvatarAssets.
+     */
+    data: XOR<AvatarAssetUpdateManyMutationInput, AvatarAssetUncheckedUpdateManyInput>
+    /**
+     * Filter which AvatarAssets to update
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * Limit how many AvatarAssets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvatarAsset updateManyAndReturn
+   */
+  export type AvatarAssetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * The data used to update AvatarAssets.
+     */
+    data: XOR<AvatarAssetUpdateManyMutationInput, AvatarAssetUncheckedUpdateManyInput>
+    /**
+     * Filter which AvatarAssets to update
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * Limit how many AvatarAssets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvatarAsset upsert
+   */
+  export type AvatarAssetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AvatarAsset to update in case it exists.
+     */
+    where: AvatarAssetWhereUniqueInput
+    /**
+     * In case the AvatarAsset found by the `where` argument doesn't exist, create a new AvatarAsset with this data.
+     */
+    create: XOR<AvatarAssetCreateInput, AvatarAssetUncheckedCreateInput>
+    /**
+     * In case the AvatarAsset was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AvatarAssetUpdateInput, AvatarAssetUncheckedUpdateInput>
+  }
+
+  /**
+   * AvatarAsset delete
+   */
+  export type AvatarAssetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    /**
+     * Filter which AvatarAsset to delete.
+     */
+    where: AvatarAssetWhereUniqueInput
+  }
+
+  /**
+   * AvatarAsset deleteMany
+   */
+  export type AvatarAssetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvatarAssets to delete
+     */
+    where?: AvatarAssetWhereInput
+    /**
+     * Limit how many AvatarAssets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvatarAsset.shapes
+   */
+  export type AvatarAsset$shapesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset.eyes
+   */
+  export type AvatarAsset$eyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset.mouths
+   */
+  export type AvatarAsset$mouthsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset.patterns
+   */
+  export type AvatarAsset$patternsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Avatar
+     */
+    select?: AvatarSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Avatar
+     */
+    omit?: AvatarOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
+    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
+    cursor?: AvatarWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarAsset without action
+   */
+  export type AvatarAssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
   }
 
 
@@ -13592,6 +17790,11 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     password: 'password',
+    pseudo: 'pseudo',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    birthdate: 'birthdate',
+    avatarId: 'avatarId',
     role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -13599,6 +17802,45 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const AvatarScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    shapeId: 'shapeId',
+    eyesId: 'eyesId',
+    mouthId: 'mouthId',
+    patternId: 'patternId',
+    colorShapeId: 'colorShapeId',
+    colorEyesId: 'colorEyesId',
+    colorMouthId: 'colorMouthId',
+    colorPatternId: 'colorPatternId'
+  };
+
+  export type AvatarScalarFieldEnum = (typeof AvatarScalarFieldEnum)[keyof typeof AvatarScalarFieldEnum]
+
+
+  export const ColorScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    value: 'value',
+    level: 'level',
+    vip: 'vip'
+  };
+
+  export type ColorScalarFieldEnum = (typeof ColorScalarFieldEnum)[keyof typeof ColorScalarFieldEnum]
+
+
+  export const AvatarAssetScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    name: 'name',
+    url: 'url',
+    level: 'level',
+    vipOnly: 'vipOnly'
+  };
+
+  export type AvatarAssetScalarFieldEnum = (typeof AvatarAssetScalarFieldEnum)[keyof typeof AvatarAssetScalarFieldEnum]
 
 
   export const FriendScalarFieldEnum: {
@@ -13807,6 +18049,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -13817,13 +18066,6 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -13837,10 +18079,16 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    pseudo?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
+    avatarId?: IntNullableFilter<"User"> | number | null
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
     friends?: FriendListRelationFilter
     friend?: FriendListRelationFilter
     userStats?: XOR<UserStatsNullableScalarRelationFilter, UserStatsWhereInput> | null
@@ -13852,10 +18100,16 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    pseudo?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    birthdate?: SortOrderInput | SortOrder
+    avatarId?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    avatar?: AvatarOrderByWithRelationInput
     friends?: FriendOrderByRelationAggregateInput
     friend?: FriendOrderByRelationAggregateInput
     userStats?: UserStatsOrderByWithRelationInput
@@ -13866,25 +18120,36 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     email?: string
+    pseudo?: string
+    avatarId?: number
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
     friends?: FriendListRelationFilter
     friend?: FriendListRelationFilter
     userStats?: XOR<UserStatsNullableScalarRelationFilter, UserStatsWhereInput> | null
     userEvents?: UserEventListRelationFilter
     gameResults?: GameResultListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "pseudo" | "avatarId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    pseudo?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    birthdate?: SortOrderInput | SortOrder
+    avatarId?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13903,10 +18168,258 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    pseudo?: StringWithAggregatesFilter<"User"> | string
+    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    birthdate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    avatarId?: IntNullableWithAggregatesFilter<"User"> | number | null
     role?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  }
+
+  export type AvatarWhereInput = {
+    AND?: AvatarWhereInput | AvatarWhereInput[]
+    OR?: AvatarWhereInput[]
+    NOT?: AvatarWhereInput | AvatarWhereInput[]
+    id?: IntFilter<"Avatar"> | number
+    url?: StringFilter<"Avatar"> | string
+    shapeId?: IntFilter<"Avatar"> | number
+    eyesId?: IntFilter<"Avatar"> | number
+    mouthId?: IntFilter<"Avatar"> | number
+    patternId?: IntNullableFilter<"Avatar"> | number | null
+    colorShapeId?: IntFilter<"Avatar"> | number
+    colorEyesId?: IntFilter<"Avatar"> | number
+    colorMouthId?: IntFilter<"Avatar"> | number
+    colorPatternId?: IntNullableFilter<"Avatar"> | number | null
+    shape?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    eyes?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    mouth?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    pattern?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
+    colorShape?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorEyes?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorMouth?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorPattern?: XOR<ColorNullableScalarRelationFilter, ColorWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type AvatarOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrderInput | SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrderInput | SortOrder
+    shape?: AvatarAssetOrderByWithRelationInput
+    eyes?: AvatarAssetOrderByWithRelationInput
+    mouth?: AvatarAssetOrderByWithRelationInput
+    pattern?: AvatarAssetOrderByWithRelationInput
+    colorShape?: ColorOrderByWithRelationInput
+    colorEyes?: ColorOrderByWithRelationInput
+    colorMouth?: ColorOrderByWithRelationInput
+    colorPattern?: ColorOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AvatarWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AvatarWhereInput | AvatarWhereInput[]
+    OR?: AvatarWhereInput[]
+    NOT?: AvatarWhereInput | AvatarWhereInput[]
+    url?: StringFilter<"Avatar"> | string
+    shapeId?: IntFilter<"Avatar"> | number
+    eyesId?: IntFilter<"Avatar"> | number
+    mouthId?: IntFilter<"Avatar"> | number
+    patternId?: IntNullableFilter<"Avatar"> | number | null
+    colorShapeId?: IntFilter<"Avatar"> | number
+    colorEyesId?: IntFilter<"Avatar"> | number
+    colorMouthId?: IntFilter<"Avatar"> | number
+    colorPatternId?: IntNullableFilter<"Avatar"> | number | null
+    shape?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    eyes?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    mouth?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
+    pattern?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
+    colorShape?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorEyes?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorMouth?: XOR<ColorScalarRelationFilter, ColorWhereInput>
+    colorPattern?: XOR<ColorNullableScalarRelationFilter, ColorWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type AvatarOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrderInput | SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrderInput | SortOrder
+    _count?: AvatarCountOrderByAggregateInput
+    _avg?: AvatarAvgOrderByAggregateInput
+    _max?: AvatarMaxOrderByAggregateInput
+    _min?: AvatarMinOrderByAggregateInput
+    _sum?: AvatarSumOrderByAggregateInput
+  }
+
+  export type AvatarScalarWhereWithAggregatesInput = {
+    AND?: AvatarScalarWhereWithAggregatesInput | AvatarScalarWhereWithAggregatesInput[]
+    OR?: AvatarScalarWhereWithAggregatesInput[]
+    NOT?: AvatarScalarWhereWithAggregatesInput | AvatarScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Avatar"> | number
+    url?: StringWithAggregatesFilter<"Avatar"> | string
+    shapeId?: IntWithAggregatesFilter<"Avatar"> | number
+    eyesId?: IntWithAggregatesFilter<"Avatar"> | number
+    mouthId?: IntWithAggregatesFilter<"Avatar"> | number
+    patternId?: IntNullableWithAggregatesFilter<"Avatar"> | number | null
+    colorShapeId?: IntWithAggregatesFilter<"Avatar"> | number
+    colorEyesId?: IntWithAggregatesFilter<"Avatar"> | number
+    colorMouthId?: IntWithAggregatesFilter<"Avatar"> | number
+    colorPatternId?: IntNullableWithAggregatesFilter<"Avatar"> | number | null
+  }
+
+  export type ColorWhereInput = {
+    AND?: ColorWhereInput | ColorWhereInput[]
+    OR?: ColorWhereInput[]
+    NOT?: ColorWhereInput | ColorWhereInput[]
+    id?: IntFilter<"Color"> | number
+    name?: StringFilter<"Color"> | string
+    value?: StringFilter<"Color"> | string
+    level?: IntFilter<"Color"> | number
+    vip?: BoolFilter<"Color"> | boolean
+    colorShape?: AvatarListRelationFilter
+    colorEyes?: AvatarListRelationFilter
+    colorMouth?: AvatarListRelationFilter
+    colorPattern?: AvatarListRelationFilter
+  }
+
+  export type ColorOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    level?: SortOrder
+    vip?: SortOrder
+    colorShape?: AvatarOrderByRelationAggregateInput
+    colorEyes?: AvatarOrderByRelationAggregateInput
+    colorMouth?: AvatarOrderByRelationAggregateInput
+    colorPattern?: AvatarOrderByRelationAggregateInput
+  }
+
+  export type ColorWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ColorWhereInput | ColorWhereInput[]
+    OR?: ColorWhereInput[]
+    NOT?: ColorWhereInput | ColorWhereInput[]
+    name?: StringFilter<"Color"> | string
+    value?: StringFilter<"Color"> | string
+    level?: IntFilter<"Color"> | number
+    vip?: BoolFilter<"Color"> | boolean
+    colorShape?: AvatarListRelationFilter
+    colorEyes?: AvatarListRelationFilter
+    colorMouth?: AvatarListRelationFilter
+    colorPattern?: AvatarListRelationFilter
+  }, "id">
+
+  export type ColorOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    level?: SortOrder
+    vip?: SortOrder
+    _count?: ColorCountOrderByAggregateInput
+    _avg?: ColorAvgOrderByAggregateInput
+    _max?: ColorMaxOrderByAggregateInput
+    _min?: ColorMinOrderByAggregateInput
+    _sum?: ColorSumOrderByAggregateInput
+  }
+
+  export type ColorScalarWhereWithAggregatesInput = {
+    AND?: ColorScalarWhereWithAggregatesInput | ColorScalarWhereWithAggregatesInput[]
+    OR?: ColorScalarWhereWithAggregatesInput[]
+    NOT?: ColorScalarWhereWithAggregatesInput | ColorScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Color"> | number
+    name?: StringWithAggregatesFilter<"Color"> | string
+    value?: StringWithAggregatesFilter<"Color"> | string
+    level?: IntWithAggregatesFilter<"Color"> | number
+    vip?: BoolWithAggregatesFilter<"Color"> | boolean
+  }
+
+  export type AvatarAssetWhereInput = {
+    AND?: AvatarAssetWhereInput | AvatarAssetWhereInput[]
+    OR?: AvatarAssetWhereInput[]
+    NOT?: AvatarAssetWhereInput | AvatarAssetWhereInput[]
+    id?: IntFilter<"AvatarAsset"> | number
+    type?: StringFilter<"AvatarAsset"> | string
+    name?: StringFilter<"AvatarAsset"> | string
+    url?: StringFilter<"AvatarAsset"> | string
+    level?: IntFilter<"AvatarAsset"> | number
+    vipOnly?: BoolFilter<"AvatarAsset"> | boolean
+    shapes?: AvatarListRelationFilter
+    eyes?: AvatarListRelationFilter
+    mouths?: AvatarListRelationFilter
+    patterns?: AvatarListRelationFilter
+  }
+
+  export type AvatarAssetOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    level?: SortOrder
+    vipOnly?: SortOrder
+    shapes?: AvatarOrderByRelationAggregateInput
+    eyes?: AvatarOrderByRelationAggregateInput
+    mouths?: AvatarOrderByRelationAggregateInput
+    patterns?: AvatarOrderByRelationAggregateInput
+  }
+
+  export type AvatarAssetWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AvatarAssetWhereInput | AvatarAssetWhereInput[]
+    OR?: AvatarAssetWhereInput[]
+    NOT?: AvatarAssetWhereInput | AvatarAssetWhereInput[]
+    type?: StringFilter<"AvatarAsset"> | string
+    name?: StringFilter<"AvatarAsset"> | string
+    url?: StringFilter<"AvatarAsset"> | string
+    level?: IntFilter<"AvatarAsset"> | number
+    vipOnly?: BoolFilter<"AvatarAsset"> | boolean
+    shapes?: AvatarListRelationFilter
+    eyes?: AvatarListRelationFilter
+    mouths?: AvatarListRelationFilter
+    patterns?: AvatarListRelationFilter
+  }, "id">
+
+  export type AvatarAssetOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    level?: SortOrder
+    vipOnly?: SortOrder
+    _count?: AvatarAssetCountOrderByAggregateInput
+    _avg?: AvatarAssetAvgOrderByAggregateInput
+    _max?: AvatarAssetMaxOrderByAggregateInput
+    _min?: AvatarAssetMinOrderByAggregateInput
+    _sum?: AvatarAssetSumOrderByAggregateInput
+  }
+
+  export type AvatarAssetScalarWhereWithAggregatesInput = {
+    AND?: AvatarAssetScalarWhereWithAggregatesInput | AvatarAssetScalarWhereWithAggregatesInput[]
+    OR?: AvatarAssetScalarWhereWithAggregatesInput[]
+    NOT?: AvatarAssetScalarWhereWithAggregatesInput | AvatarAssetScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AvatarAsset"> | number
+    type?: StringWithAggregatesFilter<"AvatarAsset"> | string
+    name?: StringWithAggregatesFilter<"AvatarAsset"> | string
+    url?: StringWithAggregatesFilter<"AvatarAsset"> | string
+    level?: IntWithAggregatesFilter<"AvatarAsset"> | number
+    vipOnly?: BoolWithAggregatesFilter<"AvatarAsset"> | boolean
   }
 
   export type FriendWhereInput = {
@@ -14613,10 +19126,15 @@ export namespace Prisma {
   export type UserCreateInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     friend?: FriendCreateNestedManyWithoutFriendInput
     userStats?: UserStatsCreateNestedOneWithoutUserInput
@@ -14628,6 +19146,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14642,10 +19165,15 @@ export namespace Prisma {
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     friend?: FriendUpdateManyWithoutFriendNestedInput
     userStats?: UserStatsUpdateOneWithoutUserNestedInput
@@ -14657,6 +19185,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14672,6 +19205,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14681,6 +19219,10 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14691,10 +19233,244 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvatarCreateInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarCreateManyInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AvatarUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type ColorCreateInput = {
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorUncheckedCreateInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorCreateManyInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+  }
+
+  export type ColorUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ColorUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AvatarAssetCreateInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarCreateNestedManyWithoutShapeInput
+    eyes?: AvatarCreateNestedManyWithoutEyesInput
+    mouths?: AvatarCreateNestedManyWithoutMouthInput
+    patterns?: AvatarCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUncheckedCreateInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
+    eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
+    mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+    patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetCreateManyInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+  }
+
+  export type AvatarAssetUpdateManyMutationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AvatarAssetUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FriendCreateInput = {
@@ -15452,15 +20228,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -15472,6 +20252,33 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type AvatarNullableScalarRelationFilter = {
+    is?: AvatarWhereInput | null
+    isNot?: AvatarWhereInput | null
   }
 
   export type FriendListRelationFilter = {
@@ -15518,6 +20325,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    pseudo?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    birthdate?: SortOrder
+    avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15526,12 +20338,18 @@ export namespace Prisma {
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    pseudo?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    birthdate?: SortOrder
+    avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15542,6 +20360,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    pseudo?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    birthdate?: SortOrder
+    avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15550,6 +20373,7 @@ export namespace Prisma {
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -15586,18 +20410,22 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15612,6 +20440,218 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type AvatarAssetScalarRelationFilter = {
+    is?: AvatarAssetWhereInput
+    isNot?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetNullableScalarRelationFilter = {
+    is?: AvatarAssetWhereInput | null
+    isNot?: AvatarAssetWhereInput | null
+  }
+
+  export type ColorScalarRelationFilter = {
+    is?: ColorWhereInput
+    isNot?: ColorWhereInput
+  }
+
+  export type ColorNullableScalarRelationFilter = {
+    is?: ColorWhereInput | null
+    isNot?: ColorWhereInput | null
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type AvatarCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrder
+  }
+
+  export type AvatarAvgOrderByAggregateInput = {
+    id?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrder
+  }
+
+  export type AvatarMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrder
+  }
+
+  export type AvatarMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrder
+  }
+
+  export type AvatarSumOrderByAggregateInput = {
+    id?: SortOrder
+    shapeId?: SortOrder
+    eyesId?: SortOrder
+    mouthId?: SortOrder
+    patternId?: SortOrder
+    colorShapeId?: SortOrder
+    colorEyesId?: SortOrder
+    colorMouthId?: SortOrder
+    colorPatternId?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type AvatarListRelationFilter = {
+    every?: AvatarWhereInput
+    some?: AvatarWhereInput
+    none?: AvatarWhereInput
+  }
+
+  export type AvatarOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ColorCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    level?: SortOrder
+    vip?: SortOrder
+  }
+
+  export type ColorAvgOrderByAggregateInput = {
+    id?: SortOrder
+    level?: SortOrder
+  }
+
+  export type ColorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    level?: SortOrder
+    vip?: SortOrder
+  }
+
+  export type ColorMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    level?: SortOrder
+    vip?: SortOrder
+  }
+
+  export type ColorSumOrderByAggregateInput = {
+    id?: SortOrder
+    level?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type AvatarAssetCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    level?: SortOrder
+    vipOnly?: SortOrder
+  }
+
+  export type AvatarAssetAvgOrderByAggregateInput = {
+    id?: SortOrder
+    level?: SortOrder
+  }
+
+  export type AvatarAssetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    level?: SortOrder
+    vipOnly?: SortOrder
+  }
+
+  export type AvatarAssetMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    level?: SortOrder
+    vipOnly?: SortOrder
+  }
+
+  export type AvatarAssetSumOrderByAggregateInput = {
+    id?: SortOrder
+    level?: SortOrder
   }
 
   export type UserScalarRelationFilter = {
@@ -15712,21 +20752,6 @@ export namespace Prisma {
     streak?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type UserEventCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -15759,24 +20784,6 @@ export namespace Prisma {
   export type UserEventSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type GameScalarRelationFilter = {
@@ -15915,17 +20922,6 @@ export namespace Prisma {
 
   export type GameCategorySumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -16076,22 +21072,6 @@ export namespace Prisma {
     budget?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -16154,11 +21134,6 @@ export namespace Prisma {
     movieId?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type GameCinema1DaysScalarRelationFilter = {
     is?: GameCinema1DaysWhereInput
     isNot?: GameCinema1DaysWhereInput
@@ -16203,12 +21178,10 @@ export namespace Prisma {
     dayId?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type AvatarCreateNestedOneWithoutUserInput = {
+    create?: XOR<AvatarCreateWithoutUserInput, AvatarUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AvatarCreateOrConnectWithoutUserInput
+    connect?: AvatarWhereUniqueInput
   }
 
   export type FriendCreateNestedManyWithoutUserInput = {
@@ -16283,12 +21256,26 @@ export namespace Prisma {
     set?: string
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type AvatarUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AvatarCreateWithoutUserInput, AvatarUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AvatarCreateOrConnectWithoutUserInput
+    upsert?: AvatarUpsertWithoutUserInput
+    disconnect?: AvatarWhereInput | boolean
+    delete?: AvatarWhereInput | boolean
+    connect?: AvatarWhereUniqueInput
+    update?: XOR<XOR<AvatarUpdateToOneWithWhereWithoutUserInput, AvatarUpdateWithoutUserInput>, AvatarUncheckedUpdateWithoutUserInput>
   }
 
   export type FriendUpdateManyWithoutUserNestedInput = {
@@ -16365,6 +21352,14 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type FriendUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
@@ -16431,6 +21426,494 @@ export namespace Prisma {
     deleteMany?: GameResultScalarWhereInput | GameResultScalarWhereInput[]
   }
 
+  export type AvatarAssetCreateNestedOneWithoutShapesInput = {
+    create?: XOR<AvatarAssetCreateWithoutShapesInput, AvatarAssetUncheckedCreateWithoutShapesInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutShapesInput
+    connect?: AvatarAssetWhereUniqueInput
+  }
+
+  export type AvatarAssetCreateNestedOneWithoutEyesInput = {
+    create?: XOR<AvatarAssetCreateWithoutEyesInput, AvatarAssetUncheckedCreateWithoutEyesInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutEyesInput
+    connect?: AvatarAssetWhereUniqueInput
+  }
+
+  export type AvatarAssetCreateNestedOneWithoutMouthsInput = {
+    create?: XOR<AvatarAssetCreateWithoutMouthsInput, AvatarAssetUncheckedCreateWithoutMouthsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutMouthsInput
+    connect?: AvatarAssetWhereUniqueInput
+  }
+
+  export type AvatarAssetCreateNestedOneWithoutPatternsInput = {
+    create?: XOR<AvatarAssetCreateWithoutPatternsInput, AvatarAssetUncheckedCreateWithoutPatternsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutPatternsInput
+    connect?: AvatarAssetWhereUniqueInput
+  }
+
+  export type ColorCreateNestedOneWithoutColorShapeInput = {
+    create?: XOR<ColorCreateWithoutColorShapeInput, ColorUncheckedCreateWithoutColorShapeInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorShapeInput
+    connect?: ColorWhereUniqueInput
+  }
+
+  export type ColorCreateNestedOneWithoutColorEyesInput = {
+    create?: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorEyesInput
+    connect?: ColorWhereUniqueInput
+  }
+
+  export type ColorCreateNestedOneWithoutColorMouthInput = {
+    create?: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorMouthInput
+    connect?: ColorWhereUniqueInput
+  }
+
+  export type ColorCreateNestedOneWithoutColorPatternInput = {
+    create?: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorPatternInput
+    connect?: ColorWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAvatarInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUncheckedCreateNestedOneWithoutAvatarInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AvatarAssetUpdateOneRequiredWithoutShapesNestedInput = {
+    create?: XOR<AvatarAssetCreateWithoutShapesInput, AvatarAssetUncheckedCreateWithoutShapesInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutShapesInput
+    upsert?: AvatarAssetUpsertWithoutShapesInput
+    connect?: AvatarAssetWhereUniqueInput
+    update?: XOR<XOR<AvatarAssetUpdateToOneWithWhereWithoutShapesInput, AvatarAssetUpdateWithoutShapesInput>, AvatarAssetUncheckedUpdateWithoutShapesInput>
+  }
+
+  export type AvatarAssetUpdateOneRequiredWithoutEyesNestedInput = {
+    create?: XOR<AvatarAssetCreateWithoutEyesInput, AvatarAssetUncheckedCreateWithoutEyesInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutEyesInput
+    upsert?: AvatarAssetUpsertWithoutEyesInput
+    connect?: AvatarAssetWhereUniqueInput
+    update?: XOR<XOR<AvatarAssetUpdateToOneWithWhereWithoutEyesInput, AvatarAssetUpdateWithoutEyesInput>, AvatarAssetUncheckedUpdateWithoutEyesInput>
+  }
+
+  export type AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput = {
+    create?: XOR<AvatarAssetCreateWithoutMouthsInput, AvatarAssetUncheckedCreateWithoutMouthsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutMouthsInput
+    upsert?: AvatarAssetUpsertWithoutMouthsInput
+    connect?: AvatarAssetWhereUniqueInput
+    update?: XOR<XOR<AvatarAssetUpdateToOneWithWhereWithoutMouthsInput, AvatarAssetUpdateWithoutMouthsInput>, AvatarAssetUncheckedUpdateWithoutMouthsInput>
+  }
+
+  export type AvatarAssetUpdateOneWithoutPatternsNestedInput = {
+    create?: XOR<AvatarAssetCreateWithoutPatternsInput, AvatarAssetUncheckedCreateWithoutPatternsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutPatternsInput
+    upsert?: AvatarAssetUpsertWithoutPatternsInput
+    disconnect?: AvatarAssetWhereInput | boolean
+    delete?: AvatarAssetWhereInput | boolean
+    connect?: AvatarAssetWhereUniqueInput
+    update?: XOR<XOR<AvatarAssetUpdateToOneWithWhereWithoutPatternsInput, AvatarAssetUpdateWithoutPatternsInput>, AvatarAssetUncheckedUpdateWithoutPatternsInput>
+  }
+
+  export type ColorUpdateOneRequiredWithoutColorShapeNestedInput = {
+    create?: XOR<ColorCreateWithoutColorShapeInput, ColorUncheckedCreateWithoutColorShapeInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorShapeInput
+    upsert?: ColorUpsertWithoutColorShapeInput
+    connect?: ColorWhereUniqueInput
+    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorShapeInput, ColorUpdateWithoutColorShapeInput>, ColorUncheckedUpdateWithoutColorShapeInput>
+  }
+
+  export type ColorUpdateOneRequiredWithoutColorEyesNestedInput = {
+    create?: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorEyesInput
+    upsert?: ColorUpsertWithoutColorEyesInput
+    connect?: ColorWhereUniqueInput
+    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorEyesInput, ColorUpdateWithoutColorEyesInput>, ColorUncheckedUpdateWithoutColorEyesInput>
+  }
+
+  export type ColorUpdateOneRequiredWithoutColorMouthNestedInput = {
+    create?: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorMouthInput
+    upsert?: ColorUpsertWithoutColorMouthInput
+    connect?: ColorWhereUniqueInput
+    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorMouthInput, ColorUpdateWithoutColorMouthInput>, ColorUncheckedUpdateWithoutColorMouthInput>
+  }
+
+  export type ColorUpdateOneWithoutColorPatternNestedInput = {
+    create?: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
+    connectOrCreate?: ColorCreateOrConnectWithoutColorPatternInput
+    upsert?: ColorUpsertWithoutColorPatternInput
+    disconnect?: ColorWhereInput | boolean
+    delete?: ColorWhereInput | boolean
+    connect?: ColorWhereUniqueInput
+    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorPatternInput, ColorUpdateWithoutColorPatternInput>, ColorUncheckedUpdateWithoutColorPatternInput>
+  }
+
+  export type UserUpdateOneWithoutAvatarNestedInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    upsert?: UserUpsertWithoutAvatarInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvatarInput, UserUpdateWithoutAvatarInput>, UserUncheckedUpdateWithoutAvatarInput>
+  }
+
+  export type UserUncheckedUpdateOneWithoutAvatarNestedInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    upsert?: UserUpsertWithoutAvatarInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvatarInput, UserUpdateWithoutAvatarInput>, UserUncheckedUpdateWithoutAvatarInput>
+  }
+
+  export type AvatarCreateNestedManyWithoutColorShapeInput = {
+    create?: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput> | AvatarCreateWithoutColorShapeInput[] | AvatarUncheckedCreateWithoutColorShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorShapeInput | AvatarCreateOrConnectWithoutColorShapeInput[]
+    createMany?: AvatarCreateManyColorShapeInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutColorEyesInput = {
+    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
+    createMany?: AvatarCreateManyColorEyesInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutColorMouthInput = {
+    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
+    createMany?: AvatarCreateManyColorMouthInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutColorPatternInput = {
+    create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
+    createMany?: AvatarCreateManyColorPatternInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutColorShapeInput = {
+    create?: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput> | AvatarCreateWithoutColorShapeInput[] | AvatarUncheckedCreateWithoutColorShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorShapeInput | AvatarCreateOrConnectWithoutColorShapeInput[]
+    createMany?: AvatarCreateManyColorShapeInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutColorEyesInput = {
+    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
+    createMany?: AvatarCreateManyColorEyesInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutColorMouthInput = {
+    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
+    createMany?: AvatarCreateManyColorMouthInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutColorPatternInput = {
+    create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
+    createMany?: AvatarCreateManyColorPatternInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type AvatarUpdateManyWithoutColorShapeNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput> | AvatarCreateWithoutColorShapeInput[] | AvatarUncheckedCreateWithoutColorShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorShapeInput | AvatarCreateOrConnectWithoutColorShapeInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorShapeInput | AvatarUpsertWithWhereUniqueWithoutColorShapeInput[]
+    createMany?: AvatarCreateManyColorShapeInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorShapeInput | AvatarUpdateWithWhereUniqueWithoutColorShapeInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorShapeInput | AvatarUpdateManyWithWhereWithoutColorShapeInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutColorEyesNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorEyesInput | AvatarUpsertWithWhereUniqueWithoutColorEyesInput[]
+    createMany?: AvatarCreateManyColorEyesInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorEyesInput | AvatarUpdateWithWhereUniqueWithoutColorEyesInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorEyesInput | AvatarUpdateManyWithWhereWithoutColorEyesInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutColorMouthNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorMouthInput | AvatarUpsertWithWhereUniqueWithoutColorMouthInput[]
+    createMany?: AvatarCreateManyColorMouthInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorMouthInput | AvatarUpdateWithWhereUniqueWithoutColorMouthInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorMouthInput | AvatarUpdateManyWithWhereWithoutColorMouthInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutColorPatternNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorPatternInput | AvatarUpsertWithWhereUniqueWithoutColorPatternInput[]
+    createMany?: AvatarCreateManyColorPatternInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorPatternInput | AvatarUpdateWithWhereUniqueWithoutColorPatternInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorPatternInput | AvatarUpdateManyWithWhereWithoutColorPatternInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorShapeNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput> | AvatarCreateWithoutColorShapeInput[] | AvatarUncheckedCreateWithoutColorShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorShapeInput | AvatarCreateOrConnectWithoutColorShapeInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorShapeInput | AvatarUpsertWithWhereUniqueWithoutColorShapeInput[]
+    createMany?: AvatarCreateManyColorShapeInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorShapeInput | AvatarUpdateWithWhereUniqueWithoutColorShapeInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorShapeInput | AvatarUpdateManyWithWhereWithoutColorShapeInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorEyesNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorEyesInput | AvatarUpsertWithWhereUniqueWithoutColorEyesInput[]
+    createMany?: AvatarCreateManyColorEyesInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorEyesInput | AvatarUpdateWithWhereUniqueWithoutColorEyesInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorEyesInput | AvatarUpdateManyWithWhereWithoutColorEyesInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorMouthNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorMouthInput | AvatarUpsertWithWhereUniqueWithoutColorMouthInput[]
+    createMany?: AvatarCreateManyColorMouthInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorMouthInput | AvatarUpdateWithWhereUniqueWithoutColorMouthInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorMouthInput | AvatarUpdateManyWithWhereWithoutColorMouthInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorPatternNestedInput = {
+    create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutColorPatternInput | AvatarUpsertWithWhereUniqueWithoutColorPatternInput[]
+    createMany?: AvatarCreateManyColorPatternInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutColorPatternInput | AvatarUpdateWithWhereUniqueWithoutColorPatternInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutColorPatternInput | AvatarUpdateManyWithWhereWithoutColorPatternInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutShapeInput = {
+    create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
+    createMany?: AvatarCreateManyShapeInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutEyesInput = {
+    create?: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput> | AvatarCreateWithoutEyesInput[] | AvatarUncheckedCreateWithoutEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutEyesInput | AvatarCreateOrConnectWithoutEyesInput[]
+    createMany?: AvatarCreateManyEyesInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutMouthInput = {
+    create?: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput> | AvatarCreateWithoutMouthInput[] | AvatarUncheckedCreateWithoutMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutMouthInput | AvatarCreateOrConnectWithoutMouthInput[]
+    createMany?: AvatarCreateManyMouthInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarCreateNestedManyWithoutPatternInput = {
+    create?: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput> | AvatarCreateWithoutPatternInput[] | AvatarUncheckedCreateWithoutPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutPatternInput | AvatarCreateOrConnectWithoutPatternInput[]
+    createMany?: AvatarCreateManyPatternInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutShapeInput = {
+    create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
+    createMany?: AvatarCreateManyShapeInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutEyesInput = {
+    create?: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput> | AvatarCreateWithoutEyesInput[] | AvatarUncheckedCreateWithoutEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutEyesInput | AvatarCreateOrConnectWithoutEyesInput[]
+    createMany?: AvatarCreateManyEyesInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutMouthInput = {
+    create?: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput> | AvatarCreateWithoutMouthInput[] | AvatarUncheckedCreateWithoutMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutMouthInput | AvatarCreateOrConnectWithoutMouthInput[]
+    createMany?: AvatarCreateManyMouthInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUncheckedCreateNestedManyWithoutPatternInput = {
+    create?: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput> | AvatarCreateWithoutPatternInput[] | AvatarUncheckedCreateWithoutPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutPatternInput | AvatarCreateOrConnectWithoutPatternInput[]
+    createMany?: AvatarCreateManyPatternInputEnvelope
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type AvatarUpdateManyWithoutShapeNestedInput = {
+    create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutShapeInput | AvatarUpsertWithWhereUniqueWithoutShapeInput[]
+    createMany?: AvatarCreateManyShapeInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutShapeInput | AvatarUpdateWithWhereUniqueWithoutShapeInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutShapeInput | AvatarUpdateManyWithWhereWithoutShapeInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutEyesNestedInput = {
+    create?: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput> | AvatarCreateWithoutEyesInput[] | AvatarUncheckedCreateWithoutEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutEyesInput | AvatarCreateOrConnectWithoutEyesInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutEyesInput | AvatarUpsertWithWhereUniqueWithoutEyesInput[]
+    createMany?: AvatarCreateManyEyesInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutEyesInput | AvatarUpdateWithWhereUniqueWithoutEyesInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutEyesInput | AvatarUpdateManyWithWhereWithoutEyesInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutMouthNestedInput = {
+    create?: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput> | AvatarCreateWithoutMouthInput[] | AvatarUncheckedCreateWithoutMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutMouthInput | AvatarCreateOrConnectWithoutMouthInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutMouthInput | AvatarUpsertWithWhereUniqueWithoutMouthInput[]
+    createMany?: AvatarCreateManyMouthInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutMouthInput | AvatarUpdateWithWhereUniqueWithoutMouthInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutMouthInput | AvatarUpdateManyWithWhereWithoutMouthInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUpdateManyWithoutPatternNestedInput = {
+    create?: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput> | AvatarCreateWithoutPatternInput[] | AvatarUncheckedCreateWithoutPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutPatternInput | AvatarCreateOrConnectWithoutPatternInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutPatternInput | AvatarUpsertWithWhereUniqueWithoutPatternInput[]
+    createMany?: AvatarCreateManyPatternInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutPatternInput | AvatarUpdateWithWhereUniqueWithoutPatternInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutPatternInput | AvatarUpdateManyWithWhereWithoutPatternInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutShapeNestedInput = {
+    create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutShapeInput | AvatarUpsertWithWhereUniqueWithoutShapeInput[]
+    createMany?: AvatarCreateManyShapeInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutShapeInput | AvatarUpdateWithWhereUniqueWithoutShapeInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutShapeInput | AvatarUpdateManyWithWhereWithoutShapeInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutEyesNestedInput = {
+    create?: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput> | AvatarCreateWithoutEyesInput[] | AvatarUncheckedCreateWithoutEyesInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutEyesInput | AvatarCreateOrConnectWithoutEyesInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutEyesInput | AvatarUpsertWithWhereUniqueWithoutEyesInput[]
+    createMany?: AvatarCreateManyEyesInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutEyesInput | AvatarUpdateWithWhereUniqueWithoutEyesInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutEyesInput | AvatarUpdateManyWithWhereWithoutEyesInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutMouthNestedInput = {
+    create?: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput> | AvatarCreateWithoutMouthInput[] | AvatarUncheckedCreateWithoutMouthInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutMouthInput | AvatarCreateOrConnectWithoutMouthInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutMouthInput | AvatarUpsertWithWhereUniqueWithoutMouthInput[]
+    createMany?: AvatarCreateManyMouthInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutMouthInput | AvatarUpdateWithWhereUniqueWithoutMouthInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutMouthInput | AvatarUpdateManyWithWhereWithoutMouthInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutPatternNestedInput = {
+    create?: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput> | AvatarCreateWithoutPatternInput[] | AvatarUncheckedCreateWithoutPatternInput[]
+    connectOrCreate?: AvatarCreateOrConnectWithoutPatternInput | AvatarCreateOrConnectWithoutPatternInput[]
+    upsert?: AvatarUpsertWithWhereUniqueWithoutPatternInput | AvatarUpsertWithWhereUniqueWithoutPatternInput[]
+    createMany?: AvatarCreateManyPatternInputEnvelope
+    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+    update?: AvatarUpdateWithWhereUniqueWithoutPatternInput | AvatarUpdateWithWhereUniqueWithoutPatternInput[]
+    updateMany?: AvatarUpdateManyWithWhereWithoutPatternInput | AvatarUpdateManyWithWhereWithoutPatternInput[]
+    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutFriendsInput = {
     create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
@@ -16477,10 +21960,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserEventsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UserUpdateOneRequiredWithoutUserEventsNestedInput = {
@@ -16631,14 +22110,6 @@ export namespace Prisma {
     connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -16737,10 +22208,6 @@ export namespace Prisma {
     connect?: GameCinema1DaysWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type GameCinema1DaysUpdateOneRequiredWithoutTriesNestedInput = {
     create?: XOR<GameCinema1DaysCreateWithoutTriesInput, GameCinema1DaysUncheckedCreateWithoutTriesInput>
     connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutTriesInput
@@ -16774,15 +22241,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -16794,6 +22264,28 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -16840,59 +22332,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16910,15 +22349,18 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16937,6 +22379,44 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -16953,17 +22433,34 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type AvatarCreateWithoutUserInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type AvatarUncheckedCreateWithoutUserInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateOrConnectWithoutUserInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutUserInput, AvatarUncheckedCreateWithoutUserInput>
   }
 
   export type FriendCreateWithoutUserInput = {
@@ -17090,6 +22587,42 @@ export namespace Prisma {
   export type GameResultCreateManyUserInputEnvelope = {
     data: GameResultCreateManyUserInput | GameResultCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type AvatarUpsertWithoutUserInput = {
+    update: XOR<AvatarUpdateWithoutUserInput, AvatarUncheckedUpdateWithoutUserInput>
+    create: XOR<AvatarCreateWithoutUserInput, AvatarUncheckedCreateWithoutUserInput>
+    where?: AvatarWhereInput
+  }
+
+  export type AvatarUpdateToOneWithWhereWithoutUserInput = {
+    where?: AvatarWhereInput
+    data: XOR<AvatarUpdateWithoutUserInput, AvatarUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AvatarUpdateWithoutUserInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FriendUpsertWithWhereUniqueWithoutUserInput = {
@@ -17223,13 +22756,1012 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"GameResult"> | Date | string | null
   }
 
-  export type UserCreateWithoutFriendsInput = {
+  export type AvatarAssetCreateWithoutShapesInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    eyes?: AvatarCreateNestedManyWithoutEyesInput
+    mouths?: AvatarCreateNestedManyWithoutMouthInput
+    patterns?: AvatarCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUncheckedCreateWithoutShapesInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
+    mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+    patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetCreateOrConnectWithoutShapesInput = {
+    where: AvatarAssetWhereUniqueInput
+    create: XOR<AvatarAssetCreateWithoutShapesInput, AvatarAssetUncheckedCreateWithoutShapesInput>
+  }
+
+  export type AvatarAssetCreateWithoutEyesInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarCreateNestedManyWithoutShapeInput
+    mouths?: AvatarCreateNestedManyWithoutMouthInput
+    patterns?: AvatarCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUncheckedCreateWithoutEyesInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
+    mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+    patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetCreateOrConnectWithoutEyesInput = {
+    where: AvatarAssetWhereUniqueInput
+    create: XOR<AvatarAssetCreateWithoutEyesInput, AvatarAssetUncheckedCreateWithoutEyesInput>
+  }
+
+  export type AvatarAssetCreateWithoutMouthsInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarCreateNestedManyWithoutShapeInput
+    eyes?: AvatarCreateNestedManyWithoutEyesInput
+    patterns?: AvatarCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUncheckedCreateWithoutMouthsInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
+    eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
+    patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetCreateOrConnectWithoutMouthsInput = {
+    where: AvatarAssetWhereUniqueInput
+    create: XOR<AvatarAssetCreateWithoutMouthsInput, AvatarAssetUncheckedCreateWithoutMouthsInput>
+  }
+
+  export type AvatarAssetCreateWithoutPatternsInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarCreateNestedManyWithoutShapeInput
+    eyes?: AvatarCreateNestedManyWithoutEyesInput
+    mouths?: AvatarCreateNestedManyWithoutMouthInput
+  }
+
+  export type AvatarAssetUncheckedCreateWithoutPatternsInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
+    eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
+    mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+  }
+
+  export type AvatarAssetCreateOrConnectWithoutPatternsInput = {
+    where: AvatarAssetWhereUniqueInput
+    create: XOR<AvatarAssetCreateWithoutPatternsInput, AvatarAssetUncheckedCreateWithoutPatternsInput>
+  }
+
+  export type ColorCreateWithoutColorShapeInput = {
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorUncheckedCreateWithoutColorShapeInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorCreateOrConnectWithoutColorShapeInput = {
+    where: ColorWhereUniqueInput
+    create: XOR<ColorCreateWithoutColorShapeInput, ColorUncheckedCreateWithoutColorShapeInput>
+  }
+
+  export type ColorCreateWithoutColorEyesInput = {
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
+    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorUncheckedCreateWithoutColorEyesInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
+    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
+    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorCreateOrConnectWithoutColorEyesInput = {
+    where: ColorWhereUniqueInput
+    create: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
+  }
+
+  export type ColorCreateWithoutColorMouthInput = {
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
+    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorUncheckedCreateWithoutColorMouthInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
+    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
+  }
+
+  export type ColorCreateOrConnectWithoutColorMouthInput = {
+    where: ColorWhereUniqueInput
+    create: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
+  }
+
+  export type ColorCreateWithoutColorPatternInput = {
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
+  }
+
+  export type ColorUncheckedCreateWithoutColorPatternInput = {
+    id?: number
+    name: string
+    value: string
+    level?: number
+    vip?: boolean
+    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
+    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
+    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
+  }
+
+  export type ColorCreateOrConnectWithoutColorPatternInput = {
+    where: ColorWhereUniqueInput
+    create: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
+  }
+
+  export type UserCreateWithoutAvatarInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    friends?: FriendCreateNestedManyWithoutUserInput
+    friend?: FriendCreateNestedManyWithoutFriendInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
+    userEvents?: UserEventCreateNestedManyWithoutUserInput
+    gameResults?: GameResultCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAvatarInput = {
+    id?: number
+    email: string
+    password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    friend?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutUserInput
+    gameResults?: GameResultUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAvatarInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+  }
+
+  export type AvatarAssetUpsertWithoutShapesInput = {
+    update: XOR<AvatarAssetUpdateWithoutShapesInput, AvatarAssetUncheckedUpdateWithoutShapesInput>
+    create: XOR<AvatarAssetCreateWithoutShapesInput, AvatarAssetUncheckedCreateWithoutShapesInput>
+    where?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetUpdateToOneWithWhereWithoutShapesInput = {
+    where?: AvatarAssetWhereInput
+    data: XOR<AvatarAssetUpdateWithoutShapesInput, AvatarAssetUncheckedUpdateWithoutShapesInput>
+  }
+
+  export type AvatarAssetUpdateWithoutShapesInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    eyes?: AvatarUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateWithoutShapesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUpsertWithoutEyesInput = {
+    update: XOR<AvatarAssetUpdateWithoutEyesInput, AvatarAssetUncheckedUpdateWithoutEyesInput>
+    create: XOR<AvatarAssetCreateWithoutEyesInput, AvatarAssetUncheckedCreateWithoutEyesInput>
+    where?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetUpdateToOneWithWhereWithoutEyesInput = {
+    where?: AvatarAssetWhereInput
+    data: XOR<AvatarAssetUpdateWithoutEyesInput, AvatarAssetUncheckedUpdateWithoutEyesInput>
+  }
+
+  export type AvatarAssetUpdateWithoutEyesInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUpdateManyWithoutShapeNestedInput
+    mouths?: AvatarUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateWithoutEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
+    mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUpsertWithoutMouthsInput = {
+    update: XOR<AvatarAssetUpdateWithoutMouthsInput, AvatarAssetUncheckedUpdateWithoutMouthsInput>
+    create: XOR<AvatarAssetCreateWithoutMouthsInput, AvatarAssetUncheckedCreateWithoutMouthsInput>
+    where?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetUpdateToOneWithWhereWithoutMouthsInput = {
+    where?: AvatarAssetWhereInput
+    data: XOR<AvatarAssetUpdateWithoutMouthsInput, AvatarAssetUncheckedUpdateWithoutMouthsInput>
+  }
+
+  export type AvatarAssetUpdateWithoutMouthsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUpdateManyWithoutEyesNestedInput
+    patterns?: AvatarUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateWithoutMouthsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
+    patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUpsertWithoutPatternsInput = {
+    update: XOR<AvatarAssetUpdateWithoutPatternsInput, AvatarAssetUncheckedUpdateWithoutPatternsInput>
+    create: XOR<AvatarAssetCreateWithoutPatternsInput, AvatarAssetUncheckedCreateWithoutPatternsInput>
+    where?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetUpdateToOneWithWhereWithoutPatternsInput = {
+    where?: AvatarAssetWhereInput
+    data: XOR<AvatarAssetUpdateWithoutPatternsInput, AvatarAssetUncheckedUpdateWithoutPatternsInput>
+  }
+
+  export type AvatarAssetUpdateWithoutPatternsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUpdateManyWithoutMouthNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateWithoutPatternsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+  }
+
+  export type ColorUpsertWithoutColorShapeInput = {
+    update: XOR<ColorUpdateWithoutColorShapeInput, ColorUncheckedUpdateWithoutColorShapeInput>
+    create: XOR<ColorCreateWithoutColorShapeInput, ColorUncheckedCreateWithoutColorShapeInput>
+    where?: ColorWhereInput
+  }
+
+  export type ColorUpdateToOneWithWhereWithoutColorShapeInput = {
+    where?: ColorWhereInput
+    data: XOR<ColorUpdateWithoutColorShapeInput, ColorUncheckedUpdateWithoutColorShapeInput>
+  }
+
+  export type ColorUpdateWithoutColorShapeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUncheckedUpdateWithoutColorShapeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUpsertWithoutColorEyesInput = {
+    update: XOR<ColorUpdateWithoutColorEyesInput, ColorUncheckedUpdateWithoutColorEyesInput>
+    create: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
+    where?: ColorWhereInput
+  }
+
+  export type ColorUpdateToOneWithWhereWithoutColorEyesInput = {
+    where?: ColorWhereInput
+    data: XOR<ColorUpdateWithoutColorEyesInput, ColorUncheckedUpdateWithoutColorEyesInput>
+  }
+
+  export type ColorUpdateWithoutColorEyesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
+    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUncheckedUpdateWithoutColorEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
+    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
+    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUpsertWithoutColorMouthInput = {
+    update: XOR<ColorUpdateWithoutColorMouthInput, ColorUncheckedUpdateWithoutColorMouthInput>
+    create: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
+    where?: ColorWhereInput
+  }
+
+  export type ColorUpdateToOneWithWhereWithoutColorMouthInput = {
+    where?: ColorWhereInput
+    data: XOR<ColorUpdateWithoutColorMouthInput, ColorUncheckedUpdateWithoutColorMouthInput>
+  }
+
+  export type ColorUpdateWithoutColorMouthInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
+    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUncheckedUpdateWithoutColorMouthInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
+    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
+  }
+
+  export type ColorUpsertWithoutColorPatternInput = {
+    update: XOR<ColorUpdateWithoutColorPatternInput, ColorUncheckedUpdateWithoutColorPatternInput>
+    create: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
+    where?: ColorWhereInput
+  }
+
+  export type ColorUpdateToOneWithWhereWithoutColorPatternInput = {
+    where?: ColorWhereInput
+    data: XOR<ColorUpdateWithoutColorPatternInput, ColorUncheckedUpdateWithoutColorPatternInput>
+  }
+
+  export type ColorUpdateWithoutColorPatternInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
+  }
+
+  export type ColorUncheckedUpdateWithoutColorPatternInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vip?: BoolFieldUpdateOperationsInput | boolean
+    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
+    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
+    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
+  }
+
+  export type UserUpsertWithoutAvatarInput = {
+    update: XOR<UserUpdateWithoutAvatarInput, UserUncheckedUpdateWithoutAvatarInput>
+    create: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAvatarInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAvatarInput, UserUncheckedUpdateWithoutAvatarInput>
+  }
+
+  export type UserUpdateWithoutAvatarInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    friend?: FriendUpdateManyWithoutFriendNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
+    userEvents?: UserEventUpdateManyWithoutUserNestedInput
+    gameResults?: GameResultUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAvatarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    friend?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutUserNestedInput
+    gameResults?: GameResultUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AvatarCreateWithoutColorShapeInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutColorShapeInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutColorShapeInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput>
+  }
+
+  export type AvatarCreateManyColorShapeInputEnvelope = {
+    data: AvatarCreateManyColorShapeInput | AvatarCreateManyColorShapeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutColorEyesInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutColorEyesInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutColorEyesInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput>
+  }
+
+  export type AvatarCreateManyColorEyesInputEnvelope = {
+    data: AvatarCreateManyColorEyesInput | AvatarCreateManyColorEyesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutColorMouthInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutColorMouthInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutColorMouthInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput>
+  }
+
+  export type AvatarCreateManyColorMouthInputEnvelope = {
+    data: AvatarCreateManyColorMouthInput | AvatarCreateManyColorMouthInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutColorPatternInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutColorPatternInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutColorPatternInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput>
+  }
+
+  export type AvatarCreateManyColorPatternInputEnvelope = {
+    data: AvatarCreateManyColorPatternInput | AvatarCreateManyColorPatternInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutColorShapeInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutColorShapeInput, AvatarUncheckedUpdateWithoutColorShapeInput>
+    create: XOR<AvatarCreateWithoutColorShapeInput, AvatarUncheckedCreateWithoutColorShapeInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutColorShapeInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutColorShapeInput, AvatarUncheckedUpdateWithoutColorShapeInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutColorShapeInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorShapeInput>
+  }
+
+  export type AvatarScalarWhereInput = {
+    AND?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+    OR?: AvatarScalarWhereInput[]
+    NOT?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
+    id?: IntFilter<"Avatar"> | number
+    url?: StringFilter<"Avatar"> | string
+    shapeId?: IntFilter<"Avatar"> | number
+    eyesId?: IntFilter<"Avatar"> | number
+    mouthId?: IntFilter<"Avatar"> | number
+    patternId?: IntNullableFilter<"Avatar"> | number | null
+    colorShapeId?: IntFilter<"Avatar"> | number
+    colorEyesId?: IntFilter<"Avatar"> | number
+    colorMouthId?: IntFilter<"Avatar"> | number
+    colorPatternId?: IntNullableFilter<"Avatar"> | number | null
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutColorEyesInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutColorEyesInput, AvatarUncheckedUpdateWithoutColorEyesInput>
+    create: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutColorEyesInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutColorEyesInput, AvatarUncheckedUpdateWithoutColorEyesInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutColorEyesInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorEyesInput>
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutColorMouthInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutColorMouthInput, AvatarUncheckedUpdateWithoutColorMouthInput>
+    create: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutColorMouthInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutColorMouthInput, AvatarUncheckedUpdateWithoutColorMouthInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutColorMouthInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorMouthInput>
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutColorPatternInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutColorPatternInput, AvatarUncheckedUpdateWithoutColorPatternInput>
+    create: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutColorPatternInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutColorPatternInput, AvatarUncheckedUpdateWithoutColorPatternInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutColorPatternInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorPatternInput>
+  }
+
+  export type AvatarCreateWithoutShapeInput = {
+    url: string
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutShapeInput = {
+    id?: number
+    url: string
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutShapeInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput>
+  }
+
+  export type AvatarCreateManyShapeInputEnvelope = {
+    data: AvatarCreateManyShapeInput | AvatarCreateManyShapeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutEyesInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutEyesInput = {
+    id?: number
+    url: string
+    shapeId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutEyesInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput>
+  }
+
+  export type AvatarCreateManyEyesInputEnvelope = {
+    data: AvatarCreateManyEyesInput | AvatarCreateManyEyesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutMouthInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutMouthInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutMouthInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput>
+  }
+
+  export type AvatarCreateManyMouthInputEnvelope = {
+    data: AvatarCreateManyMouthInput | AvatarCreateManyMouthInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutPatternInput = {
+    url: string
+    shape: AvatarAssetCreateNestedOneWithoutShapesInput
+    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
+    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
+    colorShape: ColorCreateNestedOneWithoutColorShapeInput
+    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
+    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
+    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
+    user?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarUncheckedCreateWithoutPatternInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type AvatarCreateOrConnectWithoutPatternInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput>
+  }
+
+  export type AvatarCreateManyPatternInputEnvelope = {
+    data: AvatarCreateManyPatternInput | AvatarCreateManyPatternInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutShapeInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutShapeInput, AvatarUncheckedUpdateWithoutShapeInput>
+    create: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutShapeInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutShapeInput, AvatarUncheckedUpdateWithoutShapeInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutShapeInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutShapeInput>
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutEyesInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutEyesInput, AvatarUncheckedUpdateWithoutEyesInput>
+    create: XOR<AvatarCreateWithoutEyesInput, AvatarUncheckedCreateWithoutEyesInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutEyesInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutEyesInput, AvatarUncheckedUpdateWithoutEyesInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutEyesInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutEyesInput>
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutMouthInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutMouthInput, AvatarUncheckedUpdateWithoutMouthInput>
+    create: XOR<AvatarCreateWithoutMouthInput, AvatarUncheckedCreateWithoutMouthInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutMouthInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutMouthInput, AvatarUncheckedUpdateWithoutMouthInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutMouthInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutMouthInput>
+  }
+
+  export type AvatarUpsertWithWhereUniqueWithoutPatternInput = {
+    where: AvatarWhereUniqueInput
+    update: XOR<AvatarUpdateWithoutPatternInput, AvatarUncheckedUpdateWithoutPatternInput>
+    create: XOR<AvatarCreateWithoutPatternInput, AvatarUncheckedCreateWithoutPatternInput>
+  }
+
+  export type AvatarUpdateWithWhereUniqueWithoutPatternInput = {
+    where: AvatarWhereUniqueInput
+    data: XOR<AvatarUpdateWithoutPatternInput, AvatarUncheckedUpdateWithoutPatternInput>
+  }
+
+  export type AvatarUpdateManyWithWhereWithoutPatternInput = {
+    where: AvatarScalarWhereInput
+    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutPatternInput>
+  }
+
+  export type UserCreateWithoutFriendsInput = {
+    email: string
+    password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friend?: FriendCreateNestedManyWithoutFriendInput
     userStats?: UserStatsCreateNestedOneWithoutUserInput
     userEvents?: UserEventCreateNestedManyWithoutUserInput
@@ -17240,6 +23772,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17258,10 +23795,15 @@ export namespace Prisma {
   export type UserCreateWithoutFriendInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     userStats?: UserStatsCreateNestedOneWithoutUserInput
     userEvents?: UserEventCreateNestedManyWithoutUserInput
@@ -17272,6 +23814,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17301,10 +23848,15 @@ export namespace Prisma {
   export type UserUpdateWithoutFriendsInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friend?: FriendUpdateManyWithoutFriendNestedInput
     userStats?: UserStatsUpdateOneWithoutUserNestedInput
     userEvents?: UserEventUpdateManyWithoutUserNestedInput
@@ -17315,6 +23867,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17339,10 +23896,15 @@ export namespace Prisma {
   export type UserUpdateWithoutFriendInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     userStats?: UserStatsUpdateOneWithoutUserNestedInput
     userEvents?: UserEventUpdateManyWithoutUserNestedInput
@@ -17353,6 +23915,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17366,10 +23933,15 @@ export namespace Prisma {
   export type UserCreateWithoutUserStatsInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     friend?: FriendCreateNestedManyWithoutFriendInput
     userEvents?: UserEventCreateNestedManyWithoutUserInput
@@ -17380,6 +23952,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17409,10 +23986,15 @@ export namespace Prisma {
   export type UserUpdateWithoutUserStatsInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     friend?: FriendUpdateManyWithoutFriendNestedInput
     userEvents?: UserEventUpdateManyWithoutUserNestedInput
@@ -17423,6 +24005,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17436,10 +24023,15 @@ export namespace Prisma {
   export type UserCreateWithoutUserEventsInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     friend?: FriendCreateNestedManyWithoutFriendInput
     userStats?: UserStatsCreateNestedOneWithoutUserInput
@@ -17450,6 +24042,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17479,10 +24076,15 @@ export namespace Prisma {
   export type UserUpdateWithoutUserEventsInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     friend?: FriendUpdateManyWithoutFriendNestedInput
     userStats?: UserStatsUpdateOneWithoutUserNestedInput
@@ -17493,6 +24095,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17506,10 +24113,15 @@ export namespace Prisma {
   export type UserCreateWithoutGameResultsInput = {
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    avatar?: AvatarCreateNestedOneWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     friend?: FriendCreateNestedManyWithoutFriendInput
     userStats?: UserStatsCreateNestedOneWithoutUserInput
@@ -17520,6 +24132,11 @@ export namespace Prisma {
     id?: number
     email: string
     password: string
+    pseudo: string
+    firstName?: string | null
+    lastName?: string | null
+    birthdate?: Date | string | null
+    avatarId?: number | null
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17571,10 +24188,15 @@ export namespace Prisma {
   export type UserUpdateWithoutGameResultsInput = {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: AvatarUpdateOneWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     friend?: FriendUpdateManyWithoutFriendNestedInput
     userStats?: UserStatsUpdateOneWithoutUserNestedInput
@@ -17585,6 +24207,11 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    pseudo?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18193,6 +24820,398 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvatarCreateManyColorShapeInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyColorEyesInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyColorMouthInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyColorPatternInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+  }
+
+  export type AvatarUpdateWithoutColorShapeInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutColorShapeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorShapeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutColorEyesInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutColorEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutColorMouthInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutColorMouthInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorMouthInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutColorPatternInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutColorPatternInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutColorPatternInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AvatarCreateManyShapeInput = {
+    id?: number
+    url: string
+    eyesId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyEyesInput = {
+    id?: number
+    url: string
+    shapeId: number
+    mouthId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyMouthInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    patternId?: number | null
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarCreateManyPatternInput = {
+    id?: number
+    url: string
+    shapeId: number
+    eyesId: number
+    mouthId: number
+    colorShapeId: number
+    colorEyesId: number
+    colorMouthId: number
+    colorPatternId?: number | null
+  }
+
+  export type AvatarUpdateWithoutShapeInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutShapeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutShapeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutEyesInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutEyesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutMouthInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutMouthInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutMouthInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    patternId?: NullableIntFieldUpdateOperationsInput | number | null
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AvatarUpdateWithoutPatternInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
+    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
+    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
+    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
+    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
+    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
+    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
+    user?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateWithoutPatternInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
+    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type AvatarUncheckedUpdateManyWithoutPatternInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    shapeId?: IntFieldUpdateOperationsInput | number
+    eyesId?: IntFieldUpdateOperationsInput | number
+    mouthId?: IntFieldUpdateOperationsInput | number
+    colorShapeId?: IntFieldUpdateOperationsInput | number
+    colorEyesId?: IntFieldUpdateOperationsInput | number
+    colorMouthId?: IntFieldUpdateOperationsInput | number
+    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type GameResultCreateManyGameInput = {

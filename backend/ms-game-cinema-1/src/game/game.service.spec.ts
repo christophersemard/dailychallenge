@@ -111,8 +111,6 @@ describe("GameService", () => {
             );
 
             const result = await service.submitGuess(1, "5", "2024-03-24");
-            console.log("RESULT SUBMIT GUESS");
-            console.log(result);
             expect(result.lastGuessed).toBe(true);
             expect(result.attempts).toBe(1);
         });

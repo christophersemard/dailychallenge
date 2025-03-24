@@ -13,3 +13,16 @@ export class UserEvent {
     details?: string;
     createdAt: Date;
 }
+
+export interface UserPublicProfile {
+    id: number;
+    pseudo: string;
+    vip: boolean;
+    createdAt: string;
+    avatar?: { url: string };
+    userStats?: {
+        level: number;
+        xp: number;
+        streak: number;
+    };
+}
