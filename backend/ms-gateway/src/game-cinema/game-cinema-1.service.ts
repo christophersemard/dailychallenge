@@ -56,7 +56,7 @@ export class GameCinema1Service {
 
     async submitGuess(
         userId: number,
-        guess: string,
+        guess: number,
         date?: string
     ): Promise<GuessResponse> {
         return lastValueFrom(

@@ -44,6 +44,23 @@ services:
     volumes:
       - /app/node_modules
 
+  ms-game-cinema-1:
+    build:
+      context: .
+      dockerfile: backend/ms-game-cinema-1/Dockerfile
+    depends_on:
+      - postgres
+      - ms-users
+    ports:
+      - "3002:3002"
+    environment:
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
+      - PORT=3004
+      - HOST=0.0.0.0
+    volumes:
+      - /app/node_modules
+
   ms-gateway:
     build:
       context: .

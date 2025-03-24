@@ -16,6 +16,8 @@ export class UserGameService {
         status: "passed" | "failed",
         gameDate: Date
     ) {
+        console.log("Processing game result...");
+        console.log("status: ", status);
         // Vérifier que le jeu existe
         if (!gameId) throw new RpcException("Jeu non trouvé");
         const game = await prisma.game.findUnique({ where: { id: gameId } });
@@ -25,13 +27,13 @@ export class UserGameService {
             attempts,
             maxAttempts,
             status,
-            gameDate
+            new Date(gameDate)
         );
         const { finalXP, newStreak } = await this.calculateXPAndStreak(
             userId,
             score,
             gameId,
-            gameDate,
+            new Date(gameDate),
             status
         );
 
@@ -42,7 +44,7 @@ export class UserGameService {
             score,
             finalXP,
             status,
-            gameDate
+            new Date(gameDate)
         );
 
         // Mise à jour des statistiques de l'utilisateur
@@ -59,7 +61,7 @@ export class UserGameService {
             attempts,
             maxAttempts,
             status,
-            gameDate
+            new Date(gameDate)
         );
 
         return gameResult;

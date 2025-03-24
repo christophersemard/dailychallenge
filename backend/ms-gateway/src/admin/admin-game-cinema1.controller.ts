@@ -4,7 +4,7 @@ import { JwtAuthGuard } from "../auth/auth.guard"; // 🔐 Vérifie l'authentifi
 import { RolesGuard } from "../auth/roles.guard"; // 🔐 Vérifie les rôles
 import { Roles } from "../auth/roles.decorator"; // 🔐 Rôles nécessaires pour accéder à la ressource
 
-@Controller("api/admin/game/cinema1")
+@Controller("api/admin/game-cinema-1")
 @UseGuards(JwtAuthGuard, RolesGuard) // ✅ Protection des routes Admin
 export class AdminGameCinema1Controller {
     constructor(

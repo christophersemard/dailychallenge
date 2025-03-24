@@ -13,9 +13,9 @@ export class UserGameController {
         return await this.userGameService.processGameResult(
             userId,
             gameId,
-            status,
             attempts,
             maxAttempts,
+            status,
             gameDate
         );
     }

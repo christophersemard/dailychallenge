@@ -14,11 +14,20 @@ export interface Friend {
     email: string;
 }
 
+export interface FriendRequest {
+    id: number;
+    userId: number;
+    friendId: number;
+    status: "pending" | "accepted" | "rejected";
+    createdAt: string;
+}
+
 export interface FriendResponse {
     message: string;
-    friendRequest?: any; // À remplacer par un type plus précis si nécessaire
+    friendRequest?: FriendRequest;
 }
 
 export interface FriendsListResponse {
     friends: Friend[];
+    pendingRequests?: FriendRequest[]; // facultatif selon la route
 }

@@ -40,7 +40,7 @@ export class GameCinema1Controller {
     @Post("guess")
     async submitGuess(
         @Req() req: UserRequest,
-        @Body() { guess, date }: { guess: string; date?: string }
+        @Body() { guess, date }: { guess: number; date?: string }
     ): Promise<GuessResponse> {
         return this.gameCinema1Service.submitGuess(req.user.id, guess, date);
     }

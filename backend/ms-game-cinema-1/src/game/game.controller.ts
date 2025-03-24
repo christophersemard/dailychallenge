@@ -43,8 +43,6 @@ export class GameController {
     async getGameResult(
         @Payload() { userId, date }: { userId: number; date?: string }
     ) {
-        console.log("userId", userId);
-        console.log("date", date);
         return this.gameService.getGameResult(userId, date);
     }
 }

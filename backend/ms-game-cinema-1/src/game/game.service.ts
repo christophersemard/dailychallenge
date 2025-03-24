@@ -1,8 +1,18 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+    BadRequestException,
+    ConflictException,
+    Inject,
+    Injectable,
+    NotFoundException,
+} from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
+import { ClientProxy } from "@nestjs/microservices";
+import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class GameService {
+    constructor(@Inject("USERS_SERVICE") private usersClient: ClientProxy) {}
+
     async getTodayGame(userId: number) {
         const today = new Date().toISOString().split("T")[0];
         return this.getGameByDate(userId, today);
@@ -71,7 +81,7 @@ export class GameService {
         const gameResult = await prisma.gameResult.findFirst({
             where: {
                 userId,
-                gameId: game.id,
+                gameId: 1,
                 date: {
                     gte: new Date(
                         gameDate.getFullYear(),
@@ -88,7 +98,7 @@ export class GameService {
         });
 
         if (gameResult) {
-            throw new NotFoundException("Vous avez déjà trouvé pour ce jour.");
+            throw new ConflictException("Vous avez déjà trouvé pour ce jour.");
         }
 
         const existingTries = await prisma.gameCinema1Tries.count({
@@ -100,33 +110,77 @@ export class GameService {
         }
 
         // ✅ Vérifier si la réponse est correcte
-        const formattedGuess = guess.toLowerCase().trim();
-        const correct =
-            formattedGuess === game.movie.title.toLowerCase().trim() ||
-            formattedGuess === game.movie.originalTitle.toLowerCase().trim();
+        const formattedGuess = Number(guess);
+        const correct = game.movie.id === formattedGuess;
+
+        const movieGuessed = await prisma.dataMovie.findUnique({
+            where: { id: formattedGuess },
+        });
 
         // ✅ Enregistrer l'essai
         await prisma.gameCinema1Tries.create({
-            data: { userId, dayId: game.id, guess: formattedGuess, correct },
+            data: {
+                userId,
+                dayId: game.id,
+                guess: movieGuessed?.title || "",
+                correct,
+            },
         });
 
         // ✅ Enregistrer dans `GameResult` si le joueur trouve la réponse
         if (correct) {
-            console.log("🎉 Joueur a trouvé la réponse:", userId, game.id);
+            const result = await lastValueFrom(
+                this.usersClient.send("record_game_result", {
+                    userId,
+                    gameId: 1,
+                    attempts: existingTries + 1,
+                    maxAttempts: 10,
+                    status: "passed",
+                    gameDate: new Date(game.date),
+                })
+            );
 
-            return {};
-
-            // Appel du microservice User avec ...
+            return {
+                lastGuessed: true,
+                hints: await this.getHints(
+                    userId,
+                    game.id,
+                    existingTries + 1
+                ).then((h) => h.hints),
+                newHint: null, // Pas utile ici car il a déjà trouvé
+                attempts: existingTries + 1,
+                maxAttempts: 10,
+                data: game.movie,
+                result, // On peut renvoyer le gameResult si tu veux l'afficher
+            };
         } else {
             // Si le joueur a atteint le nombre maximal d'essais, retourner la réponse
             if (existingTries + 1 >= 10) {
+                // ✅ Enregistrer dans `GameResult` si le joueur n'a pas trouvé la réponse
+
+                const result = await lastValueFrom(
+                    this.usersClient.send("record_game_result", {
+                        userId,
+                        gameId: 1,
+                        attempts: existingTries + 1,
+                        maxAttempts: 10,
+                        status: "failed",
+                        gameDate: new Date(game.date),
+                    })
+                );
+
                 return {
                     lastGuessed: false,
-                    hints: {},
-                    newHint: null,
+                    hints: await this.getHints(
+                        userId,
+                        game.id,
+                        existingTries + 1
+                    ).then((h) => h.hints),
+                    newHint: null, // Pas utile ici car il a déjà trouvé
                     attempts: existingTries + 1,
                     maxAttempts: 10,
                     data: game.movie,
+                    result, // On peut renvoyer le gameResult si tu veux l'afficher
                 };
             }
 
@@ -143,7 +197,6 @@ export class GameService {
     }
 
     async searchMovie(query: string) {
-        console.log("🔍 Recherche de films pour:", query);
         return prisma.dataMovie.findMany({
             where: {
                 OR: [
@@ -157,8 +210,6 @@ export class GameService {
 
     async getGameResult(userId: number, date?: string) {
         const gameDate = date ? new Date(date) : new Date(); // ✅ Si pas de date, on prend aujourd'hui
-
-        console.log("🔍 Récupération du résultat pour:", userId, gameDate);
 
         // ✅ Vérifier si un jeu existe pour cette date
         const game = await prisma.gameCinema1Days.findFirst({
