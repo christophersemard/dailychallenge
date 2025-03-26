@@ -1,58 +1,91 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
-
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 rounded text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer border-2",
+
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-        outline:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        primary: "bg-primary text-black border-white/30 hover:bg-primary/90",
+        secondary: "bg-secondary text-white border-white/20 hover:bg-secondary/90",
+        success: "bg-success text-white border-white/20 hover:bg-success/90",
+        danger: "bg-danger text-white border-white/20 hover:bg-danger/90",
+        background: "bg-background text-white border-white/30 hover:bg-background/90",
+        red: "bg-red text-white border-white/20 hover:bg-red/90",
+        purple: "bg-purple text-white border-white/20 hover:bg-purple/90",
+        yellow: "bg-yellow text-black border-white/20 hover:bg-yellow/90",
+        green: "bg-green text-white border-white/20 hover:bg-green/90",
+        blue: "bg-blue text-white border-white/20 hover:bg-blue/90",
+        pink: "bg-pink text-white border-white/20 hover:bg-pink/90",
+        teal: "bg-teal text-white border-white/20 hover:bg-teal/90",
+        black: "bg-black text-white border-white/20 hover:bg-black/90",
+
+        "outline-primary": " text-black border-primary hover:bg-primary",
+        "outline-secondary": " text-black border-secondary hover:bg-secondary hover:text-white",
+        "outline-success": " text-black border-success hover:bg-success hover:text-white",
+        "outline-danger": " text-black border-danger hover:bg-danger hover:text-white",
+        "outline-background": " text-black bg-white/50 border-black/3 hover:bg-white",
+        "outline-red": " text-black border-red hover:bg-red",
+        "outline-purple": " text-black border-purple hover:bg-purple",
+        "outline-yellow": " text-black border-yellow hover:bg-yellow",
+        "outline-green": " text-black border-green hover:bg-green",
+        "outline-blue": " text-black border-blue hover:bg-blue",
+        "outline-pink": " text-black border-pink hover:bg-pink",
+        "outline-teal": " text-black border-teal hover:bg-teal",
+        "outline-black": " text-black border-black hover:bg-black",
+        ghost: "bg-transparent text-foreground hover:bg-white border-transparent",
+        "ghost-background": "bg-transparent text-foreground hover:bg-background border-transparent",
+        subtle: "bg-black/5 text-black hover:bg-black/10 border-transparent",
+        link: "text-primary underline-offset-4 hover:underline border-none bg-transparent border-2 w-auto",
       },
+
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
+        xs: "h-6 px-2 text-sm",
+        sm: "h-8 px-3 text-md",
+        default: "h-9 px-4 text-base",
+        lg: "h-11 px-6 text-lg",
+        icon: "size-9 p-0",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "default",
     },
   }
 )
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
-
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  VariantProps<typeof buttonVariants> {
+  asChild?: boolean
 }
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, children, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+
+    const childArray = React.Children.toArray(children)
+    const isIconOnly =
+      childArray.length === 1 &&
+      React.isValidElement(childArray[0]) &&
+      typeof childArray[0].type === "function"
+
+    const finalSize = isIconOnly ? "icon" : size
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(buttonVariants({ variant, size: finalSize }), className)}
+        {...props}
+      >
+        {children}
+      </Comp>
+    )
+  }
+)
+Button.displayName = "Button"
 
 export { Button, buttonVariants }
