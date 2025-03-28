@@ -1,0 +1,55 @@
+// src/types/user.types.ts
+
+export interface UserAvatar {
+    id: string;
+    url: string;
+}
+
+export interface UserStats {
+    id: string;
+    xp: number;
+    level: number;
+    streak: number;
+    lastPlayedAt: string;
+}
+
+export interface UserMe {
+    id: string;
+    email: string;
+    pseudo: string;
+    firstName: string;
+    lastName: string;
+    birthdate: string;
+    createdAt: string;
+    avatar: UserAvatar;
+    userStats: UserStats;
+    pendingFriendRequests: number | null;
+}
+
+// Type pour un ami
+export interface Friend {
+    id: string;
+    pseudo: string;
+    level: number;
+    avatarUrl: string; // URL de l'avatar
+}
+
+// Type pour une demande d'ami
+export interface FriendRequestGroup {
+    sent: FriendRequest[]; // Demandes envoyées
+    received: FriendRequest[]; // Demandes reçues
+}
+
+export interface FriendRequest {
+    id: string;
+    userId: string;
+    friendId: string;
+    status: string;
+    createdAt: string;
+    user: {
+        id: string;
+        pseudo: string;
+        level: number;
+        avatarUrl: string | null; // URL de l'avatar ou null si pas d'avatar
+    };
+}

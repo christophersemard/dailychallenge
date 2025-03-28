@@ -6,6 +6,9 @@ import prisma from "../prisma/prisma.service";
 @Injectable()
 export class FriendsService {
     async addFriend(userId: number, friendId: number) {
+        console.log("userId", userId);
+        console.log("friendId", friendId);
+
         if (!userId || !friendId || userId === friendId) {
             throw new RpcException({
                 statusCode: 400,
@@ -80,9 +83,14 @@ export class FriendsService {
         friendId: number,
         accept: boolean
     ) {
+        console.log("userId", userId);
+        console.log("friendId", friendId);
+        console.log("accept", accept);
         const friendRequest = await prisma.friend.findFirst({
             where: { userId: friendId, friendId: userId, status: "pending" },
         });
+
+        console.log("friendRequest", friendRequest);
 
         if (!friendRequest) {
             throw new RpcException({
@@ -92,15 +100,47 @@ export class FriendsService {
             });
         }
 
-        const updated = await prisma.friend.update({
-            where: { id: friendRequest.id },
-            data: { status: accept ? "accepted" : "rejected" },
-        });
+        if (friendRequest.status !== "pending") {
+            throw new RpcException({
+                statusCode: 400,
+                error: "BAD_REQUEST",
+                message: "La demande n'est pas en attente.",
+            });
+        }
 
-        return {
-            message: accept ? "Ami accepté !" : "Demande refusée.",
-            friendRequest: updated,
-        };
+        if (friendRequest.userId === userId) {
+            throw new RpcException({
+                statusCode: 400,
+                error: "BAD_REQUEST",
+                message: "Vous ne pouvez pas répondre à votre propre demande.",
+            });
+        }
+
+        if (accept) {
+            let updated = await prisma.friend.update({
+                where: { id: friendRequest.id },
+                data: { status: "accepted" },
+            });
+
+            return {
+                message: accept ? "Ami accepté !" : "Demande refusée.",
+                friendRequest: updated,
+            };
+        } else {
+            // Refuser la demande d'ami
+            let updated = await prisma.friend.update({
+                where: { id: friendRequest.id },
+                data: { status: "rejected" },
+            });
+            // Supprimer la demande d'ami
+            await prisma.friend.delete({
+                where: { id: friendRequest.id },
+            });
+            return {
+                message: "Demande refusée.",
+                friendRequest: updated,
+            };
+        }
     }
 
     async getFriendsList(userId: number) {
@@ -111,40 +151,124 @@ export class FriendsService {
                     { friendId: userId, status: "accepted" },
                 ],
             },
-            include: { user: true, friend: true },
+            include: {
+                user: {
+                    include: { userStats: true, avatar: true },
+                },
+                friend: {
+                    include: { userStats: true, avatar: true },
+                },
+            },
         });
 
-        return {
-            friends: friends.map((friendship) => ({
-                id:
-                    friendship.userId === userId
-                        ? friendship.friend.id
-                        : friendship.user.id,
-                email:
-                    friendship.userId === userId
-                        ? friendship.friend.email
-                        : friendship.user.email,
-            })),
-        };
+        return friends.map((friendship) => ({
+            id:
+                friendship.userId === userId
+                    ? friendship.friend.id
+                    : friendship.user.id,
+            pseudo:
+                friendship.userId === userId
+                    ? friendship.friend.pseudo
+                    : friendship.user.pseudo,
+            level:
+                friendship.userId === userId
+                    ? friendship.friend.userStats!.level
+                    : friendship.user.userStats!.level,
+            avatarUrl:
+                friendship.userId === userId
+                    ? friendship.friend.avatar?.url || null
+                    : friendship.user.avatar?.url || null,
+        }));
     }
 
     async getPendingRequests(userId: number) {
-        const requests = await prisma.friend.findMany({
+        const requestsReceived = await prisma.friend.findMany({
             where: {
                 friendId: userId,
                 status: "pending",
             },
-            include: { user: true },
+            select: {
+                id: true,
+                userId: true,
+                friendId: true,
+                status: true,
+                createdAt: true,
+                user: {
+                    select: {
+                        email: true,
+                        pseudo: true,
+                        avatar: {
+                            select: {
+                                url: true,
+                            },
+                        },
+                        userStats: {
+                            select: {
+                                level: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        const requestsSent = await prisma.friend.findMany({
+            where: {
+                userId,
+                status: "pending",
+            },
+            select: {
+                id: true,
+                userId: true,
+                friendId: true,
+                status: true,
+                createdAt: true,
+                friend: {
+                    select: {
+                        email: true,
+                        pseudo: true,
+                        avatar: {
+                            select: {
+                                url: true,
+                            },
+                        },
+                        userStats: {
+                            select: {
+                                level: true,
+                            },
+                        },
+                    },
+                },
+            },
         });
 
         return {
-            requests: requests.map((req) => ({
+            sent: requestsSent.map((req) => ({
                 id: req.id,
                 userId: req.userId,
                 friendId: req.friendId,
                 status: req.status,
                 createdAt: req.createdAt,
-                requesterEmail: req.user.email,
+                user: {
+                    id: req.friendId,
+                    pseudo: req.friend.pseudo,
+                    level: req.friend.userStats!.level,
+                    avatarUrl: req.friend.avatar ? req.friend.avatar.url : null,
+                },
+            })),
+
+            received: requestsReceived.map((req) => ({
+                id: req.id,
+                userId: req.userId,
+                friendId: req.friendId,
+                status: req.status,
+                createdAt: req.createdAt,
+                user: {
+                    id: req.userId,
+                    pseudo: req.user.pseudo,
+                    level: req.user.userStats!.level,
+                    avatarUrl: req.user.avatar ? req.user.avatar.url : null,
+                },
             })),
         };
     }

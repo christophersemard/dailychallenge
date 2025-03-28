@@ -15,4 +15,9 @@ export class UsersController {
     async getUserList() {
         return this.usersService.getUserList();
     }
+
+    @MessagePattern("search_users")
+    async searchUsers(@Payload() query: string) {
+        return this.usersService.searchUsers(query);
+    }
 }

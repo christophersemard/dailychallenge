@@ -10,21 +10,19 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { IconButton } from "@/components/ui/icon-button"
 import { IconButtonWithBadge } from "@/components/ui/icon-button-with-badge"
+import { UserMe } from "@/types/user.types"
 
-export default function MobileHeaderActions() {
-    const isAuthenticated = false // ⚠️ à remplacer dynamiquement plus tard
+type Props = {
+    isAuthenticated: boolean
+    user?: UserMe | null
+}
+
+export default function MobileHeaderActions({ user, isAuthenticated }: Props) {
 
     const [openFriends, setOpenFriends] = useState(false)
     const [openUser, setOpenUser] = useState(false)
     const [openMenu, setOpenMenu] = useState(false)
 
-    const user = {
-        pseudo: "Michel76",
-        level: 52,
-        isVIP: true,
-        avatarUrl: "",
-        pendingFriendRequests: 2,
-    }
 
     if (!isAuthenticated) {
         return (
@@ -55,7 +53,7 @@ export default function MobileHeaderActions() {
             {/* Icône amis avec badge */}
             <IconButtonWithBadge
                 icon={<Users2 />}
-                badgeContent={user.pendingFriendRequests}
+                badgeContent={user!.pendingFriendRequests || 0}
                 onClick={() => setOpenFriends(true)}
                 aria-label="Ouvrir le drawer amis"
                 variant="ghost"
@@ -72,8 +70,8 @@ export default function MobileHeaderActions() {
             />
 
 
-            {openFriends && <FriendsDrawer onClose={() => setOpenFriends(false)} />}
-            {openUser && <DrawerUserMenuMobile user={user} onClose={() => setOpenUser(false)} />}
+            {openFriends && <FriendsDrawer onClose={() => setOpenFriends(false)} user={user} />}
+            {openUser && <DrawerUserMenuMobile user={user!} onClose={() => setOpenUser(false)} />}
             {openMenu && <DrawerGamesMobile onClose={() => setOpenMenu(false)} />}
         </div>
     )

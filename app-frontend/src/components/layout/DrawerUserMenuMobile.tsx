@@ -3,14 +3,10 @@
 
 import { LogOut, Settings, UserCircle2, X, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { UserMe } from "@/types/user.types"
 
 type Props = {
-    user: {
-        pseudo: string
-        level: number
-        avatarUrl?: string
-        isVIP?: boolean
-    }
+    user: UserMe
     onClose: () => void
 }
 
@@ -23,9 +19,9 @@ export default function DrawerUserMenuMobile({ user, onClose }: Props) {
                     <div className="w-8 h-8 bg-primary rounded" />
                     <div>
                         <div>{user.pseudo}</div>
-                        <div className="text-sm text-muted-foreground">Niv. {user.level}</div>
+                        <div className="text-sm text-muted-foreground">Niv. {user.userStats.level}</div>
                     </div>
-                    {user.isVIP && <Crown className="text-primary ml-1" />}
+                    {/* {user.isVIP && <Crown className="text-primary ml-1" />} */}
                 </div>
                 <button onClick={onClose} className="hover:text-muted transition">
                     <X />

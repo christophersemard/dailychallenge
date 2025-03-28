@@ -45,7 +45,7 @@ export function IconButtonWithBadge({
                 className={className}
                 {...props}
             />
-            {badgeContent && badgeContent > 0 && (
+            {badgeContent && badgeContent > 0 ? (
                 <span
                     className={cn(
                         "absolute bg-danger text-white font-bold rounded leading-none transition",
@@ -54,7 +54,9 @@ export function IconButtonWithBadge({
                 >
                     {badgeContent}
                 </span>
-            )}
+            )
+                : null
+            }
         </div>
     )
 }

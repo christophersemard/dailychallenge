@@ -3,16 +3,7 @@ import { cn } from "@/lib/utils"
 import { Crown } from "lucide-react"
 
 type Props = {
-    color:
-    | "red"
-    | "orange"
-    | "yellow"
-    | "green"
-    | "teal"
-    | "blue"
-    | "indigo"
-    | "purple"
-    | "pink"
+    color: "primary" | "secondary" | "success" | "danger" | "teal" | "red" | "purple" | "yellow" | "green" | "blue" | "pink" | "orange"
     icon?: string
     title: string
     description: string
@@ -25,12 +16,17 @@ const colorMap: Record<Props["color"], { bg: string; text: string }> = {
     green: { bg: "bg-success/2 hover:bg-success/7", text: "text-success fill-success" },
     teal: { bg: "bg-teal/2 hover:bg-teal/7", text: "text-teal fill-teal" },
     blue: { bg: "bg-blue/2 hover:bg-blue/7", text: "text-blue fill-blue" },
-    indigo: { bg: "bg-indigo/2 hover:bg-indigo/7", text: "text-indigo fill-indigo" },
     purple: { bg: "bg-purple/2 hover:bg-purple/7", text: "text-purple fill-purple" },
     pink: { bg: "bg-pink/2 hover:bg-pink/7", text: "text-pink fill-pink" },
+    primary: { bg: "bg-primary/2 hover:bg-primary/7", text: "text-primary fill-primary" },
+    secondary: { bg: "bg-secondary/2 hover:bg-secondary/7", text: "text-secondary fill-secondary" },
+    success: { bg: "bg-success/2 hover:bg-success/7", text: "text-success fill-success" },
+    danger: { bg: "bg-danger/2 hover:bg-danger/7", text: "text-danger fill-danger" },
+
 }
 
 export default function GameItem({
+    icon,
     color,
     title,
     description,
@@ -40,7 +36,7 @@ export default function GameItem({
     return (
         <div className={cn("p-3 rounded transition cursor-pointer flex items-center space-x-5", bg)}>
             <div className={cn("", text)}>
-                <Crown size={48} />
+                {icon}
             </div>
             <div className="flex flex-col items-start">
                 <div className="font-bold text-lg text-start">{title}</div>

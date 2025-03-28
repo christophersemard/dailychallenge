@@ -32,7 +32,35 @@ export class ProfileService {
             throw new NotFoundException("Utilisateur introuvable");
         }
 
-        return user;
+        // On a besoin de compter le nombre de demandes d'ami en attente
+        const friendRequests = await prisma.friend.findMany({
+            where: { friendId: Number(userId), status: "pending" },
+        });
+
+        return {
+            id: user.id,
+            pseudo: user.pseudo,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            birthdate: user.birthdate,
+            createdAt: user.createdAt,
+            avatar:
+                (user.avatar && {
+                    id: user.avatar.id,
+                    url: user.avatar.url,
+                }) ||
+                null,
+            userStats:
+                (user.userStats && {
+                    id: user.userStats.id,
+                    xp: user.userStats.xp,
+                    level: user.userStats.level,
+                    streak: user.userStats.streak,
+                    lastPlayedAt: user.userStats.lastPlayedAt,
+                }) ||
+                null,
+            pendingFriendRequests: friendRequests.length,
+        };
     }
 
     async updateProfile(userId: number, dto: UpdateProfileDto) {

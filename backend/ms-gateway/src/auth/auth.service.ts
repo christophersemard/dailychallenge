@@ -17,14 +17,18 @@ export class AuthService {
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 
-    async login(email: string, password: string): Promise<{ token: string }> {
+    async login(
+        email: string,
+        password: string
+    ): Promise<{ token: string; user: UserDto }> {
         return lastValueFrom(
             this.client.send<UserDto>("validate_user", { email, password })
         )
-            .then((user) => {
-                return lastValueFrom(
+            .then(async (user) => {
+                const { token } = await lastValueFrom(
                     this.client.send<{ token: string }>("generate_jwt", user)
                 );
+                return { token, user };
             })
             .catch((error) => this.rpcExceptionHandler.handle(error));
     }

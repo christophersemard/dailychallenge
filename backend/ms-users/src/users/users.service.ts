@@ -43,4 +43,39 @@ export class UsersService {
             },
         });
     }
+
+    async searchUsers(query: string) {
+        if (!query) {
+            throw new BadRequestException("Requête de recherche requise.");
+        }
+
+        let users = await prisma.user.findMany({
+            where: {
+                deletedAt: null,
+                OR: [{ pseudo: { contains: query, mode: "insensitive" } }],
+            },
+            select: {
+                id: true,
+                pseudo: true,
+                createdAt: true,
+                avatar: { select: { url: true } },
+                userStats: {
+                    select: {
+                        level: true,
+                        xp: true,
+                        streak: true,
+                    },
+                },
+            },
+        });
+
+        return users.length > 0
+            ? users.map((user) => ({
+                  id: user.id,
+                  pseudo: user.pseudo,
+                  avatarUrl: user.avatar?.url || null,
+                  level: user.userStats?.level || 0,
+              }))
+            : [];
+    }
 }

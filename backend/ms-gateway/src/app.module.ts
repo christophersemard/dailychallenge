@@ -10,8 +10,6 @@ import { RpcExceptionHandlerService } from "./common/rpc-exception-handler.servi
 import { CacheService } from "./common/cache.service";
 import { UsersController } from "./users/users.controller";
 import { UsersService } from "./users/users.service";
-import { ProfileService } from "./profile/profile.service";
-import { ProfileController } from "./profile/profile.controller";
 import { LeaderboardService } from "./leaderboard/leaderboard.service";
 import { LeaderboardController } from "./leaderboard/leaderboard.controller";
 import { APP_GUARD } from "@nestjs/core";
@@ -75,7 +73,6 @@ console.log("isDocker", isDocker);
         LeaderboardController,
         AdminGameCinema1Controller,
         GameCinema1Controller,
-        ProfileController,
         AvatarController,
     ],
     providers: [
@@ -85,7 +82,6 @@ console.log("isDocker", isDocker);
         RpcExceptionHandlerService,
         CacheService,
         UsersService,
-        ProfileService,
         LeaderboardService,
         AdminGameCinema1Service,
         GameCinema1Service,

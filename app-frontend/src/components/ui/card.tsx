@@ -3,7 +3,7 @@ import clsx from "clsx"
 
 type Props = {
     title: string
-    color: "primary" | "secondary" | "success" | "danger" | "teal" | "red" | "purple" | "yellow" | "green" | "blue" | "pink"
+    color: "primary" | "secondary" | "success" | "danger" | "teal" | "red" | "purple" | "yellow" | "green" | "blue" | "pink" | "orange"
     children: React.ReactNode
 }
 
@@ -19,7 +19,8 @@ export default function CategoryCard({ title, color, children }: Props) {
         yellow: "bg-yellow text-black",
         green: "bg-green text-white",
         blue: "bg-blue text-white",
-        pink: "bg-pink text-white"
+        pink: "bg-pink text-white",
+        orange: "bg-orange text-black"
 
     }
 
@@ -34,7 +35,8 @@ export default function CategoryCard({ title, color, children }: Props) {
         yellow: "card-yellow",
         green: "card-green",
         blue: "card-blue",
-        pink: "card-pink"
+        pink: "card-pink",
+        orange: "card-orange"
     }
 
 
@@ -43,7 +45,7 @@ export default function CategoryCard({ title, color, children }: Props) {
             <div className={clsx("card-title px-4 py-2 text-base font-bold text-center", colorMap[color])}>
                 {title}
             </div>
-            <div className="p-4 space-y-3">{children}</div>
+            <div className="p-6 space-y-3">{children}</div>
         </div>
     )
 }

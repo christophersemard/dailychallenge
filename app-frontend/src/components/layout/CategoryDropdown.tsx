@@ -5,10 +5,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ChevronDown } from "lucide-react"
 import { useState } from "react"
 import { useDebounce } from "@uidotdev/usehooks";
+import Link from "next/link";
+
+type CategoryTitle = "Cinéma" | "Géographie" | "Autres";
 
 type CategoryDropdownProps = {
-    title: string
-}
+    title: CategoryTitle;
+};
+
 
 export default function CategoryDropdown({ title }: CategoryDropdownProps) {
     const [open, setOpen] = useState(false);
@@ -22,6 +26,33 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
         setOpen(false);
     };
 
+    const games: Record<string, { name: string; description: string; url: string; icon: string }[]> = {
+        "Cinéma": [{
+            name: "Jeu 1",
+            description: "Trouve le film grâce aux indices",
+            url: "/jeu/cinema-1",
+            icon: "🍿"
+        },
+        {
+            name: "Jeu 2",
+            description: "Trouve le film grâce aux photos",
+            url: "/jeu/cinema-2",
+            icon: "🎞️"
+        },
+        {
+            name: "Jeu 3",
+            description: "Trouve le film grâce aux acteurs",
+            url: "/jeu/cinema-3",
+            icon: "🎬"
+        }],
+        "Géographie": [
+
+        ],
+        "Autres": [
+
+        ]
+    }
+
 
     return (
         <Popover open={debouncedOpen} onOpenChange={setOpen}>
@@ -34,23 +65,19 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
             <PopoverContent
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave} className="mt-4 w-64 p-2 space-y-1 bg-white border-none  shadow-lg" align="start">
-                {Array.from({ length: 3 }).map((_, i) => (
+                {games[title].map((game, i) => (
                     <>
-                        <div
+                        <Link href={game.url}
                             key={i}
-                            className="px-3 py-2 hover:bg-background rounded  cursor-pointer text-sm transition"
+                            className="px-3 py-2 hover:bg-background rounded block cursor-pointer text-sm transition"
                         >
                             <div className="font-medium text-foreground">
-                                {["🍿", "🎬", "❓"][i]} JEU {title.toUpperCase()} {i + 1}
+                                {game.icon} {game.name}
                             </div>
                             <span className="text-xs text-muted">
-                                {[
-                                    "Devine le titre du film grâce aux photos",
-                                    "Devine le titre du film avec les acteurs",
-                                    "Devine selon les indices progressifs",
-                                ][i]}
+                                {game.description}
                             </span>
-                        </div>
+                        </Link>
                         {
                             i < 2 && <div className="border-t border-muted/10" />
                         }

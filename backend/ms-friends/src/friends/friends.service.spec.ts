@@ -25,20 +25,26 @@ describe("FriendsService", () => {
 
         it("should throw if user or friend does not exist", async () => {
             jest.spyOn(prisma.user, "findUnique").mockResolvedValueOnce(null);
-            await expect(service.addFriend(1, 2)).rejects.toThrow("Utilisateur introuvable.");
+            await expect(service.addFriend(1, 2)).rejects.toThrow(
+                "Utilisateur introuvable."
+            );
         });
 
         it("should throw if friendship already exists", async () => {
             jest.spyOn(prisma.user, "findUnique").mockResolvedValue({} as any);
             jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({} as any);
 
-            await expect(service.addFriend(1, 2)).rejects.toThrow("Vous êtes déjà amis");
+            await expect(service.addFriend(1, 2)).rejects.toThrow(
+                "Vous êtes déjà amis"
+            );
         });
 
         it("should create and return friend request", async () => {
             jest.spyOn(prisma.user, "findUnique").mockResolvedValue({} as any);
             jest.spyOn(prisma.friend, "findFirst").mockResolvedValue(null);
-            jest.spyOn(prisma.friend, "create").mockResolvedValue({ id: 1 } as any);
+            jest.spyOn(prisma.friend, "create").mockResolvedValue({
+                id: 1,
+            } as any);
 
             const result = await service.addFriend(1, 2);
             expect(result).toHaveProperty("message");
@@ -48,13 +54,19 @@ describe("FriendsService", () => {
 
     describe("removeFriend", () => {
         it("should throw if no friendship found", async () => {
-            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({ count: 0 });
+            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({
+                count: 0,
+            });
 
-            await expect(service.removeFriend(1, 2)).rejects.toThrow("Aucune relation d'amitié trouvée.");
+            await expect(service.removeFriend(1, 2)).rejects.toThrow(
+                "Aucune relation d'amitié trouvée."
+            );
         });
 
         it("should return success message if deleted", async () => {
-            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({ count: 1 });
+            jest.spyOn(prisma.friend, "deleteMany").mockResolvedValue({
+                count: 1,
+            });
 
             const result = await service.removeFriend(1, 2);
             expect(result.message).toBe("Ami supprimé avec succès");
@@ -65,11 +77,15 @@ describe("FriendsService", () => {
         it("should throw if no pending request", async () => {
             jest.spyOn(prisma.friend, "findFirst").mockResolvedValue(null);
 
-            await expect(service.respondFriendRequest(2, 1, true)).rejects.toThrow("Aucune demande en attente.");
+            await expect(
+                service.respondFriendRequest(2, 1, true)
+            ).rejects.toThrow("Aucune demande en attente.");
         });
 
         it("should update and return accepted request", async () => {
-            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({ id: 1 } as any);
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({
+                id: 1,
+            } as any);
             jest.spyOn(prisma.friend, "update").mockResolvedValue({
                 id: 1,
                 status: "accepted",
@@ -78,6 +94,24 @@ describe("FriendsService", () => {
             const result = await service.respondFriendRequest(2, 1, true);
             expect(result.message).toBe("Ami accepté !");
             expect(result.friendRequest.status).toBe("accepted");
+        });
+
+        it("should update and return rejected request", async () => {
+            jest.spyOn(prisma.friend, "findFirst").mockResolvedValue({
+                id: 1,
+            } as any);
+            jest.spyOn(prisma.friend, "update").mockResolvedValue({
+                id: 1,
+                status: "rejected",
+            } as any);
+            jest.spyOn(prisma.friend, "delete").mockResolvedValue({
+                id: 1,
+                status: "rejected",
+            } as any);
+
+            const result = await service.respondFriendRequest(2, 1, false);
+            expect(result.message).toBe("Ami refusé !");
+            // La demande d'ami doit être supprimée
         });
     });
 

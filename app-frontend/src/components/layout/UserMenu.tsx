@@ -7,13 +7,12 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useDebounce } from "@uidotdev/usehooks";
 import OutlineText from "@/components/ui/outline-text"
+import { UserMe } from "@/types/user.types"
+import { signOut } from "next-auth/react"
+import Link from "next/link"
 
 type UserMenuProps = {
-    user: {
-        pseudo: string
-        level: number
-        avatarUrl?: string
-    }
+    user: UserMe
 }
 
 export default function UserMenu({ user }: UserMenuProps) {
@@ -37,7 +36,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                     <div className="w-6 h-6 bg-primary rounded" />
                     <span className="font-semibold">{user.pseudo}</span>
                     <span className="text-xs text-muted-foreground ms-4">Niv. </span>
-                    <OutlineText color="black" text={String(52)}></OutlineText>
+                    <OutlineText color="black" text={String(user.userStats.level)}></OutlineText>
 
 
                 </button>
@@ -46,15 +45,19 @@ export default function UserMenu({ user }: UserMenuProps) {
             <PopoverContent className="w-56 p-2 space-y-1 bg-white border-none shadow-lg" align="end"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}>
-                <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap">
-                    <UserCircle2 className="w-4 h-4 mr-2" /> Voir mon profil
+                <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap" asChild>
+                    <Link href="/mon-profil">
+                        <UserCircle2 className="w-4 h-4 mr-2" /> Voir mon profil
+                    </Link>
                 </Button>
                 <div className="border-t border-muted/10"></div>
-                <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap">
-                    <Settings className="w-4 h-4 mr-2" /> Gérer mon compte
+                <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap" asChild>
+                    <Link href="/mon-compte">
+                        <Settings className="w-4 h-4 mr-2" /> Gérer mon compte
+                    </Link>
                 </Button>
                 <div className="border-t border-muted/10"></div>
-                <Button variant="ghost-background" className="w-full justify-start text-sm text-danger whitespace-nowrap">
+                <Button onClick={() => signOut()} variant="ghost-background" className="w-full justify-start text-sm text-danger whitespace-nowrap">
                     <LogOut className="w-4 h-4 mr-2" /> Me déconnecter
                 </Button>
             </PopoverContent>

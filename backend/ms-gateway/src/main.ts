@@ -13,6 +13,14 @@ async function bootstrap() {
     const logger = new Logger("Gateway");
     const app = await NestFactory.create(AppModule);
 
+    // Enable CORS for your frontend
+    app.enableCors({
+        origin: "http://localhost:3025", // Remplace par l'URL de ton frontend
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: "Content-Type, Authorization", // Ajouter d'autres en-têtes si nécessaire
+        credentials: true, // Permet d'envoyer des cookies avec la requête
+    });
+
     // Activer le filtre global pour les erreurs
     app.useGlobalFilters(new GlobalExceptionFilter());
 
