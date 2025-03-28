@@ -23,6 +23,9 @@ body {
 }
 
 @theme {
+    --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+    --font-outline: var(--font-outline), sans-serif;
+
     /* Couleurs principales */
     --color-primary: var(--primary);
     --color-primary-foreground: var(--color-black);
@@ -150,3 +153,37 @@ header::before {
     background-color: var(--yellow);
     color: var(--color-black);
 }
+
+
+input::placeholder {
+    color: var(--color-muted);
+}
+
+
+/* styles/toast.css */
+.toast-base {
+    @apply flex items-center gap-4 px-4 py-3 rounded-md font-bold shadow-lg max-w-md transition-all;
+  
+    @apply bg-white text-black border-black/5;
+  }
+  
+  .toast-success {
+    @apply border-white/20! bg-success! text-white! border-4;
+ }
+  
+  .toast-error {
+    @apply border-white/20! bg-danger! text-white! border-4;
+  }
+  
+  .toast-info {
+    @apply border-white/20! bg-info! text-white! border-4;
+  }
+  
+
+  input, textarea, select {
+    @apply bg-white text-black border border-gray-300 rounded-md  focus:ring focus:ring-secondary focus:ring-secondary ;
+  }
+
+  .input-sm {
+    @apply text-sm px-2! h-8 ;
+  }

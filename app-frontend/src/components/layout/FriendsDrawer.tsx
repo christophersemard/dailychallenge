@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Check, Plus, Timer, Hourglass } from "lucide-react";
+import { X, Check, Plus, Timer, Hourglass, MailPlus, SendHorizonal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { IconButton } from "../ui/icon-button";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
 import { Friend, FriendRequestGroup, FriendRequest, UserMe } from "@/types/user.types";
 import OutlineText from "../ui/outline-text";
 import Link from "next/link";
+import { toast } from "sonner";
 
 type FriendsDrawerProps = {
     onClose: () => void;
@@ -24,8 +25,6 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
     const [searchResults, setSearchResults] = useState<Friend[]>([]);
     const [selectedFriendId, setSelectedFriendId] = useState<string | null>(null);
     const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
-    const [validationAddFriendMessage, setValidationAddFriendMessage] = useState(false);
-    const [errorAddFriendMessage, setErrorAddFriendMessage] = useState<string | boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,9 +51,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
         try {
             await fetchClientWithAuth(`/friends/${friendId}/accept`, { method: "PATCH" });
 
-            console.log("Ami accepté :", friendId);
             const newFriend = friendRequestsReceived.filter((r) => r.user.id == friendId)[0].user;
-            console.log("Nouvel ami :", newFriend);
             const formattedFriend: Friend = {
                 ...newFriend,
                 avatarUrl: newFriend.avatarUrl || "", // Ensure avatarUrl is a string
@@ -63,6 +60,9 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
             setFriends((prev) => [...prev, formattedFriend]);
             setFriendRequestsReceived(friendRequestsReceived.filter((r) => r.user.id !== friendId));
 
+            toast.success("Demande d'ami acceptée", {
+                className: "toast-base toast-success",
+            })
 
         } catch (error) {
             console.error("Erreur acceptation :", error);
@@ -87,7 +87,10 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
             setNewFriend("");
             setSelectedFriendId(null);
             setSearchResults([]);
-            setValidationAddFriendMessage(true);
+            // Afficher un message de succès avec un toast
+            toast.success("Demande d'ami envoyée", {
+                className: "toast-base toast-success",
+            })
 
             // Realler chercher les demandes
             const requests = await fetchClientWithAuth<FriendRequestGroup>("/friends/requests");
@@ -97,7 +100,11 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
 
         } catch (error) {
             console.error("Erreur ajout ami :", error);
-            setErrorAddFriendMessage("Erreur lors de l'envoi de la demande d'ami.");
+
+            // Afficher un message d'erreur avec un toast
+            toast.error("Erreur lors de l'envoi de la demande d'ami", {
+                className: "toast-base toast-danger",
+            })
         }
     };
 
@@ -154,193 +161,207 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
         console.log("RERENDU FRIENDS DRAWER")
     }, [, friends, friendRequestsSent, friendRequestsReceived]);
 
-    // Efface les messages après 2 secondes
-    useEffect(() => {
-        if (validationAddFriendMessage || errorAddFriendMessage) {
-            const timeout = setTimeout(() => {
-                setValidationAddFriendMessage(false);
-                setErrorAddFriendMessage(false);
-            }, 2000);
-
-            return () => clearTimeout(timeout); // Nettoyage
-        }
-    }, [validationAddFriendMessage, errorAddFriendMessage]);
-
-
     return (
-        <aside className="fixed top-0 right-0 w-[320px] h-full bg-background shadow-xl z-50 flex flex-col border-l border-muted/20 rounded-l-lg">
-            <div className="flex justify-between items-center p-4 bg-secondary text-white font-bold text-lg rounded-tl-sm">
-                Amis
-                <button onClick={onClose} className="hover:text-white/80 transition cursor-pointer">
-                    <X />
-                </button>
-            </div>
 
-            <div className="p-4 flex-1 overflow-y-auto space-y-6 text-foreground flex flex-col">
-                {/* Demandes */}
-                <h3 className="text-sm font-semibold mb-2 text-muted-foreground">Demandes en attente</h3>
-                <div className="flex flex-col gap-1 max-h-64 overflow-y-auto">
-                    {loading ? (
-                        <div>Loading...</div>
-                    ) : (
-                        friendRequestsReceived.map((request) => (
-                            <div
-                                key={request.id}
-                                className="bg-secondary/10 p-2 rounded flex items-center justify-between"
-                            >
-                                <Link
-                                    href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
-                                    {request.user.pseudo}
-                                </Link>
-                                <div className="flex gap-2">
-                                    <IconButton
-                                        icon={<Check />}
-                                        variant="success"
-                                        size="xs"
-                                        onClick={() => handleAcceptRequest(request.user.id)}
-                                    />
-                                    <IconButton
-                                        icon={<X />}
-                                        variant="danger"
-                                        size="xs"
-                                        onClick={() => handleRejectRequest(request.user.id)}
-                                    />
-                                </div>
-                            </div>
-                        ))
-                    )}
+        <>
 
+            <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
+            {/* Overlay */}
 
-                    {/* Afficher la liste des demandes envoyées en attente */}
-                    {friendRequestsSent.length > 0 && (<>
-                        {friendRequestsSent.map((request) => (
-                            <div
-                                key={request.id}
-                                className="bg-secondary/10 p-2 rounded flex items-center justify-between"
-                            >
-                                <Link
-                                    href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
-                                    {request.user.pseudo}
-                                </Link>
-                                <Hourglass size={16} />
-                            </div>
-                        ))}</>
-                    )}
+            <aside className="fixed top-0 right-0 w-full  max-w-[500px] h-full bg-white shadow-xl z-50 flex flex-col  rounded-l-lg">
 
-                    {/* Aucune demande */}
-
-                    {friendRequestsReceived.length === 0 && friendRequestsSent.length === 0 && !loading && (
-                        <div className="text-sm text-muted-foreground">
-                            Aucune demande d&apos;ami en attente
-                        </div>
-                    )}
+                <div className="flex justify-between items-center p-4 bg-secondary text-white font-bold text-lg rounded-tl-sm">
+                    Amis
+                    <button onClick={onClose} className="hover:text-white/80 transition cursor-pointer">
+                        <X />
+                    </button>
                 </div>
+                <div className="p-4  flex-1 overflow-y-auto space-y-6 text-foreground flex flex-col">
 
-                {/* Mes amis */}
-                <div className="flex-1 overflow-y-auto">
-                    <h3 className="text-sm font-semibold mb-2 text-muted-foreground">Mes amis</h3>
-                    <Input
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Rechercher"
-                        className="mb-2"
-                    />
-                    <ul className="space-y-1">
-                        {friends
-                            .filter((f) => f.pseudo.toLowerCase().includes(searchTerm.toLowerCase())).sort((a, b) => {
-                                return a.pseudo.localeCompare(b.pseudo);
-                            }
-                            )
-                            .map((friend) => (
-                                <li key={friend.id}>
-                                    <Link
-                                        href={`/profil/${friend.id}`}
-                                        className="flex items-center justify-between gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded hover:bg-white transition text-foreground cursor-pointer"
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-6 h-6 bg-primary rounded" />
-                                            <span className="font-semibold">{friend.pseudo}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2 w-20 justify-between">
-                                            <span className="text-xs text-muted-foreground ms-4">Niv. </span>
-                                            <OutlineText color="black" text={String(friend.level)} />
-                                        </div>
-                                    </Link>
-                                </li>
-                            ))}
-                        {friends.length === 0 || friends
-                            .filter((f) => f.pseudo.toLowerCase().includes(searchTerm.toLowerCase())).length == 0 && !loading && (
-                                <div className="text-sm text-muted-foreground text-center my-4">Aucun ami trouvé</div>
-                            )}
-                    </ul>
-                </div>
+                    <div className=" max-h-64 overflow-y-auto space-y-6 text-foreground flex flex-col p-4 bg-secondary/5 rounded-lg">
+                        {/* Demandes */}
+                        <h3 className="font-bold mb-2 text-muted-foreground">Demandes d&quot;amis</h3>
+                        <div className="flex flex-col gap-1 max-h-64 overflow-y-auto">
+                            {loading ? (
+                                <div className="text-sm">Chargement des demandes ...</div>
+                            ) : (
+                                friendRequestsReceived.map((request, i) => (
+                                    <>
 
-                {/* Ajouter un ami */}
-                <div className="mt-auto mb-5 relative">
-                    <h3 className="text-sm font-semibold mb-2 text-muted-foreground">Ajouter un ami</h3>
-                    <div className="flex gap-2 relative">
-                        <div className="flex-1 relative">
-                            <Input
-                                value={newFriend}
-                                onChange={handleSearchChange}
-                                placeholder="Ex : Michel76"
-                            />
-                            {searchResults.length > 0 && !selectedFriendId && (
-                                <div className="absolute bottom-full left-0 z-50 w-full bg-white border border-muted/20 rounded shadow mb-2 max-h-48 flex flex-col">
-                                    <div className="bg-purple-600 text-white px-3 py-1 text-xs font-bold rounded-t">
-                                        Suggestions
-                                    </div>
-                                    <ul className="overflow-y-auto flex-1">
-                                        {searchResults.map((user) => (
-                                            <li
-                                                key={user.id}
-                                                className="px-3 py-2 text-sm border border-black/5 hover:bg-muted/10 cursor-pointer"
-                                                onClick={() => handleSelectSuggestion(user)}
-                                            >
-                                                {user.pseudo}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-
-                            {searchResults.length === 0 && !selectedFriendId && newFriend.length > 0 ? (
-                                <div className="absolute bottom-full left-0 z-50 w-full bg-white border border-muted/20 rounded shadow mb-2 max-h-48 flex flex-col">
-                                    <div className="bg-purple-600 text-white px-3 py-1 text-xs font-bold rounded-t">
-                                        Suggestions
-                                    </div>
-                                    <ul className="overflow-y-auto flex-1">
-                                        <li
-                                            className="px-3 py-2 text-sm hover:bg-muted/10 "
+                                        {i < friendRequestsSent.length && <div className="border-b border-muted/20 my-0" />}
+                                        <div
+                                            key={request.id}
+                                            className=" p-2 rounded flex items-center justify-between"
                                         >
-                                            Aucun joueur trouvé
-                                        </li>
-                                    </ul>
+                                            <div className="flex items-center gap-2">
+                                                <MailPlus size={16} className="text-muted-foreground" />
+                                                <Link
+                                                    href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
+                                                    {request.user.pseudo}
+                                                </Link>
+                                            </div>
+
+                                            <div className="flex gap-2">
+                                                <IconButton
+                                                    icon={<Check />}
+                                                    variant="success"
+                                                    size="xs"
+                                                    onClick={() => handleAcceptRequest(request.user.id)}
+                                                />
+                                                <IconButton
+                                                    icon={<X />}
+                                                    variant="danger"
+                                                    size="xs"
+                                                    onClick={() => handleRejectRequest(request.user.id)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </>
+                                ))
+                            )}
+
+
+                            {/* Afficher la liste des demandes envoyées en attente */}
+                            {friendRequestsSent.length > 0 && (<>
+                                {friendRequestsSent.map((request, i) => (
+                                    <>
+                                        {i < friendRequestsSent.length && <div className="border-b border-muted/20 my-0" />}
+                                        <div
+                                            key={request.id}
+                                            className="p-2 rounded flex items-center justify-between"
+                                        >
+
+                                            <div className="flex items-center gap-2">
+                                                <SendHorizonal size={16} className="text-muted-foreground" />
+                                                <Link
+                                                    href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
+                                                    {request.user.pseudo}
+                                                </Link>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs font-medium"> En attente
+                                                <Hourglass size={16} />
+                                            </div>
+                                        </div>
+                                    </>
+                                ))}</>
+                            )}
+
+                            {/* Aucune demande */}
+
+                            {friendRequestsReceived.length === 0 && friendRequestsSent.length === 0 && !loading && (
+                                <div className="text-sm text-muted-foreground">
+                                    Aucune demande d&apos;ami en attente
                                 </div>
-                            )
-                                : null
-                            }
+                            )}
                         </div>
-                        <IconButton
-                            icon={<Plus />}
-                            variant="secondary"
-                            size="sm"
-                            onClick={handleAddFriend}
-                            disabled={!selectedFriendId}
-                        />
                     </div>
-                    {validationAddFriendMessage && (
-                        <div className="w-full bg-success text-white p-2 rounded mt-2">
-                            Demande d&apos;ami envoyée !
+
+                    {/* Mes amis */}
+                    <div className="flex-1 overflow-y-auto">
+
+                        <div className="flex items-center justify-between mb-2 gap-4">
+                            <h3 className="font-bold  text-muted-foreground">Mes amis</h3>
+                            <Input
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="Rechercher"
+                                className=" flex w-auto input-sm"
+                            />
                         </div>
-                    )}
-                    {errorAddFriendMessage && (
-                        <div className="w-full bg-danger text-white p-2 rounded mt-2">
-                            {errorAddFriendMessage}
+                        {friends.length == 0 && !loading || friends
+                            .filter((f) => f.pseudo.toLowerCase().includes(searchTerm.toLowerCase())).length == 0 && !loading ? (
+                            <div className="text-sm text-muted-foreground my-4">Aucun ami trouvé</div>
+                        ) : null}
+                        <ul className="space-y-2">
+                            {loading && (
+                                <div className="text-sm">Chargement des informations ...</div>
+                            )}
+                            {friends
+                                .filter((f) => f.pseudo.toLowerCase().includes(searchTerm.toLowerCase())).sort((a, b) => {
+                                    return a.pseudo.localeCompare(b.pseudo);
+                                }
+                                )
+                                .map((friend) => (
+                                    <li key={friend.id}>
+                                        <Link
+                                            href={`/profil/${friend.id}`}
+                                            className="flex items-center justify-between gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded hover:bg-white transition text-foreground cursor-pointer"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-8 h-8 bg-primary rounded" />
+                                                <span className="font-semibold">{friend.pseudo}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 w-20 justify-between">
+                                                <span className="text-xs text-muted-foreground ms-4">Niv. </span>
+                                                <OutlineText color="black" text={String(friend.level)} />
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
+
+
+                        </ul>
+                    </div>
+
+                    <div className="mt-auto mb-5 relative">
+                        {/* Ajouter un ami */}
+                        <div >
+                            <h3 className="font-bold mb-2 text-muted-foreground">Ajouter un ami</h3>
+                            <div className="flex gap-2 relative">
+                                <div className="flex-1 relative">
+                                    <Input
+                                        value={newFriend}
+                                        onChange={handleSearchChange}
+                                        placeholder="Ex : Michel76"
+                                    />
+                                    {searchResults.length > 0 && !selectedFriendId && (
+                                        <div className="absolute bottom-full left-0 z-50 w-full bg-white border border-muted/20 rounded shadow mb-2 max-h-48 flex flex-col">
+                                            <div className="bg-purple-600 text-white px-3 py-1 text-xs font-bold rounded-t">
+                                                Suggestions
+                                            </div>
+                                            <ul className="overflow-y-auto flex-1">
+                                                {searchResults.map((user) => (
+                                                    <li
+                                                        key={user.id}
+                                                        className="px-3 py-2 text-sm border border-black/5 hover:bg-muted/10 cursor-pointer"
+                                                        onClick={() => handleSelectSuggestion(user)}
+                                                    >
+                                                        {user.pseudo}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {searchResults.length === 0 && !selectedFriendId && newFriend.length > 0 ? (
+                                        <div className="absolute bottom-full left-0 z-50 w-full bg-white border border-muted/20 rounded shadow mb-2 max-h-48 flex flex-col">
+                                            <div className="bg-purple-600 text-white px-3 py-1 text-xs font-bold rounded-t">
+                                                Suggestions
+                                            </div>
+                                            <ul className="overflow-y-auto flex-1">
+                                                <li
+                                                    className="px-3 py-2 text-sm hover:bg-muted/10 "
+                                                >
+                                                    Aucun joueur trouvé
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )
+                                        : null
+                                    }
+                                </div>
+                                <IconButton
+                                    icon={<Plus />}
+                                    variant="secondary"
+                                    size="sm"
+                                    onClick={handleAddFriend}
+                                    disabled={!selectedFriendId}
+                                />
+                            </div>
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
-        </aside>
+            </aside>
+        </>
     );
 }

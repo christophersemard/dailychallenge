@@ -26,24 +26,27 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
         setOpen(false);
     };
 
-    const games: Record<string, { name: string; description: string; url: string; icon: string }[]> = {
+    const games: Record<string, { name: string; description: string; url: string; icon: string; status: string }[]> = {
         "Cinéma": [{
             name: "Jeu 1",
             description: "Trouve le film grâce aux indices",
             url: "/jeu/cinema-1",
-            icon: "🍿"
+            icon: "🍿",
+            status: "available"
         },
         {
             name: "Jeu 2",
             description: "Trouve le film grâce aux photos",
             url: "/jeu/cinema-2",
-            icon: "🎞️"
+            icon: "🎞️",
+            status: "coming_soon"
         },
         {
             name: "Jeu 3",
             description: "Trouve le film grâce aux acteurs",
             url: "/jeu/cinema-3",
-            icon: "🎬"
+            icon: "🎬",
+            status: "coming_soon"
         }],
         "Géographie": [
 
@@ -67,22 +70,43 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
                 onMouseLeave={handleMouseLeave} className="mt-4 w-64 p-2 space-y-1 bg-white border-none  shadow-lg" align="start">
                 {games[title].map((game, i) => (
                     <>
-                        <Link href={game.url}
-                            key={i}
-                            className="px-3 py-2 hover:bg-background rounded block cursor-pointer text-sm transition"
-                        >
-                            <div className="font-medium text-foreground">
-                                {game.icon} {game.name}
+
+                        {game.status === "available" ?
+                            <Link href={game.url}
+                                key={i}
+                                className="px-3 py-2 hover:bg-background rounded block cursor-pointer text-sm transition"
+                            >
+                                <div className="font-medium text-foreground">
+                                    {game.icon} {game.name}
+                                </div>
+                                <span className="text-xs text-muted">
+                                    {game.description}
+                                </span>
+                            </Link>
+                            :
+                            <div
+                                key={i}
+                                className="px-3 py-2  rounded block  text-sm transition relative"
+                            >
+                                <div className="font-medium text-foreground">
+                                    {game.icon} {game.name}
+                                </div>
+                                <span className="text-xs text-muted">
+                                    {game.description}
+                                </span>
+                                <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
+                                    <span className="-rotate-2">BIENTOT DISPONIBLE</span>
+                                </div>
                             </div>
-                            <span className="text-xs text-muted">
-                                {game.description}
-                            </span>
-                        </Link>
+
+                        }
+
                         {
                             i < 2 && <div className="border-t border-muted/10" />
                         }
-
                     </>
+
+
                 ))}
             </PopoverContent>
         </Popover>

@@ -16,7 +16,11 @@ export class AuthController {
     @ApiResponse({ status: 201, description: "Utilisateur créé avec succès" })
     @ApiResponse({ status: 400, description: "Données invalides" })
     register(@Body() body: RegisterDto): Promise<UserDto> {
-        return this.authService.register(body.email, body.password);
+        return this.authService.register(
+            body.email,
+            body.password,
+            body.pseudo
+        );
     }
 
     @Post("login")

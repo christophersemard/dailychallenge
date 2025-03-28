@@ -42,10 +42,10 @@ export default function CategoryCard({ title, color, children }: Props) {
 
     return (
         <div className={clsx("bg-white rounded card my-6 ", underlineMap[color])} >
-            <div className={clsx("card-title px-4 py-2 text-base font-bold text-center", colorMap[color])}>
+            <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center", colorMap[color])}>
                 {title}
             </div>
-            <div className="p-6 space-y-3">{children}</div>
+            <div className="p-4 md:p-6 space-y-3">{children}</div>
         </div>
     )
 }

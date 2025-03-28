@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer border-2",
+  "inline-flex items-center justify-center gap-2 rounded text-sm font-bold transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer border-2",
 
   {
     variants: {
@@ -13,7 +13,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-white border-white/20 hover:bg-secondary/90",
         success: "bg-success text-white border-white/20 hover:bg-success/90",
         danger: "bg-danger text-white border-white/20 hover:bg-danger/90",
-        background: "bg-background text-white border-white/30 hover:bg-background/90",
+        background: "bg-background text-black border-white/30 hover:bg-background/90",
         red: "bg-red text-white border-white/20 hover:bg-red/90",
         purple: "bg-purple text-white border-white/20 hover:bg-purple/90",
         yellow: "bg-yellow text-black border-white/20 hover:bg-yellow/90",
@@ -23,19 +23,20 @@ const buttonVariants = cva(
         teal: "bg-teal text-white border-white/20 hover:bg-teal/90",
         black: "bg-black text-white border-white/20 hover:bg-black/90",
 
-        "outline-primary": " text-black border-primary hover:bg-primary",
-        "outline-secondary": " text-black border-secondary hover:bg-secondary hover:text-white",
-        "outline-success": " text-black border-success hover:bg-success hover:text-white",
-        "outline-danger": " text-black border-danger hover:bg-danger hover:text-white",
-        "outline-background": " text-black bg-white/50 border-black/3 hover:bg-white",
-        "outline-red": " text-black border-red hover:bg-red",
-        "outline-purple": " text-black border-purple hover:bg-purple",
-        "outline-yellow": " text-black border-yellow hover:bg-yellow",
-        "outline-green": " text-black border-green hover:bg-green",
-        "outline-blue": " text-black border-blue hover:bg-blue",
-        "outline-pink": " text-black border-pink hover:bg-pink",
-        "outline-teal": " text-black border-teal hover:bg-teal",
-        "outline-black": " text-black border-black hover:bg-black",
+        "outline-primary": " text-black border-primary hover:bg-primary transition",
+        "outline-secondary": " text-black border-secondary hover:bg-secondary hover:text-white transition",
+        "outline-success": " text-black border-success hover:bg-success hover:text-white transition",
+        "outline-danger": " text-black border-danger hover:bg-danger hover:text-white transition",
+        "outline-background": " text-black bg-white/50 border-black/3 hover:bg-background transition",
+        "outline-white": " text-black bg-white/50 border-black/3 hover:bg-white transition",
+        "outline-red": " text-black border-red hover:bg-red transition",
+        "outline-purple": " text-black border-purple hover:bg-purple transition",
+        "outline-yellow": " text-black border-yellow hover:bg-yellow transition",
+        "outline-green": " text-black border-green hover:bg-green transition",
+        "outline-blue": " text-black border-blue hover:bg-blue transition",
+        "outline-pink": " text-black border-pink hover:bg-pink transition",
+        "outline-teal": " text-black border-teal hover:bg-teal transition",
+        "outline-black": " text-black border-black hover:bg-black transition",
         ghost: "bg-transparent text-foreground hover:bg-white border-transparent",
         "ghost-background": "bg-transparent text-foreground hover:bg-background border-transparent",
         subtle: "bg-black/5 text-black hover:bg-black/10 border-transparent",
@@ -56,36 +57,29 @@ const buttonVariants = cva(
     },
   }
 )
+// 🧠 Typage plus souple : accepte tout élément HTML
+type ButtonProps = {
+  asChild?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+} & VariantProps<typeof buttonVariants> &
+  React.HTMLAttributes<HTMLElement>;
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, children, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
-
-    const childArray = React.Children.toArray(children)
-    const isIconOnly =
-      childArray.length === 1 &&
-      React.isValidElement(childArray[0]) &&
-      typeof childArray[0].type === "function"
-
-    const finalSize = isIconOnly ? "icon" : size
+const Button = React.forwardRef<HTMLElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
 
     return (
       <Comp
         ref={ref}
-        className={cn(buttonVariants({ variant, size: finalSize }), className)}
+        className={cn(buttonVariants({ variant, size }), className)}
         {...props}
       >
         {children}
       </Comp>
-    )
+    );
   }
-)
-Button.displayName = "Button"
+);
+Button.displayName = "Button";
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

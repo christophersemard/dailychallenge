@@ -56,47 +56,54 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
 
                 {/* Zone actions */}
                 <div className="flex items-center gap-3">
-                    {isAuthenticated && isVip ? (
 
-                        <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap" asChild>
-                            <Link href="/vip" className="gap-2 items-center fill-primary text-primary hidden md:flex">
-                                <Crown fill="primary" size={16} />
-                                <span className="text-black">VIP</span>
-                            </Link>
-                        </Button>
-                    ) : (
-
-                        <Button variant="outline-primary" className="w-full justify-start text-sm whitespace-nowrap" asChild>
-                            <Link href="/vip" className="gap-2 items-center hidden md:flex">
-                                <Crown size={16} />
-                                Devenir VIP
-                            </Link>
-                        </Button>
-                    )}
 
                     {/* Zone Desktop */}
                     <div className="hidden md:flex items-center gap-3">
                         {!isAuthenticated ? (
                             <>
-                                <Link href="/inscription">
-                                    <Button variant="secondary">S’inscrire</Button>
-                                </Link>
-                                <Link href="/connexion" className="whitespace-nowrap">
-                                    <Button variant="primary">Se connecter</Button>
-                                </Link>
+                                <Button variant="secondary" asChild>
+                                    <Link href="/inscription">
+                                        S’inscrire
+                                    </Link>
+                                </Button>
+                                <Button variant="primary" asChild>
+                                    <Link href="/connexion" className="whitespace-nowrap">
+                                        Se connecter
+                                    </Link>
+                                </Button>
                             </>
                         ) : (
                             <>
+                                {isVip ? (
+
+                                    <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap hidden md:flex" asChild>
+                                        <Link href="/vip" className="gap-2 items-center fill-primary text-primary">
+                                            <Crown fill="primary" size={16} />
+                                            <span className="text-black">VIP</span>
+                                        </Link>
+                                    </Button>
+                                ) : (
+
+                                    <Button variant="outline-primary" className="w-full justify-start text-sm whitespace-nowrap hidden md:flex" asChild>
+                                        <Link href="/vip" className="gap-2 items-center">
+                                            <Crown size={16} />
+                                            Devenir VIP
+                                        </Link>
+                                    </Button>
+                                )}
                                 <UserMenu user={user!} />
                                 <IconButtonWithBadge
                                     icon={<Users2 size={16} className="text-foreground" />}
-                                    variant="outline-background"
+                                    variant="outline-white"
                                     badgeContent={user?.pendingFriendRequests || 0}
                                     onClick={() => setShowFriends(true)}
                                     aria-label="Ouvrir le drawer amis"
                                 />
                             </>
                         )}
+
+
                     </div>
 
                     {/* Zone Mobile */}

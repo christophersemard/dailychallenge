@@ -1,12 +1,15 @@
 // src/components/common/GameItem.tsx
 import { cn } from "@/lib/utils"
 import { Crown } from "lucide-react"
+import Link from "next/link"
 
 type Props = {
     color: "primary" | "secondary" | "success" | "danger" | "teal" | "red" | "purple" | "yellow" | "green" | "blue" | "pink" | "orange"
     icon?: string
     title: string
     description: string
+    url?: string
+    status?: "coming-soon" | "available"
 }
 
 const colorMap: Record<Props["color"], { bg: string; text: string }> = {
@@ -30,18 +33,39 @@ export default function GameItem({
     color,
     title,
     description,
+    url = "/",
+    status = "available",
 }: Props) {
     const { bg, text } = colorMap[color]
 
     return (
-        <div className={cn("p-3 rounded transition cursor-pointer flex items-center space-x-5", bg)}>
-            <div className={cn("", text)}>
-                {icon}
-            </div>
-            <div className="flex flex-col items-start">
-                <div className="font-bold text-lg text-start">{title}</div>
-                <div className="text-xs text-muted-foreground text-start">{description}</div>
-            </div>
-        </div>
+        <>
+            {status === "available" ?
+                <Link href={url} className={cn("p-3 rounded transition cursor-pointer flex items-center space-x-5", bg)}>
+                    <div className={cn("", text)}>
+                        {icon}
+                    </div>
+                    <div className="flex flex-col items-start">
+                        <div className="font-bold text-lg text-start">{title}</div>
+                        <div className="text-xs text-muted-foreground text-start mb-1">{description}</div>
+                    </div>
+                </Link>
+                :
+                <div className={cn("p-3 rounded flex items-center space-x-5 relative hover:bg-white! ", bg)}>
+                    <div className={cn("", text)}>
+                        {icon}
+                    </div>
+                    <div className="flex flex-col items-start">
+                        <div className="font-bold text-lg text-start">{title}</div>
+                        <div className="text-xs text-muted-foreground text-start mb-1">{description}</div>
+                    </div>
+
+                    <div className="border-2 border-background absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
+                        <span className="-rotate-2">BIENTOT DISPONIBLE</span>
+                    </div>
+
+                </div>
+            }
+        </>
     )
 }

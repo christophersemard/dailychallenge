@@ -32,10 +32,10 @@ export default function UserMenu({ user }: UserMenuProps) {
             <PopoverTrigger asChild
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave} >
-                <button className="flex items-center gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded  hover:bg-white transition text-foreground cursor-pointer">
+                <button className="flex items-center gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded  hover:bg-white transition text-foreground cursor-pointer ">
                     <div className="w-6 h-6 bg-primary rounded" />
                     <span className="font-semibold">{user.pseudo}</span>
-                    <span className="text-xs text-muted-foreground ms-4">Niv. </span>
+                    <span className="text-sm text-muted-foreground ms-4">Niv. </span>
                     <OutlineText color="black" text={String(user.userStats.level)}></OutlineText>
 
 

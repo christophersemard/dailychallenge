@@ -73,8 +73,8 @@ export default function OutlineText({
                 fill="white"
                 fontSize={fontSize}
                 fontWeight="bold"
-                paintOrder="stroke fill"
-                style={{ fontFamily: "inherit" }}
+                paintOrder="stroke fill" style={{ fontFamily: "var(--font-outline)" }}
+
             >
                 {text}
             </text>

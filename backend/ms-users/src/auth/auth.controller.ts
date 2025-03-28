@@ -7,8 +7,16 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @MessagePattern("register_user")
-    async register({ email, password }: { email: string; password: string }) {
-        return await this.authService.createUser(email, password);
+    async register({
+        email,
+        password,
+        pseudo,
+    }: {
+        email: string;
+        password: string;
+        pseudo: string;
+    }) {
+        return await this.authService.createUser(email, password, pseudo);
     }
 
     @MessagePattern("validate_user")

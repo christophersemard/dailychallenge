@@ -9,7 +9,7 @@ const ADMIN_ROUTES = ["/admin", "/dashboard"];
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
 
-    console.log("Middleware", pathname);
+    // console.log("Middleware", pathname);
 
     if (
         PUBLIC_ROUTES.some(
@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
 
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    console.log("Token", token);
+    // console.log("Token", token);
 
     if (!token) {
         const loginUrl = new URL("/connexion", req.url);

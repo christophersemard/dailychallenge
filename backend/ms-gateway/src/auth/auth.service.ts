@@ -11,9 +11,17 @@ export class AuthService {
         private readonly rpcExceptionHandler: RpcExceptionHandlerService
     ) {}
 
-    async register(email: string, password: string): Promise<UserDto> {
+    async register(
+        email: string,
+        password: string,
+        pseudo: string
+    ): Promise<UserDto> {
         return lastValueFrom(
-            this.client.send<UserDto>("register_user", { email, password })
+            this.client.send<UserDto>("register_user", {
+                email,
+                password,
+                pseudo,
+            })
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 

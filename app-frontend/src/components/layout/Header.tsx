@@ -34,5 +34,6 @@ export default function Header() {
         fetchUserData();
     }, [session, status]);
 
+    // return <>   </>
     return <HeaderClient isAuthenticated={isAuthenticated} user={user} />;
 }

@@ -25,14 +25,20 @@ export class AuthService {
         return this.jwtService.verify(token);
     }
 
-    async createUser(email: string, password: string) {
+    async createUser(email: string, password: string, pseudo: string) {
         if (!email || !password) {
             throw new BadRequestException(
                 "Email et mot de passe obligatoires."
             );
         }
 
-        const pseudo = `Player_${Math.floor(Math.random() * 100000)}`;
+        // Vérification de l'existence de l'utilisateur
+        const existingUser = await prisma.user.findUnique({
+            where: { pseudo },
+        });
+        if (existingUser) {
+            throw new BadRequestException("Pseudo déjà pris.");
+        }
 
         // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
