@@ -1,59 +1,87 @@
 "use client";
 
-import { getSession } from "next-auth/react";
+// SEULEMENT UTILE POUR NGROK
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+import { fetchServerAction } from "@/app/actions/fetch-proxy";
 
-// ----------------------
-// Client-side fetch with Auth and error handling
-// ----------------------
-export async function fetchClientWithAuth<T>(
-    input: string,
-    init: RequestInit = {}
-): Promise<T> {
-    // Récupérer la session du côté client
-    const session = await getSession();
+export { fetchServerAction as fetchClientWithAuth };
 
-    // Si la session est absente ou si le token n'est pas trouvé, lancer une erreur
-    const token = session?.accessToken;
-    if (!token) {
-        throw new Error("No token found. Please log in.");
-    }
+// UTILISATION NORMALE
 
-    // Construire les headers avec le token d'authentification
-    const headers: Record<string, string> = {
-        ...(init.headers as Record<string, string>),
-        Authorization: `Bearer ${token}`, // Ajouter l'Authorization avec le token
-    };
+// import { getSession } from "next-auth/react";
 
-    // Ajouter le Content-Type si nécessaire
-    if (init.body && !headers["Content-Type"]) {
-        headers["Content-Type"] = "application/json";
-    }
+// const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-    try {
-        const res = await fetch(API_URL + input, {
-            ...init,
-            headers,
-        });
+export type ErrorApi = {
+    statusCode: number;
+    error: string;
+    message: string;
+};
 
-        // Vérifier si la réponse est OK
-        if (!res.ok) {
-            const errorMessage = await res.text();
-            console.error("API ERROR:", errorMessage);
-            throw new Error(`API Error: ${errorMessage}`);
-        }
+// // ----------------------
+// // Client-side fetch with Auth and error handling
+// // ----------------------
+// type FetchResponse<T> =
+//     | { data: T; error: null }
+//     | { data: null; error: ErrorApi };
 
-        // Si tout va bien, retourner la réponse JSON
-        const result: T = await res.json();
-        return result;
-    } catch (error) {
-        // Gestion des erreurs de fetch ou de traitement
-        console.error("Request failed:", error);
-        throw new Error(
-            `Request failed: ${
-                error instanceof Error ? error.message : "Unknown error"
-            }`
-        );
-    }
-}
+// export async function fetchClientWithAuth<T>(
+//     input: string,
+//     init: RequestInit = {}
+// ): Promise<FetchResponse<T>> {
+//     const session = await getSession();
+//     const token = session?.accessToken;
+// if (!token && input !== "/auth/login" && input !== "/auth/register") {
+//         return {
+//             data: null,
+//             error: {
+//                 statusCode: 401,
+//                 error: "Unauthorized",
+//                 message: "No token found. Please log in.",
+//             },
+//         };
+//     }
+
+//     const headers: Record<string, string> = {
+//         ...(init.headers as Record<string, string>),
+//         Authorization: `Bearer ${token}`,
+//     };
+
+//     if (init.body && !headers["Content-Type"]) {
+//         headers["Content-Type"] = "application/json";
+//     }
+
+//     try {
+//         const res = await fetch(API_URL + input, {
+//             ...init,
+//             headers,
+//         });
+
+//         if (!res.ok) {
+//             const errorMessage = await res.text();
+//             let error: ErrorApi;
+//             try {
+//                 error = JSON.parse(errorMessage);
+//             } catch {
+//                 error = {
+//                     statusCode: res.status,
+//                     error: "Unknown error",
+//                     message: errorMessage,
+//                 };
+//             }
+//             return { data: null, error };
+//         }
+
+//         const result: T = await res.json();
+//         return { data: result, error: null };
+//     } catch (err) {
+//         return {
+//             data: null,
+//             error: {
+//                 statusCode: 500,
+//                 error: "Fetch Error",
+//                 message: err instanceof Error ? err.message : "Unknown error",
+//             },
+//         };
+//     }
+// }

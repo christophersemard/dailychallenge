@@ -26,7 +26,7 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
 
     return (
         <header className="fixed top-0 w-full z-50 py-2 md:py-4">
-            <div className="mx-auto max-w-10xl px-4 py-2 md:py-3 flex items-center justify-between">
+            <div className="mx-auto max-w-8xl  px-4 py-2 md:py-3 flex items-center justify-between">
                 {/* Logo + catégories */}
                 <div className="flex items-center gap-6">
                     <Link href="/" className="max-w-[140px] md:max-w-[180px] h-[40px] relative flex items-center">

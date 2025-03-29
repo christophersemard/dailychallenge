@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+    Injectable,
+    UnauthorizedException,
+    UnprocessableEntityException,
+} from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 import { BadRequestException } from "@nestjs/common";
@@ -37,7 +41,7 @@ export class AuthService {
             where: { pseudo },
         });
         if (existingUser) {
-            throw new BadRequestException("Pseudo déjà pris.");
+            throw new UnprocessableEntityException("Ce pseudo est déjà pris.");
         }
 
         // Hachage du mot de passe

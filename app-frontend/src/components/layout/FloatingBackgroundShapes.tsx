@@ -1,10 +1,9 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-
-type Variant = "yellow" | "purple" | "red"
+import { Color } from "@/types/colors.types"
 
 type Props = {
-    variant: Variant
+    variant: Color
     className?: string
 }
 

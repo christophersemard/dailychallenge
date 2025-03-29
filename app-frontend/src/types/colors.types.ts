@@ -1,0 +1,16 @@
+export type Color =
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "teal"
+    | "red"
+    | "purple"
+    | "yellow"
+    | "green"
+    | "blue"
+    | "pink"
+    | "orange"
+    | "black"
+    | "white"
+    | "background";

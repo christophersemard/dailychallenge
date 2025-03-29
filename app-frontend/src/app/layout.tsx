@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${hanken.variable} ${outlineFont.variable}`}>
       <body className="font-sans antialiased bg-background">
-        <Toaster richColors position="bottom-right" duration={5000} />
+        <Toaster richColors position="bottom-center" duration={5000} />
         <AuthProvider>
           <Layout>{children}</Layout>
         </AuthProvider>

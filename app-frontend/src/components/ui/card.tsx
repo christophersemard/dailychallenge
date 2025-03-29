@@ -1,13 +1,15 @@
 // src/components/ui/CategoryCard.tsx
 import clsx from "clsx"
+import { Color } from "@/types/colors.types"
 
 type Props = {
     title: string
-    color: "primary" | "secondary" | "success" | "danger" | "teal" | "red" | "purple" | "yellow" | "green" | "blue" | "pink" | "orange"
+    color: Color
     children: React.ReactNode
+    className?: string
 }
 
-export default function CategoryCard({ title, color, children }: Props) {
+export default function CategoryCard({ title, color, children, className }: Props) {
     const colorMap = {
         primary: "bg-primary text-black",
         secondary: "bg-purple text-white",
@@ -20,7 +22,10 @@ export default function CategoryCard({ title, color, children }: Props) {
         green: "bg-green text-white",
         blue: "bg-blue text-white",
         pink: "bg-pink text-white",
-        orange: "bg-orange text-black"
+        orange: "bg-orange text-black",
+        black: "bg-black text-white",
+        white: "bg-white text-black",
+        background: "bg-background text-black"
 
     }
 
@@ -36,13 +41,16 @@ export default function CategoryCard({ title, color, children }: Props) {
         green: "card-green",
         blue: "card-blue",
         pink: "card-pink",
-        orange: "card-orange"
+        orange: "card-orange",
+        black: "card-black",
+        white: "card-white",
+        background: "card-background"
     }
 
 
     return (
-        <div className={clsx("bg-white rounded card my-6 ", underlineMap[color])} >
-            <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center", colorMap[color])}>
+        <div className={clsx("bg-white rounded card my-6 ", underlineMap[color as Color], className)} >
+            <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center max-w-5/6", colorMap[color])}>
                 {title}
             </div>
             <div className="p-4 md:p-6 space-y-3">{children}</div>

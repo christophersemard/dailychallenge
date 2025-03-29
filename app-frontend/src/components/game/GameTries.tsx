@@ -2,55 +2,50 @@
 
 import { useState } from "react"
 import { CheckCircle, CheckCircle2, X, XCircle } from "lucide-react"
+import { Try } from "@/types/game.types"
 
 type Props = {
-    gameId: string
+    tries: Try[]
 }
 
-type Try = {
-    id: string
-    value: string
-    status: "success" | "fail"
-}
 
-export default function GameTries({ gameId }: Props) {
-    const [tries, setTries] = useState<Try[]>([
-        { id: "1", value: "Interstellar", status: "success" },
-        { id: "2", value: "Inception", status: "fail" },
-    ])
-
+export default function GameTries({ tries }: Props) {
 
     return (
-        <div className="gap-4">
-            <h3 className=" font-bold text-2xl mb-6 ">
-                Vos essais
-            </h3>
+        <>
 
-            {tries.length === 0 && (
-                <p className="text-sm text-muted">Aucun essai pour l’instant.</p>
-            )}
+            {
+                tries.length > 0 && (
+                    <div className="gap-4">
+                        <h3 className=" font-bold text-2xl mb-4 md:mb-6 ">
+                            Vos essais
+                        </h3>
 
-            <div className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-2 md:gap-4">
 
-                {tries.map((t) => (
-                    <div
-                        key={t.id}
-                        className={`px-4 py-2 rounded flex justify-between items-center text-xl font-bold bg-white`}
-                    >
-                        {t.value}
-                        {
-                            t.status === "fail" ? (
-                                <span className="text-red">
-                                    <XCircle className="w-8 h-8" />
-                                </span>
-                            ) : (
-                                <span className="text-green">
-                                    <CheckCircle2 className="w-8 h-8" />
-                                </span>
-                            )
-                        }
+                            {tries.slice().reverse().map((t) => (
+                                <div
+                                    key={t.id}
+                                    className={`px-3 md:px-4 py-1 md:py-2 rounded flex justify-between items-center text-sm md:text-lg font-bold bg-white`}
+                                >
+                                    {t.guess || "Pas de réponse"}
+                                    {
+                                        !t.correct ? (
+                                            <span className="text-red">
+                                                <XCircle className="size-6 md:size-8" />
+                                            </span>
+                                        ) : (
+                                            <span className="text-green">
+                                                <CheckCircle2 className="size-6 md:size-8" />
+                                            </span>
+                                        )
+                                    }
+                                </div>
+                            ))}</div>
                     </div>
-                ))}</div>
-        </div>
+                )}
+        </>
+
+
     )
 }

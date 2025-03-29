@@ -12,6 +12,9 @@ type OutlineColor =
     | "indigo"
     | "white"
     | "black"
+    | "danger"
+    | "success"
+    | "warning"
 
 const strokeMap: Record<OutlineColor, string> = {
     yellow: "#ffc107",
@@ -25,6 +28,9 @@ const strokeMap: Record<OutlineColor, string> = {
     indigo: "#6610f2",
     white: "#ffffff",
     black: "#202020",
+    danger: "#dc3545",
+    success: "#198754",
+    warning: "#ffc107",
 }
 
 const sizeMap = {
@@ -65,16 +71,19 @@ export default function OutlineText({
             viewBox={`0 0 ${width} ${height}`}
             className={className}
         >
+
             <text
-                x={padding}
-                y={height - padding / 2 - 4}
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
                 stroke={stroke}
-                strokeWidth={fontSize * 0.4}
+                strokeWidth={fontSize * 0.25}
                 fill="white"
                 fontSize={fontSize}
                 fontWeight="bold"
-                paintOrder="stroke fill" style={{ fontFamily: "var(--font-outline)" }}
-
+                paintOrder="stroke fill"
+                style={{ fontFamily: "var(--font-outline)" }}
             >
                 {text}
             </text>

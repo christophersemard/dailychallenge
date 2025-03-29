@@ -17,14 +17,23 @@ export default function Header() {
             if (status === "authenticated") {
 
                 try {
-                    const userData = await fetchClientWithAuth<UserMe>("/users/me");
+                    const { data: userData, error } = await fetchClientWithAuth<UserMe>("/users/me");
+
+                    if (error || !userData) {
+                        console.error("Error fetching user data:", error);
+                        setUser(null);
+                        setIsAuthenticated(false);
+                        return;
+                    }
+
                     setUser(userData);
                     setIsAuthenticated(true);
-                } catch (error) {
-                    console.error("Error fetching user data:", error);
+                } catch (err) {
+                    console.error("Unexpected error:", err);
                     setUser(null);
                     setIsAuthenticated(false);
                 }
+
             } else {
                 setIsAuthenticated(false);
                 setUser(null);

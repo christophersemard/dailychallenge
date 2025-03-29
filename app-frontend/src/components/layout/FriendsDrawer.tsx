@@ -30,16 +30,28 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const userFriends = await fetchClientWithAuth<Friend[]>("/friends");
-                const requests = await fetchClientWithAuth<FriendRequestGroup>("/friends/requests");
+                const { data: userFriends, error: friendsError } = await fetchClientWithAuth<Friend[]>("/friends");
+                const { data: requests, error: requestsError } = await fetchClientWithAuth<FriendRequestGroup>("/friends/requests");
+
+                if (friendsError || !userFriends) {
+                    console.error("Erreur récupération amis :", friendsError);
+                    return;
+                }
+
+                if (requestsError || !requests) {
+                    console.error("Erreur récupération des demandes d'amis :", requestsError);
+                    return;
+                }
+
                 setFriends(userFriends);
                 setFriendRequestsSent(requests.sent);
                 setFriendRequestsReceived(requests.received);
             } catch (error) {
-                console.error("Erreur récupération amis :", error);
+                console.error("Erreur inattendue :", error);
             } finally {
                 setLoading(false);
             }
+
         };
 
         fetchData();
@@ -93,9 +105,14 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
             })
 
             // Realler chercher les demandes
-            const requests = await fetchClientWithAuth<FriendRequestGroup>("/friends/requests");
-            setFriendRequestsSent(requests.sent);
+            const { data: requests, error } = await fetchClientWithAuth<FriendRequestGroup>("/friends/requests");
 
+            if (error || !requests) {
+                console.error("Erreur lors du fetch des demandes :", error);
+                return;
+            }
+
+            setFriendRequestsSent(requests.sent);
 
 
         } catch (error) {
@@ -123,26 +140,27 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
         const timeout = setTimeout(async () => {
             if (value.trim().length > 0) {
                 try {
-                    const results = await fetchClientWithAuth<Friend[]>(
+                    const { data, error } = await fetchClientWithAuth<Friend[]>(
                         `/users/search?query=${encodeURIComponent(value)}`
                     );
-                    // Enlever les amis déjà dans la liste
-                    const filteredResults = results.filter(
-                        (result) => !friends.some((friend) => friend.id === result.id)
-                    );
-                    // S'enlever soi même de la liste
-                    const filteredResults2 = filteredResults.filter(
-                        (result) => result.id !== user?.id
-                    );
-                    // Enlever les amis déjà dans la liste des demandes envoyées
-                    const filteredResults3 = filteredResults2.filter(
-                        (result) => !friendRequestsSent.some((friend) => friend.user.id === result.id)
-                    );
-                    setSearchResults(filteredResults3);
+
+                    if (error || !data) {
+                        console.error("Erreur API recherche amis :", error);
+                        setSearchResults([]);
+                        return;
+                    }
+
+                    const filteredResults = data
+                        .filter((result) => !friends.some((friend) => friend.id === result.id))
+                        .filter((result) => result.id !== user?.id)
+                        .filter((result) => !friendRequestsSent.some((r) => r.user.id === result.id));
+
+                    setSearchResults(filteredResults);
                 } catch (err) {
-                    console.error("Erreur recherche amis :", err);
+                    console.error("Erreur réseau recherche amis :", err);
                     setSearchResults([]);
                 }
+
             } else {
                 setSearchResults([]);
             }
@@ -313,10 +331,11 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                         value={newFriend}
                                         onChange={handleSearchChange}
                                         placeholder="Ex : Michel76"
+                                        className="input-sm input-secondary"
                                     />
                                     {searchResults.length > 0 && !selectedFriendId && (
                                         <div className="absolute bottom-full left-0 z-50 w-full bg-white border border-muted/20 rounded shadow mb-2 max-h-48 flex flex-col">
-                                            <div className="bg-purple-600 text-white px-3 py-1 text-xs font-bold rounded-t">
+                                            <div className="bg-purple-600 text-white px-3 py-2 text-sm font-semibold rounded-t">
                                                 Suggestions
                                             </div>
                                             <ul className="overflow-y-auto flex-1">

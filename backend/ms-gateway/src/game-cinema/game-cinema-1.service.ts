@@ -89,4 +89,19 @@ export class GameCinema1Service {
             })
         );
     }
+
+    async getUserResultsByMonth(
+        userId: number,
+        month: string
+    ): Promise<GameResult[]> {
+        return lastValueFrom(
+            this.gameCinemaClient.send<GameResult[]>(
+                "get_user_results_by_month",
+                {
+                    userId,
+                    month,
+                }
+            )
+        );
+    }
 }

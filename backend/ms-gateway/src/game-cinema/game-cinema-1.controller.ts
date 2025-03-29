@@ -60,4 +60,16 @@ export class GameCinema1Controller {
     ): Promise<GameResult | null> {
         return this.gameCinema1Service.getGameResult(req.user.id, date);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("user-results")
+    async getUserResultsByMonth(
+        @Req() req: UserRequest,
+        @Query("month") month: string // ✅ `month` récupéré via Query
+    ): Promise<GameResult[]> {
+        return this.gameCinema1Service.getUserResultsByMonth(
+            req.user.id,
+            month
+        );
+    }
 }

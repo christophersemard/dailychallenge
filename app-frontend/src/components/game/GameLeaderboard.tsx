@@ -2,13 +2,15 @@
 
 import { useState } from "react"
 import OutlineText from "@/components/ui/outline-text"
+import { Color } from "@/types/colors.types"
 
 type Props = {
     gameId: string
     userId: string
+    color: Color
 }
 
-export default function GameLeaderboard({ gameId, userId }: Props) {
+export default function GameLeaderboard({ gameId, userId, color }: Props) {
     const [tab, setTab] = useState<"amis" | "global">("amis")
     const [period, setPeriod] = useState<"week" | "month" | "year">("week")
 

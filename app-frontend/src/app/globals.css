@@ -181,9 +181,64 @@ input::placeholder {
   
 
   input, textarea, select {
-    @apply bg-white text-black border border-gray-300 rounded-md  focus:ring focus:ring-secondary focus:ring-secondary ;
+    @apply bg-white text-black border border-gray-300 rounded  focus:ring focus:ring-primary focus:ring-primary ;
   }
 
   .input-sm {
     @apply text-sm px-2! h-8 ;
   }
+  .input-primary {
+    @apply focus:ring-primary focus:ring-primary ;
+  }
+    .input-secondary {
+        @apply focus:ring-secondary focus:ring-secondary ;
+    }
+    .input-success {
+        @apply focus:ring-success focus:ring-success ;
+    }
+    .input-danger {
+        @apply focus:ring-danger focus:ring-danger ;
+    }
+    .input-warning {
+        @apply focus:ring-warning focus:ring-warning ;
+    }
+    .input-info {
+        @apply focus:ring-info focus:ring-info ;
+    }
+    .input-light {
+        @apply focus:ring-light focus:ring-light ;
+    }
+    .input-dark {
+        @apply focus:ring-dark focus:ring-dark ;
+    }
+    .input-muted {
+        @apply focus:ring-muted focus:ring-muted ;
+    }
+    .input-blue {
+        @apply focus:ring-blue focus:ring-blue ;
+    }
+    .input-cyan {
+        @apply focus:ring-cyan focus:ring-cyan ;
+    }
+    .input-teal {
+        @apply focus:ring-teal focus:ring-teal ;
+    }
+    .input-green {
+        @apply focus:ring-green focus:ring-green ;
+    }
+    .input-purple {
+        @apply focus:ring-purple focus:ring-purple ;
+    }
+    .input-red {
+        @apply focus:ring-red focus:ring-red ;
+    }
+    .input-orange {
+        @apply focus:ring-orange focus:ring-orange ;
+    }
+    .input-pink {
+        @apply focus:ring-pink focus:ring-pink ;
+    }
+    .input-yellow {
+        @apply focus:ring-yellow focus:ring-yellow ;
+    }
+    

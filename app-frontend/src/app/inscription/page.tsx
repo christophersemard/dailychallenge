@@ -8,6 +8,7 @@ import { Eye, EyeOff, Check, X } from "lucide-react"
 import Card from "@/components/ui/card"
 import Link from "next/link"
 import clsx from "clsx"
+import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth"
 
 export default function Inscription() {
     const [pseudo, setPseudo] = useState("PseudoTest")
@@ -30,28 +31,26 @@ export default function Inscription() {
         }
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+            const res = await fetchClientWithAuth<{ success: boolean }>("/auth/register", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password, pseudo }),
+                headers: { "Content-Type": "application/json" },
             })
 
-            const data = await res.json()
-
-            if (!res.ok) {
-                // Si le code est 409
-                if (res.status === 409) {
+            if (res.error) {
+                if (res.error.statusCode === 409) {
                     setError("Cet email est déjà utilisé.")
-                } else if (res.status === 422) {
+                } else if (res.error.statusCode === 422) {
                     setError("Pseudo déjà pris.")
-                } else if (res.status === 500) {
+                } else if (res.error.statusCode === 500) {
                     setError("Erreur serveur.")
                 } else {
-                    setError(data?.message || "Erreur lors de l'inscription.")
+                    setError(res.error.message || "Erreur lors de l'inscription.")
                 }
             } else {
                 router.push("/connexion?registered=true")
             }
+
         } catch (err) {
             setError("Erreur réseau.")
         } finally {

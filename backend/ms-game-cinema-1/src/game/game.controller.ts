@@ -45,4 +45,13 @@ export class GameController {
     ) {
         return this.gameService.getGameResult(userId, date);
     }
+
+    // Récupérer les résultats d'un utilisateur sur un mois donné
+    @MessagePattern("get_user_results_by_month")
+    async getUserResultsByMonth(
+        @Payload()
+        { userId, month }: { userId: number; month: string }
+    ) {
+        return this.gameService.getUserResultsByMonth(userId, month);
+    }
 }

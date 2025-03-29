@@ -3,6 +3,9 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
+
+export type ButtonVariant = VariantProps<typeof buttonVariants>["variant"];
+
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 rounded text-sm font-bold transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer border-2",
 
@@ -29,14 +32,14 @@ const buttonVariants = cva(
         "outline-danger": " text-black border-danger hover:bg-danger hover:text-white transition",
         "outline-background": " text-black bg-white/50 border-black/3 hover:bg-background transition",
         "outline-white": " text-black bg-white/50 border-black/3 hover:bg-white transition",
-        "outline-red": " text-black border-red hover:bg-red transition",
-        "outline-purple": " text-black border-purple hover:bg-purple transition",
+        "outline-red": " text-black border-red hover:bg-red hover:text-white transition",
+        "outline-purple": " text-black border-purple hover:bg-purple hover:text-white transition",
         "outline-yellow": " text-black border-yellow hover:bg-yellow transition",
-        "outline-green": " text-black border-green hover:bg-green transition",
-        "outline-blue": " text-black border-blue hover:bg-blue transition",
-        "outline-pink": " text-black border-pink hover:bg-pink transition",
-        "outline-teal": " text-black border-teal hover:bg-teal transition",
-        "outline-black": " text-black border-black hover:bg-black transition",
+        "outline-green": " text-black border-green hover:bg-green hover:text-white transition",
+        "outline-blue": " text-black border-blue hover:bg-blue hover:text-white transition",
+        "outline-pink": " text-black border-pink hover:bg-pink hover:text-white transition",
+        "outline-teal": " text-black border-teal hover:bg-teal hover:text-white transition",
+        "outline-black": " text-black border-black hover:bg-black hover:text-white transition",
         ghost: "bg-transparent text-foreground hover:bg-white border-transparent",
         "ghost-background": "bg-transparent text-foreground hover:bg-background border-transparent",
         subtle: "bg-black/5 text-black hover:bg-black/10 border-transparent",
