@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary text-black border-white/30 hover:bg-primary/90",
+        primary: "bg-primary text-black border-white/30 hover:bg-primary/80",
         secondary: "bg-secondary text-white border-white/20 hover:bg-secondary/90",
         success: "bg-success text-white border-white/20 hover:bg-success/90",
         danger: "bg-danger text-white border-white/20 hover:bg-danger/90",
@@ -57,15 +57,17 @@ const buttonVariants = cva(
     },
   }
 )
-// 🧠 Typage plus souple : accepte tout élément HTML
-type ButtonProps = {
-  asChild?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-} & VariantProps<typeof buttonVariants> &
-  React.HTMLAttributes<HTMLElement>;
 
-const Button = React.forwardRef<HTMLElement, ButtonProps>(
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 

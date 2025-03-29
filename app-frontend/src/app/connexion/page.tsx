@@ -11,7 +11,7 @@ import Link from "next/link"
 import { toast } from "sonner"
 
 export default function Connexion() {
-    const [email, setEmail] = useState("testfront@test.com")
+    const [email, setEmail] = useState("michel@michelle.com")
     const [password, setPassword] = useState("Azerty123456*")
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)

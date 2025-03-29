@@ -11,7 +11,7 @@ import clsx from "clsx"
 
 export default function Inscription() {
     const [pseudo, setPseudo] = useState("PseudoTest")
-    const [email, setEmail] = useState("testfront@test.com")
+    const [email, setEmail] = useState("michel@michelle.com")
     const [password, setPassword] = useState("Azerty123456*")
     const [confirmPassword, setConfirmPassword] = useState("Azerty123456*")
     const [showPassword, setShowPassword] = useState(false)

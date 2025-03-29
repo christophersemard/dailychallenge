@@ -4,7 +4,7 @@ import Card from "@/components/ui/card"
 import GamePlay from "@/components/game/GamePlay"
 import GameResultMovie from "@/components/game/GameResultMovie"
 import { useEffect, useState } from "react"
-import { formatDateLong } from "@/utils/formatDate"
+import { formatDateLong } from "@/lib/formatDate"
 
 type Props = {
     gameId: string,
