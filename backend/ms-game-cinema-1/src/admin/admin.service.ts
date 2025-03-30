@@ -66,8 +66,14 @@ export class AdminService {
 
         const usedMovieIds = recentMovies.map((m) => m.movieId);
 
+        // On doit exclure les films qui ont une propriété keywords à "" en plus de ceux qui ont été utilisés récemment
         const availableMovies = await prisma.dataMovie.findMany({
-            where: { id: { notIn: usedMovieIds } },
+            where: {
+                AND: [
+                    { keywords: { not: "" } },
+                    { id: { notIn: usedMovieIds } },
+                ],
+            },
         });
 
         if (availableMovies.length === 0) {

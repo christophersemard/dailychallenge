@@ -16,14 +16,12 @@ export class UserGameService {
         status: "passed" | "failed",
         gameDate: Date
     ) {
-        console.log("Processing game result...");
-        console.log("status: ", status);
         // Vérifier que le jeu existe
         if (!gameId) throw new RpcException("Jeu non trouvé");
         const game = await prisma.game.findUnique({ where: { id: gameId } });
         if (!game) throw new RpcException("Jeu non trouvé");
 
-        const { score, isSameDay } = await this.calculateScore(
+        const { score, scoreIfToday, isSameDay } = await this.calculateScore(
             attempts,
             maxAttempts,
             status,
@@ -31,7 +29,7 @@ export class UserGameService {
         );
         const { finalXP, newStreak } = await this.calculateXPAndStreak(
             userId,
-            score,
+            isSameDay ? score : scoreIfToday,
             gameId,
             new Date(gameDate),
             status
@@ -75,7 +73,10 @@ export class UserGameService {
         gameDate: Date
     ) {
         let score = 0;
-        const today = new Date();
+        let scoreIfToday = 0;
+        const today = new Date(
+            new Date().getTime() - new Date().getTimezoneOffset() * 60000
+        );
         const gameDateObj = new Date(gameDate);
         const isSameDay =
             today.getDate() === gameDateObj.getDate() &&
@@ -92,8 +93,18 @@ export class UserGameService {
                 );
             }
         }
+        if (status === "passed" && !isSameDay) {
+            if (attempts === 1) {
+                scoreIfToday = 100;
+            } else {
+                scoreIfToday = Math.max(
+                    100 - Math.floor((attempts / maxAttempts) * 100),
+                    30 // Minimum de 30 points si plusieurs essais
+                );
+            }
+        }
 
-        return { score, isSameDay };
+        return { score, scoreIfToday, isSameDay };
     }
 
     // Calcul de l'XP et du streak
@@ -109,10 +120,13 @@ export class UserGameService {
         });
         if (!userStats) throw new RpcException("Utilisateur non trouvé");
 
-        const today = new Date();
+        const today = new Date(
+            new Date().getTime() - new Date().getTimezoneOffset() * 60000
+        );
         const lastPlayed = userStats.lastPlayedAt
             ? new Date(userStats.lastPlayedAt)
             : null;
+        console.log("Last played:", lastPlayed);
         let newStreak = userStats.streak;
 
         if (lastPlayed) {
@@ -217,6 +231,11 @@ export class UserGameService {
                 "level_up",
                 `Nouveau niveau ${level} atteint !`
             );
+
+            await prisma.userStats.update({
+                where: { userId },
+                data: { level },
+            });
         }
     }
 

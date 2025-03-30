@@ -9,25 +9,28 @@ import Card from "@/components/ui/card"
 import { Color } from "@/types/colors.types"
 import { IconButton } from "@/components/ui/icon-button"
 import Link from "next/link"
+import { useGameEventStore } from "@/lib/store/useGameEventStore"
 
 type Props = {
     gameId: string
     userId: string
     date: Date
     color: Color
+    urlGame: string
 }
 
-export default function GameHistory({ gameId, userId, date, color }: Props) {
+export default function GameHistory({ gameId, userId, date, color, urlGame }: Props) {
     const [results, setResults] = useState<UserMonthlyGameResult[] | null>(null)
     const [totalPoints, setTotalPoints] = useState(0)
     const [currentDate, setCurrentDate] = useState(date)
     const router = useRouter()
+    const lastUpdate = useGameEventStore((state) => state.lastUpdate)
 
     useEffect(() => {
         const fetchHistory = async () => {
             const monthStr = currentDate.toISOString().split("T")[0].slice(0, 7)
             const { data, error } = await fetchClientWithAuth<UserMonthlyGameResult[]>(
-                `/api/game-cinema-1/user-results?month=${monthStr}`
+                `${urlGame}/user-results?month=${monthStr}`
             )
 
             if (error || !data) {
@@ -36,16 +39,17 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
             }
 
             setResults(data)
-
+            console.log("Historique :", data)
             const total = data.reduce(
                 (acc, res) => acc + (res.result?.score ?? 0),
                 0
             )
+            console.log("Total points :", total)
             setTotalPoints(total)
         }
 
         fetchHistory()
-    }, [currentDate])
+    }, [currentDate, lastUpdate])
 
     const getMonthName = (date: Date) =>
         date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })
@@ -76,33 +80,36 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
 
     return (
         <Card title="Historique" color={color}>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-end gap-2 absolute top-4 right-4">
                 <IconButton
                     onClick={() => changeMonth(-1)}
-                    icon={<ChevronLeft className="w-5 h-5" />}
+                    icon={<ChevronLeft strokeWidth={4} className="w-5 h-5" />}
                     variant="background"
-                    size="sm"
+                    size="xs"
                 />
-                <h3 className="font-bold text-sm text-muted-foreground text-center">
-                    {getMonthName(currentDate).charAt(0).toUpperCase() + String(getMonthName(currentDate)).slice(1)}
+                <h3 className="font-bold text-muted-foreground text-center text-sm">
+                    {getMonthName(currentDate).charAt(0).toUpperCase() + String(getMonthName(currentDate)).slice(1, 3)}. {currentDate.getFullYear()}
                 </h3>
                 <IconButton
                     onClick={() => changeMonth(1)}
-                    icon={<ChevronRight className="w-5 h-5" />}
+                    icon={<ChevronRight strokeWidth={4} className="w-5 h-5" />}
                     variant="background"
-                    size="sm"
+                    size="xs"
                     disabled={isFutureMonth}
                 />
             </div>
 
-            <div className="w-full h-[1px] bg-black/10 my-4" />
 
-            <div className="grid grid-cols-7 gap-4">
+            <div className="grid grid-cols-7 gap-3 px-2 mt-4">
                 {results
                     ? results.map((res, i) => {
                         const day = i + 1
                         const fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-                        const dateStr = fullDate.toISOString().split("T")[0]
+                        const dateStr = [
+                            fullDate.getFullYear(),
+                            String(fullDate.getMonth() + 1).padStart(2, "0"),
+                            String(fullDate.getDate()).padStart(2, "0")
+                        ].join("-")
 
                         const isFutureDay =
                             fullDate > today &&
@@ -117,7 +124,7 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
                             return (
                                 <div
                                     key={i}
-                                    className="size-8 rounded-sm bg-white border-none opacity-40 flex items-center justify-center  cursor-default"
+                                    className="size-8 rounded bg-white border-none opacity-40 flex items-center justify-center  cursor-default"
                                     title="Jour à venir"
                                 >
                                     {day}
@@ -129,26 +136,25 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
                             tooltip += ` | ${res.result.status === "passed" ? "Réussi" : "Échoué"}`
                             tooltip += ` | ${res.result.score} pts`
                             tooltip += ` | ${res.result.xpGained} XP`
-                            if (res.guess) tooltip += ` | Tentative : ${res.guess}`
 
                             if (res.result.status === "passed") {
                                 bg = "bg-success"
-                                icon = <Check className="text-white size-6" />
+                                icon = <Check className="text-white size-4" strokeWidth={4} />
                             } else {
                                 bg = "bg-danger"
-                                icon = <X className="text-white size-6" />
+                                icon = <X className="text-white size-4" strokeWidth={4} />
                             }
                         }
 
                         const content = icon || (
-                            <span className="text-sm text-black font-bold  border-none ">{day}</span>
+                            <span className=" text-black font-bold  border-none ">{day}</span>
                         )
 
                         return res.gameDay ? (
                             <Link
                                 href={`/jeu/${gameId}/${dateStr}`}
                                 key={i}
-                                className={`size-8 rounded-sm ${bg} flex items-center justify-center text-xs cursor-pointer hover:opacity-80`}
+                                className={`size-7 rounded-sm ${bg} flex items-center justify-center  cursor-pointer hover:opacity-80`}
                                 title={tooltip}
                             >
                                 {content}
@@ -156,7 +162,7 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
                         ) : (
                             <div
                                 key={i}
-                                className={`size-8 rounded-sm ${bg} flex items-center cursor-pointer justify-center text-xs text-black hover:bg-white border-none font-bold opacity-50`}
+                                className={`size-7 rounded-sm ${bg} flex items-center cursor-pointer justify-center text-black hover:bg-white border-none font-bold opacity-50`}
                                 title={tooltip + " | Pas de jeu ce jour-là"}
                             >
                                 {day}
@@ -164,13 +170,13 @@ export default function GameHistory({ gameId, userId, date, color }: Props) {
                         )
                     })
                     : Array.from({ length: 30 }).map((_, i) => (
-                        <div key={i} className="size-8 rounded bg-background animate-pulse" />
+                        <div key={i} className="size-7 rounded bg-background animate-pulse" />
                     ))}
             </div>
 
-            <div className="w-full h-[1px] bg-black/10 my-4" />
+            <div className="w-full h-[1px] bg-black/10 my-2" />
 
-            <div className="text-xs text-muted-foreground text-center">
+            <div className="text-sm text-muted-foreground text-center">
                 {totalPoints} points cumulés ce mois-ci
             </div>
         </Card>

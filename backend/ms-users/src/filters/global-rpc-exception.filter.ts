@@ -7,11 +7,18 @@ import {
     Logger,
     NotFoundException,
     ConflictException,
+    UnprocessableEntityException,
 } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
 import { throwError } from "rxjs";
 
-@Catch(RpcException, BadRequestException, NotFoundException, ConflictException)
+@Catch(
+    RpcException,
+    BadRequestException,
+    NotFoundException,
+    ConflictException,
+    UnprocessableEntityException
+)
 export class GlobalRpcExceptionFilter implements ExceptionFilter {
     private readonly logger = new Logger(GlobalRpcExceptionFilter.name);
 
@@ -20,7 +27,9 @@ export class GlobalRpcExceptionFilter implements ExceptionFilter {
             | RpcException
             | BadRequestException
             | NotFoundException
-            | ConflictException,
+            | ConflictException
+            | UnprocessableEntityException,
+
         host: ArgumentsHost
     ) {
         let status = 400;

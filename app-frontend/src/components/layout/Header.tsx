@@ -6,11 +6,13 @@ import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
 import { UserMe } from "@/types/user.types"; // Typage UserMe
 import HeaderClient from "./HeaderClient";
 import { useSession } from "next-auth/react";
+import { useGameEventStore } from "@/lib/store/useGameEventStore";
 
 export default function Header() {
     const { data: session, status } = useSession();
     const [user, setUser] = useState<UserMe | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const lastUpdate = useGameEventStore((state) => state.lastUpdate); // Récupération de lastUpdate depuis le store
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -41,7 +43,7 @@ export default function Header() {
         };
 
         fetchUserData();
-    }, [session, status]);
+    }, [session, status, lastUpdate]);
 
     // return <>   </>
     return <HeaderClient isAuthenticated={isAuthenticated} user={user} />;

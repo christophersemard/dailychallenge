@@ -9,28 +9,29 @@ type OutlineColor =
     | "teal"
     | "orange"
     | "pink"
-    | "indigo"
     | "white"
     | "black"
     | "danger"
     | "success"
     | "warning"
+    | "cyan"
 
 const strokeMap: Record<OutlineColor, string> = {
-    yellow: "#ffc107",
-    purple: "#6f42c1",
-    red: "#dc3545",
-    green: "#198754",
-    blue: "#0d6efd",
-    teal: "#20c997",
-    orange: "#fd7e14",
-    pink: "#d63384",
-    indigo: "#6610f2",
+    yellow: "#ffd400",
+    purple: "#6610f2",
+    red: "#f31c31",
+    green: "#03914f",
+    blue: "#0067ff",
+    teal: "#14edad",
+    orange: "#ff7400",
+    pink: "#eb1b82",
+    cyan: "#01d4ff",
     white: "#ffffff",
-    black: "#202020",
-    danger: "#dc3545",
-    success: "#198754",
-    warning: "#ffc107",
+    black: "#101010",
+    danger: "#f31c31",
+    success: "#03914f",
+    warning: "#ff7400",
+
 }
 
 const sizeMap = {
@@ -39,6 +40,7 @@ const sizeMap = {
     base: 18,
     lg: 28,
     xl: 36,
+    giga: 96,
 } as const
 
 type SizeKey = keyof typeof sizeMap
@@ -78,7 +80,7 @@ export default function OutlineText({
                 textAnchor="middle"
                 dominantBaseline="middle"
                 stroke={stroke}
-                strokeWidth={fontSize * 0.25}
+                strokeWidth={fontSize * 0.3}
                 fill="white"
                 fontSize={fontSize}
                 fontWeight="bold"

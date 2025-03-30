@@ -121,7 +121,7 @@ export default function GamePlay({
     }, [isSuggestionOpen])
 
     return (
-        <div className="space-y-2 mt-8 relative">
+        <div className="space-y-2 mt-6 relative">
             <div className="text-sm text-muted-foreground">
                 {triesLeft} essais restants
             </div>

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { IconButton } from "@/components/ui/icon-button"
 import { IconButtonWithBadge } from "@/components/ui/icon-button-with-badge"
 import { UserMe } from "@/types/user.types"
+import Image from "next/image"
 
 type Props = {
     isAuthenticated: boolean
@@ -47,7 +48,13 @@ export default function MobileHeaderActions({ user, isAuthenticated }: Props) {
                 className="w-10 h-8 p-0 flex items-center justify-center rounded hover:opacity-90 transition"
                 aria-label="Ouvrir le menu utilisateur"
             >
-                <div className="w-8 h-8 rounded bg-primary" />
+                <Image
+                    height={50}
+                    width={50}
+                    src={user!.avatar?.url || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                    alt={user!.pseudo}
+                    className="size-8  rounded "
+                />
             </button>
 
             {/* Icône amis avec badge */}

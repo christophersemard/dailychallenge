@@ -149,7 +149,7 @@ header::before {
 .card-cyan::after {
     background-color: var(--cyan);
 }
-.card-yellow::after {
+.card-yellow::after, .card-primary::after {
     background-color: var(--yellow);
     color: var(--color-black);
 }

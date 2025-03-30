@@ -13,6 +13,8 @@ import { isErrorApi } from "@/lib/typeguards"
 import { GameResult, MovieData, Try } from "@/types/game.types"
 import GameTries from "../GameTries"
 import clsx from "clsx"
+import { useGameEventStore } from "@/lib/store/useGameEventStore"
+
 
 
 type Props = {
@@ -50,9 +52,11 @@ export default function GameCinema1({ gameId, color, date }: Props) {
     const [error, setError] = useState(false)
     const [data, setData] = useState<ApiResponse | null>(null)
     const [submitting, setSubmitting] = useState(false)
+    const notifyGameCompleted = useGameEventStore.getState().notifyGameCompleted
+
 
     const dateStr = date.toISOString().split("T")[0]
-    const titleCard = `Jeu cinéma 1 - ${formatDateLong(date)}`
+    const titleCard = `IndiCiné- ${formatDateLong(date)}`
 
     const enhancedMaskedTitle = useMemo(() => {
         if (!data || !data.maskedTitle) return "";
@@ -93,6 +97,11 @@ export default function GameCinema1({ gameId, color, date }: Props) {
                 }
             } else {
                 setData(data)
+
+                // Si le joueur a terminé le jeu, on notifie l'événement
+                if (data.gameResult) {
+                    notifyGameCompleted()
+                }
             }
         } catch (err) {
             console.error("Erreur réseau :", err)

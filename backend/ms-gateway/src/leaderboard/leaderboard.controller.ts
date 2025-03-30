@@ -1,11 +1,12 @@
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { LeaderboardService } from "./leaderboard.service";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
 import { LeaderboardEntry } from "./leaderboard.types";
+import { UserRequest } from "../auth/auth.types";
 
 @ApiTags("Leaderboard")
-@Controller("leaderboard")
+@Controller("api/leaderboard")
 export class LeaderboardController {
     constructor(private leaderboardService: LeaderboardService) {}
 
@@ -68,14 +69,14 @@ export class LeaderboardController {
     @Get("friends")
     @ApiOperation({ summary: "Classement des amis" })
     async getFriendsLeaderboard(
-        @Query("userId") userId: number,
+        @Req() req: UserRequest,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardEntry[]> {
         return await this.leaderboardService.getFriendsLeaderboard(
-            userId,
+            req.user.id,
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -87,7 +88,7 @@ export class LeaderboardController {
     @Get("friends/category")
     @ApiOperation({ summary: "Classement des amis par catégorie" })
     async getFriendsCategoryLeaderboard(
-        @Query("userId") userId: number,
+        @Req() req: UserRequest,
         @Query("category") category: string,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
@@ -95,7 +96,7 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardEntry[]> {
         return await this.leaderboardService.getFriendsCategoryLeaderboard(
-            userId,
+            req.user.id,
             category,
             limit,
             offset,
@@ -108,7 +109,7 @@ export class LeaderboardController {
     @Get("friends/game")
     @ApiOperation({ summary: "Classement des amis pour un jeu spécifique" })
     async getFriendsGameLeaderboard(
-        @Query("userId") userId: number,
+        @Req() req: UserRequest,
         @Query("gameId") gameId: number,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
@@ -116,7 +117,7 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardEntry[]> {
         return await this.leaderboardService.getFriendsGameLeaderboard(
-            userId,
+            req.user.id,
             gameId,
             limit,
             offset,

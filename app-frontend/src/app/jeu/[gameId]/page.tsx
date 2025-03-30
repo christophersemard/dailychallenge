@@ -1,55 +1,36 @@
-// app/jeu/[gameId]/page.tsx
-import GameLayout from "@/components/game/GameLayout"
-import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes"
+// app/jeu/[gameId]/[date]/page.tsx
 import GameCinema1 from "@/components/game/games/GameCinema1"
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation"
 import { Color } from "@/types/colors.types"
 
-type GameId = "cinema-1" | "cinema-2" | "cinema-3";
-
-type Props = {
-    params: {
-        gameId: GameId
-    }
-}
-
-
-
-export default async function GamePage({ params }: Props) {
+export default async function GamePage({
+    params,
+}: {
+    params: { gameId: string; }
+}) {
     const { gameId } = await params
 
-    const session = await getServerSession(authOptions);
+    const today = new Date()
+    // Convertir la date au fuseau horaire local
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
 
+    const colorMap: Record<string, Color> = {
+        "cinema-1": "red",
+        "cinema-2": "red",
+        "cinema-3": "red",
+        "geographie-1": "teal",
+        "geographie-2": "teal",
+        "geographie-3": "teal",
+        "autres-1": "blue",
+        "autres-2": "blue",
+        "autres-3": "blue",
+    }
+    const color = colorMap[gameId]
+    if (!color) redirect("/")
 
-    const GameInfos = {
-        "cinema-1": {
-            component: <GameCinema1 gameId="cinema-1" color="red" date={new Date()} />,
-            tries: 10,
-            color: "red" as Color
-        },
-        "cinema-2": {
-            component: <></>,
-            tries: 4,
-            color: "blue" as Color
-        },
-        "cinema-3": {
-            component: <></>,
-            tries: 4,
-            color: "green" as Color
-        },
+    if (gameId === "cinema-1") {
+        return <GameCinema1 gameId={gameId} color={color} date={localDate} />
     }
 
-
-    return (<>
-        <FloatingBackgroundShapes variant="red" />
-        <GameLayout
-            gameId={gameId}
-            userId={session!.user.id}
-            date={new Date()}
-            color={GameInfos[gameId as GameId].color}
-        >
-            {GameInfos[gameId as GameId].component}
-        </GameLayout></>
-    )
+    return <div>Jeu pas encore disponible.</div>
 }

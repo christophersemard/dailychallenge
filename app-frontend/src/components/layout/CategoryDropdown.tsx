@@ -6,6 +6,9 @@ import { ChevronDown } from "lucide-react"
 import { useState } from "react"
 import { useDebounce } from "@uidotdev/usehooks";
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils"
+import { Crown } from "lucide-react";
 
 type CategoryTitle = "Cinéma" | "Géographie" | "Autres";
 
@@ -28,30 +31,72 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
 
     const games: Record<string, { name: string; description: string; url: string; icon: string; status: string }[]> = {
         "Cinéma": [{
-            name: "Jeu 1",
+            name: "IndiCiné",
             description: "Trouve le film grâce aux indices",
             url: "/jeu/cinema-1",
-            icon: "🍿",
+            icon: "/assets/game-icons/cinema-1.png",
             status: "available"
         },
         {
             name: "Jeu 2",
             description: "Trouve le film grâce aux photos",
             url: "/jeu/cinema-2",
-            icon: "🎞️",
+            icon: "/assets/game-icons/cinema-2.png",
             status: "coming_soon"
         },
         {
             name: "Jeu 3",
             description: "Trouve le film grâce aux acteurs",
             url: "/jeu/cinema-3",
-            icon: "🎬",
+            icon: "/assets/game-icons/cinema-2.png",
             status: "coming_soon"
         }],
         "Géographie": [
 
+            {
+                name: "Jeu 1",
+                description: "Trouve le pays grâce aux indices",
+                url: "/jeu/geographie-1",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            },
+            {
+                name: "Jeu 2",
+                description: "Trouve la capitale grâce aux photos",
+                url: "/jeu/geographie-2",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            },
+            {
+                name: "Jeu 3",
+                description: "Trouve le pays grâce aux drapeaux",
+                url: "/jeu/geographie-3",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            }
         ],
         "Autres": [
+            {
+                name: "Jeu 1",
+                description: "Je sais pas encore",
+                url: "/jeu/autres-1",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            },
+            {
+                name: "Jeu 2",
+                description: "Je sais pas encore",
+                url: "/jeu/autres-2",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            },
+            {
+                name: "Jeu 3",
+                description: "Je sais pas encore",
+                url: "/jeu/autres-3",
+                icon: "/assets/game-icons/cinema-2.png",
+                status: "coming_soon"
+            }
 
         ]
     }
@@ -67,33 +112,38 @@ export default function CategoryDropdown({ title }: CategoryDropdownProps) {
 
             <PopoverContent
                 onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave} className="mt-4 w-64 p-2 space-y-1 bg-white border-none  shadow-lg" align="start">
+                onMouseLeave={handleMouseLeave} className="mt-4 w-72 p-2 space-y-1 bg-white border-none  shadow-lg" align="start">
                 {games[title].map((game, i) => (
                     <>
 
                         {game.status === "available" ?
                             <Link href={game.url}
                                 key={i}
-                                className="px-3 py-2 hover:bg-background rounded block cursor-pointer text-sm transition"
+                                className="px-2 py-1 hover:bg-background  rounded flex items-center space-x-5  cursor-pointer text-sm transition"
                             >
-                                <div className="font-medium text-foreground">
-                                    {game.icon} {game.name}
+                                <div className={cn("")}>
+                                    {game.icon ? <Image height={32} width={32} src={game.icon} alt={title} className="" /> : <Crown className="w-8 h-8" />}
                                 </div>
-                                <span className="text-xs text-muted">
-                                    {game.description}
-                                </span>
+
+                                <div className="flex flex-col items-start">
+                                    <div className="font-bold text-lg text-start">{game.name}</div>
+                                    <div className="text-xs text-muted-foreground text-start mb-1">{game.description}</div>
+                                </div>
                             </Link>
                             :
                             <div
                                 key={i}
-                                className="px-3 py-2  rounded block  text-sm transition relative"
+                                className="px-2 py-1  rounded flex items-center space-x-5  text-sm transition relative"
                             >
-                                <div className="font-medium text-foreground">
-                                    {game.icon} {game.name}
+
+                                <div className={cn("")}>
+                                    {game.icon ? <Image height={32} width={32} src={game.icon} alt={title} className="" /> : <Crown className="w-8 h-8" />}
                                 </div>
-                                <span className="text-xs text-muted">
-                                    {game.description}
-                                </span>
+
+                                <div className="flex flex-col items-start">
+                                    <div className="font-bold text-lg text-start">{game.name}</div>
+                                    <div className="text-xs text-muted-foreground text-start mb-1">{game.description}</div>
+                                </div>
                                 <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
                                     <span className="-rotate-2">BIENTOT DISPONIBLE</span>
                                 </div>

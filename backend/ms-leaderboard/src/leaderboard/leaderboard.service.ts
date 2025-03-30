@@ -28,7 +28,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true },
+            select: { id: true, pseudo: true, userStats: true },
         });
 
         // 3️⃣ Associer chaque utilisateur à son score total
@@ -66,7 +66,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true },
+            select: { id: true, pseudo: true, userStats: true },
         });
 
         // 3️⃣ Associer chaque utilisateur à son score total
@@ -84,6 +84,14 @@ export class LeaderboardService {
         dateStart?: Date,
         dateEnd?: Date
     ) {
+        console.log(
+            "getGameLeaderboard",
+            gameId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd
+        );
         // 1️⃣ Regrouper les scores par joueur
         const groupedResults = await prisma.gameResult.groupBy({
             by: ["userId"],
@@ -104,7 +112,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true }, // Sélectionner les infos utiles
+            select: { id: true, pseudo: true, userStats: true }, // Sélectionner les infos utiles
         });
 
         // 3️⃣ Associer les utilisateurs aux scores
@@ -165,7 +173,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true }, // Sélectionner les infos utiles
+            select: { id: true, pseudo: true, userStats: true }, // Sélectionner les infos utiles
         });
 
         // 5️⃣ Associer les utilisateurs à leur score et XP total
@@ -228,7 +236,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true },
+            select: { id: true, pseudo: true, userStats: true },
         });
 
         // 5️⃣ Associer les utilisateurs à leur score et XP total
@@ -291,7 +299,7 @@ export class LeaderboardService {
         const userIds = groupedResults.map((result) => result.userId);
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, email: true, userStats: true },
+            select: { id: true, pseudo: true, userStats: true },
         });
 
         // 5️⃣ Associer les utilisateurs à leur score et XP total

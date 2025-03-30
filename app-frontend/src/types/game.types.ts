@@ -24,6 +24,19 @@ export type UserMonthlyGameResult = {
     gameDay: boolean;
     guess: string | null;
 };
+export type LeaderboardUser = {
+    id: number;
+    pseudo: string;
+    level: number;
+    avatar: string | null;
+};
+
+export type LeaderboardEntry = {
+    user: LeaderboardUser;
+    score: number;
+    xpGained: number;
+    avatarUrl: string | null;
+};
 
 export type MovieData = {
     id: number;

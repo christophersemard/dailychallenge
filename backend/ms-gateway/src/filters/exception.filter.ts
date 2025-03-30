@@ -22,6 +22,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             message: "Une erreur inconnue est survenue.",
         };
 
+        console.log("exception", exception);
+
         // ✅ Cas 1: Erreur HTTP classique (HttpException)
         if (exception instanceof HttpException) {
             const httpResponse = exception.getResponse();
@@ -92,6 +94,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
                 return "Non trouvé";
             case 409:
                 return "Conflit";
+            case 422:
+                return "Entité non traitable";
             case 500:
                 return "Erreur interne du serveur";
             default:

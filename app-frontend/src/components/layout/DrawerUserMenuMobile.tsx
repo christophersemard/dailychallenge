@@ -4,6 +4,7 @@
 import { LogOut, Settings, UserCircle2, X, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { UserMe } from "@/types/user.types"
+import Image from "next/image"
 
 type Props = {
     user: UserMe
@@ -16,7 +17,14 @@ export default function DrawerUserMenuMobile({ user, onClose }: Props) {
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-muted/20 font-bold text-lg text-foreground">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-primary rounded" />
+
+                    <Image
+                        height={50}
+                        width={50}
+                        src={user!.avatar?.url || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                        alt={user!.pseudo}
+                        className="size-12 me-2 rounded "
+                    />
                     <div>
                         <div>{user.pseudo}</div>
                         <div className="text-sm text-muted-foreground">Niv. {user.userStats.level}</div>

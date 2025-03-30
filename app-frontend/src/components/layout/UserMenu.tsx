@@ -10,6 +10,7 @@ import OutlineText from "@/components/ui/outline-text"
 import { UserMe } from "@/types/user.types"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
+import Image from "next/image"
 
 type UserMenuProps = {
     user: UserMe
@@ -32,11 +33,17 @@ export default function UserMenu({ user }: UserMenuProps) {
             <PopoverTrigger asChild
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave} >
-                <button className="flex items-center gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded  hover:bg-white transition text-foreground cursor-pointer ">
-                    <div className="w-6 h-6 bg-primary rounded" />
+                <button className="flex items-center gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded  hover:bg-white transition text-foreground cursor-pointer h-10">
+                    <Image
+                        height={50}
+                        width={50}
+                        src={user.avatar?.url || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                        alt={user.pseudo}
+                        className="size-12  rounded "
+                    />
                     <span className="font-semibold">{user.pseudo}</span>
                     <span className="text-sm text-muted-foreground ms-4">Niv. </span>
-                    <OutlineText color="black" text={String(user.userStats.level)}></OutlineText>
+                    <OutlineText color="black" text={String(user.userStats.level)} className="mt-0.5"></OutlineText>
 
 
                 </button>

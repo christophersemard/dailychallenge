@@ -375,6 +375,13 @@ export class GameService {
             game.movie!.runtime! % 60
         }`;
 
+        // On garde seulement les 5 premiers mots de la liste des mots-clés
+        const formattedKeywords = game.movie
+            .keywords!.split(",")
+            .slice(0, 5)
+            .map((keyword) => keyword.trim())
+            .join(", ");
+
         // ✅ Liste des indices disponibles sous forme d'objet clé/valeur
         const hintsData = {
             genres: game.movie.genres,
@@ -382,7 +389,7 @@ export class GameService {
             releaseDate: attempts > 1 ? formattedReleaseDate : null,
             director: attempts > 2 ? game.movie.director : null,
             actors: attempts > 3 ? game.movie.actors : null,
-            keywords: attempts > 4 ? game.movie.keywords : null,
+            keywords: attempts > 4 ? formattedKeywords : null,
             firstAndLastLetters:
                 attempts > 5
                     ? `${game.movie.title[0]}${

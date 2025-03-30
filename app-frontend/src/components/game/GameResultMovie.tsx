@@ -37,18 +37,33 @@ export default function GameResultMovie({ gameId, color, movie, result, titleCar
                 {isSuccess ? "Bravo tu as trouvé le film du jour !" : "Dommage, tu épuisé tous tes essais !"}
             </h2>
 
-            <div className="mt-4 flex flex-col sm:flex-row sm:justify-center  gap-4 items-center">
+            {
+                result.score == 0 && result.status == "passed" && (
+                    <div className="text-center text-sm text-muted-foreground mb-2 md:px-16">
+                        Mais tu n&apos;as pas gagné de points car tu n&apos;as pas joué le même jour que le jeu. <br></br>On te donne quand même un peu d&apos;XP afin de te consoler !
+                    </div>
+                )
+            }
+
+            <div className="mt-4 flex flex-col sm:flex-row sm:justify-center gap-4 md:gap-8 items-center">
                 <div className="text-center">
-                    <span className="text-muted-foreground block text-xs text-center">Score obtenu</span>
+                    <span className="text-muted-foreground block text-sm text-center">Score obtenu</span>
                     <OutlineText text={`${result.score} pts`} color={colorScore} size="lg" className="h-14 " />
                 </div>
                 <div className="text-center">
-                    <span className="text-muted-foreground block text-xs text-center">Expérience gagnée</span>
+                    <span className="text-muted-foreground block text-sm text-center">Expérience gagnée</span>
                     <OutlineText text={`${result.xpGained} XP`} color={colorXP} size="lg" className="h-14 flex justify-center" />
                 </div>
             </div>
+            <div className="w-full h-[1px] bg-black/10 my-4" />
 
-            <div className="flex flex-col md:flex-row gap-6 md:gap-8 mt-6  lg:max-w-3/4 mx-auto">
+            <h2 className="text-lg font-bold text-center mb-2 ">
+                {isSuccess ? "Voici le film à deviner pour ce jour" : "Voici le film que tu aurais dû trouver"}
+            </h2>
+
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 mt-6  lg:max-w-5/6 mx-auto">
+
+
                 {/* Poster */}
                 <div className="flex-shrink-0 mx-auto md:mx-0">
                     <Image
@@ -56,14 +71,14 @@ export default function GameResultMovie({ gameId, color, movie, result, titleCar
                         height={200}
                         src={posterPath}
                         alt={`Affiche de ${movie.title}`}
-                        className="shadow object-cover"
+                        className="object-cover border-2 border-background"
                     />
                 </div>
 
 
                 {/* Infos film */}
                 <div className="flex flex-col justify-center text-sm flex-1 text-center md:text-left">
-                    <div className={`text-2xl sm:text-3xl md:text-4xl font-bold tracking-widest text-${color}`}>
+                    <div className={`text-xl sm:text-xl md:text-2xl font-bold`}>
                         {movie.title}
                     </div>
 

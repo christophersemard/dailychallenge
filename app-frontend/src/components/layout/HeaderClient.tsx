@@ -77,7 +77,7 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                             <>
                                 {isVip ? (
 
-                                    <Button variant="ghost-background" className="w-full justify-start text-sm whitespace-nowrap hidden md:flex" asChild>
+                                    <Button variant="ghost-background" className="justify-start text-sm whitespace-nowrap hidden md:flex h-10" asChild>
                                         <Link href="/vip" className="gap-2 items-center fill-primary text-primary">
                                             <Crown fill="primary" size={16} />
                                             <span className="text-black">VIP</span>
@@ -85,20 +85,20 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                                     </Button>
                                 ) : (
 
-                                    <Button variant="outline-primary" className="w-full justify-start text-sm whitespace-nowrap hidden md:flex" asChild>
+                                    <Button variant="outline-primary" className="justify-start text-sm whitespace-nowrap hidden md:flex  h-10" asChild>
                                         <Link href="/vip" className="gap-2 items-center">
                                             <Crown size={16} />
-                                            Devenir VIP
-                                        </Link>
+                                            Devenir VIP</Link>
                                     </Button>
                                 )}
                                 <UserMenu user={user!} />
                                 <IconButtonWithBadge
-                                    icon={<Users2 size={16} className="text-foreground" />}
+                                    icon={<Users2 size={20} className="text-foreground" />}
                                     variant="outline-white"
                                     badgeContent={user?.pendingFriendRequests || 0}
                                     onClick={() => setShowFriends(true)}
                                     aria-label="Ouvrir le drawer amis"
+                                    className=" h-10 w-10"
                                 />
                             </>
                         )}

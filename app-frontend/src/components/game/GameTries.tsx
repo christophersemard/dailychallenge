@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { CheckCircle, CheckCircle2, X, XCircle } from "lucide-react"
 import { Try } from "@/types/game.types"
+import { cn } from "@/lib/utils"
+import clsx from "clsx"
 
 type Props = {
     tries: Try[]
@@ -21,7 +23,11 @@ export default function GameTries({ tries }: Props) {
                             Vos essais
                         </h3>
 
-                        <div className="grid grid-cols-1 gap-2 md:gap-4">
+                        <div className={clsx("grid grid-cols-1 gap-2 md:gap-4",
+                            {
+                                "md:grid-cols-2": tries.length > 1,
+                            }
+                        )}>
 
                             {tries.slice().reverse().map((t) => (
                                 <div
@@ -32,18 +38,19 @@ export default function GameTries({ tries }: Props) {
                                     {
                                         !t.correct ? (
                                             <span className="text-red">
-                                                <XCircle className="size-6 md:size-8" />
+                                                <XCircle className="size-5 md:size-6" />
                                             </span>
                                         ) : (
                                             <span className="text-green">
-                                                <CheckCircle2 className="size-6 md:size-8" />
+                                                <CheckCircle2 className="size-5 md:size-6" />
                                             </span>
                                         )
                                     }
                                 </div>
                             ))}</div>
-                    </div>
-                )}
+                    </div >
+                )
+            }
         </>
 
 

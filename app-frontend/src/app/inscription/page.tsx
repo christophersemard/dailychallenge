@@ -9,6 +9,7 @@ import Card from "@/components/ui/card"
 import Link from "next/link"
 import clsx from "clsx"
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth"
+import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes"
 
 export default function Inscription() {
     const [pseudo, setPseudo] = useState("PseudoTest")
@@ -75,6 +76,8 @@ export default function Inscription() {
 
     return (
         <div className="flex-1 flex items-center justify-center">
+
+            <FloatingBackgroundShapes variant="purple" />
             <Card color="secondary" title="Inscription">
                 <div className="grid md:grid-cols-1 gap-6">
                     <div>

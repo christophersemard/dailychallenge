@@ -8,6 +8,7 @@ import * as bcrypt from "bcryptjs";
 import { BadRequestException } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { UserEventsService } from "../user-events/user-events.service";
+import { RpcException } from "@nestjs/microservices";
 
 @Injectable()
 export class AuthService {
@@ -40,8 +41,9 @@ export class AuthService {
         const existingUser = await prisma.user.findUnique({
             where: { pseudo },
         });
+
         if (existingUser) {
-            throw new UnprocessableEntityException("Ce pseudo est déjà pris.");
+            throw new UnprocessableEntityException("Pseudo déjà pris.");
         }
 
         // Hachage du mot de passe

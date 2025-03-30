@@ -6,6 +6,9 @@ export default function Footer() {
         <footer className="w-full text-muted-foreground text-sm px-4 py-6">
             <div className=" max-w-8xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 border-t border-black/20 pt-4">
                 <div className="flex flex-col md:flex-row gap-4 items-center">
+                    <Link href="/informations-et-regles" className="hover:underline">
+                        Informations & règles
+                    </Link>
                     <Link href="/mentions-legales" className="hover:underline">
                         Mentions légales
                     </Link>

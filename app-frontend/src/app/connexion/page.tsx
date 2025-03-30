@@ -9,6 +9,7 @@ import { Eye, EyeOff } from "lucide-react"
 import Card from "@/components/ui/card"
 import Link from "next/link"
 import { toast } from "sonner"
+import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes"
 
 export default function Connexion() {
     const [email, setEmail] = useState("michel@michelle.com")
@@ -50,6 +51,7 @@ export default function Connexion() {
 
     return (
         <div className="flex-1 flex items-center justify-center ">
+            <FloatingBackgroundShapes variant="yellow" />
             <Card color="primary" title="Connexion" >
                 {/* Contenu principal */}
                 <div className="grid md:grid-cols-1 gap-6">

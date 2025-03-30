@@ -22,7 +22,7 @@ export default function CategoryCard({ title, color, children, className }: Prop
         green: "bg-green text-white",
         blue: "bg-blue text-white",
         pink: "bg-pink text-white",
-        orange: "bg-orange text-black",
+        orange: "bg-orange text-white",
         black: "bg-black text-white",
         white: "bg-white text-black",
         background: "bg-background text-black"
@@ -53,7 +53,7 @@ export default function CategoryCard({ title, color, children, className }: Prop
             <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center max-w-5/6", colorMap[color])}>
                 {title}
             </div>
-            <div className="p-4 md:p-6 space-y-3">{children}</div>
+            <div className="p-4 md:p-5 space-y-3">{children}</div>
         </div>
     )
 }

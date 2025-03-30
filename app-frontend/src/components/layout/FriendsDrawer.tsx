@@ -9,6 +9,8 @@ import { Friend, FriendRequestGroup, FriendRequest, UserMe } from "@/types/user.
 import OutlineText from "../ui/outline-text";
 import Link from "next/link";
 import { toast } from "sonner";
+import Image from "next/image";
+import { cx } from "class-variance-authority";
 
 type FriendsDrawerProps = {
     onClose: () => void;
@@ -215,7 +217,17 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                                 <MailPlus size={16} className="text-muted-foreground" />
                                                 <Link
                                                     href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
-                                                    {request.user.pseudo}
+
+                                                    <div className="flex items-center gap-2 md:gap-4">
+                                                        <Image
+                                                            height={40}
+                                                            width={40}
+                                                            src={request.user.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                            alt={request.user.pseudo}
+                                                            className="w-6 h-6 rounded "
+                                                        />
+                                                        <span className="font-semibold text-base">{request.user.pseudo}</span>
+                                                    </div>
                                                 </Link>
                                             </div>
 
@@ -250,10 +262,19 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                         >
 
                                             <div className="flex items-center gap-2">
-                                                <SendHorizonal size={16} className="text-muted-foreground" />
                                                 <Link
                                                     href={`/profil/${request.user.id}`} className="text-sm font-medium hover:font-semibold">
-                                                    {request.user.pseudo}
+
+                                                    <div className="flex items-center gap-2 md:gap-4">
+                                                        <Image
+                                                            height={40}
+                                                            width={40}
+                                                            src={request.user.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                            alt={request.user.pseudo}
+                                                            className="w-6 h-6 rounded "
+                                                        />
+                                                        <span className="font-semibold text-base">{request.user.pseudo}</span>
+                                                    </div>
                                                 </Link>
                                             </div>
                                             <div className="flex items-center gap-2 text-xs font-medium"> En attente
@@ -277,7 +298,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                     {/* Mes amis */}
                     <div className="flex-1 overflow-y-auto">
 
-                        <div className="flex items-center justify-between mb-2 gap-4">
+                        <div className="flex items-center justify-between mb-4 gap-4">
                             <h3 className="font-bold  text-muted-foreground">Mes amis</h3>
                             <Input
                                 value={searchTerm}
@@ -288,9 +309,9 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                         </div>
                         {friends.length == 0 && !loading || friends
                             .filter((f) => f.pseudo.toLowerCase().includes(searchTerm.toLowerCase())).length == 0 && !loading ? (
-                            <div className="text-sm text-muted-foreground my-4">Aucun ami trouvé</div>
+                            <div className=" px-2 py-1.5 border-2 bg-white/50 border-background rounded hover:bg-white transition text-foreground text-center font-medium">Aucun ami trouvé</div>
                         ) : null}
-                        <ul className="space-y-2">
+                        <ul className="space-y-0">
                             {loading && (
                                 <div className="text-sm">Chargement des informations ...</div>
                             )}
@@ -299,17 +320,26 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                     return a.pseudo.localeCompare(b.pseudo);
                                 }
                                 )
-                                .map((friend) => (
+                                .map((friend, i) => (
                                     <li key={friend.id}>
                                         <Link
                                             href={`/profil/${friend.id}`}
-                                            className="flex items-center justify-between gap-2 px-2 py-1 border-2 bg-white/50 border-black/3 rounded hover:bg-white transition text-foreground cursor-pointer"
+                                            className={cx("flex items-center justify-between gap-2 px-2 md:px-4 py-3 bg-white/50  hover:bg-background/30 transition text-foreground cursor-pointer", {
+                                                "border-b-1 ": i != friends.length - 1,
+                                            })
+                                            }
                                         >
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-8 h-8 bg-primary rounded" />
-                                                <span className="font-semibold">{friend.pseudo}</span>
+                                            <div className="flex items-center gap-2 md:gap-4">
+                                                <Image
+                                                    height={40}
+                                                    width={40}
+                                                    src={friend.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                    alt={friend.pseudo}
+                                                    className="w-10 h-10 rounded "
+                                                />
+                                                <span className="font-semibold text-base">{friend.pseudo}</span>
                                             </div>
-                                            <div className="flex items-center gap-2 w-20 justify-between">
+                                            <div className="flex items-center gap-1 justify-end">
                                                 <span className="text-xs text-muted-foreground ms-4">Niv. </span>
                                                 <OutlineText color="black" text={String(friend.level)} />
                                             </div>
@@ -380,7 +410,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                         </div>
                     </div>
                 </div>
-            </aside>
+            </aside >
         </>
     );
 }
