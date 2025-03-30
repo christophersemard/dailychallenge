@@ -79,6 +79,7 @@ export class AuthService {
     }
 
     async validateUser(email: string, password: string) {
+        console.log("validateUser", email, password);
         if (!email || !password) {
             throw new BadRequestException(
                 "Email et mot de passe obligatoires."
@@ -88,6 +89,8 @@ export class AuthService {
         const user = await prisma.user.findUnique({
             where: { email, deletedAt: null },
         });
+
+        console.log("user", user);
 
         if (!user) {
             throw new BadRequestException("Identifiants incorrects.");

@@ -300,16 +300,16 @@ async function main() {
     console.log("🌱 Seeding database...");
     await clearDatabase();
 
-    const users = await generateUsers();
-    const assets = await generateAvatarAssets();
-    const colors = await generateColors();
-    const avatars = await generateAvatars(users, assets, colors);
-    await linkAvatarsToUsers(users, avatars);
-    await generateUserStats(users);
-    await generateUserEvents(users);
+    // const users = await generateUsers();
+    // const assets = await generateAvatarAssets();
+    // const colors = await generateColors();
+    // const avatars = await generateAvatars(users, assets, colors);
+    // await linkAvatarsToUsers(users, avatars);
+    // await generateUserStats(users);
+    // await generateUserEvents(users);
     const games = await generateGames();
-    await generateGameResults(users, games);
-    await generateFriends(users);
+    // await generateGameResults(users, games);
+    // await generateFriends(users);
 
     console.log("✅ Seeding terminé !");
 }

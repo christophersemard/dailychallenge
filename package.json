@@ -10,16 +10,14 @@
     "stop:services": "taskkill /F /IM node.exe /T",
     "test:all": "pnpm -r --filter ./backend/ms-* test",
     "test:all2": "pnpm -r --filter ./backend/ms-* --workspace-concurrency=1 test",
-    
     "db:generate": "pnpm --filter=database run db:generate",
     "db:migrate": "pnpm --filter=database run db:migrate",
     "db:deploy": "pnpm --filter=database run db:deploy",
     "db:seed": "pnpm --filter=database run db:seed",
     "db:studio": "pnpm --filter=database run db:studio",
     "db:build": "pnpm --filter=database run build",
-    "setup": "pnpm install && docker compose -f docker-compose-db.yml up -d && pnpm db:generate && pnpm db:build && pnpm db:migrate && pnpm db:seed",
+    "setup": "pnpm install && docker compose -f docker-compose-db.yml up -d && pnpm db:generate && pnpm db:build && pnpm db:deploy && pnpm db:seed",
     "rebuild:db": "docker compose -f docker-compose-db.yml down && docker compose -f docker-compose-db.yml up --build -d"
-  
   },
   "keywords": [],
   "author": "",
