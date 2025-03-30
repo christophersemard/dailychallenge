@@ -6,8 +6,9 @@ import { GameController } from "./game/game.controller";
 import { AdminService } from "./admin/admin.service";
 import { GameService } from "./game/game.service";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+import { ConfigModule } from "@nestjs/config";
 
-const isDocker = process.env.DOCKER_MODE === "true";
+const isDocker = process.env.IS_DOCKER === "true";
 
 @Module({
     imports: [
@@ -22,6 +23,10 @@ const isDocker = process.env.DOCKER_MODE === "true";
                 },
             },
         ]),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            envFilePath: ["../../.env.shared", ".env", ".env.local"], // charge d'abord le partagé, puis local
+        }),
     ],
     controllers: [AdminController, GameController],
     providers: [MoviesCronJob, AdminService, GameService],

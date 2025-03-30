@@ -23,6 +23,8 @@ async function bootstrap() {
 
     await app.listen();
     console.log(`🚀 ms-users démarré sur port TCP: ${port}`);
+    console.log("TEST");
+    console.log(process.env.JWT_SECRET);
 }
 
 bootstrap();

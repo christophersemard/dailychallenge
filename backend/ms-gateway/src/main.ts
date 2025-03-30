@@ -44,12 +44,6 @@ async function bootstrap() {
             process.env.PORT ?? 3000
         }/docs`
     );
-    logger.log(
-        `🔐 JWT Secret chargé: ${process.env.JWT_SECRET ? "OK" : "NON DÉFINI"}`
-    );
-    logger.log(
-        `🔗 Connexion au microservice USERS: ${process.env.HOST ?? "ms-users"}`
-    );
 }
 
 bootstrap();

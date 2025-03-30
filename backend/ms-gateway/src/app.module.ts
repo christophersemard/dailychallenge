@@ -28,8 +28,8 @@ console.log("isDocker", isDocker);
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true, // Rend le module global pour toute l'application
-            envFilePath: ".env", // Chemin vers votre fichier .env
+            isGlobal: true,
+            envFilePath: ["../../.env.shared", ".env", ".env.local"], // charge d'abord le partagé, puis local
         }),
         ClientsModule.register([
             {

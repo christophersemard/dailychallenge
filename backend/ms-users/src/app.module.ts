@@ -22,8 +22,8 @@ import { UsersService } from "./users/users.service";
     imports: [
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({
-            isGlobal: true, // Rend le module global pour toute l'application
-            envFilePath: ".env", // Chemin vers votre fichier .env
+            isGlobal: true,
+            envFilePath: ["../../.env.shared", ".env", ".env.local"], // charge d'abord le partagé, puis local
         }),
         JwtModule.register({
             secret: process.env.JWT_SECRET,
