@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: dailychallenge
     ports:
-      - "5432:5432"
+      - "54335433"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -21,9 +21,9 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
+      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
       - PORT=3001
-      - JWT_SECRET=test_env_docker_or_not
+      - JWT_SECRET=une_cle_secrete_tres_forte
       - JWT_EXPIRES_IN=7d
       - HOST=0.0.0.0
     volumes:
@@ -38,7 +38,7 @@ services:
     ports:
       - "3002:3002"
     environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
+      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
       - PORT=3002
       - HOST=0.0.0.0
     volumes:
@@ -55,7 +55,7 @@ services:
       - "3002:3002"
     environment:
       - IS_DOCKER=true
-      - DATABASE_URL=postgresql://admin:secret@postgres:5432/dailychallenge?schema=public
+      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
       - PORT=3004
       - HOST=0.0.0.0
     volumes:
@@ -73,7 +73,7 @@ services:
     environment:
       - IS_DOCKER=true
       - PORT=3000
-      - JWT_SECRET=test_env_docker_or_not
+      - JWT_SECRET=une_cle_secrete_tres_forte
       - JWT_EXPIRES_IN=7d
     volumes:
       - /app/node_modules
