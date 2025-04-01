@@ -22,8 +22,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             message: "Une erreur inconnue est survenue.",
         };
 
-        console.log("exception", exception);
-
         // ✅ Cas 1: Erreur HTTP classique (HttpException)
         if (exception instanceof HttpException) {
             const httpResponse = exception.getResponse();
