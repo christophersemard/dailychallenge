@@ -223,9 +223,11 @@ async function generateGames() {
     );
 
     const gamesData = [
-        { name: "Trouver le film", category: "Cinéma" },
-        { name: "Reconnaître un pays", category: "Géographie" },
-        { name: "Deviner un lieu", category: "Autres" },
+        { id: 1, name: "Trouver le film", category: "Cinéma" },
+        { id: 2, name: "Trouver le film", category: "Cinéma" },
+        { id: 3, name: "Trouver le film", category: "Cinéma" },
+        { id: 4, name: "Reconnaître un pays", category: "Géographie" },
+        { id: 5, name: "Deviner un lieu", category: "Autres" },
     ];
 
     const games = await Promise.all(

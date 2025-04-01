@@ -36,17 +36,23 @@ describe("AuthController", () => {
 
     describe("register", () => {
         it("should call authService.createUser with correct parameters", async () => {
-            const mockUser = { id: 1, email: "test@example.com" };
+            const mockUser = {
+                id: 1,
+                email: "test@example.com",
+                pseudo: "Player_123",
+            };
             mockAuthService.createUser.mockResolvedValue(mockUser);
 
             const result = await authController.register({
                 email: "test@example.com",
                 password: "securepassword",
+                pseudo: "Player_123",
             });
 
             expect(authService.createUser).toHaveBeenCalledWith(
                 "test@example.com",
-                "securepassword"
+                "securepassword",
+                "Player_123"
             );
             expect(result).toEqual(mockUser);
         });
@@ -174,15 +180,16 @@ describe("AuthService", () => {
                 streak: 0,
             } as any);
 
-            (bcrypt.hash as jest.MockedFunction<
-                typeof bcrypt.hash
-            >) = jest.fn().mockResolvedValue("hashedpassword");
+            (bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>) = jest
+                .fn()
+                .mockResolvedValue("hashedpassword");
         });
 
         it("should create a user and emit an event", async () => {
             const user = await authService.createUser(
                 "newuser@example.com",
-                "securepassword"
+                "securepassword",
+                "Player_15453"
             );
 
             expect(bcrypt.hash).toHaveBeenCalledWith("securepassword", 10);
@@ -201,12 +208,11 @@ describe("AuthService", () => {
                 password: "hashedpassword",
             } as any);
 
-            (bcrypt.compare as jest.MockedFunction<
-                typeof bcrypt.compare
-            >) = jest.fn().mockResolvedValue(true);
-            (bcrypt.hash as jest.MockedFunction<
-                typeof bcrypt.hash
-            >) = jest.fn().mockResolvedValue("hashedpassword");
+            (bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>) =
+                jest.fn().mockResolvedValue(true);
+            (bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>) = jest
+                .fn()
+                .mockResolvedValue("hashedpassword");
         });
 
         it("should return user if credentials are valid", async () => {
@@ -218,9 +224,8 @@ describe("AuthService", () => {
         });
 
         it("should throw error if password is invalid", async () => {
-            (bcrypt.compare as jest.MockedFunction<
-                typeof bcrypt.compare
-            >) = jest.fn().mockResolvedValue(false);
+            (bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>) =
+                jest.fn().mockResolvedValue(false);
 
             await expect(
                 authService.validateUser("valid@example.com", "wrong")

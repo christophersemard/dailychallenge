@@ -34,7 +34,6 @@ export class UserGameService {
             new Date(gameDate),
             status
         );
-
         // Enregistrer le résultat du jeu
         const gameResult = await this.saveGameResult(
             userId,
@@ -44,7 +43,6 @@ export class UserGameService {
             status,
             new Date(gameDate)
         );
-
         // Mise à jour des statistiques de l'utilisateur
         await this.updateUserStats(userId, finalXP, newStreak, gameDate);
 
@@ -126,7 +124,6 @@ export class UserGameService {
         const lastPlayed = userStats.lastPlayedAt
             ? new Date(userStats.lastPlayedAt)
             : null;
-        console.log("Last played:", lastPlayed);
         let newStreak = userStats.streak;
 
         if (lastPlayed) {
@@ -265,9 +262,10 @@ export class UserGameService {
     }
 
     // Calcul du niveau du joueur
-    public calculateLevel(
-        xpTotal: number
-    ): { level: number; xpToNextLevel: number } {
+    public calculateLevel(xpTotal: number): {
+        level: number;
+        xpToNextLevel: number;
+    } {
         const baseXP = 50;
         const factor = 10;
         let level = 1;

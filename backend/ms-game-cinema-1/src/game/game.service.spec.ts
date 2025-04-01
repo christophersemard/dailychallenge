@@ -57,7 +57,12 @@ describe("GameService", () => {
             jest.spyOn(prisma.gameCinema1Days, "findUnique").mockResolvedValue({
                 id: 1,
                 date: new Date("2024-03-24"),
-                movie: { title: "Titanic", genres: "Drama", runtime: 195 },
+                movie: {
+                    title: "Titanic",
+                    genres: "Drama",
+                    runtime: 195,
+                    keywords: "test,michel",
+                },
             } as any);
 
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
@@ -94,7 +99,11 @@ describe("GameService", () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
-                movie: { id: 5, title: "Matrix" },
+                movie: {
+                    id: 5,
+                    title: "Matrix",
+                    keywords: "test,michel,test,test,test",
+                },
             } as any);
 
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
@@ -119,7 +128,11 @@ describe("GameService", () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
-                movie: { id: 3, title: "Avatar" },
+                movie: {
+                    id: 3,
+                    title: "Avatar",
+                    keywords: "test,michel,test,test,test",
+                },
             } as any);
 
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
@@ -143,13 +156,57 @@ describe("GameService", () => {
 
     describe("searchMovie", () => {
         it("should call findMany with correct query", async () => {
+            const date1yearago = new Date();
+            date1yearago.setFullYear(date1yearago.getFullYear() - 1);
+
             const spy = jest
                 .spyOn(prisma.dataMovie, "findMany")
-                .mockResolvedValue([{ title: "Test" }] as any);
+                .mockResolvedValue([
+                    {
+                        id: 1,
+                        title: "Test",
+                        originalTitle: "Text original",
+                        keywords: "test",
+                        releaseDate: new Date(),
+                    },
+                    {
+                        id: 2,
+                        title: "Test 2",
+                        originalTitle: "Text original 2",
+                        keywords: "test",
+                        releaseDate: date1yearago,
+                    },
+                    {
+                        id: 3,
+                        title: "Test 2",
+                        originalTitle: "Text original 555",
+                        keywords: "test",
+                        releaseDate: new Date(),
+                    },
+                ] as any);
 
             const result = await service.searchMovie("test");
             expect(spy).toHaveBeenCalled();
-            expect(result).toEqual([{ title: "Test" }]);
+            expect(result).toEqual([
+                {
+                    id: 1,
+                    name: "Test",
+                    originalName: "Text original",
+                    otherInfo: null,
+                },
+                {
+                    id: 2,
+                    name: "Test 2",
+                    originalName: "Text original 2",
+                    otherInfo: date1yearago.getFullYear().toString(),
+                },
+                {
+                    id: 3,
+                    name: "Test 2",
+                    originalName: "Text original 555",
+                    otherInfo: new Date().getFullYear().toString(),
+                },
+            ]);
         });
     });
 

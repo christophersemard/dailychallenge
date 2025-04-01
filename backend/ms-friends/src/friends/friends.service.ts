@@ -6,9 +6,6 @@ import prisma from "../prisma/prisma.service";
 @Injectable()
 export class FriendsService {
     async addFriend(userId: number, friendId: number) {
-        console.log("userId", userId);
-        console.log("friendId", friendId);
-
         if (!userId || !friendId || userId === friendId) {
             throw new RpcException({
                 statusCode: 400,
@@ -83,14 +80,9 @@ export class FriendsService {
         friendId: number,
         accept: boolean
     ) {
-        console.log("userId", userId);
-        console.log("friendId", friendId);
-        console.log("accept", accept);
         const friendRequest = await prisma.friend.findFirst({
             where: { userId: friendId, friendId: userId, status: "pending" },
         });
-
-        console.log("friendRequest", friendRequest);
 
         if (!friendRequest) {
             throw new RpcException({
