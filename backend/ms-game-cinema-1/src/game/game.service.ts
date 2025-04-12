@@ -411,7 +411,7 @@ export class GameService {
     private getMaskedTitle(title: string): string {
         return title
             .split("")
-            .map((char) => (char.match(/[a-zA-Z1-9]/) ? "*" : char)) // ✅ Masquer seulement les lettres
+            .map((char) => (char.match(/[a-zA-ZÀ-ÿ0-9]/i) ? "*" : char)) // ✅ lettres + accents + chiffres
             .join("");
     }
 }
