@@ -10,6 +10,7 @@
     "stop:services": "taskkill /F /IM node.exe /T",
     "test:all": "pnpm -r --filter ./backend/ms-* test",
     "test:all2": "pnpm -r --filter ./backend/ms-* --workspace-concurrency=1 test",
+    "test:coverage": "pnpm --filter ./backend/ms-* test:cov",
     "db:generate": "pnpm --filter=database run db:generate",
     "db:migrate": "pnpm --filter=database run db:migrate",
     "db:deploy": "pnpm --filter=database run db:deploy",
