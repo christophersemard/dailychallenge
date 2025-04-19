@@ -58,7 +58,7 @@ type Props = {
 export default function OutlineText({
     text,
     color = "black",
-    size = "base",
+    size = "md",
     className,
 }: Props) {
     const fontSize = sizeMap[size] ?? sizeMap.base

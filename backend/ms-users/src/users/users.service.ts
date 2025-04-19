@@ -50,10 +50,16 @@ export class UsersService {
         let isFriend: string | boolean = false;
         if (friendRequest) {
             if (friendRequest.status === "accepted") {
-                isFriend = true;
-            } else if (friendRequest.userId === userId) {
+                isFriend = "accepted";
+            } else if (
+                friendRequest.userId === userId &&
+                friendRequest.status === "pending"
+            ) {
                 isFriend = "requested";
-            } else if (friendRequest.userId === friendId) {
+            } else if (
+                friendRequest.userId === friendId &&
+                friendRequest.status === "pending"
+            ) {
                 isFriend = "received";
             }
         }

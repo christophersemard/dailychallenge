@@ -6,6 +6,7 @@ import Image from "next/image"
 import OutlineText from "../ui/outline-text"
 import clsx from "clsx"
 import { useEffect } from "react"
+import { Streak } from "../ui/streak"
 
 type Props = {
     entries: LeaderboardEntry[]
@@ -78,49 +79,7 @@ export default function LeaderboardUserList({
                 <OutlineText text={`${entry.user.level ?? "-"}`} color="black" size="md" className="" />
             </div>
             <div className=" text-muted-foreground text-center flex items-end gap-1 px-2 ">
-                {entry.user.streak === 0 ? (
-                    <Image
-                        src="/assets/streak/0.png"
-                        alt="streak neutral"
-                        width={18}
-                        height={17}
-                        className="inline-block mb-1.5"
-                    />
-                ) : entry.user.streak < 20 ? (
-                    <Image
-                        src="/assets/streak/1.png"
-                        alt="streak neutral"
-                        width={18}
-                        height={17}
-                        className="inline-block mb-1.5"
-                    />
-                ) : entry.user.streak < 50 ? (
-                    <Image
-                        src="/assets/streak/2.png"
-                        alt="streak neutral"
-                        width={17}
-                        height={20}
-                        className="inline-block mb-1.5"
-                    />
-                ) : (
-                    <Image
-                        src="/assets/streak/3.png"
-                        alt="streak neutral"
-                        width={17}
-                        height={20}
-                        className="inline-block mb-1.5"
-                    />
-                )}
-
-                <OutlineText text={`${entry.user.streak}`} color={
-                    entry.user.streak === 0
-                        ? "gray"
-                        : entry.user.streak < 20
-                            ? "yellow"
-                            : entry.user.streak < 50
-                                ? "orange"
-                                : "red"
-                } size="md" />
+                <Streak streak={entry.user.streak} />
             </div>
             <div className=" text-muted-foreground text-center px-2">
                 <OutlineText text={`${entry.user.gamesPlayed ?? "-"}`} color="black" size="md" />

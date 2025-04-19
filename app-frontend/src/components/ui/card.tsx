@@ -3,7 +3,7 @@ import clsx from "clsx"
 import { Color } from "@/types/colors.types"
 
 type Props = {
-    title: string
+    title: string | false
     color: Color
     children: React.ReactNode
     className?: string
@@ -50,9 +50,11 @@ export default function CategoryCard({ title, color, children, className }: Prop
 
     return (
         <div className={clsx("bg-white rounded card my-6 ", underlineMap[color as Color], className)} >
-            <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center max-w-5/6", colorMap[color])}>
-                {title}
-            </div>
+            {title && (
+                <div className={clsx("card-title px-2 md:px-4 py-2 text-base font-bold text-center max-w-5/6", colorMap[color])}>
+                    {title}
+                </div>
+            )}
             <div className="p-4 md:p-5 space-y-3">{children}</div>
         </div>
     )
