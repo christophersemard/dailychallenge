@@ -1,95 +1,159 @@
-// app/classement/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LeaderboardEntry } from "@/types/game.types";
 import { getLeaderboardData } from "@/lib/leaderboard/getLeaderboardData";
 import LeaderboardFilters from "@/components/leaderboard/LeaderboardFilters";
 import LeaderboardUserList from "@/components/leaderboard/LeaderboardUserList";
 import LeaderboardPagination from "@/components/leaderboard/LeaderboardPagination";
+import LeaderboardCategorySelector from "@/components/leaderboard/LeaderboardCategorySelector";
 import { useSession } from "next-auth/react";
 import Card from "@/components/ui/card";
+import { LeaderboardEntry } from "@/types/game.types";
 
 export default function ClassementPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-
     const { data: session } = useSession();
     const userId = session?.user?.id;
 
-    const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+    const [players, setPlayers] = useState<LeaderboardEntry[]>([]);
+    const [player, setPlayer] = useState<LeaderboardEntry | null>(null);
+    const [numberOfPlayers, setNumberOfPlayers] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [title, setTitle] = useState("Classement");
 
-    // Filtres extraits des paramètres d’URL
     const type = (searchParams.get("type") || "global") as "global" | "friends";
-    const period = (searchParams.get("period") || "week") as
-        | "week"
-        | "month"
-        | "year";
+    const period = (searchParams.get("period") || "all") as "week" | "month" | "year" | "all";
     const category = searchParams.get("category") || "";
-    const gameId = searchParams.get("gameId") || "";
-    const offset = parseInt(searchParams.get("offset") || "0", 10);
+    const gameId = searchParams.get("gameId") || null;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = 3;
 
-    // Récupération des données à chaque changement de filtre
+
+
+
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const data = await getLeaderboardData({
+
+            console.log("Fetching leaderboard data with params:", {
                 type,
                 period,
                 category,
                 gameId,
-                offset,
+                page,
+                limit,
             });
 
-            setEntries(data);
+            const { players, player, numberOfPlayers } = await getLeaderboardData({
+                type,
+                period,
+                category,
+                gameId,
+                offset: page == 1 ? 0 : page * limit - limit,
+                limit,
+            });
+
+            console.log("Fetched leaderboard data:", {
+                players,
+                player,
+                numberOfPlayers,
+            });
+
+            setPlayers(players);
+            setPlayer(player);
+            setNumberOfPlayers(numberOfPlayers);
             setLoading(false);
         };
 
         fetchData();
-    }, [type, period, category, gameId, offset]);
+    }, [type, period, category, gameId, page, limit]);
 
-    // Fonction pour mettre à jour les filtres dans l’URL
-    const updateSearchParam = (newScope: string, newPeriod: string) => {
-        console.log("Nouveaux paramètres d’URL :", newScope, newPeriod);
+    const updateSearchParam = (type: string, period: string, newPage: number) => {
         const newParams = new URLSearchParams(searchParams.toString());
-        newParams.set("type", newScope);
-        newParams.set("period", newPeriod);
-
-        console.log("Nouveaux paramètres d’URL :", newParams.toString());
+        newParams.set("type", type);
+        newParams.set("period", period);
+        newParams.set("page", String(newPage));
         router.push(`/classement?${newParams.toString()}`);
 
-        if (key === "type") {
+        // Modifier le titre selon le type et la période
+        let newTitle = "Classement";
+        if (type === "global") {
+            newTitle = "Classement global";
         }
+        if (type === "friends") {
+            newTitle = "Classement amis";
+        }
+        if (period === "week") {
+            newTitle += " de la semaine en cours";
+        }
+        if (period === "month") {
+            newTitle += " du mois de " + new Date().toLocaleString("default", { month: "long" });
+        }
+        if (period === "year") {
+            newTitle += " de l'année " + new Date().getFullYear();
+        }
+        if (period === "all") {
+            newTitle += " de tous les temps";
+        }
+        setTitle(newTitle);
     };
 
+
+    // console.log("Rendering leaderboard page:", {
+    //     type,
+    //     period,
+    //     category,
+    //     gameId,
+    //     page,
+    //     limit,
+    //     players,
+    //     player,
+    //     numberOfPlayers,
+    // });
     return (
         <div className="max-w-5xl mx-auto w-full p-6 space-y-6">
-            <Card color="primary" title="Classement">
+            <Card color="primary" title={title} >
+
+                <LeaderboardCategorySelector
+                    initialCategory={category}
+                    initialGame={gameId}
+                    onChange={(cat, game) => {
+                        const newParams = new URLSearchParams(searchParams.toString());
+                        if (cat) newParams.set("category", cat);
+                        else newParams.delete("category");
+
+                        if (game) newParams.set("gameId", game);
+                        else newParams.delete("gameId");
+
+                        router.push(`/classement?${newParams.toString()}`);
+                    }}
+                />
+
                 <LeaderboardFilters
                     initialScope={type}
                     initialPeriod={period}
-                    category={category}
-                    gameId={gameId}
-                    onChange={(key, value) => updateSearchParam(key, value)}
+                    // category={category}
+                    // gameId={gameId}
+                    onChange={(type, period) => updateSearchParam(type, period, page)}
                 />
 
                 <LeaderboardUserList
-                    entries={entries}
+                    entries={players}
                     loading={loading}
-                    offset={offset}
+                    offset={page * limit - limit}
                     userId={userId}
+                    userEntry={player}
                 />
 
                 <LeaderboardPagination
-                    offset={offset}
-                    limit={10}
-                    totalPages={10}
-                    totalPlayers={2540}
-                    onChange={(newOffset) =>
-                        updateSearchParam("offset", String(newOffset))
-                    }
+                    initialPage={page}
+                    limit={limit}
+                    totalPlayers={numberOfPlayers}
+                    totalPages={Math.ceil(numberOfPlayers / limit)}
+                    onChange={(newPage) => updateSearchParam(type, period, newPage)}
                 />
             </Card>
         </div>

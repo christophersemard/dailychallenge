@@ -3,9 +3,10 @@
 import { IconButton } from "../ui/icon-button";
 import { ChevronLeft, ChevronRight, ChevronsLeft } from "lucide-react";
 import clsx from "clsx";
+import { useState } from "react";
 
 type Props = {
-    offset: number;
+    initialPage: number;
     limit: number;
     totalPlayers: number;
     totalPages: number;
@@ -13,15 +14,17 @@ type Props = {
 };
 
 export default function LeaderboardPagination({
-    offset,
+    initialPage,
     limit,
     totalPlayers,
     totalPages,
     onChange,
 }: Props) {
-    const currentPage = Math.floor(offset / limit) + 1;
+    const [currentPage, setCurrentPage] = useState(initialPage || 1);
     const goToPage = (page: number) => {
-        onChange((page - 1) * limit);
+        // Envoyer la page au parent
+        onChange(page);
+        setCurrentPage(page);
     };
 
     const getDisplayedPages = (): number[] => {
@@ -40,7 +43,7 @@ export default function LeaderboardPagination({
     return (
         <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 mt-6">
             <div className="text-sm text-muted-foreground">
-                {totalPlayers} joueur{totalPlayers > 1 ? "s" : ""}
+                <span className="font-bold">{totalPlayers}</span> joueur{totalPlayers > 1 ? "s" : ""}
             </div>
 
             <div className="flex items-center gap-2">
@@ -65,11 +68,11 @@ export default function LeaderboardPagination({
                         key={page}
                         onClick={() => goToPage(page)}
                         className={clsx(
-                            "px-2 py-1 text-sm rounded font-medium border hover:bg-background",
+                            "px-2 py-1  rounded font-medium border hover:bg-background cursor-pointer size-8",
                             {
-                                "bg-background border-black":
+                                "bg-primary font-black! border-none":
                                     currentPage === page,
-                                "text-muted-foreground border-white":
+                                "text-muted-foreground border-background":
                                     currentPage !== page,
                             }
                         )}

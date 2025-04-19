@@ -143,7 +143,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
             if (value.trim().length > 0) {
                 try {
                     const { data, error } = await fetchClientWithAuth<Friend[]>(
-                        `/users/search?query=${encodeURIComponent(value)}`
+                        `/api/users/search?query=${encodeURIComponent(value)}`
                     );
 
                     if (error || !data) {

@@ -13,9 +13,15 @@ export class UsersService {
         private readonly rpcExceptionHandler: RpcExceptionHandlerService
     ) {}
 
-    async getUserById(userId: number): Promise<UserPublicProfile> {
+    async getUserById(
+        userId: number,
+        friendId: number
+    ): Promise<UserPublicProfile> {
         return lastValueFrom(
-            this.client.send<UserPublicProfile>("get_user_by_id", userId)
+            this.client.send<UserPublicProfile>("get_user_by_id", {
+                userId,
+                friendId,
+            })
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 

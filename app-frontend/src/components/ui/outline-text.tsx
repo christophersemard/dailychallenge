@@ -15,6 +15,7 @@ type OutlineColor =
     | "success"
     | "warning"
     | "cyan"
+    | "gray"
 
 const strokeMap: Record<OutlineColor, string> = {
     yellow: "#ffd400",
@@ -31,6 +32,7 @@ const strokeMap: Record<OutlineColor, string> = {
     danger: "#f31c31",
     success: "#03914f",
     warning: "#ff7400",
+    gray: "#6C757D",
 
 }
 
@@ -38,6 +40,7 @@ const sizeMap = {
     xs: 12,
     sm: 16,
     base: 18,
+    md: 22,
     lg: 28,
     xl: 36,
     giga: 96,

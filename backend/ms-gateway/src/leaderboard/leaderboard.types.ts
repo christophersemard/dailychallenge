@@ -1,13 +1,37 @@
-import { UserStats } from "src/users/users.types";
+import { User } from "database";
 
-export class LeaderboardEntry {
-    user: User;
+export type LeaderboardResponse = {
+    numberOfPlayers: number;
+    players: LeaderboardPlayer[];
+    player: LeaderboardPlayer | null;
+};
+
+export type LeaderboardPlayer = {
+    user: User & {
+        userStats?: {
+            level: number;
+            xp: number;
+            streak: number;
+            gamesPlayed?: number;
+        };
+    };
     score: number;
-    xpGained?: number;
-}
+    xpGained: number;
+};
 
-class User {
+export type CategoryGame = {
     id: number;
-    email: string;
-    userStats: UserStats;
-}
+    name: string;
+    color: string;
+    games: Game[];
+};
+
+export type Game = {
+    id: number;
+    name: string;
+    description: string;
+    imgUrl: string | null;
+    path: string;
+    status: string;
+    categoryId: number;
+};

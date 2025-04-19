@@ -53,3 +53,22 @@ export interface FriendRequest {
         avatarUrl: string | null; // URL de l'avatar ou null si pas d'avatar
     };
 }
+
+export type UserEvent = {
+    id: number;
+    createdAt: string;
+    type: string;
+    details: string;
+};
+
+export type UserPublic = {
+    id: number;
+    pseudo: string;
+    createdAt: string;
+    avatarUrl: string | null;
+    level: number;
+    xp: number;
+    streak: number;
+    isFriend: boolean | "requested" | "received" | "accepted";
+    userEvents: UserEvent[];
+};

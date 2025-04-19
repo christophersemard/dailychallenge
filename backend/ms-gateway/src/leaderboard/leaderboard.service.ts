@@ -2,7 +2,7 @@ import { Injectable, Inject } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
 import { RpcExceptionHandlerService } from "../common/rpc-exception-handler.service";
-import { LeaderboardEntry } from "./leaderboard.types";
+import { CategoryGame, LeaderboardResponse } from "./leaderboard.types";
 
 @Injectable()
 export class LeaderboardService {
@@ -12,45 +12,48 @@ export class LeaderboardService {
     ) {}
 
     async getGlobalLeaderboard(
+        userId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_global_leaderboard",
-                { limit, offset, dateStart, dateEnd }
+                { userId, limit, offset, dateStart, dateEnd }
             )
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 
     async getCategoryLeaderboard(
-        category: string,
+        userId: number,
+        category: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_category_leaderboard",
-                { category, limit, offset, dateStart, dateEnd }
+                { userId, category, limit, offset, dateStart, dateEnd }
             )
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
 
     async getGameLeaderboard(
+        userId: number,
         gameId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_game_leaderboard",
-                { gameId, limit, offset, dateStart, dateEnd }
+                { userId, gameId, limit, offset, dateStart, dateEnd }
             )
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }
@@ -61,9 +64,9 @@ export class LeaderboardService {
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_friends_leaderboard",
                 { userId, limit, offset, dateStart, dateEnd }
             )
@@ -72,14 +75,14 @@ export class LeaderboardService {
 
     async getFriendsCategoryLeaderboard(
         userId: number,
-        category: string,
+        category: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_friends_category_leaderboard",
                 { userId, category, limit, offset, dateStart, dateEnd }
             )
@@ -93,11 +96,20 @@ export class LeaderboardService {
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
-    ): Promise<LeaderboardEntry[]> {
+    ): Promise<LeaderboardResponse> {
         return await lastValueFrom(
-            this.leaderboardClient.send<LeaderboardEntry[]>(
+            this.leaderboardClient.send<LeaderboardResponse>(
                 "get_friends_game_leaderboard",
                 { userId, gameId, limit, offset, dateStart, dateEnd }
+            )
+        ).catch((error) => this.rpcExceptionHandler.handle(error));
+    }
+
+    async getGamesAndCategories(): Promise<CategoryGame[]> {
+        return await lastValueFrom(
+            this.leaderboardClient.send<CategoryGame[]>(
+                "get_games_and_categories",
+                {}
             )
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }

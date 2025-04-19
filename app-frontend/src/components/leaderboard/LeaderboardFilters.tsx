@@ -3,7 +3,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 
-type Period = "week" | "month" | "year";
+type Period = "week" | "month" | "year" | "all";
 type Scope = "global" | "friends";
 
 type Props = {
@@ -20,8 +20,6 @@ export default function LeaderboardFilters({
     const [period, setPeriod] = useState<Period>(initialPeriod);
     const [scope, setScope] = useState<Scope>(initialScope);
 
-    console.log("Scope:", initialScope);
-    console.log("Period:", initialPeriod);
 
     const handleChange = (newScope: Scope, newPeriod: Period) => {
         setScope(newScope);
@@ -49,7 +47,7 @@ export default function LeaderboardFilters({
             </div>
 
             <div className="flex gap-2">
-                {(["week", "month", "year"] as Period[]).map((value) => (
+                {(["week", "month", "year", "all"] as Period[]).map((value) => (
                     <button
                         key={value}
                         className={clsx(
@@ -63,8 +61,7 @@ export default function LeaderboardFilters({
                         {value === "week"
                             ? "Sem."
                             : value === "month"
-                            ? "Mois"
-                            : "Année"}
+                                ? "Mois" : value === "year" ? "Année" : "Tous"}
                     </button>
                 ))}
             </div>

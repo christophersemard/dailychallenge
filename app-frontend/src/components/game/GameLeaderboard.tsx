@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth"
-import { LeaderboardEntry } from "@/types/game.types"
+import { LeaderboardData, LeaderboardEntry } from "@/types/game.types"
 import Card from "@/components/ui/card"
 import OutlineText from "@/components/ui/outline-text"
 import { IconButton } from "@/components/ui/icon-button"
@@ -13,6 +13,7 @@ import Link from "next/link"
 import { useGameEventStore } from "@/lib/store/useGameEventStore"
 import Image from "next/image"
 import { getDateStr } from "@/lib/formatDate"
+import { Button } from "@/components/ui/button"
 
 type Props = {
     leaderboardId: number
@@ -74,12 +75,12 @@ export default function GameLeaderboard({ leaderboardId, userId, color }: Props)
                     ? `/api/leaderboard/friends/game?userId=${userId}&${params.toString()}`
                     : `/api/leaderboard/game?${params.toString()}`
 
-            const { data, error } = await fetchClientWithAuth<LeaderboardEntry[]>(url)
+            const { data, error } = await fetchClientWithAuth<LeaderboardData>(url)
 
             if (error || !data) {
                 console.error("Erreur leaderboard :", error)
             } else {
-                setEntries(data)
+                setEntries(data.players)
 
                 console.log("Leaderboard data fetched:", data)
             }
@@ -175,7 +176,7 @@ export default function GameLeaderboard({ leaderboardId, userId, color }: Props)
                 </div>
             </div>
 
-            <div className="w-full h-[1px] bg-black/10 my-2" />
+            <div className="w-full h-[1px] bg-black/10 my-2" >  </div>
             <ul className="space-y-0 text-sm mt-3.5">
                 {loading && entries.length === 0 ? (
                     Array.from({ length: 5 }).map((_, i) => (
@@ -237,6 +238,11 @@ export default function GameLeaderboard({ leaderboardId, userId, color }: Props)
                 )}
             </ul>
 
+            <div className="flex justify-center">
+                <Button variant="outline-background" size="xs" asChild>
+                    <Link href="/classement?gameId=1">Voir en détails</Link>
+                </Button>
+            </div>
         </Card>
     )
 }

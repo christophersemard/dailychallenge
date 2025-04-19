@@ -16,7 +16,7 @@ import { UserPublicProfile } from "./users.types";
 import { UserRequest } from "../auth/auth.types";
 
 @ApiTags("Users")
-@Controller("users")
+@Controller("/api/users")
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
@@ -41,6 +41,7 @@ export class UsersController {
 
     // ✅ PUBLIC ----------------------
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     @ApiOperation({ summary: "Liste des utilisateurs (public)" })
     async getUserList(): Promise<UserPublicProfile[]> {
@@ -55,9 +56,14 @@ export class UsersController {
         return this.usersService.searchUsers(query);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(":id")
     @ApiOperation({ summary: "Récupère le profil public d’un utilisateur" })
-    async getUserById(@Param("id") id: string): Promise<UserPublicProfile> {
-        return this.usersService.getUserById(Number(id));
+    async getUserById(
+        @Param("id") id: string,
+        @Req() req: UserRequest
+    ): Promise<UserPublicProfile> {
+        console.log("getUserById", id, req.user.id);
+        return this.usersService.getUserById(Number(id), req.user.id);
     }
 }

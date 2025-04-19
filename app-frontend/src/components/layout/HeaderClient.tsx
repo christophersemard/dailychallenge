@@ -48,9 +48,7 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
 
                     {/* Navigation (desktop uniquement) */}
                     <nav className="ps-4 hidden md:flex gap-8 text-sm font-medium">
-                        <CategoryDropdown title="Cinéma" />
-                        <CategoryDropdown title="Géographie" />
-                        <CategoryDropdown title="Autres" />
+                        <CategoryDropdown />
                     </nav>
                 </div>
 

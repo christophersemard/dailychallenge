@@ -24,18 +24,27 @@ export type UserMonthlyGameResult = {
     gameDay: boolean;
     guess: string | null;
 };
+
 export type LeaderboardUser = {
     id: number;
     pseudo: string;
     level: number;
     avatar: string | null;
+    streak: number;
+    gamesPlayed: number;
+    score: number;
 };
 
 export type LeaderboardEntry = {
     user: LeaderboardUser;
     score: number;
     xpGained: number;
-    avatarUrl: string | null;
+};
+
+export type LeaderboardData = {
+    players: LeaderboardEntry[];
+    player: LeaderboardEntry | null;
+    numberOfPlayers: number;
 };
 
 export type MovieData = {

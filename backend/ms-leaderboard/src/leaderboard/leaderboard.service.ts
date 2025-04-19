@@ -1,312 +1,308 @@
+// leaderboard.service.ts
 import { Injectable } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
+import { LeaderboardEntry } from "./leaderboard.types";
 
 @Injectable()
 export class LeaderboardService {
+    private async getFriendIds(userId: number): Promise<number[]> {
+        const friends = await prisma.friend.findMany({
+            where: {
+                OR: [{ userId }, { friendId: userId }],
+                status: "accepted",
+            },
+            select: { userId: true, friendId: true },
+        });
+
+        return friends.map((f) =>
+            f.userId === userId ? f.friendId : f.userId
+        );
+    }
+
     async getGlobalLeaderboard(
+        userId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        // 1️⃣ Regrouper les scores par joueur
-        const groupedResults = await prisma.gameResult.groupBy({
-            by: ["userId"],
-            _sum: { score: true, xpGained: true },
-            where: {
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
-            },
-            orderBy: { _sum: { score: "desc" } },
-            take: Number(limit),
-            skip: Number(offset),
+        return this.buildLeaderboardResponse({
+            userId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
         });
-
-        // 2️⃣ Récupérer les utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
-        const users = await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true },
-        });
-
-        // 3️⃣ Associer chaque utilisateur à son score total
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId),
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
     }
 
     async getCategoryLeaderboard(
+        userId: number,
         category: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        // 1️⃣ Regrouper les scores par joueur dans la catégorie
-        const groupedResults = await prisma.gameResult.groupBy({
-            by: ["userId"],
+        return this.buildLeaderboardResponse({
+            userId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
             where: {
-                game: { gameCategoryId: Number(category) },
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
+                game: { gameCategoryId: category },
             },
-            _sum: { score: true, xpGained: true },
-            orderBy: { _sum: { score: "desc" } },
-            take: Number(limit),
-            skip: Number(offset),
         });
-
-        // 2️⃣ Récupérer les utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
-        const users = await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true },
-        });
-
-        // 3️⃣ Associer chaque utilisateur à son score total
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId),
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
     }
 
     async getGameLeaderboard(
+        userId: number,
         gameId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        console.log(
-            "getGameLeaderboard",
-            gameId,
+        return this.buildLeaderboardResponse({
+            userId,
             limit,
             offset,
             dateStart,
-            dateEnd
-        );
-        // 1️⃣ Regrouper les scores par joueur
-        const groupedResults = await prisma.gameResult.groupBy({
-            by: ["userId"],
-            _sum: { score: true, xpGained: true },
+            dateEnd,
             where: {
-                gameId: Number(gameId),
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
+                gameId,
             },
-            orderBy: { _sum: { score: "desc" } },
-            take: Number(limit),
-            skip: Number(offset),
         });
-
-        // 2️⃣ Récupérer les infos des utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
-        const users = await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true }, // Sélectionner les infos utiles
-        });
-
-        // 3️⃣ Associer les utilisateurs aux scores
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId), // Associer chaque user
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
     }
 
     async getFriendsLeaderboard(
-        userId: number, // ID de l'utilisateur pour récupérer ses amis
+        userId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        // 1️⃣ Récupérer les amis de l'utilisateur
-        const friends = await prisma.friend.findMany({
+        const friendIds = await this.getFriendIds(userId);
+        return this.buildLeaderboardResponse({
+            userId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
             where: {
-                OR: [
-                    { userId: Number(userId) }, // Amis de l'utilisateur
-                    { friendId: Number(userId) }, // L'utilisateur dans la relation inverse
-                ],
-                status: "accepted", // Amis acceptés seulement
-            },
-            select: {
-                userId: true,
-                friendId: true,
+                userId: { in: [...friendIds, userId] },
             },
         });
-
-        // 2️⃣ Extraire les ids des amis
-        const friendIds = friends.map((friend) =>
-            friend.userId === Number(userId) ? friend.friendId : friend.userId
-        );
-
-        // Ajouter l'utilisateur lui-même à la liste des amis
-        friendIds.push(Number(userId));
-
-        // 3️⃣ Regrouper les scores par joueur parmi les amis
-        const groupedResults = await prisma.gameResult.groupBy({
-            by: ["userId"],
-            _sum: { score: true, xpGained: true },
-            where: {
-                userId: { in: friendIds },
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
-            },
-            orderBy: { _sum: { score: "desc" } },
-            take: Number(limit),
-            skip: Number(offset),
-        });
-
-        // 4️⃣ Récupérer les utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
-        const users = await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true }, // Sélectionner les infos utiles
-        });
-
-        // 5️⃣ Associer les utilisateurs à leur score et XP total
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId),
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
     }
 
-    async getCategoryFriendsLeaderboard(
-        userId: number, // ID de l'utilisateur pour récupérer ses amis
-        categoryId: number, // ID de la catégorie du jeu
+    async getFriendsCategoryLeaderboard(
+        userId: number,
+        category: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        // 1️⃣ Récupérer les amis de l'utilisateur
-        const friends = await prisma.friend.findMany({
+        const friendIds = await this.getFriendIds(userId);
+        return this.buildLeaderboardResponse({
+            userId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
             where: {
-                OR: [
-                    { userId: Number(userId) }, // Amis de l'utilisateur
-                    { friendId: Number(userId) }, // L'utilisateur dans la relation inverse
-                ],
-                status: "accepted", // Amis acceptés seulement
-            },
-            select: {
-                userId: true,
-                friendId: true,
+                userId: { in: [...friendIds, userId] },
+                game: { gameCategoryId: category },
             },
         });
-
-        // 2️⃣ Extraire les ids des amis
-        const friendIds = friends.map((friend) =>
-            friend.userId === Number(userId) ? friend.friendId : friend.userId
-        );
-
-        // Ajouter l'utilisateur lui-même à la liste des amis
-        friendIds.push(Number(userId));
-
-        // 3️⃣ Regrouper les scores par joueur dans la catégorie spécifique
-        const groupedResults = await prisma.gameResult.groupBy({
-            by: ["userId"],
-            _sum: { score: true, xpGained: true },
-            where: {
-                userId: { in: friendIds },
-                game: { gameCategoryId: Number(categoryId) }, // Filtrer par catégorie de jeu
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
-            },
-            orderBy: { _sum: { score: "desc" } },
-            take: Number(limit),
-            skip: Number(offset),
-        });
-
-        // 4️⃣ Récupérer les utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
-        const users = await prisma.user.findMany({
-            where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true },
-        });
-
-        // 5️⃣ Associer les utilisateurs à leur score et XP total
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId),
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
     }
 
-    async getGameFriendsLeaderboard(
-        userId: number, // ID de l'utilisateur pour récupérer ses amis
-        gameId: number, // ID du jeu spécifique
+    async getFriendsGameLeaderboard(
+        userId: number,
+        gameId: number,
         limit: number,
         offset: number,
         dateStart?: Date,
         dateEnd?: Date
     ) {
-        // 1️⃣ Récupérer les amis de l'utilisateur
-        const friends = await prisma.friend.findMany({
+        const friendIds = await this.getFriendIds(userId);
+        return this.buildLeaderboardResponse({
+            userId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
             where: {
-                OR: [
-                    { userId: Number(userId) }, // Amis de l'utilisateur
-                    { friendId: Number(userId) }, // L'utilisateur dans la relation inverse
-                ],
-                status: "accepted", // Amis acceptés seulement
-            },
-            select: {
-                userId: true,
-                friendId: true,
+                userId: { in: [...friendIds, userId] },
+                gameId,
             },
         });
+    }
 
-        // 2️⃣ Extraire les ids des amis
-        const friendIds = friends.map((friend) =>
-            friend.userId === Number(userId) ? friend.friendId : friend.userId
-        );
+    private async buildLeaderboardResponse({
+        userId,
+        limit,
+        offset,
+        dateStart,
+        dateEnd,
+        where = {},
+    }: {
+        userId: number;
+        limit: number;
+        offset: number;
+        dateStart?: Date;
+        dateEnd?: Date;
+        where?: Record<string, any>;
+    }) {
+        const whereWithDate = {
+            ...where,
+            date: {
+                ...(dateStart && { gte: dateStart }),
+                ...(dateEnd && { lte: dateEnd }),
+            },
+        };
 
-        // Ajouter l'utilisateur lui-même à la liste des amis
-        friendIds.push(Number(userId));
+        // 1️⃣ Nombre total de joueurs distincts
+        const distinctUsers = await prisma.gameResult.groupBy({
+            by: ["userId"],
+            where: whereWithDate,
+        });
+        const numberOfPlayers = distinctUsers.length;
 
-        // 3️⃣ Regrouper les scores par joueur pour ce jeu spécifique
+        // 2️⃣ Classement top N
         const groupedResults = await prisma.gameResult.groupBy({
             by: ["userId"],
-            _sum: { score: true, xpGained: true },
-            where: {
-                userId: { in: friendIds },
-                gameId: Number(gameId), // Filtrer par jeu spécifique
-                date: {
-                    gte: dateStart || undefined,
-                    lte: dateEnd || undefined,
-                },
+            _sum: {
+                score: true,
+                xpGained: true,
             },
+            where: whereWithDate,
             orderBy: { _sum: { score: "desc" } },
             take: Number(limit),
-            skip: Number(offset),
+            skip: !Number.isNaN(offset) ? Number(offset) : undefined,
         });
 
-        // 4️⃣ Récupérer les utilisateurs correspondants
-        const userIds = groupedResults.map((result) => result.userId);
+        const userIds = groupedResults.map((r) => r.userId);
+
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
-            select: { id: true, pseudo: true, userStats: true },
+            select: {
+                id: true,
+                pseudo: true,
+                avatar: true,
+                userStats: {
+                    select: {
+                        level: true,
+                        streak: true,
+                    },
+                },
+            },
         });
 
-        // 5️⃣ Associer les utilisateurs à leur score et XP total
-        return groupedResults.map((result) => ({
-            user: users.find((u) => u.id === result.userId),
-            score: result._sum.score,
-            xpGained: result._sum.xpGained,
-        }));
+        // 3️⃣ Pour chaque joueur, compter ses parties (dans le contexte)
+        const players: LeaderboardEntry[] = await Promise.all(
+            groupedResults.map(async (res) => {
+                const user = users.find((u) => u.id === res.userId);
+                const gamesPlayed = await prisma.gameResult.count({
+                    where: {
+                        userId: res.userId,
+                        ...whereWithDate,
+                    },
+                });
+
+                return {
+                    user: {
+                        id: user?.id || res.userId,
+                        pseudo: user?.pseudo || "Inconnu",
+                        avatar: user?.avatar?.url || null, // ✅ Corrigé ici
+                        level: user?.userStats?.level ?? 0,
+                        streak: user?.userStats?.streak ?? 0,
+                        gamesPlayed,
+                    },
+                    score: res._sum.score ?? 0,
+                    xpGained: res._sum.xpGained ?? 0,
+                };
+            })
+        );
+
+        // 4️⃣ Joueur connecté s'il n'est pas dans la page
+        const currentUserScore = await prisma.gameResult.aggregate({
+            _sum: { score: true, xpGained: true },
+            where: { userId, ...whereWithDate },
+        });
+
+        const currentUserInfo = await prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                id: true,
+                pseudo: true,
+                avatar: true,
+                userStats: {
+                    select: {
+                        level: true,
+                        streak: true,
+                    },
+                },
+            },
+        });
+
+        const gamesPlayed = await prisma.gameResult.count({
+            where: { userId, ...whereWithDate },
+        });
+
+        const player =
+            (currentUserScore._sum.score ?? 0) > 0 ||
+            (currentUserScore._sum.xpGained ?? 0) > 0
+                ? {
+                      user: {
+                          id: currentUserInfo?.id || userId,
+                          pseudo: currentUserInfo?.pseudo || "Moi",
+                          avatar: currentUserInfo?.avatar?.url || null, // ✅ Corrigé ici aussi
+                          level: currentUserInfo?.userStats?.level ?? 0,
+                          streak: currentUserInfo?.userStats?.streak ?? 0,
+                          gamesPlayed,
+                      },
+                      score: currentUserScore._sum.score ?? 0,
+                      xpGained: currentUserScore._sum.xpGained ?? 0,
+                  }
+                : null;
+
+        return {
+            numberOfPlayers,
+            players,
+            player,
+        };
+    }
+
+    async getCategoriesWithGames() {
+        const categories = await prisma.gameCategory.findMany({
+            where: {
+                deletedAt: null,
+            },
+            select: {
+                id: true,
+                name: true,
+                color: true,
+                games: {
+                    where: {
+                        deletedAt: null,
+                    },
+                    select: {
+                        id: true,
+                        name: true,
+                        description: true,
+                        imgUrl: true,
+                        path: true,
+                        status: true,
+                        gameCategoryId: true,
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: "asc",
+            },
+        });
+
+        return categories;
     }
 }

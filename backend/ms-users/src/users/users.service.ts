@@ -2,8 +2,9 @@ import prisma from "../prisma/prisma.service";
 import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 export class UsersService {
-    async getUserById(userId: number) {
-        if (!userId) {
+    async getUserById(userId: number, friendId: number) {
+        console.log("userId", userId, "friendId", friendId);
+        if (!userId || !friendId) {
             throw new BadRequestException("ID utilisateur requis.");
         }
 
@@ -21,6 +22,14 @@ export class UsersService {
                         streak: true,
                     },
                 },
+                userEvents: {
+                    select: {
+                        id: true,
+                        createdAt: true,
+                        type: true,
+                        details: true,
+                    },
+                },
             },
         });
 
@@ -28,7 +37,51 @@ export class UsersService {
             throw new NotFoundException("Utilisateur introuvable.");
         }
 
-        return user;
+        // Vérifier si les deux utilisateurs sont amis ou si l'un d'eux a envoyé une demande d'ami à l'autre
+        const friendRequest = await prisma.friend.findFirst({
+            where: {
+                OR: [
+                    { userId: userId, friendId: friendId },
+                    { userId: friendId, friendId: userId },
+                ],
+            },
+        });
+
+        let isFriend: string | boolean = false;
+        if (friendRequest) {
+            if (friendRequest.status === "accepted") {
+                isFriend = true;
+            } else if (friendRequest.userId === userId) {
+                isFriend = "requested";
+            } else if (friendRequest.userId === friendId) {
+                isFriend = "received";
+            }
+        }
+
+        // Garder les 10 derniers événements de l'utilisateur et les trier par date de création décroissante
+        const userEvents = user.userEvents
+            ? user.userEvents
+                  .slice()
+                  .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+                  .slice(0, 10)
+            : [];
+
+        return {
+            id: user.id,
+            pseudo: user.pseudo,
+            createdAt: user.createdAt,
+            avatarUrl: user.avatar?.url || null,
+            level: user.userStats?.level || 0,
+            xp: user.userStats?.xp || 0,
+            streak: user.userStats?.streak || 0,
+            isFriend: isFriend,
+            userEvents: userEvents.map((event) => ({
+                id: event.id,
+                createdAt: event.createdAt,
+                type: event.type,
+                details: event.details,
+            })),
+        };
     }
 
     async getUserList() {

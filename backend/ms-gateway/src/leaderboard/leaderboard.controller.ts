@@ -2,7 +2,7 @@ import { Controller, Get, Query, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { LeaderboardService } from "./leaderboard.service";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
-import { LeaderboardEntry } from "./leaderboard.types";
+import { LeaderboardResponse } from "./leaderboard.types";
 import { UserRequest } from "../auth/auth.types";
 
 @ApiTags("Leaderboard")
@@ -14,12 +14,14 @@ export class LeaderboardController {
     @Get("global")
     @ApiOperation({ summary: "Classement global" })
     async getGlobalLeaderboard(
+        @Req() req: UserRequest,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getGlobalLeaderboard(
+    ): Promise<LeaderboardResponse> {
+        return this.leaderboardService.getGlobalLeaderboard(
+            req.user.id,
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -31,14 +33,16 @@ export class LeaderboardController {
     @Get("category")
     @ApiOperation({ summary: "Classement par catégorie" })
     async getCategoryLeaderboard(
+        @Req() req: UserRequest,
         @Query("category") category: string,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getCategoryLeaderboard(
-            category,
+    ): Promise<LeaderboardResponse> {
+        return this.leaderboardService.getCategoryLeaderboard(
+            req.user.id,
+            Number(category),
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -50,14 +54,24 @@ export class LeaderboardController {
     @Get("game")
     @ApiOperation({ summary: "Classement d’un jeu spécifique" })
     async getGameLeaderboard(
+        @Req() req: UserRequest,
         @Query("gameId") gameId: number,
         @Query("limit") limit = 10,
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getGameLeaderboard(
+    ): Promise<LeaderboardResponse> {
+        console.log("getGameLeaderboard", {
+            userId: req.user.id,
             gameId,
+            limit,
+            offset,
+            dateStart,
+            dateEnd,
+        });
+        return this.leaderboardService.getGameLeaderboard(
+            req.user.id,
+            Number(gameId),
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -74,8 +88,8 @@ export class LeaderboardController {
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getFriendsLeaderboard(
+    ): Promise<LeaderboardResponse> {
+        return this.leaderboardService.getFriendsLeaderboard(
             req.user.id,
             limit,
             offset,
@@ -94,10 +108,10 @@ export class LeaderboardController {
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getFriendsCategoryLeaderboard(
+    ): Promise<LeaderboardResponse> {
+        return this.leaderboardService.getFriendsCategoryLeaderboard(
             req.user.id,
-            category,
+            Number(category),
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -115,14 +129,20 @@ export class LeaderboardController {
         @Query("offset") offset = 0,
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
-    ): Promise<LeaderboardEntry[]> {
-        return await this.leaderboardService.getFriendsGameLeaderboard(
+    ): Promise<LeaderboardResponse> {
+        return this.leaderboardService.getFriendsGameLeaderboard(
             req.user.id,
-            gameId,
+            Number(gameId),
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
             dateEnd ? new Date(dateEnd) : undefined
         );
+    }
+
+    @Get("games-and-categories")
+    @ApiOperation({ summary: "Récupérer les jeux et catégories" })
+    async getGamesAndCategories() {
+        return this.leaderboardService.getGamesAndCategories();
     }
 }

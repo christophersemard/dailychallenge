@@ -13,6 +13,7 @@
     --pink: #eb1b82;
     --red: #f31c31;
     --orange: #ff7400;
+    --gray : #6C757D;
     --primary: var(--yellow);
     --secondary: var(--purple);
     --muted: #202020;
@@ -50,6 +51,7 @@ body {
     --color-orange: var(--orange);
     --color-yellow: var(--yellow);
     --color-purple: var(--purple);
+    --color-gray: var(--gray);
 
     --color-info: var(--cyan);
     --color-success: var(--green);

@@ -1,164 +1,130 @@
-// src/components/layout/CategoryDropdown.tsx
 "use client"
 
+import { useEffect, useState } from "react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { ChevronDown } from "lucide-react"
-import { useState } from "react"
-import { useDebounce } from "@uidotdev/usehooks";
-import Link from "next/link";
-import Image from "next/image";
+import { ChevronDown, Crown } from "lucide-react"
+import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth"
+import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { Crown } from "lucide-react";
+import { useDebounce } from "@uidotdev/usehooks"
 
-type CategoryTitle = "Cinéma" | "Géographie" | "Autres";
+type Game = {
+    id: number
+    name: string
+    description: string
+    imgUrl: string | null
+    path: string
+    status: string
+}
 
-type CategoryDropdownProps = {
-    title: CategoryTitle;
-};
+type Category = {
+    id: number
+    name: string
+    color: string
+    games: Game[]
+}
 
+export default function CategoryDropdown() {
+    const [categories, setCategories] = useState<Category[]>([])
+    const [openCategory, setOpenCategory] = useState<number | null>(null)
+    const debouncedOpen = useDebounce(openCategory, 200)
 
-export default function CategoryDropdown({ title }: CategoryDropdownProps) {
-    const [open, setOpen] = useState(false);
-    const debouncedOpen = useDebounce(open, 200);
+    useEffect(() => {
+        fetchCategories()
+    }, [])
 
-    const handleMouseEnter = () => {
-        setOpen(true);
-    };
-
-    const handleMouseLeave = () => {
-        setOpen(false);
-    };
-
-    const games: Record<string, { name: string; description: string; url: string; icon: string; status: string }[]> = {
-        "Cinéma": [{
-            name: "IndiCiné",
-            description: "Trouve le film grâce aux indices",
-            url: "/jeu/cinema-1",
-            icon: "/assets/game-icons/cinema-1.png",
-            status: "available"
-        },
-        {
-            name: "Jeu 2",
-            description: "Trouve le film grâce aux photos",
-            url: "/jeu/cinema-2",
-            icon: "/assets/game-icons/cinema-2.png",
-            status: "coming_soon"
-        },
-        {
-            name: "Jeu 3",
-            description: "Trouve le film grâce aux acteurs",
-            url: "/jeu/cinema-3",
-            icon: "/assets/game-icons/cinema-2.png",
-            status: "coming_soon"
-        }],
-        "Géographie": [
-
-            {
-                name: "Jeu 1",
-                description: "Trouve le pays grâce aux indices",
-                url: "/jeu/geographie-1",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            },
-            {
-                name: "Jeu 2",
-                description: "Trouve la capitale grâce aux photos",
-                url: "/jeu/geographie-2",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            },
-            {
-                name: "Jeu 3",
-                description: "Trouve le pays grâce aux drapeaux",
-                url: "/jeu/geographie-3",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            }
-        ],
-        "Autres": [
-            {
-                name: "Jeu 1",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-1",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            },
-            {
-                name: "Jeu 2",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-2",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            },
-            {
-                name: "Jeu 3",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-3",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming_soon"
-            }
-
-        ]
+    const fetchCategories = async () => {
+        const { data, error } = await fetchClientWithAuth<Category[]>("/api/leaderboard/games-and-categories")
+        if (error || !data) {
+            console.error("Erreur récupération des catégories", error)
+            return
+        }
+        setCategories(data)
     }
 
-
     return (
-        <Popover open={debouncedOpen} onOpenChange={setOpen}>
-            <PopoverTrigger
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave} className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none" >
-                {title} <ChevronDown size={14} />
-            </PopoverTrigger>
+        <>
+            {categories.map((category) => (
 
-            <PopoverContent
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave} className="mt-4 w-72 p-2 space-y-1 bg-white border-none  shadow-lg" align="start">
-                {games[title].map((game, i) => (
-                    <>
+                category.games.length > 0 ? <Popover
+                    key={category.id}
+                    open={debouncedOpen === category.id}
+                    onOpenChange={(open) => setOpenCategory(open ? category.id : null)}
+                >
+                    <PopoverTrigger
+                        onMouseEnter={() => setOpenCategory(category.id)}
+                        onMouseLeave={() => setOpenCategory(null)}
+                        className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none"
+                    >
+                        {category.name} <ChevronDown size={14} />
+                    </PopoverTrigger>
 
-                        {game.status === "available" ?
-                            <Link href={game.url}
-                                key={i}
-                                className="px-2 py-1 hover:bg-background  rounded flex items-center space-x-5  cursor-pointer text-sm transition"
-                            >
-                                <div className={cn("")}>
-                                    {game.icon ? <Image height={32} width={32} src={game.icon} alt={title} className="" /> : <Crown className="w-8 h-8" />}
-                                </div>
+                    <PopoverContent
+                        onMouseEnter={() => setOpenCategory(category.id)}
+                        onMouseLeave={() => setOpenCategory(null)}
+                        className="mt-4 w-72 p-2 space-y-1 bg-white border-none shadow-lg"
+                        align="start"
+                    >
+                        {category.games.map((game, i) => (
+                            <div key={game.id}>
+                                {game.status === "available" ? (
+                                    <Link
+                                        href={`/jeu/${game.path}`}
+                                        className="px-2 py-2 hover:bg-background rounded flex items-center space-x-5 text-sm transition"
+                                    >
+                                        <div>
+                                            {game.imgUrl ? (
+                                                <Image
+                                                    height={32}
+                                                    width={32}
+                                                    src={game.imgUrl}
+                                                    alt={game.name}
+                                                    className=""
+                                                />
+                                            ) : (
+                                                <Crown className="w-8 h-8" />
+                                            )}
+                                        </div>
+                                        <div className="flex flex-col items-start">
+                                            <div className="font-bold text-lg">{game.name}</div>
+                                            <div className="text-xs text-muted-foreground">{game.description}</div>
+                                        </div>
+                                    </Link>
+                                ) : game.status === "coming_soon" ? (
+                                    <div className="px-2 py-2 rounded flex items-center space-x-5 text-sm relative cursor-default">
+                                        <div>
+                                            {game.imgUrl ? (
+                                                <Image
+                                                    height={32}
+                                                    width={32}
+                                                    src={game.imgUrl}
+                                                    alt={game.name}
+                                                    className=""
+                                                />
+                                            ) : (
+                                                <Crown className="w-8 h-8" />
+                                            )}
+                                        </div>
+                                        <div className="flex flex-col items-start">
+                                            <div className="font-bold text-lg">{game.name}</div>
+                                            <div className="text-xs text-muted-foreground">{game.description}</div>
+                                        </div>
+                                        <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
+                                            <span className="-rotate-2">BIENTÔT DISPONIBLE</span>
+                                        </div>
+                                    </div>
+                                ) :
+                                    (<></>)}
 
-                                <div className="flex flex-col items-start">
-                                    <div className="font-bold text-lg text-start">{game.name}</div>
-                                    <div className="text-xs text-muted-foreground text-start mb-1">{game.description}</div>
-                                </div>
-                            </Link>
-                            :
-                            <div
-                                key={i}
-                                className="px-2 py-1  rounded flex items-center space-x-5  text-sm transition relative"
-                            >
-
-                                <div className={cn("")}>
-                                    {game.icon ? <Image height={32} width={32} src={game.icon} alt={title} className="" /> : <Crown className="w-8 h-8" />}
-                                </div>
-
-                                <div className="flex flex-col items-start">
-                                    <div className="font-bold text-lg text-start">{game.name}</div>
-                                    <div className="text-xs text-muted-foreground text-start mb-1">{game.description}</div>
-                                </div>
-                                <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
-                                    <span className="-rotate-2">BIENTOT DISPONIBLE</span>
-                                </div>
+                                {i < category.games.length - 1 && (
+                                    <div className="border-t border-muted/10" />
+                                )}
                             </div>
-
-                        }
-
-                        {
-                            i < 2 && <div className="border-t border-muted/10" />
-                        }
-                    </>
-
-
-                ))}
-            </PopoverContent>
-        </Popover>
+                        ))}
+                    </PopoverContent>
+                </Popover> : <></>
+            ))}
+        </>
     )
 }

@@ -1,5 +1,5 @@
+// app/page.tsx
 import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes";
-
 import PageTitle from "@/components/ui/page-title";
 import PageSubtitle from "@/components/ui/page-subtitle";
 import { Button } from "@/components/ui/button";
@@ -8,118 +8,50 @@ import GameItem from "@/components/ui/game-item";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { fetchServerAction } from "@/app/actions/fetch-proxy";
+import { Color } from "@/types/colors.types";
 
 type Game = {
+    id: number;
     name: string;
     description: string;
-    url: string;
-    icon: string;
-    status: "available" | "coming-soon";
+    imgUrl: string | null;
+    path: string;
+    status: string;
 };
 
 type GameCategory = {
+    id: number;
     name: string;
-    color:
-        | "primary"
-        | "secondary"
-        | "success"
-        | "danger"
-        | "teal"
-        | "red"
-        | "purple"
-        | "yellow"
-        | "green"
-        | "blue"
-        | "pink"
-        | "orange";
+    color: string;
     games: Game[];
 };
-const games: GameCategory[] = [
-    {
-        name: "Cinéma",
-        color: "red",
-        games: [
-            {
-                name: "IndiCiné",
-                description: "Trouve le film grâce aux indices",
-                url: "/jeu/cinema-1",
-                icon: "/assets/game-icons/cinema-1.png",
-                status: "available",
-            },
-            {
-                name: "Jeu 2",
-                description: "Trouve le film grâce aux photos",
-                url: "/jeu/cinema-2",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-            {
-                name: "Jeu 3",
-                description: "Trouve le film grâce aux acteurs",
-                url: "/jeu/cinema-3",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-        ],
-    },
-    {
-        name: "Géographie",
-        color: "teal",
-        games: [
-            {
-                name: "Jeu 1",
-                description: "Trouve le pays grâce aux indices",
-                url: "/jeu/geographie-1",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-            {
-                name: "Jeu 2",
-                description: "Trouve la capitale grâce aux photos",
-                url: "/jeu/geographie-2",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-            {
-                name: "Jeu 3",
-                description: "Trouve le pays grâce aux drapeaux",
-                url: "/jeu/geographie-3",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-        ],
-    },
-    {
-        name: "Autres",
-        color: "blue",
-        games: [
-            {
-                name: "Jeu 1",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-1",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-            {
-                name: "Jeu 2",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-2",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-            {
-                name: "Jeu 3",
-                description: "Je sais pas encore",
-                url: "/jeu/autres-3",
-                icon: "/assets/game-icons/cinema-2.png",
-                status: "coming-soon",
-            },
-        ],
-    },
-];
 
 export default async function Page() {
     const session = await getServerSession(authOptions);
+
+    const { data: categories, error } = await fetchServerAction<GameCategory[]>(
+        "/api/leaderboard/games-and-categories"
+    );
+
+    if (error || !categories) {
+        return (
+            <div className="text-center py-12 text-muted-foreground">
+                Une erreur est survenue lors du chargement des jeux.
+            </div>
+        );
+    }
+
+    // Déterminer le nombre de colonnes selon le nombre de catégories
+    let categoriesLength = 0;
+    categories.forEach((category) => {
+        if (category.games.length > 0) {
+            categoriesLength++;
+        }
+    });
+    let gridCols = "md:grid-cols-3"; // par défaut
+    if (categoriesLength === 2) gridCols = "md:grid-cols-2";
+    else if (categoriesLength > 2 && categoriesLength % 2 === 0) gridCols = "md:grid-cols-4";
 
     return (
         <>
@@ -128,21 +60,20 @@ export default async function Page() {
             <div className="w-full py-6">
                 <div className="flex flex-col items-center text-center">
                     <PageTitle>
-                        Défie-toi et tes amis chaque jour avec nos jeux uniques
-                        !
+                        Défie-toi et tes amis chaque jour avec nos jeux uniques !
                     </PageTitle>
 
                     <PageSubtitle>
-                        Cinéma, géographie, culture générale... Un nouveau
-                        challenge t’attend chaque jour pour tester tes
-                        connaissances et grimper dans les classements !
+                        Cinéma, géographie, culture générale... Un nouveau challenge
+                        t’attend chaque jour pour tester tes connaissances et grimper
+                        dans les classements !
                     </PageSubtitle>
 
                     {!session && (
                         <p className="font-semibold mb-6">
-                            Rejoins la communauté dès maintenant pour débloquer
-                            des récompenses exclusives, suivre ta progression et
-                            affronter tes amis !
+                            Rejoins la communauté dès maintenant pour débloquer des
+                            récompenses exclusives, suivre ta progression et affronter
+                            tes amis !
                         </p>
                     )}
 
@@ -166,24 +97,25 @@ export default async function Page() {
                         </div>
                     )}
 
-                    {/* Grille des jeux */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-6">
-                        {games.map((category) => (
+                    {/* Grille dynamique des jeux par catégorie */}
+                    <div className={`grid grid-cols-1 ${gridCols} gap-8 w-full mt-6`}>
+                        {categories.map((category) => (
+                            category.games.length > 0 &&
                             <CategoryCard
-                                key={category.name}
+                                key={category.id}
                                 title={category.name}
-                                color={category.color}
+                                color={category.color as Color}
                             >
                                 <div className="flex flex-col gap-4">
                                     {category.games.map((game) => (
                                         <GameItem
-                                            key={game.name}
-                                            color={category.color}
-                                            icon={game.icon}
+                                            key={game.id}
+                                            color={category.color as Color}
+                                            icon={game.imgUrl} // null accepté, fallback via <GameItem />
                                             title={game.name}
                                             description={game.description}
-                                            url={game.url}
-                                            status={game.status}
+                                            url={`/jeu/${game.path}`}
+                                            status={game.status as "available" | "coming-soon"}
                                         />
                                     ))}
                                 </div>

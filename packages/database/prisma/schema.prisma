@@ -161,11 +161,15 @@ model GameResult {
 model Game {
   id             Int          @id @default(autoincrement())
   name           String
+  description    String       @default("Trouver le film") // Description du jeu
+  imgUrl         String? // URL de l'image du jeu
+  path           String       @default("game-cinema-1") // Chemin du jeu (pour l'API)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   deletedAt      DateTime? // ✅ Soft delete
   gameCategoryId Int
   gameCategory   GameCategory @relation(fields: [gameCategoryId], references: [id])
+  status         String       @default("available") // "available", "coming_soon", "unavailable"
 
   results GameResult[]
 }
@@ -176,6 +180,7 @@ model GameCategory {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? // ✅ Soft delete
+  color     String?   @default("red") // Couleur de la catégorie (pour l'interface)
 
   games Game[]
 }

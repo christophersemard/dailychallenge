@@ -7,8 +7,10 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @MessagePattern("get_user_by_id")
-    async getUserById(@Payload() userId: number) {
-        return this.usersService.getUserById(userId);
+    async getUserById(
+        @Payload() payload: { userId: number; friendId: number }
+    ) {
+        return this.usersService.getUserById(payload.userId, payload.friendId);
     }
 
     @MessagePattern("get_user_list")

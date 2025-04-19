@@ -204,10 +204,14 @@ exports.Prisma.GameResultScalarFieldEnum = {
 exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
+  imgUrl: 'imgUrl',
+  path: 'path',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
-  gameCategoryId: 'gameCategoryId'
+  gameCategoryId: 'gameCategoryId',
+  status: 'status'
 };
 
 exports.Prisma.GameCategoryScalarFieldEnum = {
@@ -215,7 +219,8 @@ exports.Prisma.GameCategoryScalarFieldEnum = {
   name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  color: 'color'
 };
 
 exports.Prisma.DataMovieScalarFieldEnum = {

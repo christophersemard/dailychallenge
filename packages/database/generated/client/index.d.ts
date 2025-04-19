@@ -11845,28 +11845,40 @@ export namespace Prisma {
   export type GameMinAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
+    imgUrl: string | null
+    path: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
     gameCategoryId: number | null
+    status: string | null
   }
 
   export type GameMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
+    imgUrl: string | null
+    path: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
     gameCategoryId: number | null
+    status: string | null
   }
 
   export type GameCountAggregateOutputType = {
     id: number
     name: number
+    description: number
+    imgUrl: number
+    path: number
     createdAt: number
     updatedAt: number
     deletedAt: number
     gameCategoryId: number
+    status: number
     _all: number
   }
 
@@ -11884,28 +11896,40 @@ export namespace Prisma {
   export type GameMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    imgUrl?: true
+    path?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     gameCategoryId?: true
+    status?: true
   }
 
   export type GameMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    imgUrl?: true
+    path?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     gameCategoryId?: true
+    status?: true
   }
 
   export type GameCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
+    imgUrl?: true
+    path?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
     gameCategoryId?: true
+    status?: true
     _all?: true
   }
 
@@ -11998,10 +12022,14 @@ export namespace Prisma {
   export type GameGroupByOutputType = {
     id: number
     name: string
+    description: string
+    imgUrl: string | null
+    path: string
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
     gameCategoryId: number
+    status: string
     _count: GameCountAggregateOutputType | null
     _avg: GameAvgAggregateOutputType | null
     _sum: GameSumAggregateOutputType | null
@@ -12026,10 +12054,14 @@ export namespace Prisma {
   export type GameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    imgUrl?: boolean
+    path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     gameCategoryId?: boolean
+    status?: boolean
     gameCategory?: boolean | GameCategoryDefaultArgs<ExtArgs>
     results?: boolean | Game$resultsArgs<ExtArgs>
     _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
@@ -12038,33 +12070,45 @@ export namespace Prisma {
   export type GameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    imgUrl?: boolean
+    path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     gameCategoryId?: boolean
+    status?: boolean
     gameCategory?: boolean | GameCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
+    imgUrl?: boolean
+    path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     gameCategoryId?: boolean
+    status?: boolean
     gameCategory?: boolean | GameCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
+    imgUrl?: boolean
+    path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     gameCategoryId?: boolean
+    status?: boolean
   }
 
-  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "deletedAt" | "gameCategoryId", ExtArgs["result"]["game"]>
+  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "imgUrl" | "path" | "createdAt" | "updatedAt" | "deletedAt" | "gameCategoryId" | "status", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameCategory?: boolean | GameCategoryDefaultArgs<ExtArgs>
     results?: boolean | Game$resultsArgs<ExtArgs>
@@ -12086,10 +12130,14 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      description: string
+      imgUrl: string | null
+      path: string
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
       gameCategoryId: number
+      status: string
     }, ExtArgs["result"]["game"]>
     composites: {}
   }
@@ -12517,10 +12565,14 @@ export namespace Prisma {
   interface GameFieldRefs {
     readonly id: FieldRef<"Game", 'Int'>
     readonly name: FieldRef<"Game", 'String'>
+    readonly description: FieldRef<"Game", 'String'>
+    readonly imgUrl: FieldRef<"Game", 'String'>
+    readonly path: FieldRef<"Game", 'String'>
     readonly createdAt: FieldRef<"Game", 'DateTime'>
     readonly updatedAt: FieldRef<"Game", 'DateTime'>
     readonly deletedAt: FieldRef<"Game", 'DateTime'>
     readonly gameCategoryId: FieldRef<"Game", 'Int'>
+    readonly status: FieldRef<"Game", 'String'>
   }
     
 
@@ -12985,6 +13037,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    color: string | null
   }
 
   export type GameCategoryMaxAggregateOutputType = {
@@ -12993,6 +13046,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    color: string | null
   }
 
   export type GameCategoryCountAggregateOutputType = {
@@ -13001,6 +13055,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     deletedAt: number
+    color: number
     _all: number
   }
 
@@ -13019,6 +13074,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    color?: true
   }
 
   export type GameCategoryMaxAggregateInputType = {
@@ -13027,6 +13083,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    color?: true
   }
 
   export type GameCategoryCountAggregateInputType = {
@@ -13035,6 +13092,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    color?: true
     _all?: true
   }
 
@@ -13130,6 +13188,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    color: string | null
     _count: GameCategoryCountAggregateOutputType | null
     _avg: GameCategoryAvgAggregateOutputType | null
     _sum: GameCategorySumAggregateOutputType | null
@@ -13157,6 +13216,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    color?: boolean
     games?: boolean | GameCategory$gamesArgs<ExtArgs>
     _count?: boolean | GameCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameCategory"]>
@@ -13167,6 +13227,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    color?: boolean
   }, ExtArgs["result"]["gameCategory"]>
 
   export type GameCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13175,6 +13236,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    color?: boolean
   }, ExtArgs["result"]["gameCategory"]>
 
   export type GameCategorySelectScalar = {
@@ -13183,9 +13245,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    color?: boolean
   }
 
-  export type GameCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["gameCategory"]>
+  export type GameCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "deletedAt" | "color", ExtArgs["result"]["gameCategory"]>
   export type GameCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     games?: boolean | GameCategory$gamesArgs<ExtArgs>
     _count?: boolean | GameCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -13204,6 +13267,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      color: string | null
     }, ExtArgs["result"]["gameCategory"]>
     composites: {}
   }
@@ -13633,6 +13697,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"GameCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"GameCategory", 'DateTime'>
     readonly deletedAt: FieldRef<"GameCategory", 'DateTime'>
+    readonly color: FieldRef<"GameCategory", 'String'>
   }
     
 
@@ -17897,10 +17962,14 @@ export namespace Prisma {
   export const GameScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
+    imgUrl: 'imgUrl',
+    path: 'path',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
-    gameCategoryId: 'gameCategoryId'
+    gameCategoryId: 'gameCategoryId',
+    status: 'status'
   };
 
   export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -17911,7 +17980,8 @@ export namespace Prisma {
     name: 'name',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    color: 'color'
   };
 
   export type GameCategoryScalarFieldEnum = (typeof GameCategoryScalarFieldEnum)[keyof typeof GameCategoryScalarFieldEnum]
@@ -18698,10 +18768,14 @@ export namespace Prisma {
     NOT?: GameWhereInput | GameWhereInput[]
     id?: IntFilter<"Game"> | number
     name?: StringFilter<"Game"> | string
+    description?: StringFilter<"Game"> | string
+    imgUrl?: StringNullableFilter<"Game"> | string | null
+    path?: StringFilter<"Game"> | string
     createdAt?: DateTimeFilter<"Game"> | Date | string
     updatedAt?: DateTimeFilter<"Game"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Game"> | Date | string | null
     gameCategoryId?: IntFilter<"Game"> | number
+    status?: StringFilter<"Game"> | string
     gameCategory?: XOR<GameCategoryScalarRelationFilter, GameCategoryWhereInput>
     results?: GameResultListRelationFilter
   }
@@ -18709,10 +18783,14 @@ export namespace Prisma {
   export type GameOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    imgUrl?: SortOrderInput | SortOrder
+    path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     gameCategoryId?: SortOrder
+    status?: SortOrder
     gameCategory?: GameCategoryOrderByWithRelationInput
     results?: GameResultOrderByRelationAggregateInput
   }
@@ -18723,10 +18801,14 @@ export namespace Prisma {
     OR?: GameWhereInput[]
     NOT?: GameWhereInput | GameWhereInput[]
     name?: StringFilter<"Game"> | string
+    description?: StringFilter<"Game"> | string
+    imgUrl?: StringNullableFilter<"Game"> | string | null
+    path?: StringFilter<"Game"> | string
     createdAt?: DateTimeFilter<"Game"> | Date | string
     updatedAt?: DateTimeFilter<"Game"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Game"> | Date | string | null
     gameCategoryId?: IntFilter<"Game"> | number
+    status?: StringFilter<"Game"> | string
     gameCategory?: XOR<GameCategoryScalarRelationFilter, GameCategoryWhereInput>
     results?: GameResultListRelationFilter
   }, "id">
@@ -18734,10 +18816,14 @@ export namespace Prisma {
   export type GameOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    imgUrl?: SortOrderInput | SortOrder
+    path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     gameCategoryId?: SortOrder
+    status?: SortOrder
     _count?: GameCountOrderByAggregateInput
     _avg?: GameAvgOrderByAggregateInput
     _max?: GameMaxOrderByAggregateInput
@@ -18751,10 +18837,14 @@ export namespace Prisma {
     NOT?: GameScalarWhereWithAggregatesInput | GameScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Game"> | number
     name?: StringWithAggregatesFilter<"Game"> | string
+    description?: StringWithAggregatesFilter<"Game"> | string
+    imgUrl?: StringNullableWithAggregatesFilter<"Game"> | string | null
+    path?: StringWithAggregatesFilter<"Game"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Game"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Game"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Game"> | Date | string | null
     gameCategoryId?: IntWithAggregatesFilter<"Game"> | number
+    status?: StringWithAggregatesFilter<"Game"> | string
   }
 
   export type GameCategoryWhereInput = {
@@ -18766,6 +18856,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GameCategory"> | Date | string
     updatedAt?: DateTimeFilter<"GameCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"GameCategory"> | Date | string | null
+    color?: StringNullableFilter<"GameCategory"> | string | null
     games?: GameListRelationFilter
   }
 
@@ -18775,6 +18866,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     games?: GameOrderByRelationAggregateInput
   }
 
@@ -18787,6 +18879,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GameCategory"> | Date | string
     updatedAt?: DateTimeFilter<"GameCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"GameCategory"> | Date | string | null
+    color?: StringNullableFilter<"GameCategory"> | string | null
     games?: GameListRelationFilter
   }, "id">
 
@@ -18796,6 +18889,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     _count?: GameCategoryCountOrderByAggregateInput
     _avg?: GameCategoryAvgOrderByAggregateInput
     _max?: GameCategoryMaxOrderByAggregateInput
@@ -18812,6 +18906,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"GameCategory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"GameCategory"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"GameCategory"> | Date | string | null
+    color?: StringNullableWithAggregatesFilter<"GameCategory"> | string | null
   }
 
   export type DataMovieWhereInput = {
@@ -19730,9 +19825,13 @@ export namespace Prisma {
 
   export type GameCreateInput = {
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    status?: string
     gameCategory: GameCategoryCreateNestedOneWithoutGamesInput
     results?: GameResultCreateNestedManyWithoutGameInput
   }
@@ -19740,18 +19839,26 @@ export namespace Prisma {
   export type GameUncheckedCreateInput = {
     id?: number
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     gameCategoryId: number
+    status?: string
     results?: GameResultUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GameUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
     gameCategory?: GameCategoryUpdateOneRequiredWithoutGamesNestedInput
     results?: GameResultUpdateManyWithoutGameNestedInput
   }
@@ -19759,36 +19866,52 @@ export namespace Prisma {
   export type GameUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameCategoryId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     results?: GameResultUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameCreateManyInput = {
     id?: number
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     gameCategoryId: number
+    status?: string
   }
 
   export type GameUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameCategoryId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameCategoryCreateInput = {
@@ -19796,6 +19919,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    color?: string | null
     games?: GameCreateNestedManyWithoutGameCategoryInput
   }
 
@@ -19805,6 +19929,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    color?: string | null
     games?: GameUncheckedCreateNestedManyWithoutGameCategoryInput
   }
 
@@ -19813,6 +19938,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     games?: GameUpdateManyWithoutGameCategoryNestedInput
   }
 
@@ -19822,6 +19948,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     games?: GameUncheckedUpdateManyWithoutGameCategoryNestedInput
   }
 
@@ -19831,6 +19958,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    color?: string | null
   }
 
   export type GameCategoryUpdateManyMutationInput = {
@@ -19838,6 +19966,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameCategoryUncheckedUpdateManyInput = {
@@ -19846,6 +19975,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DataMovieCreateInput = {
@@ -20848,10 +20978,14 @@ export namespace Prisma {
   export type GameCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    imgUrl?: SortOrder
+    path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     gameCategoryId?: SortOrder
+    status?: SortOrder
   }
 
   export type GameAvgOrderByAggregateInput = {
@@ -20862,19 +20996,27 @@ export namespace Prisma {
   export type GameMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    imgUrl?: SortOrder
+    path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     gameCategoryId?: SortOrder
+    status?: SortOrder
   }
 
   export type GameMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
+    imgUrl?: SortOrder
+    path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
     gameCategoryId?: SortOrder
+    status?: SortOrder
   }
 
   export type GameSumOrderByAggregateInput = {
@@ -20898,6 +21040,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    color?: SortOrder
   }
 
   export type GameCategoryAvgOrderByAggregateInput = {
@@ -20910,6 +21053,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    color?: SortOrder
   }
 
   export type GameCategoryMinOrderByAggregateInput = {
@@ -20918,6 +21062,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    color?: SortOrder
   }
 
   export type GameCategorySumOrderByAggregateInput = {
@@ -24154,19 +24299,27 @@ export namespace Prisma {
 
   export type GameCreateWithoutResultsInput = {
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    status?: string
     gameCategory: GameCategoryCreateNestedOneWithoutGamesInput
   }
 
   export type GameUncheckedCreateWithoutResultsInput = {
     id?: number
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     gameCategoryId: number
+    status?: string
   }
 
   export type GameCreateOrConnectWithoutResultsInput = {
@@ -24235,19 +24388,27 @@ export namespace Prisma {
 
   export type GameUpdateWithoutResultsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
     gameCategory?: GameCategoryUpdateOneRequiredWithoutGamesNestedInput
   }
 
   export type GameUncheckedUpdateWithoutResultsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gameCategoryId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameCategoryCreateWithoutGamesInput = {
@@ -24255,6 +24416,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    color?: string | null
   }
 
   export type GameCategoryUncheckedCreateWithoutGamesInput = {
@@ -24263,6 +24425,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    color?: string | null
   }
 
   export type GameCategoryCreateOrConnectWithoutGamesInput = {
@@ -24315,6 +24478,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameCategoryUncheckedUpdateWithoutGamesInput = {
@@ -24323,6 +24487,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameResultUpsertWithWhereUniqueWithoutGameInput = {
@@ -24343,18 +24508,26 @@ export namespace Prisma {
 
   export type GameCreateWithoutGameCategoryInput = {
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    status?: string
     results?: GameResultCreateNestedManyWithoutGameInput
   }
 
   export type GameUncheckedCreateWithoutGameCategoryInput = {
     id?: number
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    status?: string
     results?: GameResultUncheckedCreateNestedManyWithoutGameInput
   }
 
@@ -24390,10 +24563,14 @@ export namespace Prisma {
     NOT?: GameScalarWhereInput | GameScalarWhereInput[]
     id?: IntFilter<"Game"> | number
     name?: StringFilter<"Game"> | string
+    description?: StringFilter<"Game"> | string
+    imgUrl?: StringNullableFilter<"Game"> | string | null
+    path?: StringFilter<"Game"> | string
     createdAt?: DateTimeFilter<"Game"> | Date | string
     updatedAt?: DateTimeFilter<"Game"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Game"> | Date | string | null
     gameCategoryId?: IntFilter<"Game"> | number
+    status?: StringFilter<"Game"> | string
   }
 
   export type GameCinema1DaysCreateWithoutMovieInput = {
@@ -25256,34 +25433,50 @@ export namespace Prisma {
   export type GameCreateManyGameCategoryInput = {
     id?: number
     name: string
+    description?: string
+    imgUrl?: string | null
+    path?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    status?: string
   }
 
   export type GameUpdateWithoutGameCategoryInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
     results?: GameResultUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateWithoutGameCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
     results?: GameResultUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateManyWithoutGameCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    imgUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameCinema1DaysCreateManyMovieInput = {

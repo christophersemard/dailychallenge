@@ -19,7 +19,7 @@ export default function Header() {
             if (status === "authenticated") {
 
                 try {
-                    const { data: userData, error } = await fetchClientWithAuth<UserMe>("/users/me");
+                    const { data: userData, error } = await fetchClientWithAuth<UserMe>("/api/users/me");
 
                     if (error || !userData) {
                         console.error("Error fetching user data:", error);
