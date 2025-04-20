@@ -50,15 +50,7 @@ export class UserGameService {
         await this.handleLevelUpEvent(userId, gameId, gameResult);
 
         // Gérer les événements supplémentaires
-        await this.handleGameEvents(
-            userId,
-            gameId,
-            score,
-            attempts,
-            maxAttempts,
-            status,
-            new Date(gameDate)
-        );
+        await this.handleGameEvents(userId, attempts, gameResult);
 
         return gameResult;
     }
@@ -226,7 +218,11 @@ export class UserGameService {
             await this.userEventsService.addEvent(
                 userId,
                 "level_up",
-                `Nouveau niveau ${level} atteint !`
+                undefined,
+                undefined,
+                gameResult,
+                level,
+                undefined
             );
 
             await prisma.userStats.update({
@@ -239,30 +235,36 @@ export class UserGameService {
     // Gérer les autres événements
     public async handleGameEvents(
         userId: number,
-        gameId: number,
-        score: number,
         attempts: number,
-        maxAttempts: number,
-        status: "passed" | "failed",
-        gameDate: Date
+        gameResult: any
     ) {
         if (status === "passed") {
             await this.userEventsService.addEvent(
                 userId,
                 "game_completed",
-                `Jeu ${gameId} du ${gameDate.toLocaleDateString()} terminé avec succès en ${attempts} essais (${score} points)`
+                undefined,
+                undefined,
+                gameResult,
+                undefined,
+                attempts
             );
         } else if (status === "failed") {
             await this.userEventsService.addEvent(
                 userId,
                 "game_failed",
-                `Jeu ${gameId} échoué`
+                undefined,
+                undefined,
+                gameResult,
+                undefined,
+                attempts
             );
         }
     }
 
     // Calcul du niveau du joueur
-    public calculateLevel(xpTotal: number): {
+    public calculateLevel(
+        xpTotal: number
+    ): {
         level: number;
         xpToNextLevel: number;
     } {

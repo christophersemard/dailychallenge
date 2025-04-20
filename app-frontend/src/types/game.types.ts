@@ -7,6 +7,12 @@ export type GameResult = {
     status: "passed" | "failed";
     date: string;
     deletedAt: string | null;
+    game: {
+        id: number;
+        name: string;
+        imgUrl: string | null;
+        path: string;
+    } | null;
 };
 
 export type Try = {

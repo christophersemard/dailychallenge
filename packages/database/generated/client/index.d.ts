@@ -2078,6 +2078,7 @@ export namespace Prisma {
     eyes: number
     mouths: number
     patterns: number
+    userEvents: number
   }
 
   export type AvatarAssetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2085,6 +2086,7 @@ export namespace Prisma {
     eyes?: boolean | AvatarAssetCountOutputTypeCountEyesArgs
     mouths?: boolean | AvatarAssetCountOutputTypeCountMouthsArgs
     patterns?: boolean | AvatarAssetCountOutputTypeCountPatternsArgs
+    userEvents?: boolean | AvatarAssetCountOutputTypeCountUserEventsArgs
   }
 
   // Custom InputTypes
@@ -2124,6 +2126,75 @@ export namespace Prisma {
    */
   export type AvatarAssetCountOutputTypeCountPatternsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AvatarWhereInput
+  }
+
+  /**
+   * AvatarAssetCountOutputType without action
+   */
+  export type AvatarAssetCountOutputTypeCountUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
+  }
+
+
+  /**
+   * Count Type FriendCountOutputType
+   */
+
+  export type FriendCountOutputType = {
+    userEvents: number
+  }
+
+  export type FriendCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userEvents?: boolean | FriendCountOutputTypeCountUserEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FriendCountOutputType without action
+   */
+  export type FriendCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FriendCountOutputType
+     */
+    select?: FriendCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FriendCountOutputType without action
+   */
+  export type FriendCountOutputTypeCountUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
+  }
+
+
+  /**
+   * Count Type GameResultCountOutputType
+   */
+
+  export type GameResultCountOutputType = {
+    userEvents: number
+  }
+
+  export type GameResultCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    userEvents?: boolean | GameResultCountOutputTypeCountUserEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameResultCountOutputType without action
+   */
+  export type GameResultCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameResultCountOutputType
+     */
+    select?: GameResultCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameResultCountOutputType without action
+   */
+  export type GameResultCountOutputTypeCountUserEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserEventWhereInput
   }
 
 
@@ -6310,6 +6381,7 @@ export namespace Prisma {
     eyes?: boolean | AvatarAsset$eyesArgs<ExtArgs>
     mouths?: boolean | AvatarAsset$mouthsArgs<ExtArgs>
     patterns?: boolean | AvatarAsset$patternsArgs<ExtArgs>
+    userEvents?: boolean | AvatarAsset$userEventsArgs<ExtArgs>
     _count?: boolean | AvatarAssetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["avatarAsset"]>
 
@@ -6346,6 +6418,7 @@ export namespace Prisma {
     eyes?: boolean | AvatarAsset$eyesArgs<ExtArgs>
     mouths?: boolean | AvatarAsset$mouthsArgs<ExtArgs>
     patterns?: boolean | AvatarAsset$patternsArgs<ExtArgs>
+    userEvents?: boolean | AvatarAsset$userEventsArgs<ExtArgs>
     _count?: boolean | AvatarAssetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AvatarAssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6358,6 +6431,7 @@ export namespace Prisma {
       eyes: Prisma.$AvatarPayload<ExtArgs>[]
       mouths: Prisma.$AvatarPayload<ExtArgs>[]
       patterns: Prisma.$AvatarPayload<ExtArgs>[]
+      userEvents: Prisma.$UserEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6764,6 +6838,7 @@ export namespace Prisma {
     eyes<T extends AvatarAsset$eyesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$eyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     mouths<T extends AvatarAsset$mouthsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$mouthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     patterns<T extends AvatarAsset$patternsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$patternsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    userEvents<T extends AvatarAsset$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7283,6 +7358,30 @@ export namespace Prisma {
   }
 
   /**
+   * AvatarAsset.userEvents
+   */
+  export type AvatarAsset$userEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEvent
+     */
+    omit?: UserEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    cursor?: UserEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
+  }
+
+  /**
    * AvatarAsset without action
    */
   export type AvatarAssetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7517,6 +7616,8 @@ export namespace Prisma {
     deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     friend?: boolean | UserDefaultArgs<ExtArgs>
+    userEvents?: boolean | Friend$userEventsArgs<ExtArgs>
+    _count?: boolean | FriendCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["friend"]>
 
   export type FriendSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7554,6 +7655,8 @@ export namespace Prisma {
   export type FriendInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     friend?: boolean | UserDefaultArgs<ExtArgs>
+    userEvents?: boolean | Friend$userEventsArgs<ExtArgs>
+    _count?: boolean | FriendCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FriendIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7569,6 +7672,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       friend: Prisma.$UserPayload<ExtArgs>
+      userEvents: Prisma.$UserEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7973,6 +8077,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     friend<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    userEvents<T extends Friend$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, Friend$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8401,6 +8506,30 @@ export namespace Prisma {
      * Limit how many Friends to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Friend.userEvents
+   */
+  export type Friend$userEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEvent
+     */
+    omit?: UserEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    cursor?: UserEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
   }
 
   /**
@@ -9584,35 +9713,57 @@ export namespace Prisma {
   export type UserEventAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    avatarAssetId: number | null
+    friendId: number | null
+    gameResultId: number | null
+    levelUp: number | null
+    attempts: number | null
   }
 
   export type UserEventSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    avatarAssetId: number | null
+    friendId: number | null
+    gameResultId: number | null
+    levelUp: number | null
+    attempts: number | null
   }
 
   export type UserEventMinAggregateOutputType = {
     id: number | null
     userId: number | null
     type: string | null
-    details: string | null
     createdAt: Date | null
+    avatarAssetId: number | null
+    friendId: number | null
+    gameResultId: number | null
+    levelUp: number | null
+    attempts: number | null
   }
 
   export type UserEventMaxAggregateOutputType = {
     id: number | null
     userId: number | null
     type: string | null
-    details: string | null
     createdAt: Date | null
+    avatarAssetId: number | null
+    friendId: number | null
+    gameResultId: number | null
+    levelUp: number | null
+    attempts: number | null
   }
 
   export type UserEventCountAggregateOutputType = {
     id: number
     userId: number
     type: number
-    details: number
     createdAt: number
+    avatarAssetId: number
+    friendId: number
+    gameResultId: number
+    levelUp: number
+    attempts: number
     _all: number
   }
 
@@ -9620,35 +9771,57 @@ export namespace Prisma {
   export type UserEventAvgAggregateInputType = {
     id?: true
     userId?: true
+    avatarAssetId?: true
+    friendId?: true
+    gameResultId?: true
+    levelUp?: true
+    attempts?: true
   }
 
   export type UserEventSumAggregateInputType = {
     id?: true
     userId?: true
+    avatarAssetId?: true
+    friendId?: true
+    gameResultId?: true
+    levelUp?: true
+    attempts?: true
   }
 
   export type UserEventMinAggregateInputType = {
     id?: true
     userId?: true
     type?: true
-    details?: true
     createdAt?: true
+    avatarAssetId?: true
+    friendId?: true
+    gameResultId?: true
+    levelUp?: true
+    attempts?: true
   }
 
   export type UserEventMaxAggregateInputType = {
     id?: true
     userId?: true
     type?: true
-    details?: true
     createdAt?: true
+    avatarAssetId?: true
+    friendId?: true
+    gameResultId?: true
+    levelUp?: true
+    attempts?: true
   }
 
   export type UserEventCountAggregateInputType = {
     id?: true
     userId?: true
     type?: true
-    details?: true
     createdAt?: true
+    avatarAssetId?: true
+    friendId?: true
+    gameResultId?: true
+    levelUp?: true
+    attempts?: true
     _all?: true
   }
 
@@ -9742,8 +9915,12 @@ export namespace Prisma {
     id: number
     userId: number
     type: string
-    details: string | null
     createdAt: Date
+    avatarAssetId: number | null
+    friendId: number | null
+    gameResultId: number | null
+    levelUp: number | null
+    attempts: number | null
     _count: UserEventCountAggregateOutputType | null
     _avg: UserEventAvgAggregateOutputType | null
     _sum: UserEventSumAggregateOutputType | null
@@ -9769,8 +9946,15 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
-    details?: boolean
     createdAt?: boolean
+    avatarAssetId?: boolean
+    friendId?: boolean
+    gameResultId?: boolean
+    levelUp?: boolean
+    attempts?: boolean
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userEvent"]>
 
@@ -9778,8 +9962,15 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
-    details?: boolean
     createdAt?: boolean
+    avatarAssetId?: boolean
+    friendId?: boolean
+    gameResultId?: boolean
+    levelUp?: boolean
+    attempts?: boolean
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userEvent"]>
 
@@ -9787,8 +9978,15 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
-    details?: boolean
     createdAt?: boolean
+    avatarAssetId?: boolean
+    friendId?: boolean
+    gameResultId?: boolean
+    levelUp?: boolean
+    attempts?: boolean
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userEvent"]>
 
@@ -9796,32 +9994,52 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
-    details?: boolean
     createdAt?: boolean
+    avatarAssetId?: boolean
+    friendId?: boolean
+    gameResultId?: boolean
+    levelUp?: boolean
+    attempts?: boolean
   }
 
-  export type UserEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "details" | "createdAt", ExtArgs["result"]["userEvent"]>
+  export type UserEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "createdAt" | "avatarAssetId" | "friendId" | "gameResultId" | "levelUp" | "attempts", ExtArgs["result"]["userEvent"]>
   export type UserEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatarAsset?: boolean | UserEvent$avatarAssetArgs<ExtArgs>
+    friend?: boolean | UserEvent$friendArgs<ExtArgs>
+    gameResult?: boolean | UserEvent$gameResultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserEvent"
     objects: {
+      avatarAsset: Prisma.$AvatarAssetPayload<ExtArgs> | null
+      friend: Prisma.$FriendPayload<ExtArgs> | null
+      gameResult: Prisma.$GameResultPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number
       type: string
-      details: string | null
       createdAt: Date
+      avatarAssetId: number | null
+      friendId: number | null
+      gameResultId: number | null
+      levelUp: number | null
+      attempts: number | null
     }, ExtArgs["result"]["userEvent"]>
     composites: {}
   }
@@ -10216,6 +10434,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    avatarAsset<T extends UserEvent$avatarAssetArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$avatarAssetArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    friend<T extends UserEvent$friendArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$friendArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    gameResult<T extends UserEvent$gameResultArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$gameResultArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10249,8 +10470,12 @@ export namespace Prisma {
     readonly id: FieldRef<"UserEvent", 'Int'>
     readonly userId: FieldRef<"UserEvent", 'Int'>
     readonly type: FieldRef<"UserEvent", 'String'>
-    readonly details: FieldRef<"UserEvent", 'String'>
     readonly createdAt: FieldRef<"UserEvent", 'DateTime'>
+    readonly avatarAssetId: FieldRef<"UserEvent", 'Int'>
+    readonly friendId: FieldRef<"UserEvent", 'Int'>
+    readonly gameResultId: FieldRef<"UserEvent", 'Int'>
+    readonly levelUp: FieldRef<"UserEvent", 'Int'>
+    readonly attempts: FieldRef<"UserEvent", 'Int'>
   }
     
 
@@ -10647,6 +10872,63 @@ export namespace Prisma {
   }
 
   /**
+   * UserEvent.avatarAsset
+   */
+  export type UserEvent$avatarAssetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarAsset
+     */
+    select?: AvatarAssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarAsset
+     */
+    omit?: AvatarAssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarAssetInclude<ExtArgs> | null
+    where?: AvatarAssetWhereInput
+  }
+
+  /**
+   * UserEvent.friend
+   */
+  export type UserEvent$friendArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Friend
+     */
+    select?: FriendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Friend
+     */
+    omit?: FriendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FriendInclude<ExtArgs> | null
+    where?: FriendWhereInput
+  }
+
+  /**
+   * UserEvent.gameResult
+   */
+  export type UserEvent$gameResultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameResult
+     */
+    select?: GameResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameResult
+     */
+    omit?: GameResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameResultInclude<ExtArgs> | null
+    where?: GameResultWhereInput
+  }
+
+  /**
    * UserEvent without action
    */
   export type UserEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10905,6 +11187,8 @@ export namespace Prisma {
     deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
+    userEvents?: boolean | GameResult$userEventsArgs<ExtArgs>
+    _count?: boolean | GameResultCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gameResult"]>
 
   export type GameResultSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10948,6 +11232,8 @@ export namespace Prisma {
   export type GameResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     game?: boolean | GameDefaultArgs<ExtArgs>
+    userEvents?: boolean | GameResult$userEventsArgs<ExtArgs>
+    _count?: boolean | GameResultCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GameResultIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -10963,6 +11249,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       game: Prisma.$GamePayload<ExtArgs>
+      userEvents: Prisma.$UserEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11369,6 +11656,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    userEvents<T extends GameResult$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, GameResult$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11799,6 +12087,30 @@ export namespace Prisma {
      * Limit how many GameResults to delete.
      */
     limit?: number
+  }
+
+  /**
+   * GameResult.userEvents
+   */
+  export type GameResult$userEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserEvent
+     */
+    select?: UserEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserEvent
+     */
+    omit?: UserEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserEventInclude<ExtArgs> | null
+    where?: UserEventWhereInput
+    orderBy?: UserEventOrderByWithRelationInput | UserEventOrderByWithRelationInput[]
+    cursor?: UserEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserEventScalarFieldEnum | UserEventScalarFieldEnum[]
   }
 
   /**
@@ -17938,8 +18250,12 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     type: 'type',
-    details: 'details',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    avatarAssetId: 'avatarAssetId',
+    friendId: 'friendId',
+    gameResultId: 'gameResultId',
+    levelUp: 'levelUp',
+    attempts: 'attempts'
   };
 
   export type UserEventScalarFieldEnum = (typeof UserEventScalarFieldEnum)[keyof typeof UserEventScalarFieldEnum]
@@ -18435,6 +18751,7 @@ export namespace Prisma {
     eyes?: AvatarListRelationFilter
     mouths?: AvatarListRelationFilter
     patterns?: AvatarListRelationFilter
+    userEvents?: UserEventListRelationFilter
   }
 
   export type AvatarAssetOrderByWithRelationInput = {
@@ -18448,6 +18765,7 @@ export namespace Prisma {
     eyes?: AvatarOrderByRelationAggregateInput
     mouths?: AvatarOrderByRelationAggregateInput
     patterns?: AvatarOrderByRelationAggregateInput
+    userEvents?: UserEventOrderByRelationAggregateInput
   }
 
   export type AvatarAssetWhereUniqueInput = Prisma.AtLeast<{
@@ -18464,6 +18782,7 @@ export namespace Prisma {
     eyes?: AvatarListRelationFilter
     mouths?: AvatarListRelationFilter
     patterns?: AvatarListRelationFilter
+    userEvents?: UserEventListRelationFilter
   }, "id">
 
   export type AvatarAssetOrderByWithAggregationInput = {
@@ -18504,6 +18823,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Friend"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userEvents?: UserEventListRelationFilter
   }
 
   export type FriendOrderByWithRelationInput = {
@@ -18515,6 +18835,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     friend?: UserOrderByWithRelationInput
+    userEvents?: UserEventOrderByRelationAggregateInput
   }
 
   export type FriendWhereUniqueInput = Prisma.AtLeast<{
@@ -18530,6 +18851,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Friend"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+    userEvents?: UserEventListRelationFilter
   }, "id" | "userId_friendId">
 
   export type FriendOrderByWithAggregationInput = {
@@ -18637,8 +18959,15 @@ export namespace Prisma {
     id?: IntFilter<"UserEvent"> | number
     userId?: IntFilter<"UserEvent"> | number
     type?: StringFilter<"UserEvent"> | string
-    details?: StringNullableFilter<"UserEvent"> | string | null
     createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+    avatarAssetId?: IntNullableFilter<"UserEvent"> | number | null
+    friendId?: IntNullableFilter<"UserEvent"> | number | null
+    gameResultId?: IntNullableFilter<"UserEvent"> | number | null
+    levelUp?: IntNullableFilter<"UserEvent"> | number | null
+    attempts?: IntNullableFilter<"UserEvent"> | number | null
+    avatarAsset?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
+    friend?: XOR<FriendNullableScalarRelationFilter, FriendWhereInput> | null
+    gameResult?: XOR<GameResultNullableScalarRelationFilter, GameResultWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -18646,8 +18975,15 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
-    details?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    avatarAssetId?: SortOrderInput | SortOrder
+    friendId?: SortOrderInput | SortOrder
+    gameResultId?: SortOrderInput | SortOrder
+    levelUp?: SortOrderInput | SortOrder
+    attempts?: SortOrderInput | SortOrder
+    avatarAsset?: AvatarAssetOrderByWithRelationInput
+    friend?: FriendOrderByWithRelationInput
+    gameResult?: GameResultOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -18658,8 +18994,15 @@ export namespace Prisma {
     NOT?: UserEventWhereInput | UserEventWhereInput[]
     userId?: IntFilter<"UserEvent"> | number
     type?: StringFilter<"UserEvent"> | string
-    details?: StringNullableFilter<"UserEvent"> | string | null
     createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+    avatarAssetId?: IntNullableFilter<"UserEvent"> | number | null
+    friendId?: IntNullableFilter<"UserEvent"> | number | null
+    gameResultId?: IntNullableFilter<"UserEvent"> | number | null
+    levelUp?: IntNullableFilter<"UserEvent"> | number | null
+    attempts?: IntNullableFilter<"UserEvent"> | number | null
+    avatarAsset?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
+    friend?: XOR<FriendNullableScalarRelationFilter, FriendWhereInput> | null
+    gameResult?: XOR<GameResultNullableScalarRelationFilter, GameResultWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
@@ -18667,8 +19010,12 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
-    details?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    avatarAssetId?: SortOrderInput | SortOrder
+    friendId?: SortOrderInput | SortOrder
+    gameResultId?: SortOrderInput | SortOrder
+    levelUp?: SortOrderInput | SortOrder
+    attempts?: SortOrderInput | SortOrder
     _count?: UserEventCountOrderByAggregateInput
     _avg?: UserEventAvgOrderByAggregateInput
     _max?: UserEventMaxOrderByAggregateInput
@@ -18683,8 +19030,12 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"UserEvent"> | number
     userId?: IntWithAggregatesFilter<"UserEvent"> | number
     type?: StringWithAggregatesFilter<"UserEvent"> | string
-    details?: StringNullableWithAggregatesFilter<"UserEvent"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UserEvent"> | Date | string
+    avatarAssetId?: IntNullableWithAggregatesFilter<"UserEvent"> | number | null
+    friendId?: IntNullableWithAggregatesFilter<"UserEvent"> | number | null
+    gameResultId?: IntNullableWithAggregatesFilter<"UserEvent"> | number | null
+    levelUp?: IntNullableWithAggregatesFilter<"UserEvent"> | number | null
+    attempts?: IntNullableWithAggregatesFilter<"UserEvent"> | number | null
   }
 
   export type GameResultWhereInput = {
@@ -18701,6 +19052,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"GameResult"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
+    userEvents?: UserEventListRelationFilter
   }
 
   export type GameResultOrderByWithRelationInput = {
@@ -18714,6 +19066,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     game?: GameOrderByWithRelationInput
+    userEvents?: UserEventOrderByRelationAggregateInput
   }
 
   export type GameResultWhereUniqueInput = Prisma.AtLeast<{
@@ -18730,6 +19083,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"GameResult"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     game?: XOR<GameScalarRelationFilter, GameWhereInput>
+    userEvents?: UserEventListRelationFilter
   }, "id">
 
   export type GameResultOrderByWithAggregationInput = {
@@ -19502,6 +19856,7 @@ export namespace Prisma {
     eyes?: AvatarCreateNestedManyWithoutEyesInput
     mouths?: AvatarCreateNestedManyWithoutMouthInput
     patterns?: AvatarCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUncheckedCreateInput = {
@@ -19515,6 +19870,7 @@ export namespace Prisma {
     eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
     mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
     patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUpdateInput = {
@@ -19527,6 +19883,7 @@ export namespace Prisma {
     eyes?: AvatarUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUncheckedUpdateInput = {
@@ -19540,6 +19897,7 @@ export namespace Prisma {
     eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetCreateManyInput = {
@@ -19574,6 +19932,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutFriendsInput
     friend: UserCreateNestedOneWithoutFriendInput
+    userEvents?: UserEventCreateNestedManyWithoutFriendInput
   }
 
   export type FriendUncheckedCreateInput = {
@@ -19583,6 +19942,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type FriendUpdateInput = {
@@ -19591,6 +19951,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutFriendsNestedInput
     friend?: UserUpdateOneRequiredWithoutFriendNestedInput
+    userEvents?: UserEventUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendUncheckedUpdateInput = {
@@ -19600,6 +19961,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendCreateManyInput = {
@@ -19701,8 +20063,12 @@ export namespace Prisma {
 
   export type UserEventCreateInput = {
     type: string
-    details?: string | null
     createdAt?: Date | string
+    levelUp?: number | null
+    attempts?: number | null
+    avatarAsset?: AvatarAssetCreateNestedOneWithoutUserEventsInput
+    friend?: FriendCreateNestedOneWithoutUserEventsInput
+    gameResult?: GameResultCreateNestedOneWithoutUserEventsInput
     user: UserCreateNestedOneWithoutUserEventsInput
   }
 
@@ -19710,14 +20076,22 @@ export namespace Prisma {
     id?: number
     userId: number
     type: string
-    details?: string | null
     createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
   }
 
   export type UserEventUpdateInput = {
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarAsset?: AvatarAssetUpdateOneWithoutUserEventsNestedInput
+    friend?: FriendUpdateOneWithoutUserEventsNestedInput
+    gameResult?: GameResultUpdateOneWithoutUserEventsNestedInput
     user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
   }
 
@@ -19725,30 +20099,43 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserEventCreateManyInput = {
     id?: number
     userId: number
     type: string
-    details?: string | null
     createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
   }
 
   export type UserEventUpdateManyMutationInput = {
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserEventUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type GameResultCreateInput = {
@@ -19759,6 +20146,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutGameResultsInput
     game: GameCreateNestedOneWithoutResultsInput
+    userEvents?: UserEventCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultUncheckedCreateInput = {
@@ -19770,6 +20158,7 @@ export namespace Prisma {
     status: string
     date?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultUpdateInput = {
@@ -19780,6 +20169,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutGameResultsNestedInput
     game?: GameUpdateOneRequiredWithoutResultsNestedInput
+    userEvents?: UserEventUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultUncheckedUpdateInput = {
@@ -19791,6 +20181,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultCreateManyInput = {
@@ -20882,38 +21273,70 @@ export namespace Prisma {
     streak?: SortOrder
   }
 
+  export type FriendNullableScalarRelationFilter = {
+    is?: FriendWhereInput | null
+    isNot?: FriendWhereInput | null
+  }
+
+  export type GameResultNullableScalarRelationFilter = {
+    is?: GameResultWhereInput | null
+    isNot?: GameResultWhereInput | null
+  }
+
   export type UserEventCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
-    details?: SortOrder
     createdAt?: SortOrder
+    avatarAssetId?: SortOrder
+    friendId?: SortOrder
+    gameResultId?: SortOrder
+    levelUp?: SortOrder
+    attempts?: SortOrder
   }
 
   export type UserEventAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    avatarAssetId?: SortOrder
+    friendId?: SortOrder
+    gameResultId?: SortOrder
+    levelUp?: SortOrder
+    attempts?: SortOrder
   }
 
   export type UserEventMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
-    details?: SortOrder
     createdAt?: SortOrder
+    avatarAssetId?: SortOrder
+    friendId?: SortOrder
+    gameResultId?: SortOrder
+    levelUp?: SortOrder
+    attempts?: SortOrder
   }
 
   export type UserEventMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
-    details?: SortOrder
     createdAt?: SortOrder
+    avatarAssetId?: SortOrder
+    friendId?: SortOrder
+    gameResultId?: SortOrder
+    levelUp?: SortOrder
+    attempts?: SortOrder
   }
 
   export type UserEventSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    avatarAssetId?: SortOrder
+    friendId?: SortOrder
+    gameResultId?: SortOrder
+    levelUp?: SortOrder
+    attempts?: SortOrder
   }
 
   export type GameScalarRelationFilter = {
@@ -21919,6 +22342,13 @@ export namespace Prisma {
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
   }
 
+  export type UserEventCreateNestedManyWithoutAvatarAssetInput = {
+    create?: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput> | UserEventCreateWithoutAvatarAssetInput[] | UserEventUncheckedCreateWithoutAvatarAssetInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutAvatarAssetInput | UserEventCreateOrConnectWithoutAvatarAssetInput[]
+    createMany?: UserEventCreateManyAvatarAssetInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
   export type AvatarUncheckedCreateNestedManyWithoutShapeInput = {
     create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
     connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
@@ -21945,6 +22375,13 @@ export namespace Prisma {
     connectOrCreate?: AvatarCreateOrConnectWithoutPatternInput | AvatarCreateOrConnectWithoutPatternInput[]
     createMany?: AvatarCreateManyPatternInputEnvelope
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
+  }
+
+  export type UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput = {
+    create?: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput> | UserEventCreateWithoutAvatarAssetInput[] | UserEventUncheckedCreateWithoutAvatarAssetInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutAvatarAssetInput | UserEventCreateOrConnectWithoutAvatarAssetInput[]
+    createMany?: UserEventCreateManyAvatarAssetInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
   }
 
   export type AvatarUpdateManyWithoutShapeNestedInput = {
@@ -22003,6 +22440,20 @@ export namespace Prisma {
     deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
   }
 
+  export type UserEventUpdateManyWithoutAvatarAssetNestedInput = {
+    create?: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput> | UserEventCreateWithoutAvatarAssetInput[] | UserEventUncheckedCreateWithoutAvatarAssetInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutAvatarAssetInput | UserEventCreateOrConnectWithoutAvatarAssetInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutAvatarAssetInput | UserEventUpsertWithWhereUniqueWithoutAvatarAssetInput[]
+    createMany?: UserEventCreateManyAvatarAssetInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutAvatarAssetInput | UserEventUpdateWithWhereUniqueWithoutAvatarAssetInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutAvatarAssetInput | UserEventUpdateManyWithWhereWithoutAvatarAssetInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
   export type AvatarUncheckedUpdateManyWithoutShapeNestedInput = {
     create?: XOR<AvatarCreateWithoutShapeInput, AvatarUncheckedCreateWithoutShapeInput> | AvatarCreateWithoutShapeInput[] | AvatarUncheckedCreateWithoutShapeInput[]
     connectOrCreate?: AvatarCreateOrConnectWithoutShapeInput | AvatarCreateOrConnectWithoutShapeInput[]
@@ -22059,6 +22510,20 @@ export namespace Prisma {
     deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
   }
 
+  export type UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput = {
+    create?: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput> | UserEventCreateWithoutAvatarAssetInput[] | UserEventUncheckedCreateWithoutAvatarAssetInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutAvatarAssetInput | UserEventCreateOrConnectWithoutAvatarAssetInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutAvatarAssetInput | UserEventUpsertWithWhereUniqueWithoutAvatarAssetInput[]
+    createMany?: UserEventCreateManyAvatarAssetInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutAvatarAssetInput | UserEventUpdateWithWhereUniqueWithoutAvatarAssetInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutAvatarAssetInput | UserEventUpdateManyWithWhereWithoutAvatarAssetInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutFriendsInput = {
     create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
@@ -22069,6 +22534,20 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutFriendInput, UserUncheckedCreateWithoutFriendInput>
     connectOrCreate?: UserCreateOrConnectWithoutFriendInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type UserEventCreateNestedManyWithoutFriendInput = {
+    create?: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput> | UserEventCreateWithoutFriendInput[] | UserEventUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutFriendInput | UserEventCreateOrConnectWithoutFriendInput[]
+    createMany?: UserEventCreateManyFriendInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
+  export type UserEventUncheckedCreateNestedManyWithoutFriendInput = {
+    create?: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput> | UserEventCreateWithoutFriendInput[] | UserEventUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutFriendInput | UserEventCreateOrConnectWithoutFriendInput[]
+    createMany?: UserEventCreateManyFriendInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutFriendsNestedInput = {
@@ -22087,6 +22566,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFriendInput, UserUpdateWithoutFriendInput>, UserUncheckedUpdateWithoutFriendInput>
   }
 
+  export type UserEventUpdateManyWithoutFriendNestedInput = {
+    create?: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput> | UserEventCreateWithoutFriendInput[] | UserEventUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutFriendInput | UserEventCreateOrConnectWithoutFriendInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutFriendInput | UserEventUpsertWithWhereUniqueWithoutFriendInput[]
+    createMany?: UserEventCreateManyFriendInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutFriendInput | UserEventUpdateWithWhereUniqueWithoutFriendInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutFriendInput | UserEventUpdateManyWithWhereWithoutFriendInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutFriendNestedInput = {
+    create?: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput> | UserEventCreateWithoutFriendInput[] | UserEventUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutFriendInput | UserEventCreateOrConnectWithoutFriendInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutFriendInput | UserEventUpsertWithWhereUniqueWithoutFriendInput[]
+    createMany?: UserEventCreateManyFriendInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutFriendInput | UserEventUpdateWithWhereUniqueWithoutFriendInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutFriendInput | UserEventUpdateManyWithWhereWithoutFriendInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutUserStatsInput = {
     create?: XOR<UserCreateWithoutUserStatsInput, UserUncheckedCreateWithoutUserStatsInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserStatsInput
@@ -22101,10 +22608,58 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserStatsInput, UserUpdateWithoutUserStatsInput>, UserUncheckedUpdateWithoutUserStatsInput>
   }
 
+  export type AvatarAssetCreateNestedOneWithoutUserEventsInput = {
+    create?: XOR<AvatarAssetCreateWithoutUserEventsInput, AvatarAssetUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutUserEventsInput
+    connect?: AvatarAssetWhereUniqueInput
+  }
+
+  export type FriendCreateNestedOneWithoutUserEventsInput = {
+    create?: XOR<FriendCreateWithoutUserEventsInput, FriendUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: FriendCreateOrConnectWithoutUserEventsInput
+    connect?: FriendWhereUniqueInput
+  }
+
+  export type GameResultCreateNestedOneWithoutUserEventsInput = {
+    create?: XOR<GameResultCreateWithoutUserEventsInput, GameResultUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: GameResultCreateOrConnectWithoutUserEventsInput
+    connect?: GameResultWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutUserEventsInput = {
     create?: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserEventsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type AvatarAssetUpdateOneWithoutUserEventsNestedInput = {
+    create?: XOR<AvatarAssetCreateWithoutUserEventsInput, AvatarAssetUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: AvatarAssetCreateOrConnectWithoutUserEventsInput
+    upsert?: AvatarAssetUpsertWithoutUserEventsInput
+    disconnect?: AvatarAssetWhereInput | boolean
+    delete?: AvatarAssetWhereInput | boolean
+    connect?: AvatarAssetWhereUniqueInput
+    update?: XOR<XOR<AvatarAssetUpdateToOneWithWhereWithoutUserEventsInput, AvatarAssetUpdateWithoutUserEventsInput>, AvatarAssetUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type FriendUpdateOneWithoutUserEventsNestedInput = {
+    create?: XOR<FriendCreateWithoutUserEventsInput, FriendUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: FriendCreateOrConnectWithoutUserEventsInput
+    upsert?: FriendUpsertWithoutUserEventsInput
+    disconnect?: FriendWhereInput | boolean
+    delete?: FriendWhereInput | boolean
+    connect?: FriendWhereUniqueInput
+    update?: XOR<XOR<FriendUpdateToOneWithWhereWithoutUserEventsInput, FriendUpdateWithoutUserEventsInput>, FriendUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type GameResultUpdateOneWithoutUserEventsNestedInput = {
+    create?: XOR<GameResultCreateWithoutUserEventsInput, GameResultUncheckedCreateWithoutUserEventsInput>
+    connectOrCreate?: GameResultCreateOrConnectWithoutUserEventsInput
+    upsert?: GameResultUpsertWithoutUserEventsInput
+    disconnect?: GameResultWhereInput | boolean
+    delete?: GameResultWhereInput | boolean
+    connect?: GameResultWhereUniqueInput
+    update?: XOR<XOR<GameResultUpdateToOneWithWhereWithoutUserEventsInput, GameResultUpdateWithoutUserEventsInput>, GameResultUncheckedUpdateWithoutUserEventsInput>
   }
 
   export type UserUpdateOneRequiredWithoutUserEventsNestedInput = {
@@ -22127,6 +22682,20 @@ export namespace Prisma {
     connect?: GameWhereUniqueInput
   }
 
+  export type UserEventCreateNestedManyWithoutGameResultInput = {
+    create?: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput> | UserEventCreateWithoutGameResultInput[] | UserEventUncheckedCreateWithoutGameResultInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutGameResultInput | UserEventCreateOrConnectWithoutGameResultInput[]
+    createMany?: UserEventCreateManyGameResultInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
+  export type UserEventUncheckedCreateNestedManyWithoutGameResultInput = {
+    create?: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput> | UserEventCreateWithoutGameResultInput[] | UserEventUncheckedCreateWithoutGameResultInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutGameResultInput | UserEventCreateOrConnectWithoutGameResultInput[]
+    createMany?: UserEventCreateManyGameResultInputEnvelope
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutGameResultsNestedInput = {
     create?: XOR<UserCreateWithoutGameResultsInput, UserUncheckedCreateWithoutGameResultsInput>
     connectOrCreate?: UserCreateOrConnectWithoutGameResultsInput
@@ -22141,6 +22710,34 @@ export namespace Prisma {
     upsert?: GameUpsertWithoutResultsInput
     connect?: GameWhereUniqueInput
     update?: XOR<XOR<GameUpdateToOneWithWhereWithoutResultsInput, GameUpdateWithoutResultsInput>, GameUncheckedUpdateWithoutResultsInput>
+  }
+
+  export type UserEventUpdateManyWithoutGameResultNestedInput = {
+    create?: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput> | UserEventCreateWithoutGameResultInput[] | UserEventUncheckedCreateWithoutGameResultInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutGameResultInput | UserEventCreateOrConnectWithoutGameResultInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutGameResultInput | UserEventUpsertWithWhereUniqueWithoutGameResultInput[]
+    createMany?: UserEventCreateManyGameResultInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutGameResultInput | UserEventUpdateWithWhereUniqueWithoutGameResultInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutGameResultInput | UserEventUpdateManyWithWhereWithoutGameResultInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutGameResultNestedInput = {
+    create?: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput> | UserEventCreateWithoutGameResultInput[] | UserEventUncheckedCreateWithoutGameResultInput[]
+    connectOrCreate?: UserEventCreateOrConnectWithoutGameResultInput | UserEventCreateOrConnectWithoutGameResultInput[]
+    upsert?: UserEventUpsertWithWhereUniqueWithoutGameResultInput | UserEventUpsertWithWhereUniqueWithoutGameResultInput[]
+    createMany?: UserEventCreateManyGameResultInputEnvelope
+    set?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    disconnect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    delete?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    connect?: UserEventWhereUniqueInput | UserEventWhereUniqueInput[]
+    update?: UserEventUpdateWithWhereUniqueWithoutGameResultInput | UserEventUpdateWithWhereUniqueWithoutGameResultInput[]
+    updateMany?: UserEventUpdateManyWithWhereWithoutGameResultInput | UserEventUpdateManyWithWhereWithoutGameResultInput[]
+    deleteMany?: UserEventScalarWhereInput | UserEventScalarWhereInput[]
   }
 
   export type GameCategoryCreateNestedOneWithoutGamesInput = {
@@ -22613,6 +23210,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     friend: UserCreateNestedOneWithoutFriendInput
+    userEvents?: UserEventCreateNestedManyWithoutFriendInput
   }
 
   export type FriendUncheckedCreateWithoutUserInput = {
@@ -22621,6 +23219,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type FriendCreateOrConnectWithoutUserInput = {
@@ -22638,6 +23237,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutFriendsInput
+    userEvents?: UserEventCreateNestedManyWithoutFriendInput
   }
 
   export type FriendUncheckedCreateWithoutFriendInput = {
@@ -22646,6 +23246,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutFriendInput
   }
 
   export type FriendCreateOrConnectWithoutFriendInput = {
@@ -22684,15 +23285,23 @@ export namespace Prisma {
 
   export type UserEventCreateWithoutUserInput = {
     type: string
-    details?: string | null
     createdAt?: Date | string
+    levelUp?: number | null
+    attempts?: number | null
+    avatarAsset?: AvatarAssetCreateNestedOneWithoutUserEventsInput
+    friend?: FriendCreateNestedOneWithoutUserEventsInput
+    gameResult?: GameResultCreateNestedOneWithoutUserEventsInput
   }
 
   export type UserEventUncheckedCreateWithoutUserInput = {
     id?: number
     type: string
-    details?: string | null
     createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
   }
 
   export type UserEventCreateOrConnectWithoutUserInput = {
@@ -22712,6 +23321,7 @@ export namespace Prisma {
     date?: Date | string
     deletedAt?: Date | string | null
     game: GameCreateNestedOneWithoutResultsInput
+    userEvents?: UserEventCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultUncheckedCreateWithoutUserInput = {
@@ -22722,6 +23332,7 @@ export namespace Prisma {
     status: string
     date?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultCreateOrConnectWithoutUserInput = {
@@ -22867,8 +23478,12 @@ export namespace Prisma {
     id?: IntFilter<"UserEvent"> | number
     userId?: IntFilter<"UserEvent"> | number
     type?: StringFilter<"UserEvent"> | string
-    details?: StringNullableFilter<"UserEvent"> | string | null
     createdAt?: DateTimeFilter<"UserEvent"> | Date | string
+    avatarAssetId?: IntNullableFilter<"UserEvent"> | number | null
+    friendId?: IntNullableFilter<"UserEvent"> | number | null
+    gameResultId?: IntNullableFilter<"UserEvent"> | number | null
+    levelUp?: IntNullableFilter<"UserEvent"> | number | null
+    attempts?: IntNullableFilter<"UserEvent"> | number | null
   }
 
   export type GameResultUpsertWithWhereUniqueWithoutUserInput = {
@@ -22910,6 +23525,7 @@ export namespace Prisma {
     eyes?: AvatarCreateNestedManyWithoutEyesInput
     mouths?: AvatarCreateNestedManyWithoutMouthInput
     patterns?: AvatarCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUncheckedCreateWithoutShapesInput = {
@@ -22922,6 +23538,7 @@ export namespace Prisma {
     eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
     mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
     patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetCreateOrConnectWithoutShapesInput = {
@@ -22938,6 +23555,7 @@ export namespace Prisma {
     shapes?: AvatarCreateNestedManyWithoutShapeInput
     mouths?: AvatarCreateNestedManyWithoutMouthInput
     patterns?: AvatarCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUncheckedCreateWithoutEyesInput = {
@@ -22950,6 +23568,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
     mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
     patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetCreateOrConnectWithoutEyesInput = {
@@ -22966,6 +23585,7 @@ export namespace Prisma {
     shapes?: AvatarCreateNestedManyWithoutShapeInput
     eyes?: AvatarCreateNestedManyWithoutEyesInput
     patterns?: AvatarCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUncheckedCreateWithoutMouthsInput = {
@@ -22978,6 +23598,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
     eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
     patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetCreateOrConnectWithoutMouthsInput = {
@@ -22994,6 +23615,7 @@ export namespace Prisma {
     shapes?: AvatarCreateNestedManyWithoutShapeInput
     eyes?: AvatarCreateNestedManyWithoutEyesInput
     mouths?: AvatarCreateNestedManyWithoutMouthInput
+    userEvents?: UserEventCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetUncheckedCreateWithoutPatternsInput = {
@@ -23006,6 +23628,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
     eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
     mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutAvatarAssetInput
   }
 
   export type AvatarAssetCreateOrConnectWithoutPatternsInput = {
@@ -23179,6 +23802,7 @@ export namespace Prisma {
     eyes?: AvatarUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUncheckedUpdateWithoutShapesInput = {
@@ -23191,6 +23815,7 @@ export namespace Prisma {
     eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUpsertWithoutEyesInput = {
@@ -23213,6 +23838,7 @@ export namespace Prisma {
     shapes?: AvatarUpdateManyWithoutShapeNestedInput
     mouths?: AvatarUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUncheckedUpdateWithoutEyesInput = {
@@ -23225,6 +23851,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
     mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
     patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUpsertWithoutMouthsInput = {
@@ -23247,6 +23874,7 @@ export namespace Prisma {
     shapes?: AvatarUpdateManyWithoutShapeNestedInput
     eyes?: AvatarUpdateManyWithoutEyesNestedInput
     patterns?: AvatarUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUncheckedUpdateWithoutMouthsInput = {
@@ -23259,6 +23887,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
     eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
     patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUpsertWithoutPatternsInput = {
@@ -23281,6 +23910,7 @@ export namespace Prisma {
     shapes?: AvatarUpdateManyWithoutShapeNestedInput
     eyes?: AvatarUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUpdateManyWithoutMouthNestedInput
+    userEvents?: UserEventUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type AvatarAssetUncheckedUpdateWithoutPatternsInput = {
@@ -23293,6 +23923,7 @@ export namespace Prisma {
     shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
     eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
     mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+    userEvents?: UserEventUncheckedUpdateManyWithoutAvatarAssetNestedInput
   }
 
   export type ColorUpsertWithoutColorShapeInput = {
@@ -23831,6 +24462,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserEventCreateWithoutAvatarAssetInput = {
+    type: string
+    createdAt?: Date | string
+    levelUp?: number | null
+    attempts?: number | null
+    friend?: FriendCreateNestedOneWithoutUserEventsInput
+    gameResult?: GameResultCreateNestedOneWithoutUserEventsInput
+    user: UserCreateNestedOneWithoutUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateWithoutAvatarAssetInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
+  export type UserEventCreateOrConnectWithoutAvatarAssetInput = {
+    where: UserEventWhereUniqueInput
+    create: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput>
+  }
+
+  export type UserEventCreateManyAvatarAssetInputEnvelope = {
+    data: UserEventCreateManyAvatarAssetInput | UserEventCreateManyAvatarAssetInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AvatarUpsertWithWhereUniqueWithoutShapeInput = {
     where: AvatarWhereUniqueInput
     update: XOR<AvatarUpdateWithoutShapeInput, AvatarUncheckedUpdateWithoutShapeInput>
@@ -23893,6 +24555,22 @@ export namespace Prisma {
   export type AvatarUpdateManyWithWhereWithoutPatternInput = {
     where: AvatarScalarWhereInput
     data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutPatternInput>
+  }
+
+  export type UserEventUpsertWithWhereUniqueWithoutAvatarAssetInput = {
+    where: UserEventWhereUniqueInput
+    update: XOR<UserEventUpdateWithoutAvatarAssetInput, UserEventUncheckedUpdateWithoutAvatarAssetInput>
+    create: XOR<UserEventCreateWithoutAvatarAssetInput, UserEventUncheckedCreateWithoutAvatarAssetInput>
+  }
+
+  export type UserEventUpdateWithWhereUniqueWithoutAvatarAssetInput = {
+    where: UserEventWhereUniqueInput
+    data: XOR<UserEventUpdateWithoutAvatarAssetInput, UserEventUncheckedUpdateWithoutAvatarAssetInput>
+  }
+
+  export type UserEventUpdateManyWithWhereWithoutAvatarAssetInput = {
+    where: UserEventScalarWhereInput
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyWithoutAvatarAssetInput>
   }
 
   export type UserCreateWithoutFriendsInput = {
@@ -23977,6 +24655,37 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutFriendInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutFriendInput, UserUncheckedCreateWithoutFriendInput>
+  }
+
+  export type UserEventCreateWithoutFriendInput = {
+    type: string
+    createdAt?: Date | string
+    levelUp?: number | null
+    attempts?: number | null
+    avatarAsset?: AvatarAssetCreateNestedOneWithoutUserEventsInput
+    gameResult?: GameResultCreateNestedOneWithoutUserEventsInput
+    user: UserCreateNestedOneWithoutUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateWithoutFriendInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    avatarAssetId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
+  export type UserEventCreateOrConnectWithoutFriendInput = {
+    where: UserEventWhereUniqueInput
+    create: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput>
+  }
+
+  export type UserEventCreateManyFriendInputEnvelope = {
+    data: UserEventCreateManyFriendInput | UserEventCreateManyFriendInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutFriendsInput = {
@@ -24075,6 +24784,22 @@ export namespace Prisma {
     gameResults?: GameResultUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type UserEventUpsertWithWhereUniqueWithoutFriendInput = {
+    where: UserEventWhereUniqueInput
+    update: XOR<UserEventUpdateWithoutFriendInput, UserEventUncheckedUpdateWithoutFriendInput>
+    create: XOR<UserEventCreateWithoutFriendInput, UserEventUncheckedCreateWithoutFriendInput>
+  }
+
+  export type UserEventUpdateWithWhereUniqueWithoutFriendInput = {
+    where: UserEventWhereUniqueInput
+    data: XOR<UserEventUpdateWithoutFriendInput, UserEventUncheckedUpdateWithoutFriendInput>
+  }
+
+  export type UserEventUpdateManyWithWhereWithoutFriendInput = {
+    where: UserEventScalarWhereInput
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyWithoutFriendInput>
+  }
+
   export type UserCreateWithoutUserStatsInput = {
     email: string
     password: string
@@ -24165,6 +24890,84 @@ export namespace Prisma {
     gameResults?: GameResultUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type AvatarAssetCreateWithoutUserEventsInput = {
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarCreateNestedManyWithoutShapeInput
+    eyes?: AvatarCreateNestedManyWithoutEyesInput
+    mouths?: AvatarCreateNestedManyWithoutMouthInput
+    patterns?: AvatarCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetUncheckedCreateWithoutUserEventsInput = {
+    id?: number
+    type: string
+    name: string
+    url: string
+    level?: number
+    vipOnly?: boolean
+    shapes?: AvatarUncheckedCreateNestedManyWithoutShapeInput
+    eyes?: AvatarUncheckedCreateNestedManyWithoutEyesInput
+    mouths?: AvatarUncheckedCreateNestedManyWithoutMouthInput
+    patterns?: AvatarUncheckedCreateNestedManyWithoutPatternInput
+  }
+
+  export type AvatarAssetCreateOrConnectWithoutUserEventsInput = {
+    where: AvatarAssetWhereUniqueInput
+    create: XOR<AvatarAssetCreateWithoutUserEventsInput, AvatarAssetUncheckedCreateWithoutUserEventsInput>
+  }
+
+  export type FriendCreateWithoutUserEventsInput = {
+    status?: string
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutFriendsInput
+    friend: UserCreateNestedOneWithoutFriendInput
+  }
+
+  export type FriendUncheckedCreateWithoutUserEventsInput = {
+    id?: number
+    userId: number
+    friendId: number
+    status?: string
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type FriendCreateOrConnectWithoutUserEventsInput = {
+    where: FriendWhereUniqueInput
+    create: XOR<FriendCreateWithoutUserEventsInput, FriendUncheckedCreateWithoutUserEventsInput>
+  }
+
+  export type GameResultCreateWithoutUserEventsInput = {
+    score: number
+    xpGained?: number
+    status: string
+    date?: Date | string
+    deletedAt?: Date | string | null
+    user: UserCreateNestedOneWithoutGameResultsInput
+    game: GameCreateNestedOneWithoutResultsInput
+  }
+
+  export type GameResultUncheckedCreateWithoutUserEventsInput = {
+    id?: number
+    userId: number
+    gameId: number
+    score: number
+    xpGained?: number
+    status: string
+    date?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type GameResultCreateOrConnectWithoutUserEventsInput = {
+    where: GameResultWhereUniqueInput
+    create: XOR<GameResultCreateWithoutUserEventsInput, GameResultUncheckedCreateWithoutUserEventsInput>
+  }
+
   export type UserCreateWithoutUserEventsInput = {
     email: string
     password: string
@@ -24205,6 +25008,102 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutUserEventsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutUserEventsInput, UserUncheckedCreateWithoutUserEventsInput>
+  }
+
+  export type AvatarAssetUpsertWithoutUserEventsInput = {
+    update: XOR<AvatarAssetUpdateWithoutUserEventsInput, AvatarAssetUncheckedUpdateWithoutUserEventsInput>
+    create: XOR<AvatarAssetCreateWithoutUserEventsInput, AvatarAssetUncheckedCreateWithoutUserEventsInput>
+    where?: AvatarAssetWhereInput
+  }
+
+  export type AvatarAssetUpdateToOneWithWhereWithoutUserEventsInput = {
+    where?: AvatarAssetWhereInput
+    data: XOR<AvatarAssetUpdateWithoutUserEventsInput, AvatarAssetUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type AvatarAssetUpdateWithoutUserEventsInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUpdateManyWithoutPatternNestedInput
+  }
+
+  export type AvatarAssetUncheckedUpdateWithoutUserEventsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    vipOnly?: BoolFieldUpdateOperationsInput | boolean
+    shapes?: AvatarUncheckedUpdateManyWithoutShapeNestedInput
+    eyes?: AvatarUncheckedUpdateManyWithoutEyesNestedInput
+    mouths?: AvatarUncheckedUpdateManyWithoutMouthNestedInput
+    patterns?: AvatarUncheckedUpdateManyWithoutPatternNestedInput
+  }
+
+  export type FriendUpsertWithoutUserEventsInput = {
+    update: XOR<FriendUpdateWithoutUserEventsInput, FriendUncheckedUpdateWithoutUserEventsInput>
+    create: XOR<FriendCreateWithoutUserEventsInput, FriendUncheckedCreateWithoutUserEventsInput>
+    where?: FriendWhereInput
+  }
+
+  export type FriendUpdateToOneWithWhereWithoutUserEventsInput = {
+    where?: FriendWhereInput
+    data: XOR<FriendUpdateWithoutUserEventsInput, FriendUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type FriendUpdateWithoutUserEventsInput = {
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutFriendsNestedInput
+    friend?: UserUpdateOneRequiredWithoutFriendNestedInput
+  }
+
+  export type FriendUncheckedUpdateWithoutUserEventsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    friendId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GameResultUpsertWithoutUserEventsInput = {
+    update: XOR<GameResultUpdateWithoutUserEventsInput, GameResultUncheckedUpdateWithoutUserEventsInput>
+    create: XOR<GameResultCreateWithoutUserEventsInput, GameResultUncheckedCreateWithoutUserEventsInput>
+    where?: GameResultWhereInput
+  }
+
+  export type GameResultUpdateToOneWithWhereWithoutUserEventsInput = {
+    where?: GameResultWhereInput
+    data: XOR<GameResultUpdateWithoutUserEventsInput, GameResultUncheckedUpdateWithoutUserEventsInput>
+  }
+
+  export type GameResultUpdateWithoutUserEventsInput = {
+    score?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutGameResultsNestedInput
+    game?: GameUpdateOneRequiredWithoutResultsNestedInput
+  }
+
+  export type GameResultUncheckedUpdateWithoutUserEventsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    gameId?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUpsertWithoutUserEventsInput = {
@@ -24327,6 +25226,37 @@ export namespace Prisma {
     create: XOR<GameCreateWithoutResultsInput, GameUncheckedCreateWithoutResultsInput>
   }
 
+  export type UserEventCreateWithoutGameResultInput = {
+    type: string
+    createdAt?: Date | string
+    levelUp?: number | null
+    attempts?: number | null
+    avatarAsset?: AvatarAssetCreateNestedOneWithoutUserEventsInput
+    friend?: FriendCreateNestedOneWithoutUserEventsInput
+    user: UserCreateNestedOneWithoutUserEventsInput
+  }
+
+  export type UserEventUncheckedCreateWithoutGameResultInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
+  export type UserEventCreateOrConnectWithoutGameResultInput = {
+    where: UserEventWhereUniqueInput
+    create: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput>
+  }
+
+  export type UserEventCreateManyGameResultInputEnvelope = {
+    data: UserEventCreateManyGameResultInput | UserEventCreateManyGameResultInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutGameResultsInput = {
     update: XOR<UserUpdateWithoutGameResultsInput, UserUncheckedUpdateWithoutGameResultsInput>
     create: XOR<UserCreateWithoutGameResultsInput, UserUncheckedCreateWithoutGameResultsInput>
@@ -24411,6 +25341,22 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserEventUpsertWithWhereUniqueWithoutGameResultInput = {
+    where: UserEventWhereUniqueInput
+    update: XOR<UserEventUpdateWithoutGameResultInput, UserEventUncheckedUpdateWithoutGameResultInput>
+    create: XOR<UserEventCreateWithoutGameResultInput, UserEventUncheckedCreateWithoutGameResultInput>
+  }
+
+  export type UserEventUpdateWithWhereUniqueWithoutGameResultInput = {
+    where: UserEventWhereUniqueInput
+    data: XOR<UserEventUpdateWithoutGameResultInput, UserEventUncheckedUpdateWithoutGameResultInput>
+  }
+
+  export type UserEventUpdateManyWithWhereWithoutGameResultInput = {
+    where: UserEventScalarWhereInput
+    data: XOR<UserEventUpdateManyMutationInput, UserEventUncheckedUpdateManyWithoutGameResultInput>
+  }
+
   export type GameCategoryCreateWithoutGamesInput = {
     name: string
     createdAt?: Date | string
@@ -24440,6 +25386,7 @@ export namespace Prisma {
     date?: Date | string
     deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutGameResultsInput
+    userEvents?: UserEventCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultUncheckedCreateWithoutGameInput = {
@@ -24450,6 +25397,7 @@ export namespace Prisma {
     status: string
     date?: Date | string
     deletedAt?: Date | string | null
+    userEvents?: UserEventUncheckedCreateNestedManyWithoutGameResultInput
   }
 
   export type GameResultCreateOrConnectWithoutGameInput = {
@@ -24890,8 +25838,12 @@ export namespace Prisma {
   export type UserEventCreateManyUserInput = {
     id?: number
     type: string
-    details?: string | null
     createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
   }
 
   export type GameResultCreateManyUserInput = {
@@ -24909,6 +25861,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     friend?: UserUpdateOneRequiredWithoutFriendNestedInput
+    userEvents?: UserEventUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendUncheckedUpdateWithoutUserInput = {
@@ -24917,6 +25870,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendUncheckedUpdateManyWithoutUserInput = {
@@ -24932,6 +25886,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutFriendsNestedInput
+    userEvents?: UserEventUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendUncheckedUpdateWithoutFriendInput = {
@@ -24940,6 +25895,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutFriendNestedInput
   }
 
   export type FriendUncheckedUpdateManyWithoutFriendInput = {
@@ -24952,22 +25908,34 @@ export namespace Prisma {
 
   export type UserEventUpdateWithoutUserInput = {
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarAsset?: AvatarAssetUpdateOneWithoutUserEventsNestedInput
+    friend?: FriendUpdateOneWithoutUserEventsNestedInput
+    gameResult?: GameResultUpdateOneWithoutUserEventsNestedInput
   }
 
   export type UserEventUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserEventUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    details?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type GameResultUpdateWithoutUserInput = {
@@ -24977,6 +25945,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     game?: GameUpdateOneRequiredWithoutResultsNestedInput
+    userEvents?: UserEventUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultUncheckedUpdateWithoutUserInput = {
@@ -24987,6 +25956,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultUncheckedUpdateManyWithoutUserInput = {
@@ -25243,6 +26213,17 @@ export namespace Prisma {
     colorPatternId?: number | null
   }
 
+  export type UserEventCreateManyAvatarAssetInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    friendId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
   export type AvatarUpdateWithoutShapeInput = {
     url?: StringFieldUpdateOperationsInput | string
     eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
@@ -25391,6 +26372,124 @@ export namespace Prisma {
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type UserEventUpdateWithoutAvatarAssetInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    friend?: FriendUpdateOneWithoutUserEventsNestedInput
+    gameResult?: GameResultUpdateOneWithoutUserEventsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateWithoutAvatarAssetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutAvatarAssetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserEventCreateManyFriendInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    avatarAssetId?: number | null
+    gameResultId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
+  export type UserEventUpdateWithoutFriendInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarAsset?: AvatarAssetUpdateOneWithoutUserEventsNestedInput
+    gameResult?: GameResultUpdateOneWithoutUserEventsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateWithoutFriendInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutFriendInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    gameResultId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserEventCreateManyGameResultInput = {
+    id?: number
+    userId: number
+    type: string
+    createdAt?: Date | string
+    avatarAssetId?: number | null
+    friendId?: number | null
+    levelUp?: number | null
+    attempts?: number | null
+  }
+
+  export type UserEventUpdateWithoutGameResultInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarAsset?: AvatarAssetUpdateOneWithoutUserEventsNestedInput
+    friend?: FriendUpdateOneWithoutUserEventsNestedInput
+    user?: UserUpdateOneRequiredWithoutUserEventsNestedInput
+  }
+
+  export type UserEventUncheckedUpdateWithoutGameResultInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UserEventUncheckedUpdateManyWithoutGameResultInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarAssetId?: NullableIntFieldUpdateOperationsInput | number | null
+    friendId?: NullableIntFieldUpdateOperationsInput | number | null
+    levelUp?: NullableIntFieldUpdateOperationsInput | number | null
+    attempts?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type GameResultCreateManyGameInput = {
     id?: number
     userId: number
@@ -25408,6 +26507,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutGameResultsNestedInput
+    userEvents?: UserEventUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultUncheckedUpdateWithoutGameInput = {
@@ -25418,6 +26518,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userEvents?: UserEventUncheckedUpdateManyWithoutGameResultNestedInput
   }
 
   export type GameResultUncheckedUpdateManyWithoutGameInput = {

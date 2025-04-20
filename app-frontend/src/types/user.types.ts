@@ -1,4 +1,5 @@
 // src/types/user.types.ts
+import { GameResult } from "./game.types";
 
 export interface UserAvatar {
     id: string;
@@ -54,13 +55,6 @@ export interface FriendRequest {
     };
 }
 
-export type UserEvent = {
-    id: number;
-    createdAt: string;
-    type: string;
-    details: string;
-};
-
 export type UserPublic = {
     id: number;
     pseudo: string;
@@ -69,6 +63,40 @@ export type UserPublic = {
     level: number;
     xp: number;
     streak: number;
+    gamesPlayed: number;
+    favoriteGame: {
+        id: number;
+        path: string;
+        name: string;
+    } | null;
     isFriend: boolean | "requested" | "received" | "accepted";
     userEvents: UserEvent[];
+};
+
+export type UserEvent = {
+    id: number;
+    createdAt: string;
+    type: string;
+    levelUp: number | null;
+    attempts: number | null;
+    gameResult: GameResult;
+    friend: {
+        id: number;
+        user: {
+            id: number;
+            pseudo: string;
+            avatarUrl: string | null;
+        };
+        friend: {
+            id: number;
+            pseudo: string;
+            avatarUrl: string | null;
+        };
+        status: string; // "accepted", "requested", "received"
+    } | null;
+    avatarAsset: {
+        id: number;
+        name: string;
+        url: string;
+    } | null;
 };

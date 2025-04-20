@@ -186,8 +186,12 @@ exports.Prisma.UserEventScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   type: 'type',
-  details: 'details',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  avatarAssetId: 'avatarAssetId',
+  friendId: 'friendId',
+  gameResultId: 'gameResultId',
+  levelUp: 'levelUp',
+  attempts: 'attempts'
 };
 
 exports.Prisma.GameResultScalarFieldEnum = {

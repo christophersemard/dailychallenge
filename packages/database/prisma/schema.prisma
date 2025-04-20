@@ -96,6 +96,9 @@ model AvatarAsset {
   eyes     Avatar[] @relation("Eyes")
   mouths   Avatar[] @relation("Mouth")
   patterns Avatar[] @relation("Pattern")
+
+  // Relations
+  userEvents UserEvent[]
 }
 
 model Friend {
@@ -107,8 +110,9 @@ model Friend {
   deletedAt DateTime? // ✅ Soft delete
 
   // Relations
-  user   User @relation("UserFriends", fields: [userId], references: [id])
-  friend User @relation("FriendUser", fields: [friendId], references: [id])
+  user       User        @relation("UserFriends", fields: [userId], references: [id])
+  friend     User        @relation("FriendUser", fields: [friendId], references: [id])
+  userEvents UserEvent[]
 
   @@unique([userId, friendId]) // ✅ Évite les doublons
 }
@@ -130,8 +134,19 @@ model UserEvent {
   id        Int      @id @default(autoincrement())
   userId    Int
   type      String // "level_up", "streak_bonus", "game_completed"
-  details   String? // Informations additionnelles
   createdAt DateTime @default(now())
+
+  // Relations possible des événements
+  avatarAssetId Int? // ID de l'asset d'avatar concerné (si applicable)
+  avatarAsset   AvatarAsset? @relation(fields: [avatarAssetId], references: [id])
+  friendId      Int? // ID de l'ami concerné (si applicable)
+  friend        Friend?      @relation(fields: [friendId], references: [id])
+  gameResultId  Int? // ID du résultat de jeu (si applicable)
+  gameResult    GameResult?  @relation(fields: [gameResultId], references: [id])
+
+  // Infos supplémentaires
+  levelUp  Int? // Niveau atteint lors de cet événement
+  attempts Int? // Nombre d'essais pour un jeu
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -151,8 +166,9 @@ model GameResult {
   deletedAt DateTime? // ✅ Soft delete
 
   // Relations
-  user User @relation(fields: [userId], references: [id])
-  game Game @relation(fields: [gameId], references: [id])
+  user       User        @relation(fields: [userId], references: [id])
+  game       Game        @relation(fields: [gameId], references: [id])
+  userEvents UserEvent[]
 
   @@index([score]) // ✅ Index pour accélérer les classements
   @@index([date]) // ✅ Index pour accélérer les filtres par période

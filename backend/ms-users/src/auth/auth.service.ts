@@ -71,7 +71,11 @@ export class AuthService {
         await this.userEventsService.addEvent(
             user.id,
             "user_registered",
-            `Nouvel utilisateur inscrit avec l'email ${email}`
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined
         );
 
         const { password: _, ...userWithoutPassword } = user;
