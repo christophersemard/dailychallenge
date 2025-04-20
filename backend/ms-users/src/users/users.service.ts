@@ -101,12 +101,12 @@ export class UsersService {
                 friendRequest.userId === userId &&
                 friendRequest.status === "pending"
             ) {
-                isFriend = "requested";
+                isFriend = "received";
             } else if (
                 friendRequest.userId === friendId &&
                 friendRequest.status === "pending"
             ) {
-                isFriend = "received";
+                isFriend = "requested";
             }
         }
 
@@ -143,6 +143,9 @@ export class UsersService {
                     id: true,
                     path: true,
                     name: true,
+                    gameCategory: {
+                        select: { color: true },
+                    },
                 },
             });
         }

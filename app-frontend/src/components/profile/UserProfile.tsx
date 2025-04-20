@@ -8,12 +8,12 @@ import { UserPublic } from "@/types/user.types";
 import { Streak } from "@/components/ui/streak";
 import Card from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, UserIcon, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import EventItem from "./EventItem";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
 import { toast } from "sonner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
     user: UserPublic;
@@ -24,83 +24,87 @@ export default function UserProfile({
     user,
     currentUserId,
 }: Props) {
-    const handleAcceptRequest = async (friendId: string) => {
-        try {
-            await fetchClientWithAuth(`/friends/${friendId}/accept`, { method: "PATCH" });
-            toast.success("Demande d'ami acceptée", {
-                className: "toast-base toast-success",
-            })
-            user.isFriend = "accepted"; // Mettre à jour le statut d'amitié localement
-        } catch (error) {
-            console.error("Erreur acceptation :", error);
-            toast.error("Erreur lors de l'acceptation de la demande d'ami", {
-                className: "toast-base toast-danger",
-            })
-        }
-    };
 
-    const handleRejectRequest = async (friendId: string) => {
-        try {
-            await fetchClientWithAuth(`/friends/${friendId}/reject`, { method: "PATCH" });
-            toast.success("Demande d'ami rejetée", {
-                className: "toast-base toast-success",
-            })
-            user.isFriend = false; // Mettre à jour le statut d'amitié localement
-        } catch (error) {
-            console.error("Erreur rejet :", error);
-            toast.error("Erreur lors du rejet de la demande d'ami", {
-                className: "toast-base toast-danger",
-            })
-        }
-    };
+    const [stateUser, setStateUser] = useState<UserPublic>(user);
 
     const handleAddFriend = async () => {
-        const { data, error } = await fetchClientWithAuth("/friends/" + user.id + "/request", {
+        const { data, error } = await fetchClientWithAuth("/friends/" + stateUser.id + "/request", {
             method: "POST",
         });
-        console.log("handleAddFriend", { data, error });
         if (error) {
             toast.error("Erreur lors de l'envoi de la demande d'ami", {
                 className: "toast-base toast-danger",
             })
             return;
         }
-        user.isFriend = "requested"; // Mettre à jour le statut d'amitié localement
+        // Mettre à jour le statut d'amitié localement
+        setStateUser({ ...user, isFriend: "requested" });
         // Afficher un message de succès avec un toast
         toast.success("Demande d'ami envoyée", {
             className: "toast-base toast-success",
         })
-
     };
 
+
+    const handleRejectRequest = async (friendId: number) => {
+        const { data, error } = await fetchClientWithAuth(`/friends/${friendId}/reject`, { method: "PATCH" });
+        if (error) {
+            toast.error("Erreur lors du rejet de la demande d'ami", {
+                className: "toast-base toast-danger",
+            })
+            return;
+        }
+        setStateUser({ ...user, isFriend: false });
+        toast.success("Demande d'ami rejetée", {
+            className: "toast-base toast-success",
+        })
+    };
+
+    const handleAcceptRequest = async (friendId: number) => {
+        const { data, error } = await fetchClientWithAuth(`/friends/${friendId}/accept`, { method: "PATCH" });
+        if (error) {
+            toast.error("Erreur lors de l'acceptation de la demande d'ami", {
+                className: "toast-base toast-danger",
+            })
+            return;
+        }
+        setStateUser({ ...user, isFriend: "accepted" });
+        toast.success("Demande d'ami acceptée", {
+            className: "toast-base toast-success",
+        })
+    };
+
+
+
     useEffect(() => {
-    }, [user.isFriend]);
+        console.log("UserProfile effect", { user, currentUserId });
+    }, [stateUser]);
 
 
     return (
-        <div className="flex flex-col items-center gap-4 md:gap-8">
+        <div className="flex flex-col items-center gap-8">
 
 
-            <Card title={false} color="primary" className="w-full max-w-5xl p-4">
-                <div className="flex flex-col md:flex-row items-start gap-8">
+            <Card title={false} color="primary" className="w-full max-w-5xl">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                     <Image
                         src={
-                            user.avatarUrl ||
+                            stateUser.avatarUrl ||
                             `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`
                         }
                         width={150}
                         height={150}
-                        alt={user.pseudo}
+                        alt={stateUser.pseudo}
                         className=""
                     />
                     <div className="flex flex-col items-start justify-center mb-0">
 
 
-                        <div className="flex mb-0 justify-between items-center w-full">
+                        <div className="flex flex-col md:flex-row mb-0 justify-between items-center w-full">
                             <div className="">
-                                <h2 className="text-3xl font-black">{user.pseudo}</h2>
+                                <h2 className="text-3xl font-black text-center md:text-start">{stateUser.pseudo}</h2>
                                 <p className="text-sm text-muted-foreground font-medium">
-                                    Inscrit depuis le {new Date(user.createdAt).toLocaleDateString("fr-FR", {
+                                    Inscrit depuis le {new Date(stateUser.createdAt).toLocaleDateString("fr-FR", {
                                         year: "numeric",
                                         month: "long",
                                         day: "numeric",
@@ -110,17 +114,18 @@ export default function UserProfile({
                             </div>
 
                             {/* Boutons d'actions et statut amitié */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 mt-4 md:mt-0">
                                 <div className="flex flex-col items-end">
-                                    <span className={cn("text-sm text-muted-foreground font-bold mb-1",
-                                        user.isFriend === "accepted" ? "text-green" : user.isFriend === "requested" ? "text-yellow" : user.isFriend === "received" ? "text-danger" : "text-gray"
+                                    <span className={cn("text-sm text-muted-foreground font-bold mb-1 flex items-center gap-1",
+                                        stateUser.isFriend === "accepted" ? "text-green" : stateUser.isFriend === "requested" ? "text-black" : stateUser.isFriend === "received" ? "text-black" : "text-gray"
                                     )}>
+                                        <UserRound className="size-5" />
                                         {
-                                            user.isFriend === "accepted"
+                                            stateUser.isFriend === "accepted"
                                                 ? "Vous êtes amis"
-                                                : user.isFriend === "requested"
+                                                : stateUser.isFriend === "requested"
                                                     ? "Demande d'amis envoyée"
-                                                    : user.isFriend === "received"
+                                                    : stateUser.isFriend === "received"
                                                         ? "Demande d'amis reçue"
                                                         : ""
                                         }
@@ -136,24 +141,24 @@ export default function UserProfile({
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end" className="">
                                         {
-                                            user.isFriend === "accepted" && (
+                                            stateUser.isFriend === "accepted" && (
                                                 <DropdownMenuItem className="cursor-pointer text-danger" onClick={() => { }}>Retirer de mes amis
                                                 </DropdownMenuItem>
                                             )}
-                                        {user.isFriend === "requested" && (
+                                        {stateUser.isFriend === "requested" && (
                                             <></>
                                         )}
-                                        {user.isFriend === "received" && (
-                                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleAcceptRequest}>Accepter la demande
+                                        {stateUser.isFriend === "received" && (
+                                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleAcceptRequest(stateUser.id)}>Accepter la demande
                                             </DropdownMenuItem>
                                         )}
-                                        {user.isFriend === false && (
+                                        {stateUser.isFriend === false && (
                                             <DropdownMenuItem className="cursor-pointer" onClick={handleAddFriend}>Envoyer une demande d&apos;amis
                                             </DropdownMenuItem>
                                         )}
 
-                                        {user.isFriend === "received" && (
-                                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleRejectRequest}>Refuser la demande
+                                        {stateUser.isFriend === "received" && (
+                                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleRejectRequest(stateUser.id)}>Refuser la demande
                                             </DropdownMenuItem>
                                         )
                                         }
@@ -173,25 +178,25 @@ export default function UserProfile({
 
                         {/* Stats */}
 
-                        <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted-foreground font-bold">
+                        <div className="flex flex-wrap gap-x-8 justify-center md:justify-start gap-y-2 text-sm text-muted-foreground font-bold">
                             <div className="flex items-center gap-2">
                                 <span>Niveau</span>
-                                <OutlineText text={String(user.level)} color="black" />
+                                <OutlineText text={String(stateUser.level)} color="black" />
                             </div>
                             <div className="flex items-center gap-2">
                                 <span>Série en cours</span>
-                                <Streak streak={user.streak} />
+                                <Streak streak={stateUser.streak} />
                             </div>
                             <div className="flex items-center gap-2">
-                                <span>Parties</span>
-                                <OutlineText text={String(user.gamesPlayed)} />
+                                <span>Nombre de parties jouées</span>
+                                <OutlineText text={String(stateUser.gamesPlayed)} />
                             </div>
 
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1">
                                 <span>Jeu favori</span>
                                 {
-                                    user.favoriteGame ? (
-                                        <OutlineText text={String(user.favoriteGame.name)} />
+                                    stateUser.mostPlayedGame ? (
+                                        <OutlineText text={String(stateUser.mostPlayedGame.name)} color={stateUser.mostPlayedGame.gameCategory.color} />
                                     )
                                         : "-"
                                 }
@@ -199,7 +204,7 @@ export default function UserProfile({
 
                             <div className="flex items-center gap-2">
                                 <span>Points gagnés ce mois ci</span>
-                                <span className="flex items-center"><OutlineText text={String(user.xp)} />pts</span>
+                                <span className="flex items-center"><OutlineText text={String(stateUser.xp)} />pts</span>
                             </div>
                         </div>
 
@@ -209,16 +214,17 @@ export default function UserProfile({
             </Card >
 
             {/* Historique des événements */}
-            <Card title="Fil d'actualité" color="primary" className="w-full max-w-5xl p-4">
-                {user.userEvents.length > 0 ? (
-                    user.userEvents.map((event, index) => (
+            <Card title="Fil d'actualité" color="primary" className="w-full max-w-5xl">
+                {stateUser.userEvents.length > 0 ? (
+                    stateUser.userEvents.map((event, index) => (
                         <EventItem
                             key={event.id}
-                            user={user}
+                            showAvatar={false}
+                            user={stateUser}
                             event={event}
-                            isCurrentUser={user.id === currentUserId}
+                            isCurrentUser={stateUser.id === currentUserId}
                             isFirst={index === 0}
-                            isLast={index === user.userEvents.length - 1}
+                            isLast={index === stateUser.userEvents.length - 1}
                         />
                     ))
                 ) : (

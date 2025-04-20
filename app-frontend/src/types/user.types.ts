@@ -64,10 +64,13 @@ export type UserPublic = {
     xp: number;
     streak: number;
     gamesPlayed: number;
-    favoriteGame: {
+    mostPlayedGame: {
         id: number;
         path: string;
         name: string;
+        gameCategory: {
+            color: string;
+        };
     } | null;
     isFriend: boolean | "requested" | "received" | "accepted";
     userEvents: UserEvent[];
