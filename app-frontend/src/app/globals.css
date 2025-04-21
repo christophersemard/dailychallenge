@@ -107,6 +107,9 @@ header::before {
     padding-top: 24px;
     border-radius: 0.5rem;
 }
+.card-no-title {
+    padding-top: 0 !important;
+}
 .card-title {
     position: absolute;
     top: 0;
