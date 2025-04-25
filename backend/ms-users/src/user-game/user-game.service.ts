@@ -238,7 +238,7 @@ export class UserGameService {
         attempts: number,
         gameResult: any
     ) {
-        if (status === "passed") {
+        if (gameResult.status === "passed") {
             await this.userEventsService.addEvent(
                 userId,
                 "game_completed",
@@ -248,7 +248,7 @@ export class UserGameService {
                 undefined,
                 attempts
             );
-        } else if (status === "failed") {
+        } else if (gameResult.status === "failed") {
             await this.userEventsService.addEvent(
                 userId,
                 "game_failed",
@@ -262,9 +262,7 @@ export class UserGameService {
     }
 
     // Calcul du niveau du joueur
-    public calculateLevel(
-        xpTotal: number
-    ): {
+    public calculateLevel(xpTotal: number): {
         level: number;
         xpToNextLevel: number;
     } {
