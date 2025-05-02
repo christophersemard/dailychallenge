@@ -25,6 +25,7 @@ model User {
   firstName String?
   lastName  String?
   birthdate DateTime? // Seulement la date 
+  isVip     Boolean   @default(false) // ✅ VIP
 
   avatar   Avatar? @relation(fields: [avatarId], references: [id])
   avatarId Int?    @unique
@@ -50,8 +51,6 @@ model Avatar {
   mouthId        Int
   patternId      Int?
   colorShapeId   Int
-  colorEyesId    Int
-  colorMouthId   Int
   colorPatternId Int?
 
   // Relations
@@ -61,8 +60,6 @@ model Avatar {
   pattern AvatarAsset? @relation("Pattern", fields: [patternId], references: [id])
 
   colorShape   Color  @relation("ColorShape", fields: [colorShapeId], references: [id])
-  colorEyes    Color  @relation("ColorEyes", fields: [colorEyesId], references: [id])
-  colorMouth   Color  @relation("ColorMouth", fields: [colorMouthId], references: [id])
   colorPattern Color? @relation("ColorPattern", fields: [colorPatternId], references: [id])
 
   // Relations
@@ -78,8 +75,6 @@ model Color {
 
   // Relations
   colorShape   Avatar[] @relation("ColorShape")
-  colorEyes    Avatar[] @relation("ColorEyes")
-  colorMouth   Avatar[] @relation("ColorMouth")
   colorPattern Avatar[] @relation("ColorPattern")
 }
 

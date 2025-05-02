@@ -3,6 +3,7 @@ import { JwtAuthGuard } from "../auth/auth.guard";
 import { LeaderboardService } from "./leaderboard.service";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
 import { LeaderboardResponse } from "./leaderboard.types";
+import { Public } from "../auth/public.decorator";
 import { UserRequest } from "../auth/auth.types";
 
 @ApiTags("Leaderboard")
@@ -140,6 +141,7 @@ export class LeaderboardController {
         );
     }
 
+    @Public()
     @Get("games-and-categories")
     @ApiOperation({ summary: "Récupérer les jeux et catégories" })
     async getGamesAndCategories() {

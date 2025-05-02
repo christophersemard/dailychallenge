@@ -1,5 +1,6 @@
 import { type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { jwtDecode } from "jwt-decode";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -55,15 +56,31 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id
-        token.email = user.email ?? ""
-        token.name = user.name ?? ""
-        token.role = user.role
-        token.accessToken = user.accessToken
+        token.id = user.id;
+        token.email = user.email ?? "";
+        token.name = user.name ?? "";
+        token.role = user.role;
+        token.accessToken = user.accessToken;
       }
-      return token
+    
+      const decoded: any = jwtDecode(token.accessToken);
+      token.accessTokenExp = decoded.exp * 1000; // ms
+      // Ajoute cette vérif d’expiration (si présente dans le token)
+      const now = Math.floor(Date.now() / 1000); // en secondes
+      console.log("Token JWT :", token);
+      console.log("Token décodé :", jwtDecode(token.accessToken));
+      console.log("Now :", now);
+      console.log("Token exp :", token.exp);
+      console.log("Token expiré ?", token.accessTokenExp && now > Number(token.accessTokenExp));
+
+      if (token.exp && now > token.accessTokenExp) {
+        console.warn("⚠️ Token expiré, déconnexion forcée");
+        // Tu peux soit ne rien renvoyer (session invalidée), soit forcer un signOut() client
+        // Si dans un middleware : return null;
+      }
+    
+      return token;
     },
-  
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id
@@ -74,6 +91,7 @@ export const authOptions: AuthOptions = {
       }
       return session
     }
+
   },
   
 

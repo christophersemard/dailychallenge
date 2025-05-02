@@ -16,7 +16,5 @@ export interface GeneratedAvatarResponse {
     patternId?: number;
 
     colorShapeId: number;
-    colorEyesId: number;
-    colorMouthId: number;
     colorPatternId?: number;
 }

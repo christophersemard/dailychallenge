@@ -2017,15 +2017,11 @@ export namespace Prisma {
 
   export type ColorCountOutputType = {
     colorShape: number
-    colorEyes: number
-    colorMouth: number
     colorPattern: number
   }
 
   export type ColorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     colorShape?: boolean | ColorCountOutputTypeCountColorShapeArgs
-    colorEyes?: boolean | ColorCountOutputTypeCountColorEyesArgs
-    colorMouth?: boolean | ColorCountOutputTypeCountColorMouthArgs
     colorPattern?: boolean | ColorCountOutputTypeCountColorPatternArgs
   }
 
@@ -2044,20 +2040,6 @@ export namespace Prisma {
    * ColorCountOutputType without action
    */
   export type ColorCountOutputTypeCountColorShapeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AvatarWhereInput
-  }
-
-  /**
-   * ColorCountOutputType without action
-   */
-  export type ColorCountOutputTypeCountColorEyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AvatarWhereInput
-  }
-
-  /**
-   * ColorCountOutputType without action
-   */
-  export type ColorCountOutputTypeCountColorMouthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AvatarWhereInput
   }
 
@@ -2356,6 +2338,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     birthdate: Date | null
+    isVip: boolean | null
     avatarId: number | null
     role: string | null
     createdAt: Date | null
@@ -2371,6 +2354,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     birthdate: Date | null
+    isVip: boolean | null
     avatarId: number | null
     role: string | null
     createdAt: Date | null
@@ -2386,6 +2370,7 @@ export namespace Prisma {
     firstName: number
     lastName: number
     birthdate: number
+    isVip: number
     avatarId: number
     role: number
     createdAt: number
@@ -2413,6 +2398,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     birthdate?: true
+    isVip?: true
     avatarId?: true
     role?: true
     createdAt?: true
@@ -2428,6 +2414,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     birthdate?: true
+    isVip?: true
     avatarId?: true
     role?: true
     createdAt?: true
@@ -2443,6 +2430,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     birthdate?: true
+    isVip?: true
     avatarId?: true
     role?: true
     createdAt?: true
@@ -2545,6 +2533,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     birthdate: Date | null
+    isVip: boolean
     avatarId: number | null
     role: string
     createdAt: Date
@@ -2579,6 +2568,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     birthdate?: boolean
+    isVip?: boolean
     avatarId?: boolean
     role?: boolean
     createdAt?: boolean
@@ -2601,6 +2591,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     birthdate?: boolean
+    isVip?: boolean
     avatarId?: boolean
     role?: boolean
     createdAt?: boolean
@@ -2617,6 +2608,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     birthdate?: boolean
+    isVip?: boolean
     avatarId?: boolean
     role?: boolean
     createdAt?: boolean
@@ -2633,6 +2625,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     birthdate?: boolean
+    isVip?: boolean
     avatarId?: boolean
     role?: boolean
     createdAt?: boolean
@@ -2640,7 +2633,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "pseudo" | "firstName" | "lastName" | "birthdate" | "avatarId" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "pseudo" | "firstName" | "lastName" | "birthdate" | "isVip" | "avatarId" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     avatar?: boolean | User$avatarArgs<ExtArgs>
     friends?: boolean | User$friendsArgs<ExtArgs>
@@ -2675,6 +2668,7 @@ export namespace Prisma {
       firstName: string | null
       lastName: string | null
       birthdate: Date | null
+      isVip: boolean
       avatarId: number | null
       role: string
       createdAt: Date
@@ -3116,6 +3110,7 @@ export namespace Prisma {
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
     readonly birthdate: FieldRef<"User", 'DateTime'>
+    readonly isVip: FieldRef<"User", 'Boolean'>
     readonly avatarId: FieldRef<"User", 'Int'>
     readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -3688,8 +3683,6 @@ export namespace Prisma {
     mouthId: number | null
     patternId: number | null
     colorShapeId: number | null
-    colorEyesId: number | null
-    colorMouthId: number | null
     colorPatternId: number | null
   }
 
@@ -3700,8 +3693,6 @@ export namespace Prisma {
     mouthId: number | null
     patternId: number | null
     colorShapeId: number | null
-    colorEyesId: number | null
-    colorMouthId: number | null
     colorPatternId: number | null
   }
 
@@ -3713,8 +3704,6 @@ export namespace Prisma {
     mouthId: number | null
     patternId: number | null
     colorShapeId: number | null
-    colorEyesId: number | null
-    colorMouthId: number | null
     colorPatternId: number | null
   }
 
@@ -3726,8 +3715,6 @@ export namespace Prisma {
     mouthId: number | null
     patternId: number | null
     colorShapeId: number | null
-    colorEyesId: number | null
-    colorMouthId: number | null
     colorPatternId: number | null
   }
 
@@ -3739,8 +3726,6 @@ export namespace Prisma {
     mouthId: number
     patternId: number
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId: number
     _all: number
   }
@@ -3753,8 +3738,6 @@ export namespace Prisma {
     mouthId?: true
     patternId?: true
     colorShapeId?: true
-    colorEyesId?: true
-    colorMouthId?: true
     colorPatternId?: true
   }
 
@@ -3765,8 +3748,6 @@ export namespace Prisma {
     mouthId?: true
     patternId?: true
     colorShapeId?: true
-    colorEyesId?: true
-    colorMouthId?: true
     colorPatternId?: true
   }
 
@@ -3778,8 +3759,6 @@ export namespace Prisma {
     mouthId?: true
     patternId?: true
     colorShapeId?: true
-    colorEyesId?: true
-    colorMouthId?: true
     colorPatternId?: true
   }
 
@@ -3791,8 +3770,6 @@ export namespace Prisma {
     mouthId?: true
     patternId?: true
     colorShapeId?: true
-    colorEyesId?: true
-    colorMouthId?: true
     colorPatternId?: true
   }
 
@@ -3804,8 +3781,6 @@ export namespace Prisma {
     mouthId?: true
     patternId?: true
     colorShapeId?: true
-    colorEyesId?: true
-    colorMouthId?: true
     colorPatternId?: true
     _all?: true
   }
@@ -3904,8 +3879,6 @@ export namespace Prisma {
     mouthId: number
     patternId: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId: number | null
     _count: AvatarCountAggregateOutputType | null
     _avg: AvatarAvgAggregateOutputType | null
@@ -3936,16 +3909,12 @@ export namespace Prisma {
     mouthId?: boolean
     patternId?: boolean
     colorShapeId?: boolean
-    colorEyesId?: boolean
-    colorMouthId?: boolean
     colorPatternId?: boolean
     shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
     user?: boolean | Avatar$userArgs<ExtArgs>
   }, ExtArgs["result"]["avatar"]>
@@ -3958,16 +3927,12 @@ export namespace Prisma {
     mouthId?: boolean
     patternId?: boolean
     colorShapeId?: boolean
-    colorEyesId?: boolean
-    colorMouthId?: boolean
     colorPatternId?: boolean
     shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
   }, ExtArgs["result"]["avatar"]>
 
@@ -3979,16 +3944,12 @@ export namespace Prisma {
     mouthId?: boolean
     patternId?: boolean
     colorShapeId?: boolean
-    colorEyesId?: boolean
-    colorMouthId?: boolean
     colorPatternId?: boolean
     shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
   }, ExtArgs["result"]["avatar"]>
 
@@ -4000,20 +3961,16 @@ export namespace Prisma {
     mouthId?: boolean
     patternId?: boolean
     colorShapeId?: boolean
-    colorEyesId?: boolean
-    colorMouthId?: boolean
     colorPatternId?: boolean
   }
 
-  export type AvatarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "shapeId" | "eyesId" | "mouthId" | "patternId" | "colorShapeId" | "colorEyesId" | "colorMouthId" | "colorPatternId", ExtArgs["result"]["avatar"]>
+  export type AvatarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "shapeId" | "eyesId" | "mouthId" | "patternId" | "colorShapeId" | "colorPatternId", ExtArgs["result"]["avatar"]>
   export type AvatarInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shape?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     eyes?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
     user?: boolean | Avatar$userArgs<ExtArgs>
   }
@@ -4023,8 +3980,6 @@ export namespace Prisma {
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
   }
   export type AvatarIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4033,8 +3988,6 @@ export namespace Prisma {
     mouth?: boolean | AvatarAssetDefaultArgs<ExtArgs>
     pattern?: boolean | Avatar$patternArgs<ExtArgs>
     colorShape?: boolean | ColorDefaultArgs<ExtArgs>
-    colorEyes?: boolean | ColorDefaultArgs<ExtArgs>
-    colorMouth?: boolean | ColorDefaultArgs<ExtArgs>
     colorPattern?: boolean | Avatar$colorPatternArgs<ExtArgs>
   }
 
@@ -4046,8 +3999,6 @@ export namespace Prisma {
       mouth: Prisma.$AvatarAssetPayload<ExtArgs>
       pattern: Prisma.$AvatarAssetPayload<ExtArgs> | null
       colorShape: Prisma.$ColorPayload<ExtArgs>
-      colorEyes: Prisma.$ColorPayload<ExtArgs>
-      colorMouth: Prisma.$ColorPayload<ExtArgs>
       colorPattern: Prisma.$ColorPayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs> | null
     }
@@ -4059,8 +4010,6 @@ export namespace Prisma {
       mouthId: number
       patternId: number | null
       colorShapeId: number
-      colorEyesId: number
-      colorMouthId: number
       colorPatternId: number | null
     }, ExtArgs["result"]["avatar"]>
     composites: {}
@@ -4461,8 +4410,6 @@ export namespace Prisma {
     mouth<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     pattern<T extends Avatar$patternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$patternArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     colorShape<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    colorEyes<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    colorMouth<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     colorPattern<T extends Avatar$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$colorPatternArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     user<T extends Avatar$userArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
@@ -4501,8 +4448,6 @@ export namespace Prisma {
     readonly mouthId: FieldRef<"Avatar", 'Int'>
     readonly patternId: FieldRef<"Avatar", 'Int'>
     readonly colorShapeId: FieldRef<"Avatar", 'Int'>
-    readonly colorEyesId: FieldRef<"Avatar", 'Int'>
-    readonly colorMouthId: FieldRef<"Avatar", 'Int'>
     readonly colorPatternId: FieldRef<"Avatar", 'Int'>
   }
     
@@ -5178,8 +5123,6 @@ export namespace Prisma {
     level?: boolean
     vip?: boolean
     colorShape?: boolean | Color$colorShapeArgs<ExtArgs>
-    colorEyes?: boolean | Color$colorEyesArgs<ExtArgs>
-    colorMouth?: boolean | Color$colorMouthArgs<ExtArgs>
     colorPattern?: boolean | Color$colorPatternArgs<ExtArgs>
     _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["color"]>
@@ -5211,8 +5154,6 @@ export namespace Prisma {
   export type ColorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "value" | "level" | "vip", ExtArgs["result"]["color"]>
   export type ColorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     colorShape?: boolean | Color$colorShapeArgs<ExtArgs>
-    colorEyes?: boolean | Color$colorEyesArgs<ExtArgs>
-    colorMouth?: boolean | Color$colorMouthArgs<ExtArgs>
     colorPattern?: boolean | Color$colorPatternArgs<ExtArgs>
     _count?: boolean | ColorCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5223,8 +5164,6 @@ export namespace Prisma {
     name: "Color"
     objects: {
       colorShape: Prisma.$AvatarPayload<ExtArgs>[]
-      colorEyes: Prisma.$AvatarPayload<ExtArgs>[]
-      colorMouth: Prisma.$AvatarPayload<ExtArgs>[]
       colorPattern: Prisma.$AvatarPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5628,8 +5567,6 @@ export namespace Prisma {
   export interface Prisma__ColorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     colorShape<T extends Color$colorShapeArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorShapeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    colorEyes<T extends Color$colorEyesArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorEyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    colorMouth<T extends Color$colorMouthArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorMouthArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     colorPattern<T extends Color$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorPatternArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6056,54 +5993,6 @@ export namespace Prisma {
    * Color.colorShape
    */
   export type Color$colorShapeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Avatar
-     */
-    select?: AvatarSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Avatar
-     */
-    omit?: AvatarOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvatarInclude<ExtArgs> | null
-    where?: AvatarWhereInput
-    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
-    cursor?: AvatarWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
-  }
-
-  /**
-   * Color.colorEyes
-   */
-  export type Color$colorEyesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Avatar
-     */
-    select?: AvatarSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Avatar
-     */
-    omit?: AvatarOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvatarInclude<ExtArgs> | null
-    where?: AvatarWhereInput
-    orderBy?: AvatarOrderByWithRelationInput | AvatarOrderByWithRelationInput[]
-    cursor?: AvatarWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AvatarScalarFieldEnum | AvatarScalarFieldEnum[]
-  }
-
-  /**
-   * Color.colorMouth
-   */
-  export type Color$colorMouthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Avatar
      */
@@ -18171,6 +18060,7 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     birthdate: 'birthdate',
+    isVip: 'isVip',
     avatarId: 'avatarId',
     role: 'role',
     createdAt: 'createdAt',
@@ -18189,8 +18079,6 @@ export namespace Prisma {
     mouthId: 'mouthId',
     patternId: 'patternId',
     colorShapeId: 'colorShapeId',
-    colorEyesId: 'colorEyesId',
-    colorMouthId: 'colorMouthId',
     colorPatternId: 'colorPatternId'
   };
 
@@ -18469,6 +18357,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
+    isVip?: BoolFilter<"User"> | boolean
     avatarId?: IntNullableFilter<"User"> | number | null
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -18490,6 +18379,7 @@ export namespace Prisma {
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
     birthdate?: SortOrderInput | SortOrder
+    isVip?: SortOrder
     avatarId?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -18515,6 +18405,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
+    isVip?: BoolFilter<"User"> | boolean
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -18535,6 +18426,7 @@ export namespace Prisma {
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
     birthdate?: SortOrderInput | SortOrder
+    isVip?: SortOrder
     avatarId?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -18558,6 +18450,7 @@ export namespace Prisma {
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     birthdate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    isVip?: BoolWithAggregatesFilter<"User"> | boolean
     avatarId?: IntNullableWithAggregatesFilter<"User"> | number | null
     role?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -18576,16 +18469,12 @@ export namespace Prisma {
     mouthId?: IntFilter<"Avatar"> | number
     patternId?: IntNullableFilter<"Avatar"> | number | null
     colorShapeId?: IntFilter<"Avatar"> | number
-    colorEyesId?: IntFilter<"Avatar"> | number
-    colorMouthId?: IntFilter<"Avatar"> | number
     colorPatternId?: IntNullableFilter<"Avatar"> | number | null
     shape?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     eyes?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     mouth?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     pattern?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
     colorShape?: XOR<ColorScalarRelationFilter, ColorWhereInput>
-    colorEyes?: XOR<ColorScalarRelationFilter, ColorWhereInput>
-    colorMouth?: XOR<ColorScalarRelationFilter, ColorWhereInput>
     colorPattern?: XOR<ColorNullableScalarRelationFilter, ColorWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
@@ -18598,16 +18487,12 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrderInput | SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrderInput | SortOrder
     shape?: AvatarAssetOrderByWithRelationInput
     eyes?: AvatarAssetOrderByWithRelationInput
     mouth?: AvatarAssetOrderByWithRelationInput
     pattern?: AvatarAssetOrderByWithRelationInput
     colorShape?: ColorOrderByWithRelationInput
-    colorEyes?: ColorOrderByWithRelationInput
-    colorMouth?: ColorOrderByWithRelationInput
     colorPattern?: ColorOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -18623,16 +18508,12 @@ export namespace Prisma {
     mouthId?: IntFilter<"Avatar"> | number
     patternId?: IntNullableFilter<"Avatar"> | number | null
     colorShapeId?: IntFilter<"Avatar"> | number
-    colorEyesId?: IntFilter<"Avatar"> | number
-    colorMouthId?: IntFilter<"Avatar"> | number
     colorPatternId?: IntNullableFilter<"Avatar"> | number | null
     shape?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     eyes?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     mouth?: XOR<AvatarAssetScalarRelationFilter, AvatarAssetWhereInput>
     pattern?: XOR<AvatarAssetNullableScalarRelationFilter, AvatarAssetWhereInput> | null
     colorShape?: XOR<ColorScalarRelationFilter, ColorWhereInput>
-    colorEyes?: XOR<ColorScalarRelationFilter, ColorWhereInput>
-    colorMouth?: XOR<ColorScalarRelationFilter, ColorWhereInput>
     colorPattern?: XOR<ColorNullableScalarRelationFilter, ColorWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
@@ -18645,8 +18526,6 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrderInput | SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrderInput | SortOrder
     _count?: AvatarCountOrderByAggregateInput
     _avg?: AvatarAvgOrderByAggregateInput
@@ -18666,8 +18545,6 @@ export namespace Prisma {
     mouthId?: IntWithAggregatesFilter<"Avatar"> | number
     patternId?: IntNullableWithAggregatesFilter<"Avatar"> | number | null
     colorShapeId?: IntWithAggregatesFilter<"Avatar"> | number
-    colorEyesId?: IntWithAggregatesFilter<"Avatar"> | number
-    colorMouthId?: IntWithAggregatesFilter<"Avatar"> | number
     colorPatternId?: IntNullableWithAggregatesFilter<"Avatar"> | number | null
   }
 
@@ -18681,8 +18558,6 @@ export namespace Prisma {
     level?: IntFilter<"Color"> | number
     vip?: BoolFilter<"Color"> | boolean
     colorShape?: AvatarListRelationFilter
-    colorEyes?: AvatarListRelationFilter
-    colorMouth?: AvatarListRelationFilter
     colorPattern?: AvatarListRelationFilter
   }
 
@@ -18693,8 +18568,6 @@ export namespace Prisma {
     level?: SortOrder
     vip?: SortOrder
     colorShape?: AvatarOrderByRelationAggregateInput
-    colorEyes?: AvatarOrderByRelationAggregateInput
-    colorMouth?: AvatarOrderByRelationAggregateInput
     colorPattern?: AvatarOrderByRelationAggregateInput
   }
 
@@ -18708,8 +18581,6 @@ export namespace Prisma {
     level?: IntFilter<"Color"> | number
     vip?: BoolFilter<"Color"> | boolean
     colorShape?: AvatarListRelationFilter
-    colorEyes?: AvatarListRelationFilter
-    colorMouth?: AvatarListRelationFilter
     colorPattern?: AvatarListRelationFilter
   }, "id">
 
@@ -19579,6 +19450,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19599,6 +19471,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -19618,6 +19491,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19638,6 +19512,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19658,6 +19533,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -19672,6 +19548,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19686,6 +19563,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19700,8 +19578,6 @@ export namespace Prisma {
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -19714,8 +19590,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -19727,8 +19601,6 @@ export namespace Prisma {
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -19741,8 +19613,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -19755,8 +19625,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -19772,8 +19640,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -19783,8 +19649,6 @@ export namespace Prisma {
     level?: number
     vip?: boolean
     colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
     colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
   }
 
@@ -19795,8 +19659,6 @@ export namespace Prisma {
     level?: number
     vip?: boolean
     colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
     colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
   }
 
@@ -19806,8 +19668,6 @@ export namespace Prisma {
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
     colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
     colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
   }
 
@@ -19818,8 +19678,6 @@ export namespace Prisma {
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
     colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
     colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
   }
 
@@ -20775,6 +20633,11 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -20850,6 +20713,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     birthdate?: SortOrder
+    isVip?: SortOrder
     avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -20870,6 +20734,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     birthdate?: SortOrder
+    isVip?: SortOrder
     avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -20885,6 +20750,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     birthdate?: SortOrder
+    isVip?: SortOrder
     avatarId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
@@ -20963,6 +20829,14 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -21026,8 +20900,6 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrder
   }
 
@@ -21038,8 +20910,6 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrder
   }
 
@@ -21051,8 +20921,6 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrder
   }
 
@@ -21064,8 +20932,6 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrder
   }
 
@@ -21076,14 +20942,7 @@ export namespace Prisma {
     mouthId?: SortOrder
     patternId?: SortOrder
     colorShapeId?: SortOrder
-    colorEyesId?: SortOrder
-    colorMouthId?: SortOrder
     colorPatternId?: SortOrder
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type AvatarListRelationFilter = {
@@ -21128,14 +20987,6 @@ export namespace Prisma {
   export type ColorSumOrderByAggregateInput = {
     id?: SortOrder
     level?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type AvatarAssetCountOrderByAggregateInput = {
@@ -21832,6 +21683,10 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -22024,18 +21879,6 @@ export namespace Prisma {
     connect?: ColorWhereUniqueInput
   }
 
-  export type ColorCreateNestedOneWithoutColorEyesInput = {
-    create?: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
-    connectOrCreate?: ColorCreateOrConnectWithoutColorEyesInput
-    connect?: ColorWhereUniqueInput
-  }
-
-  export type ColorCreateNestedOneWithoutColorMouthInput = {
-    create?: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
-    connectOrCreate?: ColorCreateOrConnectWithoutColorMouthInput
-    connect?: ColorWhereUniqueInput
-  }
-
   export type ColorCreateNestedOneWithoutColorPatternInput = {
     create?: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
     connectOrCreate?: ColorCreateOrConnectWithoutColorPatternInput
@@ -22096,22 +21939,6 @@ export namespace Prisma {
     update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorShapeInput, ColorUpdateWithoutColorShapeInput>, ColorUncheckedUpdateWithoutColorShapeInput>
   }
 
-  export type ColorUpdateOneRequiredWithoutColorEyesNestedInput = {
-    create?: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
-    connectOrCreate?: ColorCreateOrConnectWithoutColorEyesInput
-    upsert?: ColorUpsertWithoutColorEyesInput
-    connect?: ColorWhereUniqueInput
-    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorEyesInput, ColorUpdateWithoutColorEyesInput>, ColorUncheckedUpdateWithoutColorEyesInput>
-  }
-
-  export type ColorUpdateOneRequiredWithoutColorMouthNestedInput = {
-    create?: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
-    connectOrCreate?: ColorCreateOrConnectWithoutColorMouthInput
-    upsert?: ColorUpsertWithoutColorMouthInput
-    connect?: ColorWhereUniqueInput
-    update?: XOR<XOR<ColorUpdateToOneWithWhereWithoutColorMouthInput, ColorUpdateWithoutColorMouthInput>, ColorUncheckedUpdateWithoutColorMouthInput>
-  }
-
   export type ColorUpdateOneWithoutColorPatternNestedInput = {
     create?: XOR<ColorCreateWithoutColorPatternInput, ColorUncheckedCreateWithoutColorPatternInput>
     connectOrCreate?: ColorCreateOrConnectWithoutColorPatternInput
@@ -22149,20 +21976,6 @@ export namespace Prisma {
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
   }
 
-  export type AvatarCreateNestedManyWithoutColorEyesInput = {
-    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
-    createMany?: AvatarCreateManyColorEyesInputEnvelope
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-  }
-
-  export type AvatarCreateNestedManyWithoutColorMouthInput = {
-    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
-    createMany?: AvatarCreateManyColorMouthInputEnvelope
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-  }
-
   export type AvatarCreateNestedManyWithoutColorPatternInput = {
     create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
     connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
@@ -22177,29 +21990,11 @@ export namespace Prisma {
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
   }
 
-  export type AvatarUncheckedCreateNestedManyWithoutColorEyesInput = {
-    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
-    createMany?: AvatarCreateManyColorEyesInputEnvelope
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-  }
-
-  export type AvatarUncheckedCreateNestedManyWithoutColorMouthInput = {
-    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
-    createMany?: AvatarCreateManyColorMouthInputEnvelope
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-  }
-
   export type AvatarUncheckedCreateNestedManyWithoutColorPatternInput = {
     create?: XOR<AvatarCreateWithoutColorPatternInput, AvatarUncheckedCreateWithoutColorPatternInput> | AvatarCreateWithoutColorPatternInput[] | AvatarUncheckedCreateWithoutColorPatternInput[]
     connectOrCreate?: AvatarCreateOrConnectWithoutColorPatternInput | AvatarCreateOrConnectWithoutColorPatternInput[]
     createMany?: AvatarCreateManyColorPatternInputEnvelope
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type AvatarUpdateManyWithoutColorShapeNestedInput = {
@@ -22213,34 +22008,6 @@ export namespace Prisma {
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
     update?: AvatarUpdateWithWhereUniqueWithoutColorShapeInput | AvatarUpdateWithWhereUniqueWithoutColorShapeInput[]
     updateMany?: AvatarUpdateManyWithWhereWithoutColorShapeInput | AvatarUpdateManyWithWhereWithoutColorShapeInput[]
-    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
-  }
-
-  export type AvatarUpdateManyWithoutColorEyesNestedInput = {
-    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
-    upsert?: AvatarUpsertWithWhereUniqueWithoutColorEyesInput | AvatarUpsertWithWhereUniqueWithoutColorEyesInput[]
-    createMany?: AvatarCreateManyColorEyesInputEnvelope
-    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    update?: AvatarUpdateWithWhereUniqueWithoutColorEyesInput | AvatarUpdateWithWhereUniqueWithoutColorEyesInput[]
-    updateMany?: AvatarUpdateManyWithWhereWithoutColorEyesInput | AvatarUpdateManyWithWhereWithoutColorEyesInput[]
-    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
-  }
-
-  export type AvatarUpdateManyWithoutColorMouthNestedInput = {
-    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
-    upsert?: AvatarUpsertWithWhereUniqueWithoutColorMouthInput | AvatarUpsertWithWhereUniqueWithoutColorMouthInput[]
-    createMany?: AvatarCreateManyColorMouthInputEnvelope
-    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    update?: AvatarUpdateWithWhereUniqueWithoutColorMouthInput | AvatarUpdateWithWhereUniqueWithoutColorMouthInput[]
-    updateMany?: AvatarUpdateManyWithWhereWithoutColorMouthInput | AvatarUpdateManyWithWhereWithoutColorMouthInput[]
     deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
   }
 
@@ -22269,34 +22036,6 @@ export namespace Prisma {
     connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
     update?: AvatarUpdateWithWhereUniqueWithoutColorShapeInput | AvatarUpdateWithWhereUniqueWithoutColorShapeInput[]
     updateMany?: AvatarUpdateManyWithWhereWithoutColorShapeInput | AvatarUpdateManyWithWhereWithoutColorShapeInput[]
-    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
-  }
-
-  export type AvatarUncheckedUpdateManyWithoutColorEyesNestedInput = {
-    create?: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput> | AvatarCreateWithoutColorEyesInput[] | AvatarUncheckedCreateWithoutColorEyesInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorEyesInput | AvatarCreateOrConnectWithoutColorEyesInput[]
-    upsert?: AvatarUpsertWithWhereUniqueWithoutColorEyesInput | AvatarUpsertWithWhereUniqueWithoutColorEyesInput[]
-    createMany?: AvatarCreateManyColorEyesInputEnvelope
-    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    update?: AvatarUpdateWithWhereUniqueWithoutColorEyesInput | AvatarUpdateWithWhereUniqueWithoutColorEyesInput[]
-    updateMany?: AvatarUpdateManyWithWhereWithoutColorEyesInput | AvatarUpdateManyWithWhereWithoutColorEyesInput[]
-    deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
-  }
-
-  export type AvatarUncheckedUpdateManyWithoutColorMouthNestedInput = {
-    create?: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput> | AvatarCreateWithoutColorMouthInput[] | AvatarUncheckedCreateWithoutColorMouthInput[]
-    connectOrCreate?: AvatarCreateOrConnectWithoutColorMouthInput | AvatarCreateOrConnectWithoutColorMouthInput[]
-    upsert?: AvatarUpsertWithWhereUniqueWithoutColorMouthInput | AvatarUpsertWithWhereUniqueWithoutColorMouthInput[]
-    createMany?: AvatarCreateManyColorMouthInputEnvelope
-    set?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    disconnect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    delete?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    connect?: AvatarWhereUniqueInput | AvatarWhereUniqueInput[]
-    update?: AvatarUpdateWithWhereUniqueWithoutColorMouthInput | AvatarUpdateWithWhereUniqueWithoutColorMouthInput[]
-    updateMany?: AvatarUpdateManyWithWhereWithoutColorMouthInput | AvatarUpdateManyWithWhereWithoutColorMouthInput[]
     deleteMany?: AvatarScalarWhereInput | AvatarScalarWhereInput[]
   }
 
@@ -23008,6 +22747,11 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -23105,6 +22849,14 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -23146,19 +22898,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -23182,8 +22921,6 @@ export namespace Prisma {
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
   }
 
@@ -23195,8 +22932,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -23363,8 +23098,6 @@ export namespace Prisma {
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
   }
 
@@ -23376,8 +23109,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -23641,8 +23372,6 @@ export namespace Prisma {
     value: string
     level?: number
     vip?: boolean
-    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
     colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
   }
 
@@ -23652,8 +23381,6 @@ export namespace Prisma {
     value: string
     level?: number
     vip?: boolean
-    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
     colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
   }
 
@@ -23662,66 +23389,12 @@ export namespace Prisma {
     create: XOR<ColorCreateWithoutColorShapeInput, ColorUncheckedCreateWithoutColorShapeInput>
   }
 
-  export type ColorCreateWithoutColorEyesInput = {
-    name: string
-    value: string
-    level?: number
-    vip?: boolean
-    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
-    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
-    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
-  }
-
-  export type ColorUncheckedCreateWithoutColorEyesInput = {
-    id?: number
-    name: string
-    value: string
-    level?: number
-    vip?: boolean
-    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
-    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
-    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
-  }
-
-  export type ColorCreateOrConnectWithoutColorEyesInput = {
-    where: ColorWhereUniqueInput
-    create: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
-  }
-
-  export type ColorCreateWithoutColorMouthInput = {
-    name: string
-    value: string
-    level?: number
-    vip?: boolean
-    colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
-    colorPattern?: AvatarCreateNestedManyWithoutColorPatternInput
-  }
-
-  export type ColorUncheckedCreateWithoutColorMouthInput = {
-    id?: number
-    name: string
-    value: string
-    level?: number
-    vip?: boolean
-    colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
-    colorPattern?: AvatarUncheckedCreateNestedManyWithoutColorPatternInput
-  }
-
-  export type ColorCreateOrConnectWithoutColorMouthInput = {
-    where: ColorWhereUniqueInput
-    create: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
-  }
-
   export type ColorCreateWithoutColorPatternInput = {
     name: string
     value: string
     level?: number
     vip?: boolean
     colorShape?: AvatarCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarCreateNestedManyWithoutColorMouthInput
   }
 
   export type ColorUncheckedCreateWithoutColorPatternInput = {
@@ -23731,8 +23404,6 @@ export namespace Prisma {
     level?: number
     vip?: boolean
     colorShape?: AvatarUncheckedCreateNestedManyWithoutColorShapeInput
-    colorEyes?: AvatarUncheckedCreateNestedManyWithoutColorEyesInput
-    colorMouth?: AvatarUncheckedCreateNestedManyWithoutColorMouthInput
   }
 
   export type ColorCreateOrConnectWithoutColorPatternInput = {
@@ -23747,6 +23418,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23766,6 +23438,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23942,8 +23615,6 @@ export namespace Prisma {
     value?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
-    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
     colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
   }
 
@@ -23953,72 +23624,6 @@ export namespace Prisma {
     value?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
-    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
-    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
-  }
-
-  export type ColorUpsertWithoutColorEyesInput = {
-    update: XOR<ColorUpdateWithoutColorEyesInput, ColorUncheckedUpdateWithoutColorEyesInput>
-    create: XOR<ColorCreateWithoutColorEyesInput, ColorUncheckedCreateWithoutColorEyesInput>
-    where?: ColorWhereInput
-  }
-
-  export type ColorUpdateToOneWithWhereWithoutColorEyesInput = {
-    where?: ColorWhereInput
-    data: XOR<ColorUpdateWithoutColorEyesInput, ColorUncheckedUpdateWithoutColorEyesInput>
-  }
-
-  export type ColorUpdateWithoutColorEyesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    vip?: BoolFieldUpdateOperationsInput | boolean
-    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
-    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
-    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
-  }
-
-  export type ColorUncheckedUpdateWithoutColorEyesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    vip?: BoolFieldUpdateOperationsInput | boolean
-    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
-    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
-    colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
-  }
-
-  export type ColorUpsertWithoutColorMouthInput = {
-    update: XOR<ColorUpdateWithoutColorMouthInput, ColorUncheckedUpdateWithoutColorMouthInput>
-    create: XOR<ColorCreateWithoutColorMouthInput, ColorUncheckedCreateWithoutColorMouthInput>
-    where?: ColorWhereInput
-  }
-
-  export type ColorUpdateToOneWithWhereWithoutColorMouthInput = {
-    where?: ColorWhereInput
-    data: XOR<ColorUpdateWithoutColorMouthInput, ColorUncheckedUpdateWithoutColorMouthInput>
-  }
-
-  export type ColorUpdateWithoutColorMouthInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    vip?: BoolFieldUpdateOperationsInput | boolean
-    colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
-    colorPattern?: AvatarUpdateManyWithoutColorPatternNestedInput
-  }
-
-  export type ColorUncheckedUpdateWithoutColorMouthInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    vip?: BoolFieldUpdateOperationsInput | boolean
-    colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
     colorPattern?: AvatarUncheckedUpdateManyWithoutColorPatternNestedInput
   }
 
@@ -24039,8 +23644,6 @@ export namespace Prisma {
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
     colorShape?: AvatarUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUpdateManyWithoutColorMouthNestedInput
   }
 
   export type ColorUncheckedUpdateWithoutColorPatternInput = {
@@ -24050,8 +23653,6 @@ export namespace Prisma {
     level?: IntFieldUpdateOperationsInput | number
     vip?: BoolFieldUpdateOperationsInput | boolean
     colorShape?: AvatarUncheckedUpdateManyWithoutColorShapeNestedInput
-    colorEyes?: AvatarUncheckedUpdateManyWithoutColorEyesNestedInput
-    colorMouth?: AvatarUncheckedUpdateManyWithoutColorMouthNestedInput
   }
 
   export type UserUpsertWithoutAvatarInput = {
@@ -24072,6 +23673,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24091,6 +23693,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24108,8 +23711,6 @@ export namespace Prisma {
     eyes: AvatarAssetCreateNestedOneWithoutEyesInput
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -24121,8 +23722,6 @@ export namespace Prisma {
     eyesId: number
     mouthId: number
     patternId?: number | null
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -24137,76 +23736,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AvatarCreateWithoutColorEyesInput = {
-    url: string
-    shape: AvatarAssetCreateNestedOneWithoutShapesInput
-    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
-    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
-    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
-    colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
-    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
-    user?: UserCreateNestedOneWithoutAvatarInput
-  }
-
-  export type AvatarUncheckedCreateWithoutColorEyesInput = {
-    id?: number
-    url: string
-    shapeId: number
-    eyesId: number
-    mouthId: number
-    patternId?: number | null
-    colorShapeId: number
-    colorMouthId: number
-    colorPatternId?: number | null
-    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
-  }
-
-  export type AvatarCreateOrConnectWithoutColorEyesInput = {
-    where: AvatarWhereUniqueInput
-    create: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput>
-  }
-
-  export type AvatarCreateManyColorEyesInputEnvelope = {
-    data: AvatarCreateManyColorEyesInput | AvatarCreateManyColorEyesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AvatarCreateWithoutColorMouthInput = {
-    url: string
-    shape: AvatarAssetCreateNestedOneWithoutShapesInput
-    eyes: AvatarAssetCreateNestedOneWithoutEyesInput
-    mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
-    pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
-    colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
-    user?: UserCreateNestedOneWithoutAvatarInput
-  }
-
-  export type AvatarUncheckedCreateWithoutColorMouthInput = {
-    id?: number
-    url: string
-    shapeId: number
-    eyesId: number
-    mouthId: number
-    patternId?: number | null
-    colorShapeId: number
-    colorEyesId: number
-    colorPatternId?: number | null
-    user?: UserUncheckedCreateNestedOneWithoutAvatarInput
-  }
-
-  export type AvatarCreateOrConnectWithoutColorMouthInput = {
-    where: AvatarWhereUniqueInput
-    create: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput>
-  }
-
-  export type AvatarCreateManyColorMouthInputEnvelope = {
-    data: AvatarCreateManyColorMouthInput | AvatarCreateManyColorMouthInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AvatarCreateWithoutColorPatternInput = {
     url: string
     shape: AvatarAssetCreateNestedOneWithoutShapesInput
@@ -24214,8 +23743,6 @@ export namespace Prisma {
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
 
@@ -24227,8 +23754,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
 
@@ -24269,41 +23794,7 @@ export namespace Prisma {
     mouthId?: IntFilter<"Avatar"> | number
     patternId?: IntNullableFilter<"Avatar"> | number | null
     colorShapeId?: IntFilter<"Avatar"> | number
-    colorEyesId?: IntFilter<"Avatar"> | number
-    colorMouthId?: IntFilter<"Avatar"> | number
     colorPatternId?: IntNullableFilter<"Avatar"> | number | null
-  }
-
-  export type AvatarUpsertWithWhereUniqueWithoutColorEyesInput = {
-    where: AvatarWhereUniqueInput
-    update: XOR<AvatarUpdateWithoutColorEyesInput, AvatarUncheckedUpdateWithoutColorEyesInput>
-    create: XOR<AvatarCreateWithoutColorEyesInput, AvatarUncheckedCreateWithoutColorEyesInput>
-  }
-
-  export type AvatarUpdateWithWhereUniqueWithoutColorEyesInput = {
-    where: AvatarWhereUniqueInput
-    data: XOR<AvatarUpdateWithoutColorEyesInput, AvatarUncheckedUpdateWithoutColorEyesInput>
-  }
-
-  export type AvatarUpdateManyWithWhereWithoutColorEyesInput = {
-    where: AvatarScalarWhereInput
-    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorEyesInput>
-  }
-
-  export type AvatarUpsertWithWhereUniqueWithoutColorMouthInput = {
-    where: AvatarWhereUniqueInput
-    update: XOR<AvatarUpdateWithoutColorMouthInput, AvatarUncheckedUpdateWithoutColorMouthInput>
-    create: XOR<AvatarCreateWithoutColorMouthInput, AvatarUncheckedCreateWithoutColorMouthInput>
-  }
-
-  export type AvatarUpdateWithWhereUniqueWithoutColorMouthInput = {
-    where: AvatarWhereUniqueInput
-    data: XOR<AvatarUpdateWithoutColorMouthInput, AvatarUncheckedUpdateWithoutColorMouthInput>
-  }
-
-  export type AvatarUpdateManyWithWhereWithoutColorMouthInput = {
-    where: AvatarScalarWhereInput
-    data: XOR<AvatarUpdateManyMutationInput, AvatarUncheckedUpdateManyWithoutColorMouthInput>
   }
 
   export type AvatarUpsertWithWhereUniqueWithoutColorPatternInput = {
@@ -24328,8 +23819,6 @@ export namespace Prisma {
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -24341,8 +23830,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -24363,8 +23850,6 @@ export namespace Prisma {
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -24376,8 +23861,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -24398,8 +23881,6 @@ export namespace Prisma {
     eyes: AvatarAssetCreateNestedOneWithoutEyesInput
     pattern?: AvatarAssetCreateNestedOneWithoutPatternsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -24411,8 +23892,6 @@ export namespace Prisma {
     eyesId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -24433,8 +23912,6 @@ export namespace Prisma {
     eyes: AvatarAssetCreateNestedOneWithoutEyesInput
     mouth: AvatarAssetCreateNestedOneWithoutMouthsInput
     colorShape: ColorCreateNestedOneWithoutColorShapeInput
-    colorEyes: ColorCreateNestedOneWithoutColorEyesInput
-    colorMouth: ColorCreateNestedOneWithoutColorMouthInput
     colorPattern?: ColorCreateNestedOneWithoutColorPatternInput
     user?: UserCreateNestedOneWithoutAvatarInput
   }
@@ -24446,8 +23923,6 @@ export namespace Prisma {
     eyesId: number
     mouthId: number
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
     user?: UserUncheckedCreateNestedOneWithoutAvatarInput
   }
@@ -24580,6 +24055,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24599,6 +24075,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -24622,6 +24099,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24641,6 +24119,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -24706,6 +24185,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24725,6 +24205,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24754,6 +24235,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24773,6 +24255,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24807,6 +24290,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24826,6 +24310,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -24860,6 +24345,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24879,6 +24365,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24975,6 +24462,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24994,6 +24482,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -25124,6 +24613,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25143,6 +24633,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25161,6 +24652,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25180,6 +24672,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     birthdate?: Date | string | null
+    isVip?: boolean
     avatarId?: number | null
     role?: string
     createdAt?: Date | string
@@ -25275,6 +24768,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25294,6 +24788,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVip?: BoolFieldUpdateOperationsInput | boolean
     avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25976,32 +25471,6 @@ export namespace Prisma {
     eyesId: number
     mouthId: number
     patternId?: number | null
-    colorEyesId: number
-    colorMouthId: number
-    colorPatternId?: number | null
-  }
-
-  export type AvatarCreateManyColorEyesInput = {
-    id?: number
-    url: string
-    shapeId: number
-    eyesId: number
-    mouthId: number
-    patternId?: number | null
-    colorShapeId: number
-    colorMouthId: number
-    colorPatternId?: number | null
-  }
-
-  export type AvatarCreateManyColorMouthInput = {
-    id?: number
-    url: string
-    shapeId: number
-    eyesId: number
-    mouthId: number
-    patternId?: number | null
-    colorShapeId: number
-    colorEyesId: number
     colorPatternId?: number | null
   }
 
@@ -26013,8 +25482,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
   }
 
   export type AvatarUpdateWithoutColorShapeInput = {
@@ -26023,8 +25490,6 @@ export namespace Prisma {
     eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -26036,8 +25501,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -26049,82 +25512,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
-    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type AvatarUpdateWithoutColorEyesInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
-    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
-    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
-    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
-    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
-    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
-    user?: UserUpdateOneWithoutAvatarNestedInput
-  }
-
-  export type AvatarUncheckedUpdateWithoutColorEyesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    shapeId?: IntFieldUpdateOperationsInput | number
-    eyesId?: IntFieldUpdateOperationsInput | number
-    mouthId?: IntFieldUpdateOperationsInput | number
-    patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
-    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
-  }
-
-  export type AvatarUncheckedUpdateManyWithoutColorEyesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    shapeId?: IntFieldUpdateOperationsInput | number
-    eyesId?: IntFieldUpdateOperationsInput | number
-    mouthId?: IntFieldUpdateOperationsInput | number
-    patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
-    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type AvatarUpdateWithoutColorMouthInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    shape?: AvatarAssetUpdateOneRequiredWithoutShapesNestedInput
-    eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
-    mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
-    pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
-    colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
-    user?: UserUpdateOneWithoutAvatarNestedInput
-  }
-
-  export type AvatarUncheckedUpdateWithoutColorMouthInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    shapeId?: IntFieldUpdateOperationsInput | number
-    eyesId?: IntFieldUpdateOperationsInput | number
-    mouthId?: IntFieldUpdateOperationsInput | number
-    patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
-  }
-
-  export type AvatarUncheckedUpdateManyWithoutColorMouthInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    shapeId?: IntFieldUpdateOperationsInput | number
-    eyesId?: IntFieldUpdateOperationsInput | number
-    mouthId?: IntFieldUpdateOperationsInput | number
-    patternId?: NullableIntFieldUpdateOperationsInput | number | null
-    colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -26135,8 +25522,6 @@ export namespace Prisma {
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
 
@@ -26148,8 +25533,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
 
@@ -26161,8 +25544,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AvatarCreateManyShapeInput = {
@@ -26172,8 +25553,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -26184,8 +25563,6 @@ export namespace Prisma {
     mouthId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -26196,8 +25573,6 @@ export namespace Prisma {
     eyesId: number
     patternId?: number | null
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -26208,8 +25583,6 @@ export namespace Prisma {
     eyesId: number
     mouthId: number
     colorShapeId: number
-    colorEyesId: number
-    colorMouthId: number
     colorPatternId?: number | null
   }
 
@@ -26230,8 +25603,6 @@ export namespace Prisma {
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -26243,8 +25614,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -26256,8 +25625,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -26267,8 +25634,6 @@ export namespace Prisma {
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -26280,8 +25645,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -26293,8 +25656,6 @@ export namespace Prisma {
     mouthId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -26304,8 +25665,6 @@ export namespace Prisma {
     eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
     pattern?: AvatarAssetUpdateOneWithoutPatternsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -26317,8 +25676,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -26330,8 +25687,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     patternId?: NullableIntFieldUpdateOperationsInput | number | null
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -26341,8 +25696,6 @@ export namespace Prisma {
     eyes?: AvatarAssetUpdateOneRequiredWithoutEyesNestedInput
     mouth?: AvatarAssetUpdateOneRequiredWithoutMouthsNestedInput
     colorShape?: ColorUpdateOneRequiredWithoutColorShapeNestedInput
-    colorEyes?: ColorUpdateOneRequiredWithoutColorEyesNestedInput
-    colorMouth?: ColorUpdateOneRequiredWithoutColorMouthNestedInput
     colorPattern?: ColorUpdateOneWithoutColorPatternNestedInput
     user?: UserUpdateOneWithoutAvatarNestedInput
   }
@@ -26354,8 +25707,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     mouthId?: IntFieldUpdateOperationsInput | number
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
     user?: UserUncheckedUpdateOneWithoutAvatarNestedInput
   }
@@ -26367,8 +25718,6 @@ export namespace Prisma {
     eyesId?: IntFieldUpdateOperationsInput | number
     mouthId?: IntFieldUpdateOperationsInput | number
     colorShapeId?: IntFieldUpdateOperationsInput | number
-    colorEyesId?: IntFieldUpdateOperationsInput | number
-    colorMouthId?: IntFieldUpdateOperationsInput | number
     colorPatternId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

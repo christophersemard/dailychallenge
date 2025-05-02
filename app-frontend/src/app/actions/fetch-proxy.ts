@@ -25,17 +25,6 @@ export async function fetchServerAction<T>(
     const session = await getServerSession(authOptions);
     const token = session?.accessToken;
 
-    if (!token && input !== "/auth/login" && input !== "/auth/register") {
-        return {
-            data: null,
-            error: {
-                statusCode: 401,
-                error: "Unauthorized",
-                message: "No token found. Please log in.",
-            },
-        };
-    }
-
     const headers: Record<string, string> = {
         ...(init.headers as Record<string, string>),
         Authorization: `Bearer ${token}`,

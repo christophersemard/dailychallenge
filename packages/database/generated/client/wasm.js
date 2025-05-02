@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   birthdate: 'birthdate',
+  isVip: 'isVip',
   avatarId: 'avatarId',
   role: 'role',
   createdAt: 'createdAt',
@@ -140,8 +141,6 @@ exports.Prisma.AvatarScalarFieldEnum = {
   mouthId: 'mouthId',
   patternId: 'patternId',
   colorShapeId: 'colorShapeId',
-  colorEyesId: 'colorEyesId',
-  colorMouthId: 'colorMouthId',
   colorPatternId: 'colorPatternId'
 };
 

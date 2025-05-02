@@ -21,22 +21,14 @@ export class AvatarService {
     async createOrUpdateAvatar(
         userId: number,
         dto: CreateOrUpdateAvatarDto
-    ): Promise<{ url: string }> {
-        return lastValueFrom(
-            this.client.send<{ url: string }>("create_or_update_avatar", {
-                userId,
-                data: dto,
-            })
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
-    }
-
-    async generateRandomAvatar(
-        userId: number
     ): Promise<GeneratedAvatarResponse> {
         return lastValueFrom(
             this.client.send<GeneratedAvatarResponse>(
-                "generate_random_avatar",
-                userId
+                "create_or_update_avatar",
+                {
+                    userId,
+                    data: dto,
+                }
             )
         ).catch((error) => this.rpcExceptionHandler.handle(error));
     }

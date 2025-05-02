@@ -19,8 +19,6 @@ export class ProfileService {
                         mouth: true,
                         pattern: true,
                         colorShape: true,
-                        colorEyes: true,
-                        colorMouth: true,
                         colorPattern: true,
                     },
                 },

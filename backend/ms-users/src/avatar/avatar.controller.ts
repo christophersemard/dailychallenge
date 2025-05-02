@@ -14,15 +14,19 @@ export class AvatarController {
 
     @MessagePattern("create_or_update_avatar")
     async createOrUpdateAvatar(
-        @Payload() payload: { userId: number; data: CreateOrUpdateAvatarDto }
+        @Payload()
+        payload: {
+            userId: number;
+            data: CreateOrUpdateAvatarDto;
+        }
     ) {
+        if (!payload?.userId || !payload?.data) {
+            throw new Error("Requête invalide : userId ou data manquant");
+        }
+
         return this.avatarService.createOrUpdateAvatar(
             payload.userId,
             payload.data
         );
-    }
-    @MessagePattern("generate_random_avatar")
-    async generateRandomAvatar(@Payload() userId: number) {
-        return this.avatarService.generateRandomAvatar(userId);
     }
 }
