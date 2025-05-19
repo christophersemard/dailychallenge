@@ -9,6 +9,22 @@ const nextConfig: NextConfig = {
                 hostname: "image.tmdb.org",
                 pathname: "**",
             },
+            // wrivqparegjwiklfzsuq.supabase.co
+            {
+                protocol: "https",
+                hostname: "wrivqparegjwiklfzsuq.supabase.co",
+                pathname: "/storage/v1/object/public/avatar/**",
+            },
+            {
+                protocol: "https",
+                hostname: "wrivqparegjwiklfzsuq.supabase.co",
+                pathname: "/storage/v1/object/public/avatar/**/**",
+            },
+            {
+                protocol: "https",
+                hostname: "wrivqparegjwiklfzsuq.supabase.co",
+                pathname: "/storage/v1/object/public/avatar/**/**/**",
+            },
         ],
     },
 };

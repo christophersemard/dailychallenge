@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/shadcn.css";
+@import "tw-animate-css";
 
 :root {
     --yellow: #ffd400;

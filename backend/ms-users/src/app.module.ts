@@ -17,6 +17,7 @@ import { ProfileService } from "./profile/profile.service";
 import { AvatarService } from "./avatar/avatar.service";
 import { AvatarController } from "./avatar/avatar.controller";
 import { UsersService } from "./users/users.service";
+import { SupabaseService } from "./supabase/supabase.service";
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { UsersService } from "./users/users.service";
         AvatarController,
     ],
     providers: [
+        SupabaseService,
         AuthService,
         UserEventsService,
         StreakResetJob,
@@ -47,5 +49,6 @@ import { UsersService } from "./users/users.service";
         AvatarService,
         UsersService,
     ],
+    exports: [SupabaseService],
 })
 export class AppModule {}

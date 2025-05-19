@@ -4,6 +4,18 @@ import { GameResult } from "./game.types";
 export interface UserAvatar {
     id: string;
     url: string;
+    shapeId: number | undefined;
+    eyesId: number | undefined;
+    mouthId: number | undefined;
+    patternId: number | null;
+    colorShapeId: number | undefined;
+    colorPatternId: number | null;
+    shape: AssetItem | null;
+    eyes: AssetItem | null;
+    mouth: AssetItem | null;
+    pattern: AssetItem | null;
+    colorShape: ColorAsset | null;
+    colorPattern: ColorAsset | null;
 }
 
 export interface UserStats {
@@ -22,9 +34,11 @@ export interface UserMe {
     lastName: string;
     birthdate: string;
     createdAt: string;
-    avatar: UserAvatar;
+    avatar: UserAvatar | null; // Avatar de l'utilisateur
     userStats: UserStats;
     pendingFriendRequests: number | null;
+
+    isVip: boolean;
 }
 
 // Type pour un ami
@@ -74,6 +88,23 @@ export type UserPublic = {
     } | null;
     isFriend: boolean | "requested" | "received" | "accepted";
     userEvents: UserEvent[];
+    avatar: UserAvatar | null;
+};
+
+export type ColorAsset = {
+    id: number;
+    name: string;
+    value: string;
+    gradientValue: string | null;
+    level: number;
+    vip: boolean;
+};
+export type AssetItem = {
+    id: number;
+    name: string;
+    url: string;
+    level: number;
+    vipOnly: boolean;
 };
 
 export type UserEvent = {

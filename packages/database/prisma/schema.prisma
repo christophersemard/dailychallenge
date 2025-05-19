@@ -27,8 +27,7 @@ model User {
   birthdate DateTime? // Seulement la date 
   isVip     Boolean   @default(false) // ✅ VIP
 
-  avatar   Avatar? @relation(fields: [avatarId], references: [id])
-  avatarId Int?    @unique
+  avatar Avatar?
 
   role      String    @default("user")
   createdAt DateTime  @default(now())
@@ -63,15 +62,17 @@ model Avatar {
   colorPattern Color? @relation("ColorPattern", fields: [colorPatternId], references: [id])
 
   // Relations
-  user User?
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
 
 model Color {
-  id    Int     @id @default(autoincrement())
-  name  String
-  value String
-  level Int     @default(0) // Niveau requis
-  vip   Boolean @default(false)
+  id            Int     @id @default(autoincrement())
+  name          String
+  value         String
+  gradientValue String? // Dégradé de couleur (ex: "linear-gradient(to right, #ff0000, #0000ff)")
+  level         Int     @default(0) // Niveau requis
+  vip           Boolean @default(false)
 
   // Relations
   colorShape   Avatar[] @relation("ColorShape")

@@ -42,10 +42,17 @@ export class ProfileService {
             lastName: user.lastName,
             birthdate: user.birthdate,
             createdAt: user.createdAt,
+            isVip: user.isVip,
             avatar:
                 (user.avatar && {
                     id: user.avatar.id,
                     url: user.avatar.url,
+                    shape: user.avatar.shape,
+                    eyes: user.avatar.eyes,
+                    mouth: user.avatar.mouth,
+                    pattern: user.avatar.pattern,
+                    colorShape: user.avatar.colorShape,
+                    colorPattern: user.avatar.colorPattern,
                 }) ||
                 null,
             userStats:

@@ -37,7 +37,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                     <Image
                         height={50}
                         width={50}
-                        src={user.avatar?.url || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                        src={user.avatar ? `${user?.avatar?.url}?v=${Date.now()}` : `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
                         alt={user.pseudo}
                         className="size-12  rounded "
                     />

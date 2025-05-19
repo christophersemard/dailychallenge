@@ -4,10 +4,15 @@ import * as fs from "fs";
 import * as sharp from "sharp";
 import { CreateOrUpdateAvatarDto } from "./dto/create-avatar.dto";
 import { RpcException } from "@nestjs/microservices";
+import { SupabaseService } from "../supabase/supabase.service";
+import { Injectable } from "@nestjs/common";
 
 const USE_RANDOM_AVATAR = false; // ou false
 
+@Injectable()
 export class AvatarService {
+    constructor(private readonly supabaseService: SupabaseService) {}
+
     async getAvatarAssets() {
         const [assets, colors] = await Promise.all([
             prisma.avatarAsset.findMany({
@@ -18,12 +23,47 @@ export class AvatarService {
             }),
         ]);
 
-        return {
+        let objects = {
             shapes: assets.filter((a) => a.type === "shape"),
             patterns: assets.filter((a) => a.type === "pattern"),
             eyes: assets.filter((a) => a.type === "eyes"),
             mouths: assets.filter((a) => a.type === "mouth"),
             colors,
+        };
+
+        // On veut mettre ceux qui sont en VIP en dernier
+        objects.shapes = objects.shapes.sort((a, b) => {
+            if (a.vipOnly && !b.vipOnly) return 1;
+            if (!a.vipOnly && b.vipOnly) return -1;
+            return 0;
+        });
+        objects.patterns = objects.patterns.sort((a, b) => {
+            if (a.vipOnly && !b.vipOnly) return 1;
+            if (!a.vipOnly && b.vipOnly) return -1;
+            return 0;
+        });
+        objects.eyes = objects.eyes.sort((a, b) => {
+            if (a.vipOnly && !b.vipOnly) return 1;
+            if (!a.vipOnly && b.vipOnly) return -1;
+            return 0;
+        });
+        objects.mouths = objects.mouths.sort((a, b) => {
+            if (a.vipOnly && !b.vipOnly) return 1;
+            if (!a.vipOnly && b.vipOnly) return -1;
+            return 0;
+        });
+        objects.colors = objects.colors.sort((a, b) => {
+            if (a.vip && !b.vip) return 1;
+            if (!a.vip && b.vip) return -1;
+            return 0;
+        });
+
+        return {
+            shapes: objects.shapes,
+            patterns: objects.patterns,
+            eyes: objects.eyes,
+            mouths: objects.mouths,
+            colors: objects.colors,
         };
     }
 
@@ -38,11 +78,11 @@ export class AvatarService {
         const fileName = await this.generateAvatarImage(userId, finalDto);
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: { avatarId: true },
+            select: { avatar: true },
         });
 
         const data = {
-            url: `/avatars/${fileName}`,
+            url: fileName,
             shapeId: finalDto.shapeId,
             eyesId: finalDto.eyesId,
             mouthId: finalDto.mouthId,
@@ -50,12 +90,20 @@ export class AvatarService {
             colorShapeId: finalDto.colorShapeId,
             colorPatternId: finalDto.colorPatternId ?? null,
         };
-        infos = user?.avatarId
-            ? prisma.avatar.update({ where: { id: user.avatarId }, data })
-            : prisma.avatar.create({
-                  data: { ...data, user: { connect: { id: userId } } },
-              });
-        // }
+
+        if (user?.avatar) {
+            infos = await prisma.avatar.update({
+                where: { id: user.avatar.id },
+                data,
+            });
+        } else {
+            infos = await prisma.avatar.create({
+                data: {
+                    ...data,
+                    userId,
+                },
+            });
+        }
 
         return infos;
     }
@@ -147,18 +195,6 @@ export class AvatarService {
         userId: number,
         dto: CreateOrUpdateAvatarDto
     ): Promise<string> {
-        const randomNumber = Math.floor(Math.random() * 10000);
-        const fileName = `avatar_user_${randomNumber}.png`;
-        const outputPath = path.join(
-            __dirname,
-            "..",
-            "..",
-            "src",
-            "avatar",
-            "avatars",
-            fileName
-        );
-
         const assets = await this.loadAndPrepareAssets(dto);
 
         const finalImage = await this.buildAvatarComposite({
@@ -171,9 +207,53 @@ export class AvatarService {
             colorShape: assets.colorShape,
             colorPattern: assets.colorPattern,
         });
-        await finalImage.png().toFile(outputPath);
-        return fileName;
+        const buffer = await finalImage.png().toBuffer();
+
+        const fileName = `avatar_user_${userId}.png`;
+
+        const supabase = this.supabaseService.getClient();
+        const { data, error } = await supabase.storage
+            .from("avatar")
+            .upload(fileName, buffer, {
+                contentType: "image/png",
+                upsert: true,
+            });
+
+        if (error) {
+            console.error("Erreur upload Supabase :", error);
+            throw new Error("Upload échoué");
+        }
+
+        const url = `${process.env.SUPABASE_URL}/storage/v1/object/public/avatar/${fileName}`;
+        return url;
     }
+    private generateFillSvg(value: string): string {
+        const isGradient = value.includes(",") && value.includes("#");
+
+        if (!isGradient) {
+            return `<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+                <rect width="500" height="500" fill="${value}" />
+            </svg>`;
+        }
+
+        const stops = value
+            .split(",")
+            .map((color, i, arr) => {
+                const offset = (i / (arr.length - 1)) * 100;
+                return `<stop offset="${offset}%" stop-color="${color.trim()}" />`;
+            })
+            .join("\n");
+
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+            <defs>
+                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    ${stops}
+                </linearGradient>
+            </defs>
+            <rect width="500" height="500" fill="url(#grad)" />
+        </svg>`;
+    }
+
     private async buildAvatarComposite(assets: {
         shape: Buffer;
         shapeMask: Buffer;
@@ -182,40 +262,44 @@ export class AvatarService {
         stroke?: Buffer;
         pattern?: Buffer;
         colorShape: string;
-        colorPattern?: string;
+        colorPattern?: string | null;
     }) {
+        const debugFolder = path.join(
+            __dirname,
+            "..",
+            "..",
+            "src",
+            "avatar",
+            "debug"
+        );
+        fs.mkdirSync(debugFolder, { recursive: true });
+
         // ✅ 1. Recolorise la forme
+        const shapeSvg = this.generateFillSvg(assets.colorShape);
+        const shapeColorBuffer = await sharp(Buffer.from(shapeSvg))
+            .resize(500, 500)
+            .png()
+            .toBuffer();
+
         const coloredShape = await sharp(assets.shape)
             .ensureAlpha()
             .resize(500, 500)
-            .composite([
-                {
-                    input: Buffer.from(
-                        `<svg width="500" height="500">
-                    <rect width="500" height="500" fill="${assets.colorShape}" />
-                </svg>`
-                    ),
-                    blend: "in",
-                },
-            ])
+            .composite([{ input: shapeColorBuffer, blend: "in" }])
             .toBuffer();
 
         // ✅ 2. Recolorise + masque le pattern
         let patternMasked: Buffer | undefined;
         if (assets.pattern && assets.colorPattern) {
+            const patternSvg = this.generateFillSvg(assets.colorPattern);
+            const patternColorBuffer = await sharp(Buffer.from(patternSvg))
+                .resize(500, 500)
+                .png()
+                .toBuffer();
+
             const recoloredPattern = await sharp(assets.pattern)
                 .ensureAlpha()
                 .resize(500, 500)
-                .composite([
-                    {
-                        input: Buffer.from(
-                            `<svg width="500" height="500">
-                      <rect width="500" height="500" fill="${assets.colorPattern}" />
-                  </svg>`
-                        ),
-                        blend: "in",
-                    },
-                ])
+                .composite([{ input: patternColorBuffer, blend: "in" }])
                 .toBuffer();
 
             const resizedMask = await sharp(assets.shapeMask)
@@ -234,6 +318,7 @@ export class AvatarService {
             : undefined;
 
         const eyes = await this.buildEyesLayer(assets.eyes);
+
         const mouth = await this.buildMouthLayer(assets.mouth);
 
         // ✅ 5. Composite final
@@ -245,7 +330,7 @@ export class AvatarService {
             { input: mouth },
         ];
 
-        return sharp({
+        const finalImage = sharp({
             create: {
                 width: 500,
                 height: 500,
@@ -253,6 +338,10 @@ export class AvatarService {
                 background: { r: 0, g: 0, b: 0, alpha: 0 },
             },
         }).composite(compositeLayers);
+
+        const finalBuffer = await finalImage.png().toBuffer();
+
+        return sharp(finalBuffer);
     }
 
     async buildEyesLayer(eyesBuffer: Buffer): Promise<Buffer> {
@@ -318,17 +407,8 @@ export class AvatarService {
             return path.join(__dirname, "..", "..", "src", "avatar", cleaned);
         };
 
-        console.log("Assets à charger :");
-        console.log("Shape:", shapeAsset.url);
-        console.log("Eyes:", eyesAsset.url);
-        console.log("Mouth:", mouthAsset.url);
-        console.log("Pattern:", patternAsset?.url ?? "none");
-        console.log("Color shape:", colorShape.name);
-        console.log("Color pattern:", colorPattern?.name ?? "none");
-        console.log(
-            "Stroke:",
-            shapeAsset.url.replace("/shapes", "/shapes/stroke")
-        );
+        let valueShape = colorShape.gradientValue || colorShape.value;
+        let valuePattern = colorPattern?.gradientValue || colorPattern?.value;
 
         return {
             shape: await this.loadAssetBuffer(getPath(shapeAsset.url)),
@@ -342,8 +422,8 @@ export class AvatarService {
             pattern: patternAsset
                 ? await this.loadAssetBuffer(getPath(patternAsset.url))
                 : undefined,
-            colorShape: colorShape.value,
-            colorPattern: colorPattern?.value,
+            colorShape: valueShape!,
+            colorPattern: colorPattern ? valuePattern : undefined,
         };
     }
 

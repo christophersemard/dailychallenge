@@ -67,13 +67,8 @@ export const authOptions: AuthOptions = {
       token.accessTokenExp = decoded.exp * 1000; // ms
       // Ajoute cette vérif d’expiration (si présente dans le token)
       const now = Math.floor(Date.now() / 1000); // en secondes
-      console.log("Token JWT :", token);
-      console.log("Token décodé :", jwtDecode(token.accessToken));
-      console.log("Now :", now);
-      console.log("Token exp :", token.exp);
-      console.log("Token expiré ?", token.accessTokenExp && now > Number(token.accessTokenExp));
 
-      if (token.exp && now > token.accessTokenExp) {
+      if (token.exp && now > Number(token.accessTokenExp)) {
         console.warn("⚠️ Token expiré, déconnexion forcée");
         // Tu peux soit ne rien renvoyer (session invalidée), soit forcer un signOut() client
         // Si dans un middleware : return null;

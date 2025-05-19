@@ -1,56 +1,88 @@
-// src/components/avatar/ColorSelector.tsx
-
 import clsx from "clsx";
-
-type Color = {
-    id: number;
-    name: string;
-    value: string;
-    level: number;
-    vipOnly: boolean;
-};
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { ColorAsset } from "@/types/user.types";
+import { memo, useMemo } from "react";
+import { Crown } from "lucide-react";
+import OutlineText from "@/components/ui/outline-text";
 
 type Props = {
     title: string;
-    colors: Color[];
+    colors: ColorAsset[];
     selectedId: number | null;
     onSelect: (id: number) => void;
     userLevel: number;
     isVip: boolean;
 };
 
-export default function ColorSelector({
+const ColorSelector = ({
     title,
     colors,
     selectedId,
     onSelect,
     userLevel,
     isVip,
-}: Props) {
-    return (
-        <div className="mt-4 p-1">
-            <div className="text-sm mb-2 font-bold text-muted-foreground">{title}</div>
-            <div className="flex flex-wrap gap-2">
-                {colors.map((color) => {
-                    const locked = color.level > userLevel || (color.vipOnly && !isVip);
-                    const selected = selectedId === color.id;
+}: Props) => {
+    const preparedColors = useMemo(
+        () =>
+            colors.map((color) => {
+                const locked = color.level > userLevel || (color.vip && !isVip);
+                const selected = selectedId === color.id;
+                return { ...color, locked, selected };
+            }),
+        [colors, selectedId, userLevel, isVip]
+    );
 
-                    return (
-                        <button
-                            key={color.id}
-                            onClick={() => onSelect(color.id)}
-                            disabled={locked}
-                            className={clsx(
-                                "w-6 h-6 rounded border border-light",
-                                locked && "opacity-40 cursor-not-allowed",
-                                selected && "ring-2 ring-primary ring-offset-2"
-                            )}
-                            style={{ backgroundColor: color.value }}
-                            title={color.name}
-                        />
-                    );
-                })}
-            </div>
+    return (
+        <div className="mt-4">
+            <div className="text-sm mb-2 font-bold text-muted-foreground">{title}</div>
+
+            <TooltipProvider delayDuration={0}>
+                <div className="grid grid-cols-8 md:grid-cols-16 gap-2 px-2">
+                    {preparedColors.map((color) => (
+                        <Tooltip key={color.id}>
+                            <TooltipTrigger asChild>
+                                <button
+                                    onClick={() => onSelect(color.id)}
+                                    className={clsx(
+                                        "size-6 md:size-8 rounded relative transition duration-200 cursor-pointer border border-light",
+                                        color.selected && "ring-2 ring-secondary ring-offset-2",
+                                    )}
+                                    style={{
+
+                                        background: color.gradientValue
+                                            ? `linear-gradient(135deg, ${color.gradientValue})`
+                                            : color.value,
+                                    }}
+                                >
+                                    {color.locked && (
+                                        <div className="absolute top-0 left-0 inset-0 text-white text-xs flex items-center justify-center">
+                                            {color.vip && color.level <= userLevel && (
+                                                <Crown className="w-4 h-4 text-white" />
+                                            )}
+                                            {color.level > userLevel && (
+                                                <OutlineText
+                                                    text={String(color.level)}
+                                                    color="black"
+                                                    size="sm"
+                                                    className=" font-bold mt-0.5"
+                                                />
+                                            )}
+                                        </div>
+                                    )}
+                                </button>
+                            </TooltipTrigger>
+                            <TooltipContent>{color.name}</TooltipContent>
+                        </Tooltip>
+                    ))}
+                </div>
+            </TooltipProvider>
         </div>
     );
-}
+};
+
+export default memo(ColorSelector);

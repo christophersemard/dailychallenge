@@ -22,14 +22,6 @@ export class CreateOrUpdateAvatarDto {
     @IsPositive()
     colorShapeId: number;
 
-    @IsInt()
-    @IsPositive()
-    colorEyesId: number;
-
-    @IsInt()
-    @IsPositive()
-    colorMouthId: number;
-
     @IsOptional()
     @IsInt()
     @IsPositive()
