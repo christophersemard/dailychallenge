@@ -9,13 +9,9 @@ import {
     UseGuards,
 } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/auth.guard"; // ✅ Import du Guard
-import {
-    GameCinema1Service,
-    GameData,
-    GuessResponse,
-    GameResult,
-} from "./game-cinema-1.service";
+import { GameCinema1Service } from "./game-cinema-1.service";
 import { UserRequest } from "../auth/auth.types"; // ✅ Type pour `req.user`
+import { GameData, GuessResponse, GameResult } from "./game.types"; // ✅ Import des types
 
 @Controller("api/game-cinema-1")
 export class GameCinema1Controller {

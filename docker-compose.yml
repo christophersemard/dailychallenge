@@ -52,7 +52,7 @@ services:
       - postgres
       - ms-users
     ports:
-      - "3002:3002"
+      - "3004:3004"
     environment:
       - IS_DOCKER=true
       - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
@@ -60,6 +60,24 @@ services:
       - HOST=0.0.0.0
     volumes:
       - /app/node_modules
+      
+  ms-game-cinema-2:
+    build:
+      context: .
+      dockerfile: backend/ms-game-cinema-2/Dockerfile
+    depends_on:
+      - postgres
+      - ms-users
+    ports:
+      - "3005:3005"
+    environment:
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
+      - PORT=3005
+      - HOST=0.0.0.0
+    volumes:
+      - /app/node_modules
+      
 
   ms-gateway:
     build:

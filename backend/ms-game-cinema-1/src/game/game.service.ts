@@ -9,6 +9,8 @@ import prisma from "../prisma/prisma.service";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
 
+const GAME_ID = 1; // ID du jeu cinéma 1
+
 @Injectable()
 export class GameService {
     constructor(@Inject("USERS_SERVICE") private usersClient: ClientProxy) {}
@@ -30,7 +32,7 @@ export class GameService {
 
         // ✅ Vérifier si le joueur a déjà trouvé en regardant GameResult
         const gameResult = await prisma.gameResult.findFirst({
-            where: { userId, gameId: 1, date: game.date },
+            where: { userId, gameId: GAME_ID, date: game.date },
         });
 
         // ✅ Vérifier le nombre d'essais réalisés
@@ -84,7 +86,7 @@ export class GameService {
         const gameResult = await prisma.gameResult.findFirst({
             where: {
                 userId,
-                gameId: 1,
+                gameId: GAME_ID,
                 date: {
                     gte: new Date(
                         gameDate.getFullYear(),
@@ -135,7 +137,7 @@ export class GameService {
             const result = await lastValueFrom(
                 this.usersClient.send("record_game_result", {
                     userId,
-                    gameId: 1,
+                    gameId: GAME_ID,
                     attempts: existingTries + 1,
                     maxAttempts: 10,
                     status: "passed",
@@ -164,7 +166,7 @@ export class GameService {
                 const result = await lastValueFrom(
                     this.usersClient.send("record_game_result", {
                         userId,
-                        gameId: 1,
+                        gameId: GAME_ID,
                         attempts: existingTries + 1,
                         maxAttempts: 10,
                         status: "failed",
@@ -290,7 +292,7 @@ export class GameService {
         const results = await prisma.gameResult.findMany({
             where: {
                 userId,
-                gameId: 1,
+                gameId: GAME_ID,
                 date: {
                     gte: startDate,
                     lte: endDate,

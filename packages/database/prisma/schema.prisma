@@ -239,7 +239,8 @@ model DataMovie {
   createdAt DateTime @default(now())
 
   // Relation avec GameCinema1Days (films sélectionnés pour un jour de jeu)
-  gameDays GameCinema1Days[]
+  gameDays  GameCinema1Days[]
+  gameDays2 GameCinema2Days[]
 }
 
 /////////////////////////////////////////////
@@ -267,6 +268,30 @@ model GameCinema1Tries {
 
   // Relation avec le jour du jeu
   day GameCinema1Days @relation(fields: [dayId], references: [id])
+}
+
+/////////////// GAME CINEMA 2 ///////////////
+model GameCinema2Days {
+  id        Int       @id @default(autoincrement())
+  date      DateTime  @unique // Un jour ne peut avoir qu'un seul film
+  movieId   Int
+  movie     DataMovie @relation(fields: [movieId], references: [id])
+  createdAt DateTime  @default(now())
+
+  // Relation avec les essais des joueurs
+  tries GameCinema2Tries[]
+}
+
+model GameCinema2Tries {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  dayId     Int
+  guess     String
+  correct   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relation avec le film du jeu
+  day GameCinema2Days @relation(fields: [dayId], references: [id])
 }
 
 /////////////////////////////////////////////

@@ -62,14 +62,6 @@ export class LeaderboardController {
         @Query("dateStart") dateStart?: string,
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
-        console.log("getGameLeaderboard", {
-            userId: req.user.id,
-            gameId,
-            limit,
-            offset,
-            dateStart,
-            dateEnd,
-        });
         return this.leaderboardService.getGameLeaderboard(
             req.user.id,
             Number(gameId),

@@ -78,6 +78,16 @@ export type GameCinema1Days = $Result.DefaultSelection<Prisma.$GameCinema1DaysPa
  * 
  */
 export type GameCinema1Tries = $Result.DefaultSelection<Prisma.$GameCinema1TriesPayload>
+/**
+ * Model GameCinema2Days
+ * //////////// GAME CINEMA 2 ///////////////
+ */
+export type GameCinema2Days = $Result.DefaultSelection<Prisma.$GameCinema2DaysPayload>
+/**
+ * Model GameCinema2Tries
+ * 
+ */
+export type GameCinema2Tries = $Result.DefaultSelection<Prisma.$GameCinema2TriesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -116,7 +126,7 @@ export class PrismaClient<
    */
 
   constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
-  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
 
   /**
    * Connect with the database
@@ -200,9 +210,9 @@ export class PrismaClient<
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
 
-  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb, ExtArgs, $Utils.Call<Prisma.TypeMapCb, {
+  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
     extArgs: ExtArgs
-  }>, ClientOptions>
+  }>>
 
       /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -333,6 +343,26 @@ export class PrismaClient<
     * ```
     */
   get gameCinema1Tries(): Prisma.GameCinema1TriesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameCinema2Days`: Exposes CRUD operations for the **GameCinema2Days** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameCinema2Days
+    * const gameCinema2Days = await prisma.gameCinema2Days.findMany()
+    * ```
+    */
+  get gameCinema2Days(): Prisma.GameCinema2DaysDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameCinema2Tries`: Exposes CRUD operations for the **GameCinema2Tries** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameCinema2Tries
+    * const gameCinema2Tries = await prisma.gameCinema2Tries.findMany()
+    * ```
+    */
+  get gameCinema2Tries(): Prisma.GameCinema2TriesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -391,8 +421,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.4.1
-   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -659,7 +689,7 @@ export namespace Prisma {
   type AtLeast<O extends object, K extends string> = NoExpand<
     O extends unknown
     ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
-      | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
+      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
     : never>;
 
   type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
@@ -785,7 +815,9 @@ export namespace Prisma {
     GameCategory: 'GameCategory',
     DataMovie: 'DataMovie',
     GameCinema1Days: 'GameCinema1Days',
-    GameCinema1Tries: 'GameCinema1Tries'
+    GameCinema1Tries: 'GameCinema1Tries',
+    GameCinema2Days: 'GameCinema2Days',
+    GameCinema2Tries: 'GameCinema2Tries'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -795,13 +827,16 @@ export namespace Prisma {
     db?: Datasource
   }
 
-  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs, clientOptions: PrismaClientOptions }, $Utils.Record<string, any>> {
-    returns: Prisma.TypeMap<this['params']['extArgs'], this['params']['clientOptions']>
+  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
   }
 
-  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+    globalOmitOptions: {
+      omit: GlobalOmitOptions
+    }
     meta: {
-      modelProps: "user" | "avatar" | "color" | "avatarAsset" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries"
+      modelProps: "user" | "avatar" | "color" | "avatarAsset" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries" | "gameCinema2Days" | "gameCinema2Tries"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1767,6 +1802,154 @@ export namespace Prisma {
           }
         }
       }
+      GameCinema2Days: {
+        payload: Prisma.$GameCinema2DaysPayload<ExtArgs>
+        fields: Prisma.GameCinema2DaysFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameCinema2DaysFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameCinema2DaysFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          findFirst: {
+            args: Prisma.GameCinema2DaysFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameCinema2DaysFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          findMany: {
+            args: Prisma.GameCinema2DaysFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>[]
+          }
+          create: {
+            args: Prisma.GameCinema2DaysCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          createMany: {
+            args: Prisma.GameCinema2DaysCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameCinema2DaysCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>[]
+          }
+          delete: {
+            args: Prisma.GameCinema2DaysDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          update: {
+            args: Prisma.GameCinema2DaysUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameCinema2DaysDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameCinema2DaysUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameCinema2DaysUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameCinema2DaysUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2DaysPayload>
+          }
+          aggregate: {
+            args: Prisma.GameCinema2DaysAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameCinema2Days>
+          }
+          groupBy: {
+            args: Prisma.GameCinema2DaysGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema2DaysGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameCinema2DaysCountArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema2DaysCountAggregateOutputType> | number
+          }
+        }
+      }
+      GameCinema2Tries: {
+        payload: Prisma.$GameCinema2TriesPayload<ExtArgs>
+        fields: Prisma.GameCinema2TriesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameCinema2TriesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameCinema2TriesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          findFirst: {
+            args: Prisma.GameCinema2TriesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameCinema2TriesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          findMany: {
+            args: Prisma.GameCinema2TriesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>[]
+          }
+          create: {
+            args: Prisma.GameCinema2TriesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          createMany: {
+            args: Prisma.GameCinema2TriesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameCinema2TriesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>[]
+          }
+          delete: {
+            args: Prisma.GameCinema2TriesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          update: {
+            args: Prisma.GameCinema2TriesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameCinema2TriesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameCinema2TriesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameCinema2TriesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameCinema2TriesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameCinema2TriesPayload>
+          }
+          aggregate: {
+            args: Prisma.GameCinema2TriesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameCinema2Tries>
+          }
+          groupBy: {
+            args: Prisma.GameCinema2TriesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema2TriesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameCinema2TriesCountArgs<ExtArgs>
+            result: $Utils.Optional<GameCinema2TriesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1864,6 +2047,8 @@ export namespace Prisma {
     dataMovie?: DataMovieOmit
     gameCinema1Days?: GameCinema1DaysOmit
     gameCinema1Tries?: GameCinema1TriesOmit
+    gameCinema2Days?: GameCinema2DaysOmit
+    gameCinema2Tries?: GameCinema2TriesOmit
   }
 
   /* Types for Logging */
@@ -2248,10 +2433,12 @@ export namespace Prisma {
 
   export type DataMovieCountOutputType = {
     gameDays: number
+    gameDays2: number
   }
 
   export type DataMovieCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameDays?: boolean | DataMovieCountOutputTypeCountGameDaysArgs
+    gameDays2?: boolean | DataMovieCountOutputTypeCountGameDays2Args
   }
 
   // Custom InputTypes
@@ -2270,6 +2457,13 @@ export namespace Prisma {
    */
   export type DataMovieCountOutputTypeCountGameDaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GameCinema1DaysWhereInput
+  }
+
+  /**
+   * DataMovieCountOutputType without action
+   */
+  export type DataMovieCountOutputTypeCountGameDays2Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema2DaysWhereInput
   }
 
 
@@ -2301,6 +2495,37 @@ export namespace Prisma {
    */
   export type GameCinema1DaysCountOutputTypeCountTriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GameCinema1TriesWhereInput
+  }
+
+
+  /**
+   * Count Type GameCinema2DaysCountOutputType
+   */
+
+  export type GameCinema2DaysCountOutputType = {
+    tries: number
+  }
+
+  export type GameCinema2DaysCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tries?: boolean | GameCinema2DaysCountOutputTypeCountTriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameCinema2DaysCountOutputType without action
+   */
+  export type GameCinema2DaysCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2DaysCountOutputType
+     */
+    select?: GameCinema2DaysCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema2DaysCountOutputType without action
+   */
+  export type GameCinema2DaysCountOutputTypeCountTriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema2TriesWhereInput
   }
 
 
@@ -2663,7 +2888,7 @@ export namespace Prisma {
       select?: UserCountAggregateInputType | true
     }
 
-  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
     /**
      * Find zero or one User that matches the filter.
@@ -2676,7 +2901,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one User that matches the filter or throw an error with `error.code='P2025'`
@@ -2690,7 +2915,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first User that matches the filter.
@@ -2705,7 +2930,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first User that matches the filter or
@@ -2721,7 +2946,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Users that matches the filter.
@@ -2739,7 +2964,7 @@ export namespace Prisma {
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a User.
@@ -2753,7 +2978,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Users.
@@ -2791,7 +3016,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a User.
@@ -2805,7 +3030,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one User.
@@ -2822,7 +3047,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Users.
@@ -2885,7 +3110,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one User.
@@ -2904,7 +3129,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -3044,14 +3269,14 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    friend<T extends User$friendArgs<ExtArgs> = {}>(args?: Subset<T, User$friendArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    userStats<T extends User$userStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$userStatsArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    userEvents<T extends User$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    gameResults<T extends User$gameResultsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameResultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    friend<T extends User$friendArgs<ExtArgs> = {}>(args?: Subset<T, User$friendArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userStats<T extends User$userStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$userStatsArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    userEvents<T extends User$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gameResults<T extends User$gameResultsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameResultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3079,7 +3304,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */ 
+   */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
     readonly email: FieldRef<"User", 'String'>
@@ -4011,7 +4236,7 @@ export namespace Prisma {
       select?: AvatarCountAggregateInputType | true
     }
 
-  export interface AvatarDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface AvatarDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Avatar'], meta: { name: 'Avatar' } }
     /**
      * Find zero or one Avatar that matches the filter.
@@ -4024,7 +4249,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends AvatarFindUniqueArgs>(args: SelectSubset<T, AvatarFindUniqueArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends AvatarFindUniqueArgs>(args: SelectSubset<T, AvatarFindUniqueArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one Avatar that matches the filter or throw an error with `error.code='P2025'`
@@ -4038,7 +4263,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends AvatarFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends AvatarFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Avatar that matches the filter.
@@ -4053,7 +4278,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends AvatarFindFirstArgs>(args?: SelectSubset<T, AvatarFindFirstArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends AvatarFindFirstArgs>(args?: SelectSubset<T, AvatarFindFirstArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Avatar that matches the filter or
@@ -4069,7 +4294,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends AvatarFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends AvatarFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Avatars that matches the filter.
@@ -4087,7 +4312,7 @@ export namespace Prisma {
      * const avatarWithIdOnly = await prisma.avatar.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends AvatarFindManyArgs>(args?: SelectSubset<T, AvatarFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends AvatarFindManyArgs>(args?: SelectSubset<T, AvatarFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a Avatar.
@@ -4101,7 +4326,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends AvatarCreateArgs>(args: SelectSubset<T, AvatarCreateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends AvatarCreateArgs>(args: SelectSubset<T, AvatarCreateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Avatars.
@@ -4139,7 +4364,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends AvatarCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends AvatarCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Avatar.
@@ -4153,7 +4378,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends AvatarDeleteArgs>(args: SelectSubset<T, AvatarDeleteArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends AvatarDeleteArgs>(args: SelectSubset<T, AvatarDeleteArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one Avatar.
@@ -4170,7 +4395,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends AvatarUpdateArgs>(args: SelectSubset<T, AvatarUpdateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends AvatarUpdateArgs>(args: SelectSubset<T, AvatarUpdateArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Avatars.
@@ -4233,7 +4458,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends AvatarUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends AvatarUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Avatar.
@@ -4252,7 +4477,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends AvatarUpsertArgs>(args: SelectSubset<T, AvatarUpsertArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends AvatarUpsertArgs>(args: SelectSubset<T, AvatarUpsertArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -4392,15 +4617,15 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__AvatarClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__AvatarClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    shape<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    eyes<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    mouth<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    pattern<T extends Avatar$patternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$patternArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    colorShape<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    colorPattern<T extends Avatar$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$colorPatternArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    shape<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    eyes<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    mouth<T extends AvatarAssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAssetDefaultArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    pattern<T extends Avatar$patternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$patternArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    colorShape<T extends ColorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorDefaultArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    colorPattern<T extends Avatar$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Avatar$colorPatternArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4428,7 +4653,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Avatar model
-   */ 
+   */
   interface AvatarFieldRefs {
     readonly id: FieldRef<"Avatar", 'Int'>
     readonly url: FieldRef<"Avatar", 'String'>
@@ -5166,7 +5391,7 @@ export namespace Prisma {
       select?: ColorCountAggregateInputType | true
     }
 
-  export interface ColorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface ColorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Color'], meta: { name: 'Color' } }
     /**
      * Find zero or one Color that matches the filter.
@@ -5179,7 +5404,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends ColorFindUniqueArgs>(args: SelectSubset<T, ColorFindUniqueArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends ColorFindUniqueArgs>(args: SelectSubset<T, ColorFindUniqueArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one Color that matches the filter or throw an error with `error.code='P2025'`
@@ -5193,7 +5418,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ColorFindUniqueOrThrowArgs>(args: SelectSubset<T, ColorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends ColorFindUniqueOrThrowArgs>(args: SelectSubset<T, ColorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Color that matches the filter.
@@ -5208,7 +5433,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends ColorFindFirstArgs>(args?: SelectSubset<T, ColorFindFirstArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends ColorFindFirstArgs>(args?: SelectSubset<T, ColorFindFirstArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Color that matches the filter or
@@ -5224,7 +5449,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends ColorFindFirstOrThrowArgs>(args?: SelectSubset<T, ColorFindFirstOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends ColorFindFirstOrThrowArgs>(args?: SelectSubset<T, ColorFindFirstOrThrowArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Colors that matches the filter.
@@ -5242,7 +5467,7 @@ export namespace Prisma {
      * const colorWithIdOnly = await prisma.color.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ColorFindManyArgs>(args?: SelectSubset<T, ColorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends ColorFindManyArgs>(args?: SelectSubset<T, ColorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a Color.
@@ -5256,7 +5481,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends ColorCreateArgs>(args: SelectSubset<T, ColorCreateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends ColorCreateArgs>(args: SelectSubset<T, ColorCreateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Colors.
@@ -5294,7 +5519,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ColorCreateManyAndReturnArgs>(args?: SelectSubset<T, ColorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends ColorCreateManyAndReturnArgs>(args?: SelectSubset<T, ColorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Color.
@@ -5308,7 +5533,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends ColorDeleteArgs>(args: SelectSubset<T, ColorDeleteArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends ColorDeleteArgs>(args: SelectSubset<T, ColorDeleteArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one Color.
@@ -5325,7 +5550,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ColorUpdateArgs>(args: SelectSubset<T, ColorUpdateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends ColorUpdateArgs>(args: SelectSubset<T, ColorUpdateArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Colors.
@@ -5388,7 +5613,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ColorUpdateManyAndReturnArgs>(args: SelectSubset<T, ColorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends ColorUpdateManyAndReturnArgs>(args: SelectSubset<T, ColorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Color.
@@ -5407,7 +5632,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends ColorUpsertArgs>(args: SelectSubset<T, ColorUpsertArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends ColorUpsertArgs>(args: SelectSubset<T, ColorUpsertArgs<ExtArgs>>): Prisma__ColorClient<$Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -5547,10 +5772,10 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ColorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ColorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    colorShape<T extends Color$colorShapeArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorShapeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    colorPattern<T extends Color$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorPatternArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    colorShape<T extends Color$colorShapeArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorShapeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    colorPattern<T extends Color$colorPatternArgs<ExtArgs> = {}>(args?: Subset<T, Color$colorPatternArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5578,7 +5803,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Color model
-   */ 
+   */
   interface ColorFieldRefs {
     readonly id: FieldRef<"Color", 'Int'>
     readonly name: FieldRef<"Color", 'String'>
@@ -6324,7 +6549,7 @@ export namespace Prisma {
       select?: AvatarAssetCountAggregateInputType | true
     }
 
-  export interface AvatarAssetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface AvatarAssetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AvatarAsset'], meta: { name: 'AvatarAsset' } }
     /**
      * Find zero or one AvatarAsset that matches the filter.
@@ -6337,7 +6562,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends AvatarAssetFindUniqueArgs>(args: SelectSubset<T, AvatarAssetFindUniqueArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends AvatarAssetFindUniqueArgs>(args: SelectSubset<T, AvatarAssetFindUniqueArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one AvatarAsset that matches the filter or throw an error with `error.code='P2025'`
@@ -6351,7 +6576,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends AvatarAssetFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarAssetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends AvatarAssetFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarAssetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first AvatarAsset that matches the filter.
@@ -6366,7 +6591,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends AvatarAssetFindFirstArgs>(args?: SelectSubset<T, AvatarAssetFindFirstArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends AvatarAssetFindFirstArgs>(args?: SelectSubset<T, AvatarAssetFindFirstArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first AvatarAsset that matches the filter or
@@ -6382,7 +6607,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends AvatarAssetFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarAssetFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends AvatarAssetFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarAssetFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more AvatarAssets that matches the filter.
@@ -6400,7 +6625,7 @@ export namespace Prisma {
      * const avatarAssetWithIdOnly = await prisma.avatarAsset.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends AvatarAssetFindManyArgs>(args?: SelectSubset<T, AvatarAssetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends AvatarAssetFindManyArgs>(args?: SelectSubset<T, AvatarAssetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a AvatarAsset.
@@ -6414,7 +6639,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends AvatarAssetCreateArgs>(args: SelectSubset<T, AvatarAssetCreateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends AvatarAssetCreateArgs>(args: SelectSubset<T, AvatarAssetCreateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many AvatarAssets.
@@ -6452,7 +6677,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends AvatarAssetCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarAssetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends AvatarAssetCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarAssetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a AvatarAsset.
@@ -6466,7 +6691,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends AvatarAssetDeleteArgs>(args: SelectSubset<T, AvatarAssetDeleteArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends AvatarAssetDeleteArgs>(args: SelectSubset<T, AvatarAssetDeleteArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one AvatarAsset.
@@ -6483,7 +6708,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends AvatarAssetUpdateArgs>(args: SelectSubset<T, AvatarAssetUpdateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends AvatarAssetUpdateArgs>(args: SelectSubset<T, AvatarAssetUpdateArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more AvatarAssets.
@@ -6546,7 +6771,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends AvatarAssetUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarAssetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends AvatarAssetUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarAssetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one AvatarAsset.
@@ -6565,7 +6790,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends AvatarAssetUpsertArgs>(args: SelectSubset<T, AvatarAssetUpsertArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends AvatarAssetUpsertArgs>(args: SelectSubset<T, AvatarAssetUpsertArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -6705,13 +6930,13 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__AvatarAssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__AvatarAssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    shapes<T extends AvatarAsset$shapesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$shapesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    eyes<T extends AvatarAsset$eyesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$eyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    mouths<T extends AvatarAsset$mouthsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$mouthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    patterns<T extends AvatarAsset$patternsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$patternsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    userEvents<T extends AvatarAsset$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    shapes<T extends AvatarAsset$shapesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$shapesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    eyes<T extends AvatarAsset$eyesArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$eyesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mouths<T extends AvatarAsset$mouthsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$mouthsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    patterns<T extends AvatarAsset$patternsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$patternsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userEvents<T extends AvatarAsset$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, AvatarAsset$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6739,7 +6964,7 @@ export namespace Prisma {
 
   /**
    * Fields of the AvatarAsset model
-   */ 
+   */
   interface AvatarAssetFieldRefs {
     readonly id: FieldRef<"AvatarAsset", 'Int'>
     readonly type: FieldRef<"AvatarAsset", 'String'>
@@ -7565,7 +7790,7 @@ export namespace Prisma {
       select?: FriendCountAggregateInputType | true
     }
 
-  export interface FriendDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface FriendDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Friend'], meta: { name: 'Friend' } }
     /**
      * Find zero or one Friend that matches the filter.
@@ -7578,7 +7803,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends FriendFindUniqueArgs>(args: SelectSubset<T, FriendFindUniqueArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends FriendFindUniqueArgs>(args: SelectSubset<T, FriendFindUniqueArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one Friend that matches the filter or throw an error with `error.code='P2025'`
@@ -7592,7 +7817,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends FriendFindUniqueOrThrowArgs>(args: SelectSubset<T, FriendFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends FriendFindUniqueOrThrowArgs>(args: SelectSubset<T, FriendFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Friend that matches the filter.
@@ -7607,7 +7832,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends FriendFindFirstArgs>(args?: SelectSubset<T, FriendFindFirstArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends FriendFindFirstArgs>(args?: SelectSubset<T, FriendFindFirstArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Friend that matches the filter or
@@ -7623,7 +7848,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends FriendFindFirstOrThrowArgs>(args?: SelectSubset<T, FriendFindFirstOrThrowArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends FriendFindFirstOrThrowArgs>(args?: SelectSubset<T, FriendFindFirstOrThrowArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Friends that matches the filter.
@@ -7641,7 +7866,7 @@ export namespace Prisma {
      * const friendWithIdOnly = await prisma.friend.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends FriendFindManyArgs>(args?: SelectSubset<T, FriendFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends FriendFindManyArgs>(args?: SelectSubset<T, FriendFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a Friend.
@@ -7655,7 +7880,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends FriendCreateArgs>(args: SelectSubset<T, FriendCreateArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends FriendCreateArgs>(args: SelectSubset<T, FriendCreateArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Friends.
@@ -7693,7 +7918,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends FriendCreateManyAndReturnArgs>(args?: SelectSubset<T, FriendCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends FriendCreateManyAndReturnArgs>(args?: SelectSubset<T, FriendCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Friend.
@@ -7707,7 +7932,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends FriendDeleteArgs>(args: SelectSubset<T, FriendDeleteArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends FriendDeleteArgs>(args: SelectSubset<T, FriendDeleteArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one Friend.
@@ -7724,7 +7949,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends FriendUpdateArgs>(args: SelectSubset<T, FriendUpdateArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends FriendUpdateArgs>(args: SelectSubset<T, FriendUpdateArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Friends.
@@ -7787,7 +8012,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends FriendUpdateManyAndReturnArgs>(args: SelectSubset<T, FriendUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends FriendUpdateManyAndReturnArgs>(args: SelectSubset<T, FriendUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Friend.
@@ -7806,7 +8031,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends FriendUpsertArgs>(args: SelectSubset<T, FriendUpsertArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends FriendUpsertArgs>(args: SelectSubset<T, FriendUpsertArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -7946,11 +8171,11 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__FriendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__FriendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    friend<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    userEvents<T extends Friend$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, Friend$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    friend<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    userEvents<T extends Friend$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, Friend$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7978,7 +8203,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Friend model
-   */ 
+   */
   interface FriendFieldRefs {
     readonly id: FieldRef<"Friend", 'Int'>
     readonly userId: FieldRef<"Friend", 'Int'>
@@ -8736,7 +8961,7 @@ export namespace Prisma {
       select?: UserStatsCountAggregateInputType | true
     }
 
-  export interface UserStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface UserStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserStats'], meta: { name: 'UserStats' } }
     /**
      * Find zero or one UserStats that matches the filter.
@@ -8749,7 +8974,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends UserStatsFindUniqueArgs>(args: SelectSubset<T, UserStatsFindUniqueArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends UserStatsFindUniqueArgs>(args: SelectSubset<T, UserStatsFindUniqueArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one UserStats that matches the filter or throw an error with `error.code='P2025'`
@@ -8763,7 +8988,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends UserStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first UserStats that matches the filter.
@@ -8778,7 +9003,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends UserStatsFindFirstArgs>(args?: SelectSubset<T, UserStatsFindFirstArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends UserStatsFindFirstArgs>(args?: SelectSubset<T, UserStatsFindFirstArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first UserStats that matches the filter or
@@ -8794,7 +9019,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends UserStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more UserStats that matches the filter.
@@ -8812,7 +9037,7 @@ export namespace Prisma {
      * const userStatsWithIdOnly = await prisma.userStats.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UserStatsFindManyArgs>(args?: SelectSubset<T, UserStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends UserStatsFindManyArgs>(args?: SelectSubset<T, UserStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a UserStats.
@@ -8826,7 +9051,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends UserStatsCreateArgs>(args: SelectSubset<T, UserStatsCreateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends UserStatsCreateArgs>(args: SelectSubset<T, UserStatsCreateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many UserStats.
@@ -8864,7 +9089,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UserStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends UserStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a UserStats.
@@ -8878,7 +9103,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends UserStatsDeleteArgs>(args: SelectSubset<T, UserStatsDeleteArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends UserStatsDeleteArgs>(args: SelectSubset<T, UserStatsDeleteArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one UserStats.
@@ -8895,7 +9120,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UserStatsUpdateArgs>(args: SelectSubset<T, UserStatsUpdateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends UserStatsUpdateArgs>(args: SelectSubset<T, UserStatsUpdateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more UserStats.
@@ -8958,7 +9183,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UserStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends UserStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one UserStats.
@@ -8977,7 +9202,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends UserStatsUpsertArgs>(args: SelectSubset<T, UserStatsUpsertArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends UserStatsUpsertArgs>(args: SelectSubset<T, UserStatsUpsertArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -9117,9 +9342,9 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9147,7 +9372,7 @@ export namespace Prisma {
 
   /**
    * Fields of the UserStats model
-   */ 
+   */
   interface UserStatsFieldRefs {
     readonly id: FieldRef<"UserStats", 'Int'>
     readonly userId: FieldRef<"UserStats", 'Int'>
@@ -9924,7 +10149,7 @@ export namespace Prisma {
       select?: UserEventCountAggregateInputType | true
     }
 
-  export interface UserEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface UserEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserEvent'], meta: { name: 'UserEvent' } }
     /**
      * Find zero or one UserEvent that matches the filter.
@@ -9937,7 +10162,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends UserEventFindUniqueArgs>(args: SelectSubset<T, UserEventFindUniqueArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends UserEventFindUniqueArgs>(args: SelectSubset<T, UserEventFindUniqueArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one UserEvent that matches the filter or throw an error with `error.code='P2025'`
@@ -9951,7 +10176,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserEventFindUniqueOrThrowArgs>(args: SelectSubset<T, UserEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends UserEventFindUniqueOrThrowArgs>(args: SelectSubset<T, UserEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first UserEvent that matches the filter.
@@ -9966,7 +10191,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends UserEventFindFirstArgs>(args?: SelectSubset<T, UserEventFindFirstArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends UserEventFindFirstArgs>(args?: SelectSubset<T, UserEventFindFirstArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first UserEvent that matches the filter or
@@ -9982,7 +10207,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserEventFindFirstOrThrowArgs>(args?: SelectSubset<T, UserEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends UserEventFindFirstOrThrowArgs>(args?: SelectSubset<T, UserEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more UserEvents that matches the filter.
@@ -10000,7 +10225,7 @@ export namespace Prisma {
      * const userEventWithIdOnly = await prisma.userEvent.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UserEventFindManyArgs>(args?: SelectSubset<T, UserEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends UserEventFindManyArgs>(args?: SelectSubset<T, UserEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a UserEvent.
@@ -10014,7 +10239,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends UserEventCreateArgs>(args: SelectSubset<T, UserEventCreateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends UserEventCreateArgs>(args: SelectSubset<T, UserEventCreateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many UserEvents.
@@ -10052,7 +10277,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UserEventCreateManyAndReturnArgs>(args?: SelectSubset<T, UserEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends UserEventCreateManyAndReturnArgs>(args?: SelectSubset<T, UserEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a UserEvent.
@@ -10066,7 +10291,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends UserEventDeleteArgs>(args: SelectSubset<T, UserEventDeleteArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends UserEventDeleteArgs>(args: SelectSubset<T, UserEventDeleteArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one UserEvent.
@@ -10083,7 +10308,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UserEventUpdateArgs>(args: SelectSubset<T, UserEventUpdateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends UserEventUpdateArgs>(args: SelectSubset<T, UserEventUpdateArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more UserEvents.
@@ -10146,7 +10371,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UserEventUpdateManyAndReturnArgs>(args: SelectSubset<T, UserEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends UserEventUpdateManyAndReturnArgs>(args: SelectSubset<T, UserEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one UserEvent.
@@ -10165,7 +10390,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends UserEventUpsertArgs>(args: SelectSubset<T, UserEventUpsertArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends UserEventUpsertArgs>(args: SelectSubset<T, UserEventUpsertArgs<ExtArgs>>): Prisma__UserEventClient<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -10305,12 +10530,12 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    avatarAsset<T extends UserEvent$avatarAssetArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$avatarAssetArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    friend<T extends UserEvent$friendArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$friendArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    gameResult<T extends UserEvent$gameResultArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$gameResultArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    avatarAsset<T extends UserEvent$avatarAssetArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$avatarAssetArgs<ExtArgs>>): Prisma__AvatarAssetClient<$Result.GetResult<Prisma.$AvatarAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    friend<T extends UserEvent$friendArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$friendArgs<ExtArgs>>): Prisma__FriendClient<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    gameResult<T extends UserEvent$gameResultArgs<ExtArgs> = {}>(args?: Subset<T, UserEvent$gameResultArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10338,7 +10563,7 @@ export namespace Prisma {
 
   /**
    * Fields of the UserEvent model
-   */ 
+   */
   interface UserEventFieldRefs {
     readonly id: FieldRef<"UserEvent", 'Int'>
     readonly userId: FieldRef<"UserEvent", 'Int'>
@@ -11144,7 +11369,7 @@ export namespace Prisma {
       select?: GameResultCountAggregateInputType | true
     }
 
-  export interface GameResultDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameResultDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameResult'], meta: { name: 'GameResult' } }
     /**
      * Find zero or one GameResult that matches the filter.
@@ -11157,7 +11382,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameResultFindUniqueArgs>(args: SelectSubset<T, GameResultFindUniqueArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameResultFindUniqueArgs>(args: SelectSubset<T, GameResultFindUniqueArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one GameResult that matches the filter or throw an error with `error.code='P2025'`
@@ -11171,7 +11396,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameResultFindUniqueOrThrowArgs>(args: SelectSubset<T, GameResultFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameResultFindUniqueOrThrowArgs>(args: SelectSubset<T, GameResultFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameResult that matches the filter.
@@ -11186,7 +11411,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameResultFindFirstArgs>(args?: SelectSubset<T, GameResultFindFirstArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameResultFindFirstArgs>(args?: SelectSubset<T, GameResultFindFirstArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameResult that matches the filter or
@@ -11202,7 +11427,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameResultFindFirstOrThrowArgs>(args?: SelectSubset<T, GameResultFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameResultFindFirstOrThrowArgs>(args?: SelectSubset<T, GameResultFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more GameResults that matches the filter.
@@ -11220,7 +11445,7 @@ export namespace Prisma {
      * const gameResultWithIdOnly = await prisma.gameResult.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends GameResultFindManyArgs>(args?: SelectSubset<T, GameResultFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameResultFindManyArgs>(args?: SelectSubset<T, GameResultFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a GameResult.
@@ -11234,7 +11459,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameResultCreateArgs>(args: SelectSubset<T, GameResultCreateArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameResultCreateArgs>(args: SelectSubset<T, GameResultCreateArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many GameResults.
@@ -11272,7 +11497,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameResultCreateManyAndReturnArgs>(args?: SelectSubset<T, GameResultCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameResultCreateManyAndReturnArgs>(args?: SelectSubset<T, GameResultCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a GameResult.
@@ -11286,7 +11511,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameResultDeleteArgs>(args: SelectSubset<T, GameResultDeleteArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameResultDeleteArgs>(args: SelectSubset<T, GameResultDeleteArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one GameResult.
@@ -11303,7 +11528,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameResultUpdateArgs>(args: SelectSubset<T, GameResultUpdateArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameResultUpdateArgs>(args: SelectSubset<T, GameResultUpdateArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more GameResults.
@@ -11366,7 +11591,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameResultUpdateManyAndReturnArgs>(args: SelectSubset<T, GameResultUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameResultUpdateManyAndReturnArgs>(args: SelectSubset<T, GameResultUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one GameResult.
@@ -11385,7 +11610,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameResultUpsertArgs>(args: SelectSubset<T, GameResultUpsertArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameResultUpsertArgs>(args: SelectSubset<T, GameResultUpsertArgs<ExtArgs>>): Prisma__GameResultClient<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -11525,11 +11750,11 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameResultClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameResultClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    userEvents<T extends GameResult$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, GameResult$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    game<T extends GameDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameDefaultArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    userEvents<T extends GameResult$userEventsArgs<ExtArgs> = {}>(args?: Subset<T, GameResult$userEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11557,7 +11782,7 @@ export namespace Prisma {
 
   /**
    * Fields of the GameResult model
-   */ 
+   */
   interface GameResultFieldRefs {
     readonly id: FieldRef<"GameResult", 'Int'>
     readonly userId: FieldRef<"GameResult", 'Int'>
@@ -12334,7 +12559,7 @@ export namespace Prisma {
       select?: GameCountAggregateInputType | true
     }
 
-  export interface GameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Game'], meta: { name: 'Game' } }
     /**
      * Find zero or one Game that matches the filter.
@@ -12347,7 +12572,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameFindUniqueArgs>(args: SelectSubset<T, GameFindUniqueArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameFindUniqueArgs>(args: SelectSubset<T, GameFindUniqueArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one Game that matches the filter or throw an error with `error.code='P2025'`
@@ -12361,7 +12586,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameFindUniqueOrThrowArgs>(args: SelectSubset<T, GameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameFindUniqueOrThrowArgs>(args: SelectSubset<T, GameFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Game that matches the filter.
@@ -12376,7 +12601,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameFindFirstArgs>(args?: SelectSubset<T, GameFindFirstArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameFindFirstArgs>(args?: SelectSubset<T, GameFindFirstArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first Game that matches the filter or
@@ -12392,7 +12617,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameFindFirstOrThrowArgs>(args?: SelectSubset<T, GameFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameFindFirstOrThrowArgs>(args?: SelectSubset<T, GameFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Games that matches the filter.
@@ -12410,7 +12635,7 @@ export namespace Prisma {
      * const gameWithIdOnly = await prisma.game.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends GameFindManyArgs>(args?: SelectSubset<T, GameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameFindManyArgs>(args?: SelectSubset<T, GameFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a Game.
@@ -12424,7 +12649,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameCreateArgs>(args: SelectSubset<T, GameCreateArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameCreateArgs>(args: SelectSubset<T, GameCreateArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Games.
@@ -12462,7 +12687,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Game.
@@ -12476,7 +12701,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameDeleteArgs>(args: SelectSubset<T, GameDeleteArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameDeleteArgs>(args: SelectSubset<T, GameDeleteArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one Game.
@@ -12493,7 +12718,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameUpdateArgs>(args: SelectSubset<T, GameUpdateArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameUpdateArgs>(args: SelectSubset<T, GameUpdateArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Games.
@@ -12556,7 +12781,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameUpdateManyAndReturnArgs>(args: SelectSubset<T, GameUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameUpdateManyAndReturnArgs>(args: SelectSubset<T, GameUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Game.
@@ -12575,7 +12800,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameUpsertArgs>(args: SelectSubset<T, GameUpsertArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameUpsertArgs>(args: SelectSubset<T, GameUpsertArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -12715,10 +12940,10 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    gameCategory<T extends GameCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCategoryDefaultArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    results<T extends Game$resultsArgs<ExtArgs> = {}>(args?: Subset<T, Game$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    gameCategory<T extends GameCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCategoryDefaultArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    results<T extends Game$resultsArgs<ExtArgs> = {}>(args?: Subset<T, Game$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12746,7 +12971,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Game model
-   */ 
+   */
   interface GameFieldRefs {
     readonly id: FieldRef<"Game", 'Int'>
     readonly name: FieldRef<"Game", 'String'>
@@ -13464,7 +13689,7 @@ export namespace Prisma {
       select?: GameCategoryCountAggregateInputType | true
     }
 
-  export interface GameCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCategory'], meta: { name: 'GameCategory' } }
     /**
      * Find zero or one GameCategory that matches the filter.
@@ -13477,7 +13702,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameCategoryFindUniqueArgs>(args: SelectSubset<T, GameCategoryFindUniqueArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameCategoryFindUniqueArgs>(args: SelectSubset<T, GameCategoryFindUniqueArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one GameCategory that matches the filter or throw an error with `error.code='P2025'`
@@ -13491,7 +13716,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCategory that matches the filter.
@@ -13506,7 +13731,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameCategoryFindFirstArgs>(args?: SelectSubset<T, GameCategoryFindFirstArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameCategoryFindFirstArgs>(args?: SelectSubset<T, GameCategoryFindFirstArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCategory that matches the filter or
@@ -13522,7 +13747,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more GameCategories that matches the filter.
@@ -13540,7 +13765,7 @@ export namespace Prisma {
      * const gameCategoryWithIdOnly = await prisma.gameCategory.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends GameCategoryFindManyArgs>(args?: SelectSubset<T, GameCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameCategoryFindManyArgs>(args?: SelectSubset<T, GameCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a GameCategory.
@@ -13554,7 +13779,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameCategoryCreateArgs>(args: SelectSubset<T, GameCategoryCreateArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameCategoryCreateArgs>(args: SelectSubset<T, GameCategoryCreateArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many GameCategories.
@@ -13592,7 +13817,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a GameCategory.
@@ -13606,7 +13831,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameCategoryDeleteArgs>(args: SelectSubset<T, GameCategoryDeleteArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameCategoryDeleteArgs>(args: SelectSubset<T, GameCategoryDeleteArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one GameCategory.
@@ -13623,7 +13848,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameCategoryUpdateArgs>(args: SelectSubset<T, GameCategoryUpdateArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameCategoryUpdateArgs>(args: SelectSubset<T, GameCategoryUpdateArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more GameCategories.
@@ -13686,7 +13911,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one GameCategory.
@@ -13705,7 +13930,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameCategoryUpsertArgs>(args: SelectSubset<T, GameCategoryUpsertArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameCategoryUpsertArgs>(args: SelectSubset<T, GameCategoryUpsertArgs<ExtArgs>>): Prisma__GameCategoryClient<$Result.GetResult<Prisma.$GameCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -13845,9 +14070,9 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    games<T extends GameCategory$gamesArgs<ExtArgs> = {}>(args?: Subset<T, GameCategory$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    games<T extends GameCategory$gamesArgs<ExtArgs> = {}>(args?: Subset<T, GameCategory$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13875,7 +14100,7 @@ export namespace Prisma {
 
   /**
    * Fields of the GameCategory model
-   */ 
+   */
   interface GameCategoryFieldRefs {
     readonly id: FieldRef<"GameCategory", 'Int'>
     readonly name: FieldRef<"GameCategory", 'String'>
@@ -14756,6 +14981,7 @@ export namespace Prisma {
     image10?: boolean
     createdAt?: boolean
     gameDays?: boolean | DataMovie$gameDaysArgs<ExtArgs>
+    gameDays2?: boolean | DataMovie$gameDays2Args<ExtArgs>
     _count?: boolean | DataMovieCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dataMovie"]>
 
@@ -14867,6 +15093,7 @@ export namespace Prisma {
   export type DataMovieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tmdbId" | "title" | "originalTitle" | "year" | "releaseDate" | "runtime" | "director" | "actors" | "genres" | "synopsis" | "production" | "country" | "language" | "voteAverage" | "voteCount" | "popularity" | "budget" | "keywords" | "posterPath" | "backdropPath" | "image1" | "image2" | "image3" | "image4" | "image5" | "image6" | "image7" | "image8" | "image9" | "image10" | "createdAt", ExtArgs["result"]["dataMovie"]>
   export type DataMovieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gameDays?: boolean | DataMovie$gameDaysArgs<ExtArgs>
+    gameDays2?: boolean | DataMovie$gameDays2Args<ExtArgs>
     _count?: boolean | DataMovieCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DataMovieIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -14876,6 +15103,7 @@ export namespace Prisma {
     name: "DataMovie"
     objects: {
       gameDays: Prisma.$GameCinema1DaysPayload<ExtArgs>[]
+      gameDays2: Prisma.$GameCinema2DaysPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -14921,7 +15149,7 @@ export namespace Prisma {
       select?: DataMovieCountAggregateInputType | true
     }
 
-  export interface DataMovieDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface DataMovieDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataMovie'], meta: { name: 'DataMovie' } }
     /**
      * Find zero or one DataMovie that matches the filter.
@@ -14934,7 +15162,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends DataMovieFindUniqueArgs>(args: SelectSubset<T, DataMovieFindUniqueArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends DataMovieFindUniqueArgs>(args: SelectSubset<T, DataMovieFindUniqueArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one DataMovie that matches the filter or throw an error with `error.code='P2025'`
@@ -14948,7 +15176,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends DataMovieFindUniqueOrThrowArgs>(args: SelectSubset<T, DataMovieFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends DataMovieFindUniqueOrThrowArgs>(args: SelectSubset<T, DataMovieFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first DataMovie that matches the filter.
@@ -14963,7 +15191,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends DataMovieFindFirstArgs>(args?: SelectSubset<T, DataMovieFindFirstArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends DataMovieFindFirstArgs>(args?: SelectSubset<T, DataMovieFindFirstArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first DataMovie that matches the filter or
@@ -14979,7 +15207,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends DataMovieFindFirstOrThrowArgs>(args?: SelectSubset<T, DataMovieFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends DataMovieFindFirstOrThrowArgs>(args?: SelectSubset<T, DataMovieFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more DataMovies that matches the filter.
@@ -14997,7 +15225,7 @@ export namespace Prisma {
      * const dataMovieWithIdOnly = await prisma.dataMovie.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends DataMovieFindManyArgs>(args?: SelectSubset<T, DataMovieFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends DataMovieFindManyArgs>(args?: SelectSubset<T, DataMovieFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a DataMovie.
@@ -15011,7 +15239,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends DataMovieCreateArgs>(args: SelectSubset<T, DataMovieCreateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends DataMovieCreateArgs>(args: SelectSubset<T, DataMovieCreateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many DataMovies.
@@ -15049,7 +15277,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends DataMovieCreateManyAndReturnArgs>(args?: SelectSubset<T, DataMovieCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends DataMovieCreateManyAndReturnArgs>(args?: SelectSubset<T, DataMovieCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a DataMovie.
@@ -15063,7 +15291,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends DataMovieDeleteArgs>(args: SelectSubset<T, DataMovieDeleteArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends DataMovieDeleteArgs>(args: SelectSubset<T, DataMovieDeleteArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one DataMovie.
@@ -15080,7 +15308,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends DataMovieUpdateArgs>(args: SelectSubset<T, DataMovieUpdateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends DataMovieUpdateArgs>(args: SelectSubset<T, DataMovieUpdateArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more DataMovies.
@@ -15143,7 +15371,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends DataMovieUpdateManyAndReturnArgs>(args: SelectSubset<T, DataMovieUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends DataMovieUpdateManyAndReturnArgs>(args: SelectSubset<T, DataMovieUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one DataMovie.
@@ -15162,7 +15390,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends DataMovieUpsertArgs>(args: SelectSubset<T, DataMovieUpsertArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends DataMovieUpsertArgs>(args: SelectSubset<T, DataMovieUpsertArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -15302,9 +15530,10 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__DataMovieClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__DataMovieClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    gameDays<T extends DataMovie$gameDaysArgs<ExtArgs> = {}>(args?: Subset<T, DataMovie$gameDaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    gameDays<T extends DataMovie$gameDaysArgs<ExtArgs> = {}>(args?: Subset<T, DataMovie$gameDaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gameDays2<T extends DataMovie$gameDays2Args<ExtArgs> = {}>(args?: Subset<T, DataMovie$gameDays2Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15332,7 +15561,7 @@ export namespace Prisma {
 
   /**
    * Fields of the DataMovie model
-   */ 
+   */
   interface DataMovieFieldRefs {
     readonly id: FieldRef<"DataMovie", 'Int'>
     readonly tmdbId: FieldRef<"DataMovie", 'Int'>
@@ -15778,6 +16007,30 @@ export namespace Prisma {
   }
 
   /**
+   * DataMovie.gameDays2
+   */
+  export type DataMovie$gameDays2Args<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    where?: GameCinema2DaysWhereInput
+    orderBy?: GameCinema2DaysOrderByWithRelationInput | GameCinema2DaysOrderByWithRelationInput[]
+    cursor?: GameCinema2DaysWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameCinema2DaysScalarFieldEnum | GameCinema2DaysScalarFieldEnum[]
+  }
+
+  /**
    * DataMovie without action
    */
   export type DataMovieDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16053,7 +16306,7 @@ export namespace Prisma {
       select?: GameCinema1DaysCountAggregateInputType | true
     }
 
-  export interface GameCinema1DaysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameCinema1DaysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema1Days'], meta: { name: 'GameCinema1Days' } }
     /**
      * Find zero or one GameCinema1Days that matches the filter.
@@ -16066,7 +16319,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameCinema1DaysFindUniqueArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameCinema1DaysFindUniqueArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one GameCinema1Days that matches the filter or throw an error with `error.code='P2025'`
@@ -16080,7 +16333,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameCinema1DaysFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameCinema1DaysFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1DaysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCinema1Days that matches the filter.
@@ -16095,7 +16348,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameCinema1DaysFindFirstArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameCinema1DaysFindFirstArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCinema1Days that matches the filter or
@@ -16111,7 +16364,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameCinema1DaysFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameCinema1DaysFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1DaysFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more GameCinema1Days that matches the filter.
@@ -16129,7 +16382,7 @@ export namespace Prisma {
      * const gameCinema1DaysWithIdOnly = await prisma.gameCinema1Days.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends GameCinema1DaysFindManyArgs>(args?: SelectSubset<T, GameCinema1DaysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameCinema1DaysFindManyArgs>(args?: SelectSubset<T, GameCinema1DaysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a GameCinema1Days.
@@ -16143,7 +16396,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameCinema1DaysCreateArgs>(args: SelectSubset<T, GameCinema1DaysCreateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameCinema1DaysCreateArgs>(args: SelectSubset<T, GameCinema1DaysCreateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many GameCinema1Days.
@@ -16181,7 +16434,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameCinema1DaysCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1DaysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameCinema1DaysCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1DaysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a GameCinema1Days.
@@ -16195,7 +16448,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameCinema1DaysDeleteArgs>(args: SelectSubset<T, GameCinema1DaysDeleteArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameCinema1DaysDeleteArgs>(args: SelectSubset<T, GameCinema1DaysDeleteArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one GameCinema1Days.
@@ -16212,7 +16465,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameCinema1DaysUpdateArgs>(args: SelectSubset<T, GameCinema1DaysUpdateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameCinema1DaysUpdateArgs>(args: SelectSubset<T, GameCinema1DaysUpdateArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more GameCinema1Days.
@@ -16275,7 +16528,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameCinema1DaysUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1DaysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameCinema1DaysUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1DaysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one GameCinema1Days.
@@ -16294,7 +16547,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameCinema1DaysUpsertArgs>(args: SelectSubset<T, GameCinema1DaysUpsertArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameCinema1DaysUpsertArgs>(args: SelectSubset<T, GameCinema1DaysUpsertArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -16434,10 +16687,10 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameCinema1DaysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameCinema1DaysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    movie<T extends DataMovieDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataMovieDefaultArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
-    tries<T extends GameCinema1Days$triesArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1Days$triesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    movie<T extends DataMovieDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataMovieDefaultArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tries<T extends GameCinema1Days$triesArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1Days$triesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16465,7 +16718,7 @@ export namespace Prisma {
 
   /**
    * Fields of the GameCinema1Days model
-   */ 
+   */
   interface GameCinema1DaysFieldRefs {
     readonly id: FieldRef<"GameCinema1Days", 'Int'>
     readonly date: FieldRef<"GameCinema1Days", 'DateTime'>
@@ -17189,7 +17442,7 @@ export namespace Prisma {
       select?: GameCinema1TriesCountAggregateInputType | true
     }
 
-  export interface GameCinema1TriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+  export interface GameCinema1TriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema1Tries'], meta: { name: 'GameCinema1Tries' } }
     /**
      * Find zero or one GameCinema1Tries that matches the filter.
@@ -17202,7 +17455,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends GameCinema1TriesFindUniqueArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends GameCinema1TriesFindUniqueArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find one GameCinema1Tries that matches the filter or throw an error with `error.code='P2025'`
@@ -17216,7 +17469,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends GameCinema1TriesFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends GameCinema1TriesFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema1TriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCinema1Tries that matches the filter.
@@ -17231,7 +17484,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends GameCinema1TriesFindFirstArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends GameCinema1TriesFindFirstArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find the first GameCinema1Tries that matches the filter or
@@ -17247,7 +17500,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends GameCinema1TriesFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends GameCinema1TriesFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema1TriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more GameCinema1Tries that matches the filter.
@@ -17265,7 +17518,7 @@ export namespace Prisma {
      * const gameCinema1TriesWithIdOnly = await prisma.gameCinema1Tries.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends GameCinema1TriesFindManyArgs>(args?: SelectSubset<T, GameCinema1TriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends GameCinema1TriesFindManyArgs>(args?: SelectSubset<T, GameCinema1TriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
      * Create a GameCinema1Tries.
@@ -17279,7 +17532,7 @@ export namespace Prisma {
      * })
      * 
      */
-    create<T extends GameCinema1TriesCreateArgs>(args: SelectSubset<T, GameCinema1TriesCreateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends GameCinema1TriesCreateArgs>(args: SelectSubset<T, GameCinema1TriesCreateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many GameCinema1Tries.
@@ -17317,7 +17570,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends GameCinema1TriesCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1TriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends GameCinema1TriesCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema1TriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a GameCinema1Tries.
@@ -17331,7 +17584,7 @@ export namespace Prisma {
      * })
      * 
      */
-    delete<T extends GameCinema1TriesDeleteArgs>(args: SelectSubset<T, GameCinema1TriesDeleteArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends GameCinema1TriesDeleteArgs>(args: SelectSubset<T, GameCinema1TriesDeleteArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Update one GameCinema1Tries.
@@ -17348,7 +17601,7 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends GameCinema1TriesUpdateArgs>(args: SelectSubset<T, GameCinema1TriesUpdateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends GameCinema1TriesUpdateArgs>(args: SelectSubset<T, GameCinema1TriesUpdateArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more GameCinema1Tries.
@@ -17411,7 +17664,7 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends GameCinema1TriesUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1TriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends GameCinema1TriesUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema1TriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one GameCinema1Tries.
@@ -17430,7 +17683,7 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends GameCinema1TriesUpsertArgs>(args: SelectSubset<T, GameCinema1TriesUpsertArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends GameCinema1TriesUpsertArgs>(args: SelectSubset<T, GameCinema1TriesUpsertArgs<ExtArgs>>): Prisma__GameCinema1TriesClient<$Result.GetResult<Prisma.$GameCinema1TriesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
@@ -17570,9 +17823,9 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__GameCinema1TriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__GameCinema1TriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    day<T extends GameCinema1DaysDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1DaysDefaultArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    day<T extends GameCinema1DaysDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema1DaysDefaultArgs<ExtArgs>>): Prisma__GameCinema1DaysClient<$Result.GetResult<Prisma.$GameCinema1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17600,7 +17853,7 @@ export namespace Prisma {
 
   /**
    * Fields of the GameCinema1Tries model
-   */ 
+   */
   interface GameCinema1TriesFieldRefs {
     readonly id: FieldRef<"GameCinema1Tries", 'Int'>
     readonly userId: FieldRef<"GameCinema1Tries", 'Int'>
@@ -18023,6 +18276,2232 @@ export namespace Prisma {
 
 
   /**
+   * Model GameCinema2Days
+   */
+
+  export type AggregateGameCinema2Days = {
+    _count: GameCinema2DaysCountAggregateOutputType | null
+    _avg: GameCinema2DaysAvgAggregateOutputType | null
+    _sum: GameCinema2DaysSumAggregateOutputType | null
+    _min: GameCinema2DaysMinAggregateOutputType | null
+    _max: GameCinema2DaysMaxAggregateOutputType | null
+  }
+
+  export type GameCinema2DaysAvgAggregateOutputType = {
+    id: number | null
+    movieId: number | null
+  }
+
+  export type GameCinema2DaysSumAggregateOutputType = {
+    id: number | null
+    movieId: number | null
+  }
+
+  export type GameCinema2DaysMinAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    movieId: number | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema2DaysMaxAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    movieId: number | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema2DaysCountAggregateOutputType = {
+    id: number
+    date: number
+    movieId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameCinema2DaysAvgAggregateInputType = {
+    id?: true
+    movieId?: true
+  }
+
+  export type GameCinema2DaysSumAggregateInputType = {
+    id?: true
+    movieId?: true
+  }
+
+  export type GameCinema2DaysMinAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+  }
+
+  export type GameCinema2DaysMaxAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+  }
+
+  export type GameCinema2DaysCountAggregateInputType = {
+    id?: true
+    date?: true
+    movieId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameCinema2DaysAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema2Days to aggregate.
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Days to fetch.
+     */
+    orderBy?: GameCinema2DaysOrderByWithRelationInput | GameCinema2DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameCinema2DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameCinema2Days
+    **/
+    _count?: true | GameCinema2DaysCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameCinema2DaysAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameCinema2DaysSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameCinema2DaysMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameCinema2DaysMaxAggregateInputType
+  }
+
+  export type GetGameCinema2DaysAggregateType<T extends GameCinema2DaysAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameCinema2Days]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameCinema2Days[P]>
+      : GetScalarType<T[P], AggregateGameCinema2Days[P]>
+  }
+
+
+
+
+  export type GameCinema2DaysGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema2DaysWhereInput
+    orderBy?: GameCinema2DaysOrderByWithAggregationInput | GameCinema2DaysOrderByWithAggregationInput[]
+    by: GameCinema2DaysScalarFieldEnum[] | GameCinema2DaysScalarFieldEnum
+    having?: GameCinema2DaysScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameCinema2DaysCountAggregateInputType | true
+    _avg?: GameCinema2DaysAvgAggregateInputType
+    _sum?: GameCinema2DaysSumAggregateInputType
+    _min?: GameCinema2DaysMinAggregateInputType
+    _max?: GameCinema2DaysMaxAggregateInputType
+  }
+
+  export type GameCinema2DaysGroupByOutputType = {
+    id: number
+    date: Date
+    movieId: number
+    createdAt: Date
+    _count: GameCinema2DaysCountAggregateOutputType | null
+    _avg: GameCinema2DaysAvgAggregateOutputType | null
+    _sum: GameCinema2DaysSumAggregateOutputType | null
+    _min: GameCinema2DaysMinAggregateOutputType | null
+    _max: GameCinema2DaysMaxAggregateOutputType | null
+  }
+
+  type GetGameCinema2DaysGroupByPayload<T extends GameCinema2DaysGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameCinema2DaysGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameCinema2DaysGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameCinema2DaysGroupByOutputType[P]>
+            : GetScalarType<T[P], GameCinema2DaysGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameCinema2DaysSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+    tries?: boolean | GameCinema2Days$triesArgs<ExtArgs>
+    _count?: boolean | GameCinema2DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Days"]>
+
+  export type GameCinema2DaysSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Days"]>
+
+  export type GameCinema2DaysSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Days"]>
+
+  export type GameCinema2DaysSelectScalar = {
+    id?: boolean
+    date?: boolean
+    movieId?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameCinema2DaysOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "movieId" | "createdAt", ExtArgs["result"]["gameCinema2Days"]>
+  export type GameCinema2DaysInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+    tries?: boolean | GameCinema2Days$triesArgs<ExtArgs>
+    _count?: boolean | GameCinema2DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GameCinema2DaysIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }
+  export type GameCinema2DaysIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    movie?: boolean | DataMovieDefaultArgs<ExtArgs>
+  }
+
+  export type $GameCinema2DaysPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameCinema2Days"
+    objects: {
+      movie: Prisma.$DataMoviePayload<ExtArgs>
+      tries: Prisma.$GameCinema2TriesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      date: Date
+      movieId: number
+      createdAt: Date
+    }, ExtArgs["result"]["gameCinema2Days"]>
+    composites: {}
+  }
+
+  type GameCinema2DaysGetPayload<S extends boolean | null | undefined | GameCinema2DaysDefaultArgs> = $Result.GetResult<Prisma.$GameCinema2DaysPayload, S>
+
+  type GameCinema2DaysCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameCinema2DaysFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameCinema2DaysCountAggregateInputType | true
+    }
+
+  export interface GameCinema2DaysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema2Days'], meta: { name: 'GameCinema2Days' } }
+    /**
+     * Find zero or one GameCinema2Days that matches the filter.
+     * @param {GameCinema2DaysFindUniqueArgs} args - Arguments to find a GameCinema2Days
+     * @example
+     * // Get one GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameCinema2DaysFindUniqueArgs>(args: SelectSubset<T, GameCinema2DaysFindUniqueArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GameCinema2Days that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameCinema2DaysFindUniqueOrThrowArgs} args - Arguments to find a GameCinema2Days
+     * @example
+     * // Get one GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameCinema2DaysFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema2DaysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameCinema2Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysFindFirstArgs} args - Arguments to find a GameCinema2Days
+     * @example
+     * // Get one GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameCinema2DaysFindFirstArgs>(args?: SelectSubset<T, GameCinema2DaysFindFirstArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameCinema2Days that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysFindFirstOrThrowArgs} args - Arguments to find a GameCinema2Days
+     * @example
+     * // Get one GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameCinema2DaysFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema2DaysFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GameCinema2Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findMany()
+     * 
+     * // Get first 10 GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameCinema2DaysWithIdOnly = await prisma.gameCinema2Days.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameCinema2DaysFindManyArgs>(args?: SelectSubset<T, GameCinema2DaysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GameCinema2Days.
+     * @param {GameCinema2DaysCreateArgs} args - Arguments to create a GameCinema2Days.
+     * @example
+     * // Create one GameCinema2Days
+     * const GameCinema2Days = await prisma.gameCinema2Days.create({
+     *   data: {
+     *     // ... data to create a GameCinema2Days
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameCinema2DaysCreateArgs>(args: SelectSubset<T, GameCinema2DaysCreateArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GameCinema2Days.
+     * @param {GameCinema2DaysCreateManyArgs} args - Arguments to create many GameCinema2Days.
+     * @example
+     * // Create many GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameCinema2DaysCreateManyArgs>(args?: SelectSubset<T, GameCinema2DaysCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameCinema2Days and returns the data saved in the database.
+     * @param {GameCinema2DaysCreateManyAndReturnArgs} args - Arguments to create many GameCinema2Days.
+     * @example
+     * // Create many GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameCinema2Days and only return the `id`
+     * const gameCinema2DaysWithIdOnly = await prisma.gameCinema2Days.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameCinema2DaysCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema2DaysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GameCinema2Days.
+     * @param {GameCinema2DaysDeleteArgs} args - Arguments to delete one GameCinema2Days.
+     * @example
+     * // Delete one GameCinema2Days
+     * const GameCinema2Days = await prisma.gameCinema2Days.delete({
+     *   where: {
+     *     // ... filter to delete one GameCinema2Days
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameCinema2DaysDeleteArgs>(args: SelectSubset<T, GameCinema2DaysDeleteArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GameCinema2Days.
+     * @param {GameCinema2DaysUpdateArgs} args - Arguments to update one GameCinema2Days.
+     * @example
+     * // Update one GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameCinema2DaysUpdateArgs>(args: SelectSubset<T, GameCinema2DaysUpdateArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GameCinema2Days.
+     * @param {GameCinema2DaysDeleteManyArgs} args - Arguments to filter GameCinema2Days to delete.
+     * @example
+     * // Delete a few GameCinema2Days
+     * const { count } = await prisma.gameCinema2Days.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameCinema2DaysDeleteManyArgs>(args?: SelectSubset<T, GameCinema2DaysDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema2Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameCinema2DaysUpdateManyArgs>(args: SelectSubset<T, GameCinema2DaysUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema2Days and returns the data updated in the database.
+     * @param {GameCinema2DaysUpdateManyAndReturnArgs} args - Arguments to update many GameCinema2Days.
+     * @example
+     * // Update many GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameCinema2Days and only return the `id`
+     * const gameCinema2DaysWithIdOnly = await prisma.gameCinema2Days.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameCinema2DaysUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema2DaysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GameCinema2Days.
+     * @param {GameCinema2DaysUpsertArgs} args - Arguments to update or create a GameCinema2Days.
+     * @example
+     * // Update or create a GameCinema2Days
+     * const gameCinema2Days = await prisma.gameCinema2Days.upsert({
+     *   create: {
+     *     // ... data to create a GameCinema2Days
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameCinema2Days we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameCinema2DaysUpsertArgs>(args: SelectSubset<T, GameCinema2DaysUpsertArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GameCinema2Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysCountArgs} args - Arguments to filter GameCinema2Days to count.
+     * @example
+     * // Count the number of GameCinema2Days
+     * const count = await prisma.gameCinema2Days.count({
+     *   where: {
+     *     // ... the filter for the GameCinema2Days we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameCinema2DaysCountArgs>(
+      args?: Subset<T, GameCinema2DaysCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameCinema2DaysCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameCinema2Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameCinema2DaysAggregateArgs>(args: Subset<T, GameCinema2DaysAggregateArgs>): Prisma.PrismaPromise<GetGameCinema2DaysAggregateType<T>>
+
+    /**
+     * Group by GameCinema2Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2DaysGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameCinema2DaysGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameCinema2DaysGroupByArgs['orderBy'] }
+        : { orderBy?: GameCinema2DaysGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameCinema2DaysGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameCinema2DaysGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameCinema2Days model
+   */
+  readonly fields: GameCinema2DaysFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameCinema2Days.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameCinema2DaysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    movie<T extends DataMovieDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataMovieDefaultArgs<ExtArgs>>): Prisma__DataMovieClient<$Result.GetResult<Prisma.$DataMoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tries<T extends GameCinema2Days$triesArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema2Days$triesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameCinema2Days model
+   */
+  interface GameCinema2DaysFieldRefs {
+    readonly id: FieldRef<"GameCinema2Days", 'Int'>
+    readonly date: FieldRef<"GameCinema2Days", 'DateTime'>
+    readonly movieId: FieldRef<"GameCinema2Days", 'Int'>
+    readonly createdAt: FieldRef<"GameCinema2Days", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameCinema2Days findUnique
+   */
+  export type GameCinema2DaysFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Days to fetch.
+     */
+    where: GameCinema2DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Days findUniqueOrThrow
+   */
+  export type GameCinema2DaysFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Days to fetch.
+     */
+    where: GameCinema2DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Days findFirst
+   */
+  export type GameCinema2DaysFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Days to fetch.
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Days to fetch.
+     */
+    orderBy?: GameCinema2DaysOrderByWithRelationInput | GameCinema2DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema2Days.
+     */
+    cursor?: GameCinema2DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema2Days.
+     */
+    distinct?: GameCinema2DaysScalarFieldEnum | GameCinema2DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Days findFirstOrThrow
+   */
+  export type GameCinema2DaysFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Days to fetch.
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Days to fetch.
+     */
+    orderBy?: GameCinema2DaysOrderByWithRelationInput | GameCinema2DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema2Days.
+     */
+    cursor?: GameCinema2DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema2Days.
+     */
+    distinct?: GameCinema2DaysScalarFieldEnum | GameCinema2DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Days findMany
+   */
+  export type GameCinema2DaysFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Days to fetch.
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Days to fetch.
+     */
+    orderBy?: GameCinema2DaysOrderByWithRelationInput | GameCinema2DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameCinema2Days.
+     */
+    cursor?: GameCinema2DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Days.
+     */
+    skip?: number
+    distinct?: GameCinema2DaysScalarFieldEnum | GameCinema2DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Days create
+   */
+  export type GameCinema2DaysCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameCinema2Days.
+     */
+    data: XOR<GameCinema2DaysCreateInput, GameCinema2DaysUncheckedCreateInput>
+  }
+
+  /**
+   * GameCinema2Days createMany
+   */
+  export type GameCinema2DaysCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameCinema2Days.
+     */
+    data: GameCinema2DaysCreateManyInput | GameCinema2DaysCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameCinema2Days createManyAndReturn
+   */
+  export type GameCinema2DaysCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameCinema2Days.
+     */
+    data: GameCinema2DaysCreateManyInput | GameCinema2DaysCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema2Days update
+   */
+  export type GameCinema2DaysUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameCinema2Days.
+     */
+    data: XOR<GameCinema2DaysUpdateInput, GameCinema2DaysUncheckedUpdateInput>
+    /**
+     * Choose, which GameCinema2Days to update.
+     */
+    where: GameCinema2DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Days updateMany
+   */
+  export type GameCinema2DaysUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameCinema2Days.
+     */
+    data: XOR<GameCinema2DaysUpdateManyMutationInput, GameCinema2DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema2Days to update
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * Limit how many GameCinema2Days to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema2Days updateManyAndReturn
+   */
+  export type GameCinema2DaysUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * The data used to update GameCinema2Days.
+     */
+    data: XOR<GameCinema2DaysUpdateManyMutationInput, GameCinema2DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema2Days to update
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * Limit how many GameCinema2Days to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema2Days upsert
+   */
+  export type GameCinema2DaysUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameCinema2Days to update in case it exists.
+     */
+    where: GameCinema2DaysWhereUniqueInput
+    /**
+     * In case the GameCinema2Days found by the `where` argument doesn't exist, create a new GameCinema2Days with this data.
+     */
+    create: XOR<GameCinema2DaysCreateInput, GameCinema2DaysUncheckedCreateInput>
+    /**
+     * In case the GameCinema2Days was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameCinema2DaysUpdateInput, GameCinema2DaysUncheckedUpdateInput>
+  }
+
+  /**
+   * GameCinema2Days delete
+   */
+  export type GameCinema2DaysDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+    /**
+     * Filter which GameCinema2Days to delete.
+     */
+    where: GameCinema2DaysWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Days deleteMany
+   */
+  export type GameCinema2DaysDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema2Days to delete
+     */
+    where?: GameCinema2DaysWhereInput
+    /**
+     * Limit how many GameCinema2Days to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema2Days.tries
+   */
+  export type GameCinema2Days$triesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    where?: GameCinema2TriesWhereInput
+    orderBy?: GameCinema2TriesOrderByWithRelationInput | GameCinema2TriesOrderByWithRelationInput[]
+    cursor?: GameCinema2TriesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameCinema2TriesScalarFieldEnum | GameCinema2TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Days without action
+   */
+  export type GameCinema2DaysDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Days
+     */
+    select?: GameCinema2DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Days
+     */
+    omit?: GameCinema2DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2DaysInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GameCinema2Tries
+   */
+
+  export type AggregateGameCinema2Tries = {
+    _count: GameCinema2TriesCountAggregateOutputType | null
+    _avg: GameCinema2TriesAvgAggregateOutputType | null
+    _sum: GameCinema2TriesSumAggregateOutputType | null
+    _min: GameCinema2TriesMinAggregateOutputType | null
+    _max: GameCinema2TriesMaxAggregateOutputType | null
+  }
+
+  export type GameCinema2TriesAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameCinema2TriesSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameCinema2TriesMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema2TriesMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameCinema2TriesCountAggregateOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: number
+    correct: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameCinema2TriesAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameCinema2TriesSumAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameCinema2TriesMinAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameCinema2TriesMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameCinema2TriesCountAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameCinema2TriesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema2Tries to aggregate.
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Tries to fetch.
+     */
+    orderBy?: GameCinema2TriesOrderByWithRelationInput | GameCinema2TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameCinema2TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameCinema2Tries
+    **/
+    _count?: true | GameCinema2TriesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameCinema2TriesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameCinema2TriesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameCinema2TriesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameCinema2TriesMaxAggregateInputType
+  }
+
+  export type GetGameCinema2TriesAggregateType<T extends GameCinema2TriesAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameCinema2Tries]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameCinema2Tries[P]>
+      : GetScalarType<T[P], AggregateGameCinema2Tries[P]>
+  }
+
+
+
+
+  export type GameCinema2TriesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameCinema2TriesWhereInput
+    orderBy?: GameCinema2TriesOrderByWithAggregationInput | GameCinema2TriesOrderByWithAggregationInput[]
+    by: GameCinema2TriesScalarFieldEnum[] | GameCinema2TriesScalarFieldEnum
+    having?: GameCinema2TriesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameCinema2TriesCountAggregateInputType | true
+    _avg?: GameCinema2TriesAvgAggregateInputType
+    _sum?: GameCinema2TriesSumAggregateInputType
+    _min?: GameCinema2TriesMinAggregateInputType
+    _max?: GameCinema2TriesMaxAggregateInputType
+  }
+
+  export type GameCinema2TriesGroupByOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: string
+    correct: boolean
+    createdAt: Date
+    _count: GameCinema2TriesCountAggregateOutputType | null
+    _avg: GameCinema2TriesAvgAggregateOutputType | null
+    _sum: GameCinema2TriesSumAggregateOutputType | null
+    _min: GameCinema2TriesMinAggregateOutputType | null
+    _max: GameCinema2TriesMaxAggregateOutputType | null
+  }
+
+  type GetGameCinema2TriesGroupByPayload<T extends GameCinema2TriesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameCinema2TriesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameCinema2TriesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameCinema2TriesGroupByOutputType[P]>
+            : GetScalarType<T[P], GameCinema2TriesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameCinema2TriesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Tries"]>
+
+  export type GameCinema2TriesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Tries"]>
+
+  export type GameCinema2TriesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameCinema2Tries"]>
+
+  export type GameCinema2TriesSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameCinema2TriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "dayId" | "guess" | "correct" | "createdAt", ExtArgs["result"]["gameCinema2Tries"]>
+  export type GameCinema2TriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }
+  export type GameCinema2TriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }
+  export type GameCinema2TriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameCinema2DaysDefaultArgs<ExtArgs>
+  }
+
+  export type $GameCinema2TriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameCinema2Tries"
+    objects: {
+      day: Prisma.$GameCinema2DaysPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      dayId: number
+      guess: string
+      correct: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["gameCinema2Tries"]>
+    composites: {}
+  }
+
+  type GameCinema2TriesGetPayload<S extends boolean | null | undefined | GameCinema2TriesDefaultArgs> = $Result.GetResult<Prisma.$GameCinema2TriesPayload, S>
+
+  type GameCinema2TriesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameCinema2TriesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameCinema2TriesCountAggregateInputType | true
+    }
+
+  export interface GameCinema2TriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameCinema2Tries'], meta: { name: 'GameCinema2Tries' } }
+    /**
+     * Find zero or one GameCinema2Tries that matches the filter.
+     * @param {GameCinema2TriesFindUniqueArgs} args - Arguments to find a GameCinema2Tries
+     * @example
+     * // Get one GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameCinema2TriesFindUniqueArgs>(args: SelectSubset<T, GameCinema2TriesFindUniqueArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GameCinema2Tries that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameCinema2TriesFindUniqueOrThrowArgs} args - Arguments to find a GameCinema2Tries
+     * @example
+     * // Get one GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameCinema2TriesFindUniqueOrThrowArgs>(args: SelectSubset<T, GameCinema2TriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameCinema2Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesFindFirstArgs} args - Arguments to find a GameCinema2Tries
+     * @example
+     * // Get one GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameCinema2TriesFindFirstArgs>(args?: SelectSubset<T, GameCinema2TriesFindFirstArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameCinema2Tries that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesFindFirstOrThrowArgs} args - Arguments to find a GameCinema2Tries
+     * @example
+     * // Get one GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameCinema2TriesFindFirstOrThrowArgs>(args?: SelectSubset<T, GameCinema2TriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GameCinema2Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findMany()
+     * 
+     * // Get first 10 GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameCinema2TriesWithIdOnly = await prisma.gameCinema2Tries.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameCinema2TriesFindManyArgs>(args?: SelectSubset<T, GameCinema2TriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GameCinema2Tries.
+     * @param {GameCinema2TriesCreateArgs} args - Arguments to create a GameCinema2Tries.
+     * @example
+     * // Create one GameCinema2Tries
+     * const GameCinema2Tries = await prisma.gameCinema2Tries.create({
+     *   data: {
+     *     // ... data to create a GameCinema2Tries
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameCinema2TriesCreateArgs>(args: SelectSubset<T, GameCinema2TriesCreateArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GameCinema2Tries.
+     * @param {GameCinema2TriesCreateManyArgs} args - Arguments to create many GameCinema2Tries.
+     * @example
+     * // Create many GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameCinema2TriesCreateManyArgs>(args?: SelectSubset<T, GameCinema2TriesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameCinema2Tries and returns the data saved in the database.
+     * @param {GameCinema2TriesCreateManyAndReturnArgs} args - Arguments to create many GameCinema2Tries.
+     * @example
+     * // Create many GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameCinema2Tries and only return the `id`
+     * const gameCinema2TriesWithIdOnly = await prisma.gameCinema2Tries.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameCinema2TriesCreateManyAndReturnArgs>(args?: SelectSubset<T, GameCinema2TriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GameCinema2Tries.
+     * @param {GameCinema2TriesDeleteArgs} args - Arguments to delete one GameCinema2Tries.
+     * @example
+     * // Delete one GameCinema2Tries
+     * const GameCinema2Tries = await prisma.gameCinema2Tries.delete({
+     *   where: {
+     *     // ... filter to delete one GameCinema2Tries
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameCinema2TriesDeleteArgs>(args: SelectSubset<T, GameCinema2TriesDeleteArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GameCinema2Tries.
+     * @param {GameCinema2TriesUpdateArgs} args - Arguments to update one GameCinema2Tries.
+     * @example
+     * // Update one GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameCinema2TriesUpdateArgs>(args: SelectSubset<T, GameCinema2TriesUpdateArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GameCinema2Tries.
+     * @param {GameCinema2TriesDeleteManyArgs} args - Arguments to filter GameCinema2Tries to delete.
+     * @example
+     * // Delete a few GameCinema2Tries
+     * const { count } = await prisma.gameCinema2Tries.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameCinema2TriesDeleteManyArgs>(args?: SelectSubset<T, GameCinema2TriesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema2Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameCinema2TriesUpdateManyArgs>(args: SelectSubset<T, GameCinema2TriesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameCinema2Tries and returns the data updated in the database.
+     * @param {GameCinema2TriesUpdateManyAndReturnArgs} args - Arguments to update many GameCinema2Tries.
+     * @example
+     * // Update many GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameCinema2Tries and only return the `id`
+     * const gameCinema2TriesWithIdOnly = await prisma.gameCinema2Tries.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameCinema2TriesUpdateManyAndReturnArgs>(args: SelectSubset<T, GameCinema2TriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GameCinema2Tries.
+     * @param {GameCinema2TriesUpsertArgs} args - Arguments to update or create a GameCinema2Tries.
+     * @example
+     * // Update or create a GameCinema2Tries
+     * const gameCinema2Tries = await prisma.gameCinema2Tries.upsert({
+     *   create: {
+     *     // ... data to create a GameCinema2Tries
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameCinema2Tries we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameCinema2TriesUpsertArgs>(args: SelectSubset<T, GameCinema2TriesUpsertArgs<ExtArgs>>): Prisma__GameCinema2TriesClient<$Result.GetResult<Prisma.$GameCinema2TriesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GameCinema2Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesCountArgs} args - Arguments to filter GameCinema2Tries to count.
+     * @example
+     * // Count the number of GameCinema2Tries
+     * const count = await prisma.gameCinema2Tries.count({
+     *   where: {
+     *     // ... the filter for the GameCinema2Tries we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameCinema2TriesCountArgs>(
+      args?: Subset<T, GameCinema2TriesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameCinema2TriesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameCinema2Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameCinema2TriesAggregateArgs>(args: Subset<T, GameCinema2TriesAggregateArgs>): Prisma.PrismaPromise<GetGameCinema2TriesAggregateType<T>>
+
+    /**
+     * Group by GameCinema2Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameCinema2TriesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameCinema2TriesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameCinema2TriesGroupByArgs['orderBy'] }
+        : { orderBy?: GameCinema2TriesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameCinema2TriesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameCinema2TriesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameCinema2Tries model
+   */
+  readonly fields: GameCinema2TriesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameCinema2Tries.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameCinema2TriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    day<T extends GameCinema2DaysDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameCinema2DaysDefaultArgs<ExtArgs>>): Prisma__GameCinema2DaysClient<$Result.GetResult<Prisma.$GameCinema2DaysPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameCinema2Tries model
+   */
+  interface GameCinema2TriesFieldRefs {
+    readonly id: FieldRef<"GameCinema2Tries", 'Int'>
+    readonly userId: FieldRef<"GameCinema2Tries", 'Int'>
+    readonly dayId: FieldRef<"GameCinema2Tries", 'Int'>
+    readonly guess: FieldRef<"GameCinema2Tries", 'String'>
+    readonly correct: FieldRef<"GameCinema2Tries", 'Boolean'>
+    readonly createdAt: FieldRef<"GameCinema2Tries", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameCinema2Tries findUnique
+   */
+  export type GameCinema2TriesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Tries to fetch.
+     */
+    where: GameCinema2TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Tries findUniqueOrThrow
+   */
+  export type GameCinema2TriesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Tries to fetch.
+     */
+    where: GameCinema2TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Tries findFirst
+   */
+  export type GameCinema2TriesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Tries to fetch.
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Tries to fetch.
+     */
+    orderBy?: GameCinema2TriesOrderByWithRelationInput | GameCinema2TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema2Tries.
+     */
+    cursor?: GameCinema2TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema2Tries.
+     */
+    distinct?: GameCinema2TriesScalarFieldEnum | GameCinema2TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Tries findFirstOrThrow
+   */
+  export type GameCinema2TriesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Tries to fetch.
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Tries to fetch.
+     */
+    orderBy?: GameCinema2TriesOrderByWithRelationInput | GameCinema2TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameCinema2Tries.
+     */
+    cursor?: GameCinema2TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameCinema2Tries.
+     */
+    distinct?: GameCinema2TriesScalarFieldEnum | GameCinema2TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Tries findMany
+   */
+  export type GameCinema2TriesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameCinema2Tries to fetch.
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameCinema2Tries to fetch.
+     */
+    orderBy?: GameCinema2TriesOrderByWithRelationInput | GameCinema2TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameCinema2Tries.
+     */
+    cursor?: GameCinema2TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameCinema2Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameCinema2Tries.
+     */
+    skip?: number
+    distinct?: GameCinema2TriesScalarFieldEnum | GameCinema2TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameCinema2Tries create
+   */
+  export type GameCinema2TriesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameCinema2Tries.
+     */
+    data: XOR<GameCinema2TriesCreateInput, GameCinema2TriesUncheckedCreateInput>
+  }
+
+  /**
+   * GameCinema2Tries createMany
+   */
+  export type GameCinema2TriesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameCinema2Tries.
+     */
+    data: GameCinema2TriesCreateManyInput | GameCinema2TriesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameCinema2Tries createManyAndReturn
+   */
+  export type GameCinema2TriesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameCinema2Tries.
+     */
+    data: GameCinema2TriesCreateManyInput | GameCinema2TriesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema2Tries update
+   */
+  export type GameCinema2TriesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameCinema2Tries.
+     */
+    data: XOR<GameCinema2TriesUpdateInput, GameCinema2TriesUncheckedUpdateInput>
+    /**
+     * Choose, which GameCinema2Tries to update.
+     */
+    where: GameCinema2TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Tries updateMany
+   */
+  export type GameCinema2TriesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameCinema2Tries.
+     */
+    data: XOR<GameCinema2TriesUpdateManyMutationInput, GameCinema2TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema2Tries to update
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * Limit how many GameCinema2Tries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema2Tries updateManyAndReturn
+   */
+  export type GameCinema2TriesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * The data used to update GameCinema2Tries.
+     */
+    data: XOR<GameCinema2TriesUpdateManyMutationInput, GameCinema2TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameCinema2Tries to update
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * Limit how many GameCinema2Tries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameCinema2Tries upsert
+   */
+  export type GameCinema2TriesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameCinema2Tries to update in case it exists.
+     */
+    where: GameCinema2TriesWhereUniqueInput
+    /**
+     * In case the GameCinema2Tries found by the `where` argument doesn't exist, create a new GameCinema2Tries with this data.
+     */
+    create: XOR<GameCinema2TriesCreateInput, GameCinema2TriesUncheckedCreateInput>
+    /**
+     * In case the GameCinema2Tries was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameCinema2TriesUpdateInput, GameCinema2TriesUncheckedUpdateInput>
+  }
+
+  /**
+   * GameCinema2Tries delete
+   */
+  export type GameCinema2TriesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+    /**
+     * Filter which GameCinema2Tries to delete.
+     */
+    where: GameCinema2TriesWhereUniqueInput
+  }
+
+  /**
+   * GameCinema2Tries deleteMany
+   */
+  export type GameCinema2TriesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameCinema2Tries to delete
+     */
+    where?: GameCinema2TriesWhereInput
+    /**
+     * Limit how many GameCinema2Tries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameCinema2Tries without action
+   */
+  export type GameCinema2TriesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameCinema2Tries
+     */
+    select?: GameCinema2TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameCinema2Tries
+     */
+    omit?: GameCinema2TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameCinema2TriesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -18236,6 +20715,28 @@ export namespace Prisma {
   export type GameCinema1TriesScalarFieldEnum = (typeof GameCinema1TriesScalarFieldEnum)[keyof typeof GameCinema1TriesScalarFieldEnum]
 
 
+  export const GameCinema2DaysScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    movieId: 'movieId',
+    createdAt: 'createdAt'
+  };
+
+  export type GameCinema2DaysScalarFieldEnum = (typeof GameCinema2DaysScalarFieldEnum)[keyof typeof GameCinema2DaysScalarFieldEnum]
+
+
+  export const GameCinema2TriesScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    dayId: 'dayId',
+    guess: 'guess',
+    correct: 'correct',
+    createdAt: 'createdAt'
+  };
+
+  export type GameCinema2TriesScalarFieldEnum = (typeof GameCinema2TriesScalarFieldEnum)[keyof typeof GameCinema2TriesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -18261,7 +20762,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references 
+   * Field references
    */
 
 
@@ -19161,6 +21662,7 @@ export namespace Prisma {
     image10?: StringNullableFilter<"DataMovie"> | string | null
     createdAt?: DateTimeFilter<"DataMovie"> | Date | string
     gameDays?: GameCinema1DaysListRelationFilter
+    gameDays2?: GameCinema2DaysListRelationFilter
   }
 
   export type DataMovieOrderByWithRelationInput = {
@@ -19197,6 +21699,7 @@ export namespace Prisma {
     image10?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     gameDays?: GameCinema1DaysOrderByRelationAggregateInput
+    gameDays2?: GameCinema2DaysOrderByRelationAggregateInput
   }
 
   export type DataMovieWhereUniqueInput = Prisma.AtLeast<{
@@ -19236,6 +21739,7 @@ export namespace Prisma {
     image10?: StringNullableFilter<"DataMovie"> | string | null
     createdAt?: DateTimeFilter<"DataMovie"> | Date | string
     gameDays?: GameCinema1DaysListRelationFilter
+    gameDays2?: GameCinema2DaysListRelationFilter
   }, "id" | "tmdbId">
 
   export type DataMovieOrderByWithAggregationInput = {
@@ -19431,6 +21935,123 @@ export namespace Prisma {
     guess?: StringWithAggregatesFilter<"GameCinema1Tries"> | string
     correct?: BoolWithAggregatesFilter<"GameCinema1Tries"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"GameCinema1Tries"> | Date | string
+  }
+
+  export type GameCinema2DaysWhereInput = {
+    AND?: GameCinema2DaysWhereInput | GameCinema2DaysWhereInput[]
+    OR?: GameCinema2DaysWhereInput[]
+    NOT?: GameCinema2DaysWhereInput | GameCinema2DaysWhereInput[]
+    id?: IntFilter<"GameCinema2Days"> | number
+    date?: DateTimeFilter<"GameCinema2Days"> | Date | string
+    movieId?: IntFilter<"GameCinema2Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema2Days"> | Date | string
+    movie?: XOR<DataMovieScalarRelationFilter, DataMovieWhereInput>
+    tries?: GameCinema2TriesListRelationFilter
+  }
+
+  export type GameCinema2DaysOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+    movie?: DataMovieOrderByWithRelationInput
+    tries?: GameCinema2TriesOrderByRelationAggregateInput
+  }
+
+  export type GameCinema2DaysWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    date?: Date | string
+    AND?: GameCinema2DaysWhereInput | GameCinema2DaysWhereInput[]
+    OR?: GameCinema2DaysWhereInput[]
+    NOT?: GameCinema2DaysWhereInput | GameCinema2DaysWhereInput[]
+    movieId?: IntFilter<"GameCinema2Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema2Days"> | Date | string
+    movie?: XOR<DataMovieScalarRelationFilter, DataMovieWhereInput>
+    tries?: GameCinema2TriesListRelationFilter
+  }, "id" | "date">
+
+  export type GameCinema2DaysOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameCinema2DaysCountOrderByAggregateInput
+    _avg?: GameCinema2DaysAvgOrderByAggregateInput
+    _max?: GameCinema2DaysMaxOrderByAggregateInput
+    _min?: GameCinema2DaysMinOrderByAggregateInput
+    _sum?: GameCinema2DaysSumOrderByAggregateInput
+  }
+
+  export type GameCinema2DaysScalarWhereWithAggregatesInput = {
+    AND?: GameCinema2DaysScalarWhereWithAggregatesInput | GameCinema2DaysScalarWhereWithAggregatesInput[]
+    OR?: GameCinema2DaysScalarWhereWithAggregatesInput[]
+    NOT?: GameCinema2DaysScalarWhereWithAggregatesInput | GameCinema2DaysScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameCinema2Days"> | number
+    date?: DateTimeWithAggregatesFilter<"GameCinema2Days"> | Date | string
+    movieId?: IntWithAggregatesFilter<"GameCinema2Days"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"GameCinema2Days"> | Date | string
+  }
+
+  export type GameCinema2TriesWhereInput = {
+    AND?: GameCinema2TriesWhereInput | GameCinema2TriesWhereInput[]
+    OR?: GameCinema2TriesWhereInput[]
+    NOT?: GameCinema2TriesWhereInput | GameCinema2TriesWhereInput[]
+    id?: IntFilter<"GameCinema2Tries"> | number
+    userId?: IntFilter<"GameCinema2Tries"> | number
+    dayId?: IntFilter<"GameCinema2Tries"> | number
+    guess?: StringFilter<"GameCinema2Tries"> | string
+    correct?: BoolFilter<"GameCinema2Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema2Tries"> | Date | string
+    day?: XOR<GameCinema2DaysScalarRelationFilter, GameCinema2DaysWhereInput>
+  }
+
+  export type GameCinema2TriesOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    day?: GameCinema2DaysOrderByWithRelationInput
+  }
+
+  export type GameCinema2TriesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GameCinema2TriesWhereInput | GameCinema2TriesWhereInput[]
+    OR?: GameCinema2TriesWhereInput[]
+    NOT?: GameCinema2TriesWhereInput | GameCinema2TriesWhereInput[]
+    userId?: IntFilter<"GameCinema2Tries"> | number
+    dayId?: IntFilter<"GameCinema2Tries"> | number
+    guess?: StringFilter<"GameCinema2Tries"> | string
+    correct?: BoolFilter<"GameCinema2Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema2Tries"> | Date | string
+    day?: XOR<GameCinema2DaysScalarRelationFilter, GameCinema2DaysWhereInput>
+  }, "id">
+
+  export type GameCinema2TriesOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameCinema2TriesCountOrderByAggregateInput
+    _avg?: GameCinema2TriesAvgOrderByAggregateInput
+    _max?: GameCinema2TriesMaxOrderByAggregateInput
+    _min?: GameCinema2TriesMinOrderByAggregateInput
+    _sum?: GameCinema2TriesSumOrderByAggregateInput
+  }
+
+  export type GameCinema2TriesScalarWhereWithAggregatesInput = {
+    AND?: GameCinema2TriesScalarWhereWithAggregatesInput | GameCinema2TriesScalarWhereWithAggregatesInput[]
+    OR?: GameCinema2TriesScalarWhereWithAggregatesInput[]
+    NOT?: GameCinema2TriesScalarWhereWithAggregatesInput | GameCinema2TriesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameCinema2Tries"> | number
+    userId?: IntWithAggregatesFilter<"GameCinema2Tries"> | number
+    dayId?: IntWithAggregatesFilter<"GameCinema2Tries"> | number
+    guess?: StringWithAggregatesFilter<"GameCinema2Tries"> | string
+    correct?: BoolWithAggregatesFilter<"GameCinema2Tries"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"GameCinema2Tries"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -20257,6 +22878,7 @@ export namespace Prisma {
     image10?: string | null
     createdAt?: Date | string
     gameDays?: GameCinema1DaysCreateNestedManyWithoutMovieInput
+    gameDays2?: GameCinema2DaysCreateNestedManyWithoutMovieInput
   }
 
   export type DataMovieUncheckedCreateInput = {
@@ -20293,6 +22915,7 @@ export namespace Prisma {
     image10?: string | null
     createdAt?: Date | string
     gameDays?: GameCinema1DaysUncheckedCreateNestedManyWithoutMovieInput
+    gameDays2?: GameCinema2DaysUncheckedCreateNestedManyWithoutMovieInput
   }
 
   export type DataMovieUpdateInput = {
@@ -20328,6 +22951,7 @@ export namespace Prisma {
     image10?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gameDays?: GameCinema1DaysUpdateManyWithoutMovieNestedInput
+    gameDays2?: GameCinema2DaysUpdateManyWithoutMovieNestedInput
   }
 
   export type DataMovieUncheckedUpdateInput = {
@@ -20364,6 +22988,7 @@ export namespace Prisma {
     image10?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gameDays?: GameCinema1DaysUncheckedUpdateManyWithoutMovieNestedInput
+    gameDays2?: GameCinema2DaysUncheckedUpdateManyWithoutMovieNestedInput
   }
 
   export type DataMovieCreateManyInput = {
@@ -20570,6 +23195,114 @@ export namespace Prisma {
   }
 
   export type GameCinema1TriesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2DaysCreateInput = {
+    date: Date | string
+    createdAt?: Date | string
+    movie: DataMovieCreateNestedOneWithoutGameDays2Input
+    tries?: GameCinema2TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema2DaysUncheckedCreateInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+    tries?: GameCinema2TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema2DaysUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movie?: DataMovieUpdateOneRequiredWithoutGameDays2NestedInput
+    tries?: GameCinema2TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema2DaysUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema2TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema2DaysCreateManyInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2DaysUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2DaysUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesCreateInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+    day: GameCinema2DaysCreateNestedOneWithoutTriesInput
+  }
+
+  export type GameCinema2TriesUncheckedCreateInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2TriesUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: GameCinema2DaysUpdateOneRequiredWithoutTriesNestedInput
+  }
+
+  export type GameCinema2TriesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesCreateManyInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2TriesUpdateManyMutationInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     dayId?: IntFieldUpdateOperationsInput | number
@@ -21355,7 +24088,17 @@ export namespace Prisma {
     none?: GameCinema1DaysWhereInput
   }
 
+  export type GameCinema2DaysListRelationFilter = {
+    every?: GameCinema2DaysWhereInput
+    some?: GameCinema2DaysWhereInput
+    none?: GameCinema2DaysWhereInput
+  }
+
   export type GameCinema1DaysOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameCinema2DaysOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21587,6 +24330,91 @@ export namespace Prisma {
   }
 
   export type GameCinema1TriesSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type GameCinema2TriesListRelationFilter = {
+    every?: GameCinema2TriesWhereInput
+    some?: GameCinema2TriesWhereInput
+    none?: GameCinema2TriesWhereInput
+  }
+
+  export type GameCinema2TriesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameCinema2DaysCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2DaysAvgOrderByAggregateInput = {
+    id?: SortOrder
+    movieId?: SortOrder
+  }
+
+  export type GameCinema2DaysMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2DaysMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    movieId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2DaysSumOrderByAggregateInput = {
+    id?: SortOrder
+    movieId?: SortOrder
+  }
+
+  export type GameCinema2DaysScalarRelationFilter = {
+    is?: GameCinema2DaysWhereInput
+    isNot?: GameCinema2DaysWhereInput
+  }
+
+  export type GameCinema2TriesCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2TriesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type GameCinema2TriesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2TriesMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameCinema2TriesSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     dayId?: SortOrder
@@ -22577,11 +25405,25 @@ export namespace Prisma {
     connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
   }
 
+  export type GameCinema2DaysCreateNestedManyWithoutMovieInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput> | GameCinema2DaysCreateWithoutMovieInput[] | GameCinema2DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutMovieInput | GameCinema2DaysCreateOrConnectWithoutMovieInput[]
+    createMany?: GameCinema2DaysCreateManyMovieInputEnvelope
+    connect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+  }
+
   export type GameCinema1DaysUncheckedCreateNestedManyWithoutMovieInput = {
     create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
     connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
     createMany?: GameCinema1DaysCreateManyMovieInputEnvelope
     connect?: GameCinema1DaysWhereUniqueInput | GameCinema1DaysWhereUniqueInput[]
+  }
+
+  export type GameCinema2DaysUncheckedCreateNestedManyWithoutMovieInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput> | GameCinema2DaysCreateWithoutMovieInput[] | GameCinema2DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutMovieInput | GameCinema2DaysCreateOrConnectWithoutMovieInput[]
+    createMany?: GameCinema2DaysCreateManyMovieInputEnvelope
+    connect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -22606,6 +25448,20 @@ export namespace Prisma {
     deleteMany?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
   }
 
+  export type GameCinema2DaysUpdateManyWithoutMovieNestedInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput> | GameCinema2DaysCreateWithoutMovieInput[] | GameCinema2DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutMovieInput | GameCinema2DaysCreateOrConnectWithoutMovieInput[]
+    upsert?: GameCinema2DaysUpsertWithWhereUniqueWithoutMovieInput | GameCinema2DaysUpsertWithWhereUniqueWithoutMovieInput[]
+    createMany?: GameCinema2DaysCreateManyMovieInputEnvelope
+    set?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    disconnect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    delete?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    connect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    update?: GameCinema2DaysUpdateWithWhereUniqueWithoutMovieInput | GameCinema2DaysUpdateWithWhereUniqueWithoutMovieInput[]
+    updateMany?: GameCinema2DaysUpdateManyWithWhereWithoutMovieInput | GameCinema2DaysUpdateManyWithWhereWithoutMovieInput[]
+    deleteMany?: GameCinema2DaysScalarWhereInput | GameCinema2DaysScalarWhereInput[]
+  }
+
   export type GameCinema1DaysUncheckedUpdateManyWithoutMovieNestedInput = {
     create?: XOR<GameCinema1DaysCreateWithoutMovieInput, GameCinema1DaysUncheckedCreateWithoutMovieInput> | GameCinema1DaysCreateWithoutMovieInput[] | GameCinema1DaysUncheckedCreateWithoutMovieInput[]
     connectOrCreate?: GameCinema1DaysCreateOrConnectWithoutMovieInput | GameCinema1DaysCreateOrConnectWithoutMovieInput[]
@@ -22618,6 +25474,20 @@ export namespace Prisma {
     update?: GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput | GameCinema1DaysUpdateWithWhereUniqueWithoutMovieInput[]
     updateMany?: GameCinema1DaysUpdateManyWithWhereWithoutMovieInput | GameCinema1DaysUpdateManyWithWhereWithoutMovieInput[]
     deleteMany?: GameCinema1DaysScalarWhereInput | GameCinema1DaysScalarWhereInput[]
+  }
+
+  export type GameCinema2DaysUncheckedUpdateManyWithoutMovieNestedInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput> | GameCinema2DaysCreateWithoutMovieInput[] | GameCinema2DaysUncheckedCreateWithoutMovieInput[]
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutMovieInput | GameCinema2DaysCreateOrConnectWithoutMovieInput[]
+    upsert?: GameCinema2DaysUpsertWithWhereUniqueWithoutMovieInput | GameCinema2DaysUpsertWithWhereUniqueWithoutMovieInput[]
+    createMany?: GameCinema2DaysCreateManyMovieInputEnvelope
+    set?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    disconnect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    delete?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    connect?: GameCinema2DaysWhereUniqueInput | GameCinema2DaysWhereUniqueInput[]
+    update?: GameCinema2DaysUpdateWithWhereUniqueWithoutMovieInput | GameCinema2DaysUpdateWithWhereUniqueWithoutMovieInput[]
+    updateMany?: GameCinema2DaysUpdateManyWithWhereWithoutMovieInput | GameCinema2DaysUpdateManyWithWhereWithoutMovieInput[]
+    deleteMany?: GameCinema2DaysScalarWhereInput | GameCinema2DaysScalarWhereInput[]
   }
 
   export type DataMovieCreateNestedOneWithoutGameDaysInput = {
@@ -22688,6 +25558,76 @@ export namespace Prisma {
     upsert?: GameCinema1DaysUpsertWithoutTriesInput
     connect?: GameCinema1DaysWhereUniqueInput
     update?: XOR<XOR<GameCinema1DaysUpdateToOneWithWhereWithoutTriesInput, GameCinema1DaysUpdateWithoutTriesInput>, GameCinema1DaysUncheckedUpdateWithoutTriesInput>
+  }
+
+  export type DataMovieCreateNestedOneWithoutGameDays2Input = {
+    create?: XOR<DataMovieCreateWithoutGameDays2Input, DataMovieUncheckedCreateWithoutGameDays2Input>
+    connectOrCreate?: DataMovieCreateOrConnectWithoutGameDays2Input
+    connect?: DataMovieWhereUniqueInput
+  }
+
+  export type GameCinema2TriesCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput> | GameCinema2TriesCreateWithoutDayInput[] | GameCinema2TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema2TriesCreateOrConnectWithoutDayInput | GameCinema2TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameCinema2TriesCreateManyDayInputEnvelope
+    connect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+  }
+
+  export type GameCinema2TriesUncheckedCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput> | GameCinema2TriesCreateWithoutDayInput[] | GameCinema2TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema2TriesCreateOrConnectWithoutDayInput | GameCinema2TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameCinema2TriesCreateManyDayInputEnvelope
+    connect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+  }
+
+  export type DataMovieUpdateOneRequiredWithoutGameDays2NestedInput = {
+    create?: XOR<DataMovieCreateWithoutGameDays2Input, DataMovieUncheckedCreateWithoutGameDays2Input>
+    connectOrCreate?: DataMovieCreateOrConnectWithoutGameDays2Input
+    upsert?: DataMovieUpsertWithoutGameDays2Input
+    connect?: DataMovieWhereUniqueInput
+    update?: XOR<XOR<DataMovieUpdateToOneWithWhereWithoutGameDays2Input, DataMovieUpdateWithoutGameDays2Input>, DataMovieUncheckedUpdateWithoutGameDays2Input>
+  }
+
+  export type GameCinema2TriesUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput> | GameCinema2TriesCreateWithoutDayInput[] | GameCinema2TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema2TriesCreateOrConnectWithoutDayInput | GameCinema2TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameCinema2TriesUpsertWithWhereUniqueWithoutDayInput | GameCinema2TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameCinema2TriesCreateManyDayInputEnvelope
+    set?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    disconnect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    delete?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    connect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    update?: GameCinema2TriesUpdateWithWhereUniqueWithoutDayInput | GameCinema2TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameCinema2TriesUpdateManyWithWhereWithoutDayInput | GameCinema2TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameCinema2TriesScalarWhereInput | GameCinema2TriesScalarWhereInput[]
+  }
+
+  export type GameCinema2TriesUncheckedUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput> | GameCinema2TriesCreateWithoutDayInput[] | GameCinema2TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameCinema2TriesCreateOrConnectWithoutDayInput | GameCinema2TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameCinema2TriesUpsertWithWhereUniqueWithoutDayInput | GameCinema2TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameCinema2TriesCreateManyDayInputEnvelope
+    set?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    disconnect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    delete?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    connect?: GameCinema2TriesWhereUniqueInput | GameCinema2TriesWhereUniqueInput[]
+    update?: GameCinema2TriesUpdateWithWhereUniqueWithoutDayInput | GameCinema2TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameCinema2TriesUpdateManyWithWhereWithoutDayInput | GameCinema2TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameCinema2TriesScalarWhereInput | GameCinema2TriesScalarWhereInput[]
+  }
+
+  export type GameCinema2DaysCreateNestedOneWithoutTriesInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutTriesInput, GameCinema2DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutTriesInput
+    connect?: GameCinema2DaysWhereUniqueInput
+  }
+
+  export type GameCinema2DaysUpdateOneRequiredWithoutTriesNestedInput = {
+    create?: XOR<GameCinema2DaysCreateWithoutTriesInput, GameCinema2DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameCinema2DaysCreateOrConnectWithoutTriesInput
+    upsert?: GameCinema2DaysUpsertWithoutTriesInput
+    connect?: GameCinema2DaysWhereUniqueInput
+    update?: XOR<XOR<GameCinema2DaysUpdateToOneWithWhereWithoutTriesInput, GameCinema2DaysUpdateWithoutTriesInput>, GameCinema2DaysUncheckedUpdateWithoutTriesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -25041,6 +27981,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GameCinema2DaysCreateWithoutMovieInput = {
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameCinema2TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema2DaysUncheckedCreateWithoutMovieInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameCinema2TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameCinema2DaysCreateOrConnectWithoutMovieInput = {
+    where: GameCinema2DaysWhereUniqueInput
+    create: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput>
+  }
+
+  export type GameCinema2DaysCreateManyMovieInputEnvelope = {
+    data: GameCinema2DaysCreateManyMovieInput | GameCinema2DaysCreateManyMovieInput[]
+    skipDuplicates?: boolean
+  }
+
   export type GameCinema1DaysUpsertWithWhereUniqueWithoutMovieInput = {
     where: GameCinema1DaysWhereUniqueInput
     update: XOR<GameCinema1DaysUpdateWithoutMovieInput, GameCinema1DaysUncheckedUpdateWithoutMovieInput>
@@ -25065,6 +28028,32 @@ export namespace Prisma {
     date?: DateTimeFilter<"GameCinema1Days"> | Date | string
     movieId?: IntFilter<"GameCinema1Days"> | number
     createdAt?: DateTimeFilter<"GameCinema1Days"> | Date | string
+  }
+
+  export type GameCinema2DaysUpsertWithWhereUniqueWithoutMovieInput = {
+    where: GameCinema2DaysWhereUniqueInput
+    update: XOR<GameCinema2DaysUpdateWithoutMovieInput, GameCinema2DaysUncheckedUpdateWithoutMovieInput>
+    create: XOR<GameCinema2DaysCreateWithoutMovieInput, GameCinema2DaysUncheckedCreateWithoutMovieInput>
+  }
+
+  export type GameCinema2DaysUpdateWithWhereUniqueWithoutMovieInput = {
+    where: GameCinema2DaysWhereUniqueInput
+    data: XOR<GameCinema2DaysUpdateWithoutMovieInput, GameCinema2DaysUncheckedUpdateWithoutMovieInput>
+  }
+
+  export type GameCinema2DaysUpdateManyWithWhereWithoutMovieInput = {
+    where: GameCinema2DaysScalarWhereInput
+    data: XOR<GameCinema2DaysUpdateManyMutationInput, GameCinema2DaysUncheckedUpdateManyWithoutMovieInput>
+  }
+
+  export type GameCinema2DaysScalarWhereInput = {
+    AND?: GameCinema2DaysScalarWhereInput | GameCinema2DaysScalarWhereInput[]
+    OR?: GameCinema2DaysScalarWhereInput[]
+    NOT?: GameCinema2DaysScalarWhereInput | GameCinema2DaysScalarWhereInput[]
+    id?: IntFilter<"GameCinema2Days"> | number
+    date?: DateTimeFilter<"GameCinema2Days"> | Date | string
+    movieId?: IntFilter<"GameCinema2Days"> | number
+    createdAt?: DateTimeFilter<"GameCinema2Days"> | Date | string
   }
 
   export type DataMovieCreateWithoutGameDaysInput = {
@@ -25099,6 +28088,7 @@ export namespace Prisma {
     image9?: string | null
     image10?: string | null
     createdAt?: Date | string
+    gameDays2?: GameCinema2DaysCreateNestedManyWithoutMovieInput
   }
 
   export type DataMovieUncheckedCreateWithoutGameDaysInput = {
@@ -25134,6 +28124,7 @@ export namespace Prisma {
     image9?: string | null
     image10?: string | null
     createdAt?: Date | string
+    gameDays2?: GameCinema2DaysUncheckedCreateNestedManyWithoutMovieInput
   }
 
   export type DataMovieCreateOrConnectWithoutGameDaysInput = {
@@ -25209,6 +28200,7 @@ export namespace Prisma {
     image9?: NullableStringFieldUpdateOperationsInput | string | null
     image10?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays2?: GameCinema2DaysUpdateManyWithoutMovieNestedInput
   }
 
   export type DataMovieUncheckedUpdateWithoutGameDaysInput = {
@@ -25244,6 +28236,7 @@ export namespace Prisma {
     image9?: NullableStringFieldUpdateOperationsInput | string | null
     image10?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays2?: GameCinema2DaysUncheckedUpdateManyWithoutMovieNestedInput
   }
 
   export type GameCinema1TriesUpsertWithWhereUniqueWithoutDayInput = {
@@ -25310,6 +28303,259 @@ export namespace Prisma {
   }
 
   export type GameCinema1DaysUncheckedUpdateWithoutTriesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataMovieCreateWithoutGameDays2Input = {
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+    gameDays?: GameCinema1DaysCreateNestedManyWithoutMovieInput
+  }
+
+  export type DataMovieUncheckedCreateWithoutGameDays2Input = {
+    id?: number
+    tmdbId: number
+    title: string
+    originalTitle: string
+    year: number
+    releaseDate: Date | string
+    runtime?: number | null
+    director?: string | null
+    actors?: string | null
+    genres: string
+    synopsis?: string | null
+    production?: string | null
+    country?: string | null
+    language?: string | null
+    voteAverage?: number | null
+    voteCount?: number | null
+    popularity?: number | null
+    budget?: number | null
+    keywords?: string | null
+    posterPath?: string | null
+    backdropPath?: string | null
+    image1?: string | null
+    image2?: string | null
+    image3?: string | null
+    image4?: string | null
+    image5?: string | null
+    image6?: string | null
+    image7?: string | null
+    image8?: string | null
+    image9?: string | null
+    image10?: string | null
+    createdAt?: Date | string
+    gameDays?: GameCinema1DaysUncheckedCreateNestedManyWithoutMovieInput
+  }
+
+  export type DataMovieCreateOrConnectWithoutGameDays2Input = {
+    where: DataMovieWhereUniqueInput
+    create: XOR<DataMovieCreateWithoutGameDays2Input, DataMovieUncheckedCreateWithoutGameDays2Input>
+  }
+
+  export type GameCinema2TriesCreateWithoutDayInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2TriesUncheckedCreateWithoutDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2TriesCreateOrConnectWithoutDayInput = {
+    where: GameCinema2TriesWhereUniqueInput
+    create: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameCinema2TriesCreateManyDayInputEnvelope = {
+    data: GameCinema2TriesCreateManyDayInput | GameCinema2TriesCreateManyDayInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DataMovieUpsertWithoutGameDays2Input = {
+    update: XOR<DataMovieUpdateWithoutGameDays2Input, DataMovieUncheckedUpdateWithoutGameDays2Input>
+    create: XOR<DataMovieCreateWithoutGameDays2Input, DataMovieUncheckedCreateWithoutGameDays2Input>
+    where?: DataMovieWhereInput
+  }
+
+  export type DataMovieUpdateToOneWithWhereWithoutGameDays2Input = {
+    where?: DataMovieWhereInput
+    data: XOR<DataMovieUpdateWithoutGameDays2Input, DataMovieUncheckedUpdateWithoutGameDays2Input>
+  }
+
+  export type DataMovieUpdateWithoutGameDays2Input = {
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays?: GameCinema1DaysUpdateManyWithoutMovieNestedInput
+  }
+
+  export type DataMovieUncheckedUpdateWithoutGameDays2Input = {
+    id?: IntFieldUpdateOperationsInput | number
+    tmdbId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    originalTitle?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    releaseDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    runtime?: NullableIntFieldUpdateOperationsInput | number | null
+    director?: NullableStringFieldUpdateOperationsInput | string | null
+    actors?: NullableStringFieldUpdateOperationsInput | string | null
+    genres?: StringFieldUpdateOperationsInput | string
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    production?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    voteAverage?: NullableFloatFieldUpdateOperationsInput | number | null
+    voteCount?: NullableIntFieldUpdateOperationsInput | number | null
+    popularity?: NullableFloatFieldUpdateOperationsInput | number | null
+    budget?: NullableIntFieldUpdateOperationsInput | number | null
+    keywords?: NullableStringFieldUpdateOperationsInput | string | null
+    posterPath?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropPath?: NullableStringFieldUpdateOperationsInput | string | null
+    image1?: NullableStringFieldUpdateOperationsInput | string | null
+    image2?: NullableStringFieldUpdateOperationsInput | string | null
+    image3?: NullableStringFieldUpdateOperationsInput | string | null
+    image4?: NullableStringFieldUpdateOperationsInput | string | null
+    image5?: NullableStringFieldUpdateOperationsInput | string | null
+    image6?: NullableStringFieldUpdateOperationsInput | string | null
+    image7?: NullableStringFieldUpdateOperationsInput | string | null
+    image8?: NullableStringFieldUpdateOperationsInput | string | null
+    image9?: NullableStringFieldUpdateOperationsInput | string | null
+    image10?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gameDays?: GameCinema1DaysUncheckedUpdateManyWithoutMovieNestedInput
+  }
+
+  export type GameCinema2TriesUpsertWithWhereUniqueWithoutDayInput = {
+    where: GameCinema2TriesWhereUniqueInput
+    update: XOR<GameCinema2TriesUpdateWithoutDayInput, GameCinema2TriesUncheckedUpdateWithoutDayInput>
+    create: XOR<GameCinema2TriesCreateWithoutDayInput, GameCinema2TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameCinema2TriesUpdateWithWhereUniqueWithoutDayInput = {
+    where: GameCinema2TriesWhereUniqueInput
+    data: XOR<GameCinema2TriesUpdateWithoutDayInput, GameCinema2TriesUncheckedUpdateWithoutDayInput>
+  }
+
+  export type GameCinema2TriesUpdateManyWithWhereWithoutDayInput = {
+    where: GameCinema2TriesScalarWhereInput
+    data: XOR<GameCinema2TriesUpdateManyMutationInput, GameCinema2TriesUncheckedUpdateManyWithoutDayInput>
+  }
+
+  export type GameCinema2TriesScalarWhereInput = {
+    AND?: GameCinema2TriesScalarWhereInput | GameCinema2TriesScalarWhereInput[]
+    OR?: GameCinema2TriesScalarWhereInput[]
+    NOT?: GameCinema2TriesScalarWhereInput | GameCinema2TriesScalarWhereInput[]
+    id?: IntFilter<"GameCinema2Tries"> | number
+    userId?: IntFilter<"GameCinema2Tries"> | number
+    dayId?: IntFilter<"GameCinema2Tries"> | number
+    guess?: StringFilter<"GameCinema2Tries"> | string
+    correct?: BoolFilter<"GameCinema2Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameCinema2Tries"> | Date | string
+  }
+
+  export type GameCinema2DaysCreateWithoutTriesInput = {
+    date: Date | string
+    createdAt?: Date | string
+    movie: DataMovieCreateNestedOneWithoutGameDays2Input
+  }
+
+  export type GameCinema2DaysUncheckedCreateWithoutTriesInput = {
+    id?: number
+    date: Date | string
+    movieId: number
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2DaysCreateOrConnectWithoutTriesInput = {
+    where: GameCinema2DaysWhereUniqueInput
+    create: XOR<GameCinema2DaysCreateWithoutTriesInput, GameCinema2DaysUncheckedCreateWithoutTriesInput>
+  }
+
+  export type GameCinema2DaysUpsertWithoutTriesInput = {
+    update: XOR<GameCinema2DaysUpdateWithoutTriesInput, GameCinema2DaysUncheckedUpdateWithoutTriesInput>
+    create: XOR<GameCinema2DaysCreateWithoutTriesInput, GameCinema2DaysUncheckedCreateWithoutTriesInput>
+    where?: GameCinema2DaysWhereInput
+  }
+
+  export type GameCinema2DaysUpdateToOneWithWhereWithoutTriesInput = {
+    where?: GameCinema2DaysWhereInput
+    data: XOR<GameCinema2DaysUpdateWithoutTriesInput, GameCinema2DaysUncheckedUpdateWithoutTriesInput>
+  }
+
+  export type GameCinema2DaysUpdateWithoutTriesInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    movie?: DataMovieUpdateOneRequiredWithoutGameDays2NestedInput
+  }
+
+  export type GameCinema2DaysUncheckedUpdateWithoutTriesInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     movieId?: IntFieldUpdateOperationsInput | number
@@ -25949,6 +29195,12 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type GameCinema2DaysCreateManyMovieInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+  }
+
   export type GameCinema1DaysUpdateWithoutMovieInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25963,6 +29215,25 @@ export namespace Prisma {
   }
 
   export type GameCinema1DaysUncheckedUpdateManyWithoutMovieInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2DaysUpdateWithoutMovieInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema2TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema2DaysUncheckedUpdateWithoutMovieInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameCinema2TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameCinema2DaysUncheckedUpdateManyWithoutMovieInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25992,6 +29263,37 @@ export namespace Prisma {
   }
 
   export type GameCinema1TriesUncheckedUpdateManyWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesCreateManyDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameCinema2TriesUpdateWithoutDayInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesUncheckedUpdateWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameCinema2TriesUncheckedUpdateManyWithoutDayInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     guess?: StringFieldUpdateOperationsInput | string

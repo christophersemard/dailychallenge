@@ -43,6 +43,12 @@ export class UserGameService {
             status,
             new Date(gameDate)
         );
+        console.log(
+            `Résultat du jeu enregistré pour l'utilisateur ${userId}, jeu ${gameId}, score ${score}, XP ${finalXP}, statut ${status}`
+        );
+        console.log(
+            `Résultat du jeu enregistré : ${JSON.stringify(gameResult)}`
+        );
         // Mise à jour des statistiques de l'utilisateur
         await this.updateUserStats(userId, finalXP, newStreak, gameDate);
 
@@ -118,6 +124,10 @@ export class UserGameService {
             : null;
         let newStreak = userStats.streak;
 
+        console.log(
+            `Calcul de l'XP et du streak pour l'utilisateur ${userId}, jeu ${gameId}, score ${score}, date du jeu ${gameDate}, statut ${status}`
+        );
+
         if (lastPlayed) {
             const lastPlayedDay = new Date(
                 lastPlayed.getFullYear(),
@@ -152,6 +162,10 @@ export class UserGameService {
         } else {
             newStreak = 1; // Premier jour
         }
+
+        console.log(
+            `Streak de l'utilisateur ${userId} : ${userStats.streak} -> ${newStreak}`
+        );
 
         const streakMultiplier = Math.min(1 + newStreak * 0.1, 2); // Limiter à x2
         const baseXP = 20;

@@ -18,9 +18,13 @@ import { AdminGameCinema1Controller } from "./admin/admin-game-cinema1.controlle
 import { GameCinema1Controller } from "./game-cinema/game-cinema-1.controller";
 import { AdminGameCinema1Service } from "./admin/admin-game-cinema1.service";
 import { GameCinema1Service } from "./game-cinema/game-cinema-1.service";
+import { GameCinema2Controller } from "./game-cinema/game-cinema-2.controller";
+import { GameCinema2Service } from "./game-cinema/game-cinema-2.service";
 import { JwtAuthGuard } from "./auth/auth.guard";
 import { AvatarController } from "./avatar/avatar.controller";
 import { AvatarService } from "./avatar/avatar.service";
+import { AdminGameCinema2Service } from "./admin/admin-game-cinema2.service";
+import { AdminGameCinema2Controller } from "./admin/admin-game-cinema2.controller";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -64,6 +68,22 @@ console.log("isDocker", isDocker);
                     port: 3004,
                 },
             },
+            {
+                name: "GAME_CINEMA_2_SERVICE",
+                transport: Transport.TCP,
+                options: {
+                    host: isDocker ? "ms-game-cinema-2" : "localhost",
+                    port: 3005,
+                },
+            },
+            {
+                name: "AVATAR_SERVICE",
+                transport: Transport.TCP,
+                options: {
+                    host: isDocker ? "ms-avatar" : "localhost",
+                    port: 3006,
+                },
+            },
         ]),
     ],
     controllers: [
@@ -72,8 +92,10 @@ console.log("isDocker", isDocker);
         UsersController,
         LeaderboardController,
         AdminGameCinema1Controller,
-        GameCinema1Controller,
+        AdminGameCinema2Controller,
         AvatarController,
+        GameCinema1Controller,
+        GameCinema2Controller,
     ],
     providers: [
         AuthService,
@@ -84,7 +106,9 @@ console.log("isDocker", isDocker);
         UsersService,
         LeaderboardService,
         AdminGameCinema1Service,
+        AdminGameCinema2Service,
         GameCinema1Service,
+        GameCinema2Service,
         AvatarService,
 
         {
