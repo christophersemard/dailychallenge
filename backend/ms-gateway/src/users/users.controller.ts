@@ -63,7 +63,6 @@ export class UsersController {
         @Param("id") id: string,
         @Req() req: UserRequest
     ): Promise<UserPublicProfile> {
-        console.log("getUserById", id, req.user.id);
         return this.usersService.getUserById(Number(id), req.user.id);
     }
 }

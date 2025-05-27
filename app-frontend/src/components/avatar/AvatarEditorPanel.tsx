@@ -2,7 +2,12 @@
 
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import AssetGrid from "./AssetGrid";
 import { useEffect, useState } from "react";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
@@ -19,7 +24,12 @@ type Props = {
     userVIPStatus: boolean;
 };
 
-export default function AvatarEditorPanel({ state, setState, userLevel, userVIPStatus }: Props) {
+export default function AvatarEditorPanel({
+    state,
+    setState,
+    userLevel,
+    userVIPStatus,
+}: Props) {
     const [assets, setAssets] = useState<{
         shapes: AssetItem[];
         patterns: AssetItem[];
@@ -29,7 +39,6 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
     }>({ shapes: [], patterns: [], eyes: [], mouths: [], colors: [] });
 
     const [isLoading, setIsLoading] = useState(true);
-
 
     useEffect(() => {
         const loadAssets = async () => {
@@ -41,6 +50,8 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                 mouths: AssetItem[];
                 colors: ColorAsset[];
             }>("/api/avatar/assets");
+
+            console.log("Assets avatar chargés :", data);
 
             if (error || !data) {
                 console.error("Erreur chargement assets avatar :", error);
@@ -62,27 +73,39 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
         loadAssets();
     }, []);
 
-    const getAsset = (id: number | null | undefined, list: AssetItem[]) => list.find((a) => a.id === id) ?? null;
-    const getColor = (id: number | null | undefined) => assets.colors.find((c) => c.id === id) ?? null;
+    const getAsset = (id: number | null | undefined, list: AssetItem[]) =>
+        list.find((a) => a.id === id) ?? null;
+    const getColor = (id: number | null | undefined) =>
+        assets.colors.find((c) => c.id === id) ?? null;
 
     if (isLoading) {
-        return (<>
-            <h2 className="text-xl font-bold mt-2 md:mt-8 text-center md:text-start">Personnaliser mon avatar</h2>
-            <div className="space-y-4 mt-6 animate-pulse">
-                <div className="h-8 w-2/3 rounded bg-background" />
-                <div className="h-12 w-full rounded bg-background" />
-                <div className="h-32 w-full rounded bg-background" />
-                <div className="h-8 w-1/2 rounded bg-background" />
-                <div className="h-12 w-full rounded bg-background" />
-            </div>
-        </>
+        return (
+            <>
+                <h2 className="text-xl font-bold mt-2 md:mt-8 text-center md:text-start">
+                    Personnaliser mon avatar
+                </h2>
+                <div className="space-y-4 mt-6 animate-pulse">
+                    <div className="h-8 w-2/3 rounded bg-background" />
+                    <div className="h-12 w-full rounded bg-background" />
+                    <div className="h-32 w-full rounded bg-background" />
+                    <div className="h-8 w-1/2 rounded bg-background" />
+                    <div className="h-12 w-full rounded bg-background" />
+                </div>
+            </>
         );
     }
 
     return (
         <>
-            <h2 className="text-xl font-bold mt-2 md:mt-8 text-center md:text-start">Personnaliser mon avatar</h2>
-            <Accordion type="single" collapsible className="w-full" defaultValue="shape">
+            <h2 className="text-xl font-bold mt-2 md:mt-8 text-center md:text-start">
+                Personnaliser mon avatar
+            </h2>
+            <Accordion
+                type="single"
+                collapsible
+                className="w-full"
+                defaultValue="shape"
+            >
                 <AccordionItem value="shape">
                     <AccordionTrigger className="text-lg font-semibold cursor-pointer">
                         <span className="flex gap-2 items-center">
@@ -102,7 +125,13 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                         <div className="space-y-4">
                             <div className="flex items-center gap-2 mb-4">
                                 <button
-                                    onClick={() => setState({ ...state, shape: null, colorShape: null })}
+                                    onClick={() =>
+                                        setState({
+                                            ...state,
+                                            shape: null,
+                                            colorShape: null,
+                                        })
+                                    }
                                     className="text-sm text-muted-foreground underline cursor-pointer"
                                 >
                                     Retirer la forme
@@ -113,7 +142,10 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                                 items={assets.shapes}
                                 selectedId={state.shape?.id ?? null}
                                 onSelect={(id) => {
-                                    const selected = getAsset(id, assets.shapes);
+                                    const selected = getAsset(
+                                        id,
+                                        assets.shapes
+                                    );
                                     setState({ ...state, shape: selected });
                                 }}
                                 userLevel={userLevel}
@@ -154,7 +186,13 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                         <div className="space-y-4">
                             <div className="flex items-center gap-2">
                                 <button
-                                    onClick={() => setState({ ...state, pattern: null, colorPattern: null })}
+                                    onClick={() =>
+                                        setState({
+                                            ...state,
+                                            pattern: null,
+                                            colorPattern: null,
+                                        })
+                                    }
                                     className="text-sm text-muted-foreground underline cursor-pointer"
                                 >
                                     Retirer le motif
@@ -165,7 +203,10 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                                 items={assets.patterns}
                                 selectedId={state.pattern?.id ?? null}
                                 onSelect={(id) => {
-                                    const selected = getAsset(id, assets.patterns);
+                                    const selected = getAsset(
+                                        id,
+                                        assets.patterns
+                                    );
                                     setState({ ...state, pattern: selected });
                                 }}
                                 userLevel={userLevel}
@@ -179,7 +220,10 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                                     selectedId={state.colorPattern?.id ?? null}
                                     onSelect={(id) => {
                                         const color = getColor(id);
-                                        setState({ ...state, colorPattern: color });
+                                        setState({
+                                            ...state,
+                                            colorPattern: color,
+                                        });
                                     }}
                                     userLevel={userLevel}
                                     isVip={userVIPStatus}
@@ -207,7 +251,9 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                     <AccordionContent>
                         <div className="flex items-center gap-2 mb-4">
                             <button
-                                onClick={() => setState({ ...state, eyes: null })}
+                                onClick={() =>
+                                    setState({ ...state, eyes: null })
+                                }
                                 className="text-sm text-muted-foreground underline"
                             >
                                 Retirer les yeux
@@ -244,7 +290,9 @@ export default function AvatarEditorPanel({ state, setState, userLevel, userVIPS
                     <AccordionContent>
                         <div className="flex items-center gap-2 mb-4">
                             <button
-                                onClick={() => setState({ ...state, mouth: null })}
+                                onClick={() =>
+                                    setState({ ...state, mouth: null })
+                                }
                                 className="text-sm text-muted-foreground underline"
                             >
                                 Retirer la bouche

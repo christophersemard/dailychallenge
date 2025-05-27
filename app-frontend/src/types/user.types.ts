@@ -36,7 +36,23 @@ export interface UserMe {
     createdAt: string;
     avatar: UserAvatar | null; // Avatar de l'utilisateur
     userStats: UserStats;
+    userEvents: UserEvent[]; // Événements de l'utilisateur
     pendingFriendRequests: number | null;
+
+    avatarUrl: string | null;
+    level: number;
+    xp: number;
+    streak: number;
+    gamesPlayed: number;
+    mostPlayedGame: {
+        id: number;
+        path: string;
+        name: string;
+        gameCategory: {
+            color: string;
+        };
+    } | null;
+    isFriend: boolean | "requested" | "received" | "accepted";
 
     isVip: boolean;
 }

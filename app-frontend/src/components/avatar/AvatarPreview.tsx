@@ -9,6 +9,7 @@ import { AssetItem, ColorAsset } from "@/types/user.types";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
 import { toast } from "sonner";
 import { useGameEventStore } from "@/lib/store/useGameEventStore";
+import { redirect } from "next/navigation";
 
 type Props = {
     config: AvatarConfig;
@@ -16,10 +17,15 @@ type Props = {
     userVIPStatus: boolean;
 };
 
-export default function AvatarPreview({ config, userLevel, userVIPStatus }: Props) {
+export default function AvatarPreview({
+    config,
+    userLevel,
+    userVIPStatus,
+}: Props) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const notifyGameCompleted = useGameEventStore.getState().notifyGameCompleted;
+    const notifyGameCompleted =
+        useGameEventStore.getState().notifyGameCompleted;
     const [isComplete, setIsComplete] = useState(false);
     const [isLocked, setIsLocked] = useState(false);
     const [isColorLocked, setIsColorLocked] = useState(false);
@@ -82,7 +88,10 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
                     if (config.colorShape) {
                         ctx.globalCompositeOperation = "source-atop";
                         ctx.fillStyle = config.colorShape.gradientValue
-                            ? createGradientFromString(ctx, config.colorShape.gradientValue)
+                            ? createGradientFromString(
+                                  ctx,
+                                  config.colorShape.gradientValue
+                              )
                             : config.colorShape.value;
                         ctx.fillRect(0, 0, 500, 500);
                         ctx.globalCompositeOperation = "source-over";
@@ -102,7 +111,10 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
                     tctx.drawImage(patternImg, 0, 0, 500, 500);
                     tctx.globalCompositeOperation = "source-atop";
                     tctx.fillStyle = config.colorPattern.gradientValue
-                        ? createGradientFromString(tctx, config.colorPattern.gradientValue)
+                        ? createGradientFromString(
+                              tctx,
+                              config.colorPattern.gradientValue
+                          )
                         : config.colorPattern.value;
                     tctx.fillRect(0, 0, 500, 500);
 
@@ -116,11 +128,14 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
                 }
 
                 if (config.shape) {
-                    const strokeUrl = config.shape.url.replace("/shapes", "/shapes/stroke");
+                    const strokeUrl = config.shape.url.replace(
+                        "/shapes",
+                        "/shapes/stroke"
+                    );
                     try {
                         const stroke = await loadImage(strokeUrl);
                         ctx.drawImage(stroke, 0, 0, 500, 500);
-                    } catch { }
+                    } catch {}
                 }
 
                 if (config.eyes) {
@@ -147,11 +162,15 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
         };
 
         const checkLocked = () => {
-            const items = [config.shape, config.eyes, config.mouth, config.pattern].filter(
-                Boolean
-            ) as AssetItem[];
+            const items = [
+                config.shape,
+                config.eyes,
+                config.mouth,
+                config.pattern,
+            ].filter(Boolean) as AssetItem[];
             const locked = items.some(
-                (item) => item.level > userLevel || (item.vipOnly && !userVIPStatus)
+                (item) =>
+                    item.level > userLevel || (item.vipOnly && !userVIPStatus)
             );
             setIsLocked(locked);
         };
@@ -161,7 +180,8 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
                 Boolean
             ) as ColorAsset[];
             const locked = colors.some(
-                (color) => color.level > userLevel || (color.vip && !userVIPStatus)
+                (color) =>
+                    color.level > userLevel || (color.vip && !userVIPStatus)
             );
             setIsColorLocked(locked);
         };
@@ -172,7 +192,13 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
     }, [config, userLevel, userVIPStatus]);
 
     const handleSave = async () => {
-        if (!config.shape || !config.eyes || !config.mouth || !config.colorShape) return;
+        if (
+            !config.shape ||
+            !config.eyes ||
+            !config.mouth ||
+            !config.colorShape
+        )
+            return;
         setIsSaving(true);
 
         const body = {
@@ -184,26 +210,37 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
             colorPatternId: config.colorPattern?.id ?? null,
         };
 
-        const { data, error } = await fetchClientWithAuth("/api/avatar/generate", {
-            method: "POST",
-            body: JSON.stringify(body),
-        });
+        const { data, error } = await fetchClientWithAuth(
+            "/api/avatar/generate",
+            {
+                method: "POST",
+                body: JSON.stringify(body),
+            }
+        );
 
         setIsSaving(false);
 
         if (error) {
-            toast.error(error.message || "Erreur lors de la sauvegarde de l'avatar");
+            toast.error(
+                error.message || "Erreur lors de la sauvegarde de l'avatar"
+            );
         } else {
             toast.success("Avatar mis à jour avec succès !");
             notifyGameCompleted();
+            redirect("/mon-profil");
         }
     };
 
     return (
         <>
-            <h2 className="text-xl font-bold mt-2 md:mt-8">Aperçu de l&apos;avatar</h2>
+            <h2 className="text-xl font-bold mt-2 md:mt-8 ">
+                Aperçu de l&apos;avatar
+            </h2>
 
-            {!config.shape && !config.eyes && !config.mouth && !config.pattern ? (
+            {!config.shape &&
+            !config.eyes &&
+            !config.mouth &&
+            !config.pattern ? (
                 <div className="text-sm text-muted-foreground mt-4 h-[250px] flex items-center justify-center">
                     Sélectionnez un élément pour voir l&apos;aperçu
                 </div>
@@ -220,28 +257,37 @@ export default function AvatarPreview({ config, userLevel, userVIPStatus }: Prop
                 <Button
                     variant="secondary"
                     size="lg"
-                    disabled={!isComplete || isLocked || isSaving || isColorLocked}
+                    disabled={
+                        !isComplete || isLocked || isSaving || isColorLocked
+                    }
                     className="w-full max-w-[300px]"
                     onClick={handleSave}
                 >
-                    {isSaving ? "Sauvegarde en cours..." : "Sauvegarder mon avatar"}
+                    {isSaving
+                        ? "Sauvegarde en cours..."
+                        : "Sauvegarder mon avatar"}
                 </Button>
 
                 {isLocked && (
                     <div className="text-sm font-bold text-danger ml-4 text-center mt-4">
-                        Certains éléments ne sont pas débloqués pour vous. <br /> Veuillez vérifier votre niveau ou votre statut VIP.
+                        Certains éléments ne sont pas débloqués pour vous.{" "}
+                        <br /> Veuillez vérifier votre niveau ou votre statut
+                        VIP.
                     </div>
                 )}
 
                 {isColorLocked && (
                     <div className="text-sm font-bold text-danger ml-4 text-center mt-4">
-                        Certaines couleurs ne sont pas débloquées pour vous. <br /> Veuillez vérifier votre niveau ou votre statut VIP.
+                        Certaines couleurs ne sont pas débloquées pour vous.{" "}
+                        <br /> Veuillez vérifier votre niveau ou votre statut
+                        VIP.
                     </div>
                 )}
 
                 {!isComplete && (
                     <div className="text-sm font-bold text-danger ml-4 text-center mt-4">
-                        Votre avatar n&apos;est pas complet. Veuillez sélectionner tous les éléments requis.
+                        Votre avatar n&apos;est pas complet. Veuillez
+                        sélectionner tous les éléments requis.
                     </div>
                 )}
             </div>

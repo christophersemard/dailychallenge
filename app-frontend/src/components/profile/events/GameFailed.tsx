@@ -1,5 +1,5 @@
 import React from "react";
-import { UserEvent, UserPublic } from "@/types/user.types";
+import { UserEvent, UserPublic, UserMe } from "@/types/user.types";
 import Image from "next/image";
 import { getDateLabel, getDateStr } from "@/lib/formatDate";
 import { PlayCircleIcon, Crown } from "lucide-react";
@@ -11,7 +11,7 @@ export default function GameFailed({
     isCurrentUser,
     showAvatar = true,
 }: {
-    user: UserPublic;
+    user: UserPublic | UserMe;
     event: UserEvent;
     isCurrentUser: boolean;
     showAvatar?: boolean;

@@ -97,10 +97,12 @@ export default function GameCinema2({ gameId, color, date }: Props) {
             const { data, error } = await fetchClientWithAuth<ApiResponse>(url);
 
             if (error) {
-                setError(true);
-                toast.error(
-                    error.message || "Erreur lors de la récupération du jeu"
-                );
+                if (error.statusCode === 404) {
+                    setError(true);
+                } else {
+                    console.error("Erreur API :", error.message);
+                    setError(true);
+                }
             } else {
                 const previousAttempts = data?.attempts ?? 0;
                 setData(data);
@@ -116,7 +118,8 @@ export default function GameCinema2({ gameId, color, date }: Props) {
 
                 if (data.gameResult) notifyGameCompleted();
             }
-        } catch {
+        } catch (err) {
+            console.error("Erreur réseau :", err);
             setError(true);
         } finally {
             if (showLoading) setLoading(false);
@@ -157,9 +160,9 @@ export default function GameCinema2({ gameId, color, date }: Props) {
             <Card
                 title={titleCard}
                 color={color}
-                className="min-h-64 flex justify-center items-center"
+                className="flex justify-center items-center min-h-64 font-bold text-xl"
             >
-                <p>Erreur ou jeu non disponible.</p>
+                <p>Aucun jeu disponible pour cette date.</p>
             </Card>
         );
     }

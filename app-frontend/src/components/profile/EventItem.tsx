@@ -1,4 +1,4 @@
-import { UserEvent } from "@/types/user.types";
+import { UserEvent, UserMe } from "@/types/user.types";
 import React from "react";
 import { UserPublic } from "@/types/user.types";
 import GameCompleted from "./events/GameCompleted";
@@ -13,7 +13,7 @@ export default function EventItem({
     isFirst,
     isLast,
 }: {
-    user: UserPublic;
+    user: UserPublic | UserMe;
     showAvatar: boolean;
     event: UserEvent;
     isCurrentUser: boolean;

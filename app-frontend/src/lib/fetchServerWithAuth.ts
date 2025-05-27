@@ -1,51 +1,80 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-// ----------------------
-// Server-side fetch
-// ----------------------
+export type ErrorApi = {
+    statusCode: number;
+    error: string;
+    message: string;
+};
+
+type FetchResponse<T> =
+    | { data: T; error: null }
+    | { data: null; error: ErrorApi };
+
 export async function fetchServerWithAuth<T>(
     input: string,
     init: RequestInit = {}
-): Promise<T> {
-    // Récupérer la session actuelle
+): Promise<FetchResponse<T>> {
     const session = await getServerSession(authOptions);
-
-    // Vérifier que le token existe dans la session
     const token = session?.accessToken;
 
     if (!token) {
-        throw new Error("No token found");
+        return {
+            data: null,
+            error: {
+                statusCode: 401,
+                error: "Unauthorized",
+                message: "Aucun token trouvé dans la session.",
+            },
+        };
     }
 
-    // Construire les headers avec le token d'authentification
     const headers: Record<string, string> = {
-        ...(init.headers as Record<string, string>), // Fusionner les headers existants
-        Authorization: `Bearer ${token}`, // Ajouter l'Authorization avec le token
+        ...(init.headers as Record<string, string>),
+        Authorization: `Bearer ${token}`,
     };
 
-    // Ajouter le type de contenu si nécessaire
     if (init.body && !headers["Content-Type"]) {
         headers["Content-Type"] = "application/json";
     }
 
-    // Faire la requête API
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}${input}`,
-        {
-            ...init,
-            headers, // Inclure les headers construits
-            cache: "no-store", // Peut être configuré comme nécessaire
+    try {
+        const res = await fetch(
+            `${
+                process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+            }${input}`,
+            {
+                ...init,
+                headers,
+                cache: "no-store",
+            }
+        );
+
+        if (!res.ok) {
+            const text = await res.text();
+            let error: ErrorApi;
+            try {
+                error = JSON.parse(text);
+            } catch {
+                error = {
+                    statusCode: res.status,
+                    error: "Unknown error",
+                    message: text,
+                };
+            }
+            return { data: null, error };
         }
-    );
 
-    if (!res.ok) {
-        const error = await res.text();
-        console.error("API ERROR:", error);
-        throw new Error(`Erreur lors du fetch de ${input}`);
+        const result: T = await res.json();
+        return { data: result, error: null };
+    } catch (err) {
+        return {
+            data: null,
+            error: {
+                statusCode: 500,
+                error: "Fetch Error",
+                message: err instanceof Error ? err.message : "Unknown error",
+            },
+        };
     }
-
-    // Retourner la réponse JSON
-    const result: T = await res.json();
-    return result;
 }

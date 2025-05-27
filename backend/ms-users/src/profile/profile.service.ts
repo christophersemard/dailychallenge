@@ -10,10 +10,19 @@ import { UpdateProfileDto } from "./dto/update-profile.dto";
 export class ProfileService {
     async getProfile(userId: number) {
         const user = await prisma.user.findUnique({
-            where: { id: userId },
-            include: {
+            where: { id: userId, deletedAt: null },
+            select: {
+                id: true,
+                pseudo: true,
+                firstName: true,
+                lastName: true,
+                birthdate: true,
+                isVip: true,
+                createdAt: true,
                 avatar: {
-                    include: {
+                    select: {
+                        id: true,
+                        url: true,
                         shape: true,
                         eyes: true,
                         mouth: true,
@@ -22,18 +31,115 @@ export class ProfileService {
                         colorPattern: true,
                     },
                 },
-                userStats: true,
+                userStats: {
+                    select: {
+                        level: true,
+                        xp: true,
+                        streak: true,
+                        lastPlayedAt: true,
+                        id: true,
+                    },
+                },
+                userEvents: {
+                    select: {
+                        id: true,
+                        createdAt: true,
+                        type: true,
+                        levelUp: true,
+                        attempts: true,
+                        avatarAsset: {
+                            select: {
+                                id: true,
+                                name: true,
+                                url: true,
+                            },
+                        },
+                        friend: {
+                            select: {
+                                id: true,
+                                user: {
+                                    select: {
+                                        id: true,
+                                        pseudo: true,
+                                        avatar: { select: { url: true } },
+                                    },
+                                },
+                                friend: {
+                                    select: {
+                                        id: true,
+                                        pseudo: true,
+                                        avatar: { select: { url: true } },
+                                    },
+                                },
+                                status: true,
+                            },
+                        },
+                        gameResult: {
+                            select: {
+                                id: true,
+                                gameId: true,
+                                score: true,
+                                xpGained: true,
+                                status: true,
+                                date: true,
+                                game: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        path: true,
+                                        imgUrl: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
             },
         });
 
-        if (!user || user.deletedAt) {
-            throw new NotFoundException("Utilisateur introuvable");
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable.");
         }
 
-        // On a besoin de compter le nombre de demandes d'ami en attente
-        const friendRequests = await prisma.friend.findMany({
-            where: { friendId: Number(userId), status: "pending" },
+        // Garder les 10 derniers événements de l'utilisateur et les trier par date de création décroissante
+        const userEvents = user.userEvents
+            ? user.userEvents
+                  .slice()
+                  .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+                  .slice(0, 10)
+            : [];
+
+        const numberOfGamesPlayed = await prisma.gameResult.count({
+            where: { userId: userId, deletedAt: null },
         });
+
+        // Récupérer le jeu le plus joué de l'utilisateur (gameId sur gameResult)
+        const mostPlayedGameCount = await prisma.gameResult.groupBy({
+            by: ["gameId"],
+            where: { userId: userId, deletedAt: null },
+            _count: { gameId: true },
+            orderBy: { _count: { gameId: "desc" } },
+            take: 1,
+        });
+
+        let mostPlayedGame: {
+            id: number;
+            path: string;
+            name: string;
+        } | null = null;
+        if (mostPlayedGameCount.length > 0) {
+            mostPlayedGame = await prisma.game.findUnique({
+                where: { id: mostPlayedGameCount[0].gameId },
+                select: {
+                    id: true,
+                    path: true,
+                    name: true,
+                    gameCategory: {
+                        select: { color: true },
+                    },
+                },
+            });
+        }
 
         return {
             id: user.id,
@@ -64,7 +170,44 @@ export class ProfileService {
                     lastPlayedAt: user.userStats.lastPlayedAt,
                 }) ||
                 null,
-            pendingFriendRequests: friendRequests.length,
+            avatarUrl: user.avatar?.url || null,
+            level: user.userStats?.level || 0,
+            xp: user.userStats?.xp || 0,
+            streak: user.userStats?.streak || 0,
+            gamesPlayed: numberOfGamesPlayed,
+            mostPlayedGame: mostPlayedGame || null,
+            userEvents: userEvents.map((event) => ({
+                id: event.id,
+                createdAt: event.createdAt,
+                type: event.type,
+                levelUp: event.levelUp || null,
+                attempts: event.attempts || null,
+                gameResult: event.gameResult,
+                friend: event.friend
+                    ? {
+                          id: event.friend.id,
+                          user: {
+                              id: event.friend.user.id,
+                              pseudo: event.friend.user.pseudo,
+                              avatarUrl: event.friend.user.avatar?.url || null,
+                          },
+                          friend: {
+                              id: event.friend.friend.id,
+                              pseudo: event.friend.friend.pseudo,
+                              avatarUrl:
+                                  event.friend.friend.avatar?.url || null,
+                          },
+                          status: event.friend.status,
+                      }
+                    : null,
+                avatarAsset: event.avatarAsset
+                    ? {
+                          id: event.avatarAsset.id,
+                          name: event.avatarAsset.name,
+                          url: event.avatarAsset.url,
+                      }
+                    : null,
+            })),
         };
     }
 

@@ -3,7 +3,6 @@ import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 export class UsersService {
     async getUserById(userId: number, friendId: number) {
-        console.log("userId", userId, "friendId", friendId);
         if (!userId || !friendId) {
             throw new BadRequestException("ID utilisateur requis.");
         }
