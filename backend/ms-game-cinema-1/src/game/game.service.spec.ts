@@ -5,6 +5,27 @@ import { NotFoundException, ConflictException } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { of } from "rxjs";
 
+jest.mock("../prisma/prisma.service", () => ({
+    __esModule: true,
+    default: {
+        gameCinema1Days: {
+            findUnique: jest.fn(),
+            findFirst: jest.fn(),
+        },
+        gameResult: {
+            findFirst: jest.fn(),
+        },
+        gameCinema1Tries: {
+            count: jest.fn(),
+            create: jest.fn(),
+        },
+        dataMovie: {
+            findUnique: jest.fn(),
+            findMany: jest.fn(),
+        },
+    },
+}));
+
 describe("GameService", () => {
     let service: GameService;
     let mockClient: ClientProxy;

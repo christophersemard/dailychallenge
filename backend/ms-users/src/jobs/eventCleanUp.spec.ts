@@ -2,6 +2,17 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { EventCleanupJob } from "./eventCleanUp.cron";
 import prisma from "../prisma/prisma.service";
 
+jest.mock("../prisma/prisma.service", () => {
+    return {
+        __esModule: true,
+        default: {
+            userEvent: {
+                deleteMany: jest.fn(),
+            },
+        },
+    };
+});
+
 describe("EventCleanupJob", () => {
     let eventCleanupJob: EventCleanupJob;
 

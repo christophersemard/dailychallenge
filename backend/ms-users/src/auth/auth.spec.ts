@@ -7,6 +7,22 @@ import { UserEventsService } from "../user-events/user-events.service";
 import * as bcrypt from "bcryptjs";
 import prisma from "../prisma/prisma.service";
 
+jest.mock("../prisma/prisma.service", () => {
+    const actual = jest.requireActual("../prisma/prisma.service");
+    return {
+        __esModule: true,
+        default: {
+            user: {
+                create: jest.fn(),
+                findUnique: jest.fn(),
+            },
+            userStats: {
+                create: jest.fn(),
+            },
+        },
+    };
+});
+
 describe("AuthController", () => {
     let authController: AuthController;
     let authService: AuthService;
