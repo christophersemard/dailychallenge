@@ -1,52 +1,103 @@
-name: DailyChallenge CI
+name: CICD
+run-name: ${{ github.actor }} déploie sur ${{ github.ref_name }}
 
 on:
     push:
-        branches: [main, dev]
-    pull_request:
-        branches: [main, dev]
+        branches:
+            - main
+            - dev
+        tags:
+            - v*
 
 jobs:
-    build-and-test:
+    audit:
+        name: Audit des dépendances
         runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                include:
-                    - name: app-frontend
-                      path: app-frontend
-                    - name: ms-gateway
-                      path: backend/ms-gateway
-                    - name: ms-users
-                      path: backend/ms-users
-
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v2
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v2
               with:
                   version: 8
-                  run_install: false
+                  run_install: true
+            - run: pnpm audit
 
-            - name: Install dependencies
-              run: pnpm install
-              working-directory: ${{ matrix.path }}
+    lint:
+        name: Lint du code
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: true
+            - run: pnpm lint
 
-            - name: Lint
-              run: pnpm lint
-              working-directory: ${{ matrix.path }}
+    test:
+        name: Tests unitaires
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: true
+            - run: pnpm test
 
-            - name: Test
-              run: pnpm test
-              working-directory: ${{ matrix.path }}
+    build:
+        name: Build de l'application
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: true
+            - run: pnpm build
 
-            - name: Build
-              run: pnpm build
-              working-directory: ${{ matrix.path }}
+    deploy-production:
+        name: Build & Push Docker (production)
+        if: github.ref_name == 'main' || startsWith(github.ref, 'refs/tags/v')
+        needs: [audit, lint, test, build]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Build and push Docker image (prod)
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  push: true
+                  tags: |
+                      ghcr.io/christophersemard/dailychallenge/dailychallenge:latest
+                      ghcr.io/christophersemard/dailychallenge/dailychallenge:${{ github.ref_name }}
+
+    deploy-dev:
+        name: Build & Push Docker (dev)
+        if: github.ref_name == 'dev'
+        needs: [audit, lint, test, build]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Build and push Docker image (dev)
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  push: true
+                  tags: ghcr.io/christophersemard/dailychallenge/dailychallenge:dev

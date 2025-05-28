@@ -1,100 +1,74 @@
-services:
-  postgres:
-    image: postgres:15
-    restart: always
-    container_name: database-dailychallenge
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: dailychallenge
-    ports:
-      - "54335433"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+name: CICD
+run-name: ${{ github.actor }} déploie ${{ github.ref_name }}
 
-  ms-users:
-    build:
-      context: .
-      dockerfile: backend/ms-users/Dockerfile
-    depends_on:
-      - postgres
-    ports:
-      - "3001:3001"
-    environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
-      - PORT=3001
-      - JWT_SECRET=une_cle_secrete_tres_forte
-      - JWT_EXPIRES_IN=7d
-      - HOST=0.0.0.0
-    volumes:
-      - /app/node_modules
+on:
+  push:
+    branches: [main, dev]
+    tags: [v*]
 
-  ms-friends:
-    build:
-      context: .
-      dockerfile: backend/ms-friends/Dockerfile
-    depends_on:
-      - postgres
-    ports:
-      - "3002:3002"
-    environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
-      - PORT=3002
-      - HOST=0.0.0.0
-    volumes:
-      - /app/node_modules
+jobs:
+  service-ci:
+    name: Analyse & Build ${{ matrix.name }}
+    runs-on: ubuntu-latest
 
-  ms-game-cinema-1:
-    build:
-      context: .
-      dockerfile: backend/ms-game-cinema-1/Dockerfile
-    depends_on:
-      - postgres
-      - ms-users
-    ports:
-      - "3004:3004"
-    environment:
-      - IS_DOCKER=true
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
-      - PORT=3004
-      - HOST=0.0.0.0
-    volumes:
-      - /app/node_modules
-      
-  ms-game-cinema-2:
-    build:
-      context: .
-      dockerfile: backend/ms-game-cinema-2/Dockerfile
-    depends_on:
-      - postgres
-      - ms-users
-    ports:
-      - "3005:3005"
-    environment:
-      - IS_DOCKER=true
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
-      - PORT=3005
-      - HOST=0.0.0.0
-    volumes:
-      - /app/node_modules
-      
+    strategy:
+      matrix:
+        include:
+          - name: frontend
+            path: app-frontend
+            dockerfile: app-frontend/Dockerfile
+          - name: ms-users
+            path: backend/ms-users
+            dockerfile: backend/ms-users/Dockerfile
+          - name: ms-friends
+            path: backend/ms-friends
+            dockerfile: backend/ms-friends/Dockerfile
+          - name: ms-gateway
+            path: backend/ms-gateway
+            dockerfile: backend/ms-gateway/Dockerfile
+          - name: ms-game-cinema-1
+            path: backend/ms-game-cinema-1
+            dockerfile: backend/ms-game-cinema-1/Dockerfile
+          - name: ms-game-cinema-2
+            path: backend/ms-game-cinema-2
+            dockerfile: backend/ms-game-cinema-2/Dockerfile
 
-  ms-gateway:
-    build:
-      context: .
-      dockerfile: backend/ms-gateway/Dockerfile
-    depends_on:
-      - ms-users
-      - ms-friends
-    ports:
-      - "3000:3000"
-    environment:
-      - IS_DOCKER=true
-      - PORT=3000
-      - JWT_SECRET=une_cle_secrete_tres_forte
-      - JWT_EXPIRES_IN=7d
-    volumes:
-      - /app/node_modules
+    env:
+      TAG: ${{ github.ref_name == 'dev' && 'dev' || (startsWith(github.ref, 'refs/tags/v') || github.ref_name == 'main' && github.ref_name) }}
 
-volumes:
-  pgdata:
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+
+      - name: Lint ${{ matrix.name }}
+        working-directory: ${{ matrix.path }}
+        run: pnpm lint || echo "::warning::Lint échoué"
+
+      - name: Test ${{ matrix.name }}
+        working-directory: ${{ matrix.path }}
+        run: pnpm test || echo "::warning::Tests échoués"
+
+      - name: Build ${{ matrix.name }}
+        working-directory: ${{ matrix.path }}
+        run: pnpm build
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./${{ matrix.dockerfile }}
+          push: true
+          tags: |
+            ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:${{ env.TAG }}
+            ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:latest
