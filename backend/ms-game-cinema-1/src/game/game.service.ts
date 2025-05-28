@@ -1,5 +1,4 @@
 import {
-    BadRequestException,
     ConflictException,
     Inject,
     Injectable,
@@ -189,7 +188,11 @@ export class GameService {
                 };
             }
 
-            const hints = await this.getHints(userId, game.id, existingTries + 1);
+            const hints = await this.getHints(
+                userId,
+                game.id,
+                existingTries + 1
+            );
             return {
                 lastGuessed: correct,
                 hints: hints.hints,
