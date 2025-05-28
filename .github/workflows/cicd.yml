@@ -1,41 +1,43 @@
 name: DailyChallenge CI
 
 on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+    push:
+        branches: [main, dev]
+    pull_request:
+        branches: [main, dev]
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+    build-and-test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        service: [app-frontend, ms-gateway, ms-users] # À étendre avec d'autres services
+        strategy:
+            matrix:
+                service: [app-frontend, ms-gateway, ms-users] # À étendre avec d'autres services
 
-    defaults:
-      run:
-        working-directory: ${{ matrix.service }}
+        defaults:
+            run:
+                working-directory: ${{ matrix.service }}
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "pnpm"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
+            - name: Install pnpm
+              run: npm install -g pnpm
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Lint
-        run: pnpm lint
+            - name: Lint
+              run: pnpm lint
 
-      - name: Test
-        run: pnpm test
+            - name: Test
+              run: pnpm test
 
-      - name: Build
-        run: pnpm build
+            - name: Build
+              run: pnpm build
