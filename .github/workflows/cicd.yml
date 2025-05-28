@@ -10,7 +10,8 @@ jobs:
     verify-all:
         name: Vérification ${{ matrix.name }}
         runs-on: ubuntu-latest
-
+        env:
+            DATABASE_URL: ${{ vars.DATABASE_URL }}
         strategy:
             matrix:
                 include:
