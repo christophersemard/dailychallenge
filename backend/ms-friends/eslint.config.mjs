@@ -1,36 +1,23 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-    ...compat.extends(
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
-    ),
+export default [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
 
     {
         files: ["**/*.ts"],
         languageOptions: {
+            parser: tseslint.parser,
             parserOptions: {
+                project: "./tsconfig.json",
                 sourceType: "module",
                 ecmaVersion: "latest",
             },
         },
         rules: {
-            // désactive les règles inutiles en NestJS
-            "@next/next/no-html-link-for-pages": "off",
-            "@next/next/no-assign-module-variable": "off",
-
-            // adoucit les règles globales
-            "@typescript-eslint/no-unused-vars": "warn",
             "@typescript-eslint/no-explicit-any": "warn",
+            "@typescript-eslint/no-unused-vars": "warn",
         },
     },
 
@@ -42,5 +29,3 @@ const eslintConfig = [
         },
     },
 ];
-
-export default eslintConfig;

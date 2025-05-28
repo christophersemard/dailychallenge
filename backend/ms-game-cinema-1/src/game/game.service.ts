@@ -189,7 +189,7 @@ export class GameService {
                 };
             }
 
-            let hints = await this.getHints(userId, game.id, existingTries + 1);
+            const hints = await this.getHints(userId, game.id, existingTries + 1);
             return {
                 lastGuessed: correct,
                 hints: hints.hints,
@@ -202,7 +202,7 @@ export class GameService {
     }
 
     async searchMovie(query: string) {
-        let movies = await prisma.dataMovie.findMany({
+        const movies = await prisma.dataMovie.findMany({
             where: {
                 OR: [
                     { title: { contains: query, mode: "insensitive" } },
