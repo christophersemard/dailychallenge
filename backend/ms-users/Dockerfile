@@ -8,40 +8,43 @@ RUN apk add --no-cache libc6-compat curl
 RUN npm install -g pnpm@latest
 
 # ---------------------
-# 2. Dépendances : install PNPM + node_modules
+# 2. Dépendances
 # ---------------------
 FROM base AS deps
 
 WORKDIR /app
 
-COPY pnpm-lock.yaml ./
-COPY backend/ms-users/package.json ./package.json
+COPY pnpm-lock.yaml ./pnpm-lock.yaml
+COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY backend/ms-users/package.json ./backend/ms-users/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
-RUN pnpm install --no-frozen-lockfile --recursive
+# Important : copier tous les package.json pour respecter la structure du monorepo
+RUN pnpm install --no-frozen-lockfile
 
 # ---------------------
-# 3. Prisma : génération du client
+# 3. Prisma
 # ---------------------
 FROM deps AS prisma
 
 WORKDIR /app
-
 COPY packages/database ./packages/database
 WORKDIR /app/packages/database
-RUN pnpm install --no-frozen-lockfile
 RUN pnpm run db:generate
 
 # ---------------------
-# 4. Final : assemble le microservice
+# 4. Final
 # ---------------------
 FROM base AS final
 
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/backend/ms-users/node_modules ./backend/ms-users/node_modules
 COPY --from=prisma /app/packages/database ./packages/database
-COPY backend/ms-users/ .
+COPY backend/ms-users ./backend/ms-users
 
+WORKDIR /app/backend/ms-users
 EXPOSE 3001
-CMD ["sh", "-c", "cd /app && pnpm run start:dev"]
+
+CMD ["pnpm", "run", "start:dev"]

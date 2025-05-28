@@ -15,6 +15,7 @@ FROM base AS deps
 WORKDIR /app
 
 COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY backend/ms-game-cinema-1/package.json ./package.json
 COPY packages/database/package.json ./packages/database/package.json
 

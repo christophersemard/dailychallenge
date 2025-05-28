@@ -3,7 +3,7 @@ services:
   app-frontend:
     build:
       context: .
-      dockerfile: /app-frontend/Dockerfile
+      dockerfile: app-frontend/Dockerfile
     depends_on:
       - ms-gateway
     ports:
@@ -26,6 +26,8 @@ services:
       - JWT_SECRET=une_cle_secrete_tres_forte_dans_env_shared
       - JWT_EXPIRES_IN=7d
       - HOST=0.0.0.0
+      - SUPABASE_URL=https://wrivqparegjwiklfzsuq.supabase.co
+      - SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyaXZxcGFyZWdqd2lrbGZ6c3VxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI1MTg1MiwiZXhwIjoyMDYwODI3ODUyfQ.5OBB1uIifIYessGI4Nhz7YvbX5jzlOYVnd_kDzPtfoE
     volumes:
       - /app/node_modules
 
@@ -39,8 +41,6 @@ services:
       - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
       - PORT=3002
       - HOST=0.0.0.0
-      - SUPABASE_URL=https://wrivqparegjwiklfzsuq.supabase.co
-      - SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyaXZxcGFyZWdqd2lrbGZ6c3VxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI1MTg1MiwiZXhwIjoyMDYwODI3ODUyfQ.5OBB1uIifIYessGI4Nhz7YvbX5jzlOYVnd_kDzPtfoE
     volumes:
       - /app/node_modules
 
@@ -111,5 +111,3 @@ services:
     volumes:
       - /app/node_modules
 
-volumes:
-  pgdata:

@@ -3,23 +3,6 @@ import { Injectable } from "@nestjs/common";
 import { RpcException } from "@nestjs/microservices";
 import prisma from "../prisma/prisma.service";
 
-jest.mock("../prisma/prisma.service", () => ({
-    __esModule: true,
-    default: {
-        user: {
-            findUnique: jest.fn(),
-        },
-        friend: {
-            findFirst: jest.fn(),
-            findMany: jest.fn(),
-            create: jest.fn(),
-            deleteMany: jest.fn(),
-            update: jest.fn(),
-            delete: jest.fn(),
-        },
-    },
-}));
-
 @Injectable()
 export class FriendsService {
     async addFriend(userId: number, friendId: number) {

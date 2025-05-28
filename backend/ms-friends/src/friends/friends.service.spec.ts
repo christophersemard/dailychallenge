@@ -3,6 +3,23 @@ import { FriendsService } from "./friends.service";
 import prisma from "../prisma/prisma.service";
 import { RpcException } from "@nestjs/microservices";
 
+jest.mock("../prisma/prisma.service", () => ({
+    __esModule: true,
+    default: {
+        user: {
+            findUnique: jest.fn(),
+        },
+        friend: {
+            findFirst: jest.fn(),
+            findMany: jest.fn(),
+            create: jest.fn(),
+            deleteMany: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
+    },
+}));
+
 describe("FriendsService", () => {
     let service: FriendsService;
 
