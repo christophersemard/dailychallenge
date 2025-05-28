@@ -7,7 +7,7 @@ import GameCinema2 from "@/components/game/games/GameCinema2";
 export default async function GamePage({
     params,
 }: {
-    params: { gameId: string; date: string };
+    params: Promise<{ gameId: string; date: string }>;
 }) {
     const { gameId, date } = await params;
 
