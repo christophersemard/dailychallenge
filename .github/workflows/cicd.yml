@@ -12,7 +12,13 @@ jobs:
 
         strategy:
             matrix:
-                service: [app-frontend, ms-gateway, ms-users]
+                include:
+                    - name: app-frontend
+                      path: app-frontend
+                    - name: ms-gateway
+                      path: backend/ms-gateway
+                    - name: ms-users
+                      path: backend/ms-users
 
         steps:
             - name: Checkout code
