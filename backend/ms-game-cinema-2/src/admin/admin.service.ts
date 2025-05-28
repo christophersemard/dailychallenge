@@ -7,7 +7,7 @@ export class AdminService {
     async generateGameDays(startDate: string, endDate: string) {
         const start = new Date(startDate);
         const end = new Date(endDate);
-        let current = new Date(start);
+        const current = new Date(start);
 
         while (current <= end) {
             await this.regenerateGameDay(current.toISOString().split("T")[0]);
@@ -76,6 +76,10 @@ export class AdminService {
                     { image4: { not: null } },
                     { image5: { not: null } },
                     { image6: { not: null } },
+                    { image7: { not: null } },
+                    { image8: { not: null } },
+                    { image9: { not: null } },
+                    { image10: { not: null } },
                     { id: { notIn: usedMovieIds } },
                 ],
             },
