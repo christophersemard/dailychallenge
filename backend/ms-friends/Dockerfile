@@ -1,37 +1,47 @@
-# Utiliser une image Node.js légère
-FROM node:20-alpine
+# ---------------------
+# 1. Base : image avec PNPM
+# ---------------------
+FROM node:22-alpine AS base
 
-# Définir le répertoire de travail
 WORKDIR /app
-
-# Installer les dépendances système
 RUN apk add --no-cache libc6-compat curl
-
-
-# Copier les fichiers PNPM et package.json
-COPY pnpm-lock.yaml ./pnpm-lock.yaml
-COPY backend/ms-friends/package.json ./package.json
-COPY packages/database ./packages/database
-
-# Installer PNPM via NPM
 RUN npm install -g pnpm@latest
 
-# Copier le reste du code du microservice
-COPY backend/ms-friends/ .
+# ---------------------
+# 2. Dépendances : install PNPM + node_modules
+# ---------------------
+FROM base AS deps
 
-# Installer les dépendances
-RUN pnpm install --no-frozen-lockfile --recursive
-
-# Générer les fichiers de migration
-RUN cd packages/database && pnpm prisma generate && cd ../../
-
-# Retourné au répertoire de travail
 WORKDIR /app
 
-# Exposer le port du microservice
+COPY pnpm-lock.yaml ./
+COPY backend/ms-friends/package.json ./package.json
+COPY packages/database/package.json ./packages/database/package.json
+
+RUN pnpm install --no-frozen-lockfile --recursive
+
+# ---------------------
+# 3. Prisma : génération du client
+# ---------------------
+FROM deps AS prisma
+
+WORKDIR /app
+
+COPY packages/database ./packages/database
+WORKDIR /app/packages/database
+RUN pnpm install --no-frozen-lockfile
+RUN pnpm run db:generate
+
+# ---------------------
+# 4. Final : assemble le microservice
+# ---------------------
+FROM base AS final
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=prisma /app/packages/database ./packages/database
+COPY backend/ms-friends/ .
+
 EXPOSE 3002
-
-# Démarrer le service NestJS
 CMD ["sh", "-c", "cd /app && pnpm run start:dev"]
-
-
