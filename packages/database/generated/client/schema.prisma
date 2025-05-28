@@ -7,7 +7,7 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "../generated/client"
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -285,13 +285,13 @@ model GameCinema2Days {
 model GameCinema2Tries {
   id        Int      @id @default(autoincrement())
   userId    Int
-  gameId    Int
+  dayId     Int
   guess     String
   correct   Boolean  @default(false)
   createdAt DateTime @default(now())
 
   // Relation avec le film du jeu
-  day GameCinema2Days @relation(fields: [gameId], references: [id])
+  day GameCinema2Days @relation(fields: [dayId], references: [id])
 }
 
 /////////////////////////////////////////////
