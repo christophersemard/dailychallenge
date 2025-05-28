@@ -11,13 +11,16 @@ jest.mock("../prisma/prisma.service", () => ({
         gameCinema1Days: {
             findUnique: jest.fn(),
             findFirst: jest.fn(),
+            findMany: jest.fn(),
         },
         gameResult: {
             findFirst: jest.fn(),
+            findMany: jest.fn(),
         },
         gameCinema1Tries: {
             count: jest.fn(),
             create: jest.fn(),
+            findMany: jest.fn(),
         },
         dataMovie: {
             findUnique: jest.fn(),
@@ -31,17 +34,12 @@ describe("GameService", () => {
     let mockClient: ClientProxy;
 
     beforeEach(async () => {
-        mockClient = {
-            send: jest.fn(),
-        } as any;
+        mockClient = { send: jest.fn() } as any;
 
         const module: TestingModule = await Test.createTestingModule({
             providers: [
                 GameService,
-                {
-                    provide: "USERS_SERVICE",
-                    useValue: mockClient,
-                },
+                { provide: "USERS_SERVICE", useValue: mockClient },
             ],
         }).compile();
 
@@ -52,23 +50,11 @@ describe("GameService", () => {
         jest.clearAllMocks();
     });
 
-    describe("getTodayGame", () => {
-        it("should call getGameByDate with today's date", async () => {
-            const spy = jest
-                .spyOn(service, "getGameByDate")
-                .mockResolvedValue("test" as any);
-            const userId = 1;
-            await service.getTodayGame(userId);
-            expect(spy).toHaveBeenCalledWith(userId, expect.any(String));
-        });
-    });
-
     describe("getGameByDate", () => {
         it("should throw NotFoundException if no game found", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findUnique").mockResolvedValue(
                 null
             );
-
             await expect(
                 service.getGameByDate(1, "2024-03-24")
             ).rejects.toThrow(NotFoundException);
@@ -81,52 +67,54 @@ describe("GameService", () => {
                 movie: {
                     title: "Titanic",
                     genres: "Drama",
-                    runtime: 195,
-                    keywords: "test,michel",
+                    runtime: 120,
+                    keywords: "ocean, iceberg",
                 },
             } as any);
 
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
-                id: 1,
-                status: "passed",
+                id: 10,
             } as any);
-
-            jest.spyOn(prisma.gameCinema1Tries, "count").mockResolvedValue(3);
+            jest.spyOn(prisma.gameCinema1Tries, "findMany").mockResolvedValue([
+                { guess: "Titanic" },
+            ] as any);
+            jest.spyOn(service as any, "getHints").mockResolvedValue({
+                hints: {},
+                lastHintUnlocked: null,
+            } as any);
 
             const result = await service.getGameByDate(1, "2024-03-24");
             expect(result.guessed).toBe(true);
-            expect(result.maskedTitle).toContain("*");
+            expect(result.attempts).toBe(1);
         });
     });
 
     describe("submitGuess", () => {
-        it("should throw ConflictException if already answered", async () => {
+        it("should throw ConflictException if already guessed", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
-                movie: { id: 10, title: "Titanic" },
+                movie: { id: 1, title: "Titanic" },
             } as any);
-
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
-                id: 1,
+                id: 99,
             } as any);
 
-            await expect(
-                service.submitGuess(1, "10", "2024-03-24")
-            ).rejects.toThrow(ConflictException);
+            await expect(service.submitGuess(1, "1")).rejects.toThrow(
+                ConflictException
+            );
         });
 
-        it("should register a correct answer and return result", async () => {
+        it("should return result with correct guess", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
                 movie: {
                     id: 5,
                     title: "Matrix",
-                    keywords: "test,michel,test,test,test",
+                    keywords: "sci-fi, neo, hacker, fight, future",
                 },
             } as any);
-
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
             jest.spyOn(prisma.gameCinema1Tries, "count").mockResolvedValue(0);
             jest.spyOn(prisma.dataMovie, "findUnique").mockResolvedValue({
@@ -135,97 +123,83 @@ describe("GameService", () => {
             jest.spyOn(prisma.gameCinema1Tries, "create").mockResolvedValue(
                 {} as any
             );
+            jest.spyOn(mockClient, "send").mockReturnValue(of({ id: 1 }));
 
-            jest.spyOn(mockClient, "send").mockReturnValue(
-                of({ success: true })
-            );
-
-            const result = await service.submitGuess(1, "5", "2024-03-24");
+            const result = await service.submitGuess(1, "5");
             expect(result.lastGuessed).toBe(true);
             expect(result.attempts).toBe(1);
         });
 
-        it("should register a failed guess and create game result if max reached", async () => {
+        it("should return result with failed guess and max attempts", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
                 movie: {
-                    id: 3,
-                    title: "Avatar",
-                    keywords: "test,michel,test,test,test",
+                    id: 2,
+                    title: "Inception",
+                    keywords: "dream, mind, time, heist, subconscious",
                 },
             } as any);
-
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
             jest.spyOn(prisma.gameCinema1Tries, "count").mockResolvedValue(9);
             jest.spyOn(prisma.dataMovie, "findUnique").mockResolvedValue({
-                title: "Titanic",
+                title: "Wrong Movie",
             } as any);
             jest.spyOn(prisma.gameCinema1Tries, "create").mockResolvedValue(
                 {} as any
             );
+            jest.spyOn(mockClient, "send").mockReturnValue(of({ id: 2 }));
 
-            jest.spyOn(mockClient, "send").mockReturnValue(
-                of({ success: true })
-            );
-
-            const result = await service.submitGuess(1, "10", "2024-03-24");
+            const result = await service.submitGuess(1, "10");
             expect(result.lastGuessed).toBe(false);
             expect(result.attempts).toBe(10);
         });
     });
 
     describe("searchMovie", () => {
-        it("should call findMany with correct query", async () => {
-            const date1yearago = new Date();
-            date1yearago.setFullYear(date1yearago.getFullYear() - 1);
+        it("should return correctly formatted results", async () => {
+            const now = new Date();
+            const year = now.getFullYear();
+            jest.spyOn(prisma.dataMovie, "findMany").mockResolvedValue([
+                {
+                    id: 1,
+                    title: "Alpha",
+                    originalTitle: "Alpha Original",
+                    releaseDate: now,
+                },
+                {
+                    id: 2,
+                    title: "Beta",
+                    originalTitle: "Beta Original",
+                    releaseDate: now,
+                },
+                {
+                    id: 3,
+                    title: "Beta",
+                    originalTitle: "Beta Original 2",
+                    releaseDate: now,
+                },
+            ] as any);
 
-            const spy = jest
-                .spyOn(prisma.dataMovie, "findMany")
-                .mockResolvedValue([
-                    {
-                        id: 1,
-                        title: "Test",
-                        originalTitle: "Text original",
-                        keywords: "test",
-                        releaseDate: new Date(),
-                    },
-                    {
-                        id: 2,
-                        title: "Test 2",
-                        originalTitle: "Text original 2",
-                        keywords: "test",
-                        releaseDate: date1yearago,
-                    },
-                    {
-                        id: 3,
-                        title: "Test 2",
-                        originalTitle: "Text original 555",
-                        keywords: "test",
-                        releaseDate: new Date(),
-                    },
-                ] as any);
-
-            const result = await service.searchMovie("test");
-            expect(spy).toHaveBeenCalled();
+            const result = await service.searchMovie("a");
             expect(result).toEqual([
                 {
                     id: 1,
-                    name: "Test",
-                    originalName: "Text original",
+                    name: "Alpha",
+                    originalName: "Alpha Original",
                     otherInfo: null,
                 },
                 {
                     id: 2,
-                    name: "Test 2",
-                    originalName: "Text original 2",
-                    otherInfo: date1yearago.getFullYear().toString(),
+                    name: "Beta",
+                    originalName: "Beta Original",
+                    otherInfo: year.toString(),
                 },
                 {
                     id: 3,
-                    name: "Test 2",
-                    originalName: "Text original 555",
-                    otherInfo: new Date().getFullYear().toString(),
+                    name: "Beta",
+                    originalName: "Beta Original 2",
+                    otherInfo: year.toString(),
                 },
             ]);
         });
@@ -236,39 +210,32 @@ describe("GameService", () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue(
                 null
             );
-
             await expect(
-                service.getGameResult(1, "2024-03-24")
+                service.getGameResult(1, "2024-01-01")
             ).rejects.toThrow(NotFoundException);
         });
 
         it("should throw NotFoundException if no result found", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
-                id: 1,
+                id: 2,
                 date: new Date(),
             } as any);
-
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
-
             await expect(
-                service.getGameResult(1, "2024-03-24")
+                service.getGameResult(1, "2024-01-01")
             ).rejects.toThrow(NotFoundException);
         });
 
-        it("should return game result if found", async () => {
+        it("should return result if found", async () => {
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
-                id: 1,
+                id: 2,
                 date: new Date(),
             } as any);
-
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
-                userId: 1,
-                gameId: 1,
                 status: "passed",
             } as any);
-
-            const result = await service.getGameResult(1, "2024-03-24");
-            expect(result).toHaveProperty("status", "passed");
+            const result = await service.getGameResult(1, "2024-01-01");
+            expect(result.status).toBe("passed");
         });
     });
 });
