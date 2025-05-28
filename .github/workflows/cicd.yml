@@ -37,16 +37,16 @@ jobs:
 
             - name: Install dependencies
               run: pnpm install
-              working-directory: ${{ matrix.service }}
+              working-directory: ${{ matrix.path }}
 
             - name: Lint
               run: pnpm lint
-              working-directory: ${{ matrix.service }}
+              working-directory: ${{ matrix.path }}
 
             - name: Test
               run: pnpm test
-              working-directory: ${{ matrix.service }}
+              working-directory: ${{ matrix.path }}
 
             - name: Build
               run: pnpm build
-              working-directory: ${{ matrix.service }}
+              working-directory: ${{ matrix.path }}
