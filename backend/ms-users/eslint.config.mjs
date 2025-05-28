@@ -10,7 +10,37 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-    ...compat.extends("next/core-web-vitals", "next/typescript"),
+    ...compat.extends(
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ),
+
+    {
+        files: ["**/*.ts"],
+        languageOptions: {
+            parserOptions: {
+                sourceType: "module",
+                ecmaVersion: "latest",
+            },
+        },
+        rules: {
+            // désactive les règles inutiles en NestJS
+            "@next/next/no-html-link-for-pages": "off",
+            "@next/next/no-assign-module-variable": "off",
+
+            // adoucit les règles globales
+            "@typescript-eslint/no-unused-vars": "warn",
+            "@typescript-eslint/no-explicit-any": "warn",
+        },
+    },
+
+    {
+        files: ["**/*.spec.ts", "**/*.test.ts"],
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-unused-vars": "off",
+        },
+    },
 ];
 
 export default eslintConfig;

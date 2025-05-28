@@ -1,34 +1,46 @@
-// @ts-check
-import eslint from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
 
-export default tseslint.config(
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+});
+
+const eslintConfig = [
+    ...compat.extends(
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ),
+
     {
-        ignores: ["eslint.config.mjs"],
-    },
-    eslint.configs.recommended,
-    ...tseslint.configs.recommendedTypeChecked,
-    {
+        files: ["**/*.ts"],
         languageOptions: {
-            globals: {
-                ...globals.node,
-                ...globals.jest,
-            },
-            ecmaVersion: 5,
-            sourceType: "module",
             parserOptions: {
-                projectService: true,
-                tsconfigRootDir: import.meta.dirname,
+                sourceType: "module",
+                ecmaVersion: "latest",
             },
         },
+        rules: {
+            // désactive les règles inutiles en NestJS
+            "@next/next/no-html-link-for-pages": "off",
+            "@next/next/no-assign-module-variable": "off",
+
+            // adoucit les règles globales
+            "@typescript-eslint/no-unused-vars": "warn",
+            "@typescript-eslint/no-explicit-any": "warn",
+        },
     },
+
     {
+        files: ["**/*.spec.ts", "**/*.test.ts"],
         rules: {
             "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-floating-promises": "warn",
-            "@typescript-eslint/no-unsafe-argument": "warn",
-            "@typescript-eslint/no-unsafe-assignment": "warn",
+            "@typescript-eslint/no-unused-vars": "off",
         },
-    }
-);
+    },
+];
+
+export default eslintConfig;
