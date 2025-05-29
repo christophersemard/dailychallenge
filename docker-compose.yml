@@ -4,16 +4,16 @@ services:
     build:
       context: .
       dockerfile: app-frontend/Dockerfile
-    depends_on:
-      - ms-gateway
+    # depends_on:
+    #   - ms-gateway
     ports:
       - "3025:3025"
     environment:
       - NODE_ENV=production
+      - PORT=3025
       - NEXTAUTH_URL=http://0.0.0.0:3025
-      - NEXT_PUBLIC_API_URL=http://ms-users:3000 # par exemple si ms-gateway
-      - NEXTAUTH_SECRET=une_cle_secrete_tres_forte_dans_env_shared
-
+      - NEXT_PUBLIC_API_URL=http://ms-gateway:3000 # par exemple si ms-gateway
+      - NEXTAUTH_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
   ms-users:
     build:
       context: .

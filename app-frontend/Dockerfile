@@ -1,38 +1,48 @@
-# Étape 1 — Build
-FROM node:22-alpine AS builder
+# syntax=docker/dockerfile:1
 
+FROM node:22-alpine AS base
 WORKDIR /app
+RUN apk add --no-cache libc6-compat && npm install -g pnpm
 
-# Copie uniquement les fichiers nécessaires au build
-COPY package.json pnpm-lock.yaml ./
-COPY pnpm-workspace.yaml ./
-COPY /app-frontend ./app-frontend
+# Dépendances
+FROM base AS deps
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY app-frontend ./app-frontend
 COPY packages ./packages
+RUN pnpm install --filter app-frontend...
 
-RUN npm install -g pnpm && pnpm install --no-frozen-lockfile
-
-# Build de l'app Next.js
+# Build
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app ./
 RUN pnpm --filter app-frontend... build
 
-
-# ----------------------
-# Étape 2 — Runtime
-# ----------------------
+# Runner
 FROM node:22-alpine AS runner
+ENV NODE_ENV=production
+ENV PORT=3025
+ENV HOSTNAME=0.0.0.0
+
+RUN apk add --no-cache libc6-compat \
+    && addgroup --system --gid 1001 nodejs \
+    && adduser --system --uid 1001 nextjs
 
 WORKDIR /app
 
-ENV NODE_ENV=production
+# ✅ Copie TOUT le standalone tel quel (il contient node_modules + app-frontend/server.js)
+COPY --from=builder /app/app-frontend/.next/standalone ./app-standalone
 
-# Re-copie minimale pour exécuter en prod
-COPY --from=builder /app/app-frontend/public ./public
-COPY --from=builder /app/app-frontend/.next ./.next
-COPY --from=builder /app/app-frontend/package.json ./package.json
-COPY --from=builder /app/app-frontend/next.config.ts ./next.config.ts
-COPY --from=builder /app/packages ./packages
-COPY --from=builder /app/node_modules ./node_modules
+# ✅ Copie les assets à côté
+COPY --from=builder /app/app-frontend/public ./app-standalone/app-frontend/public
+COPY --from=builder /app/app-frontend/.next/static ./app-standalone/app-frontend/.next/static
 
+# ✅ Correction des droits d’écriture pour les caches
+RUN mkdir -p /app/app-standalone/app-frontend/.next/cache \
+    && chown -R nextjs:nodejs /app/app-standalone/app-frontend
+
+
+USER nextjs
+WORKDIR /app/app-standalone/app-frontend
 EXPOSE 3025
-
-# Lancer l'application Next
-CMD ["pnpm", "--filter", "app-frontend", "start"]
+CMD ["node", "server.js"]

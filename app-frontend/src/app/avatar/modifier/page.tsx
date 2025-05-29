@@ -13,7 +13,6 @@ export default async function ModifierAvatarPage() {
 
     // Récupérer sur /api/users/me les infos de l'utilisateur
     const { data, error } = await fetchServerAction<UserMe>(`/api/users/me`);
-    console.log("AvatarEditPage", { data, error });
 
     if (!data || error) return notFound();
 
