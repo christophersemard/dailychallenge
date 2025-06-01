@@ -9,12 +9,14 @@ import * as bcrypt from "bcryptjs";
 import prisma from "../prisma/prisma.service";
 import { UserEventsService } from "../user-events/user-events.service";
 import { randomUUID } from "crypto";
+import { MailerService } from "../mailer/mailer.service";
 
 @Injectable()
 export class AuthService {
     constructor(
         private jwtService: JwtService,
-        private userEventsService: UserEventsService
+        private userEventsService: UserEventsService,
+        private mailerService: MailerService
     ) {}
 
     async generateToken(user: {
@@ -58,6 +60,8 @@ export class AuthService {
         });
 
         await this.userEventsService.addEvent(user.id, "user_registered");
+
+        await this.mailerService.sendWelcomeEmail(user.email, user.pseudo);
 
         const { password: _, ...userWithoutPassword } = user;
         return userWithoutPassword;
@@ -108,6 +112,8 @@ export class AuthService {
             data: { password: newHash },
         });
 
+        await this.mailerService.sendPasswordChangedEmail(user.email);
+
         return { success: true };
     }
 
@@ -125,6 +131,11 @@ export class AuthService {
             where: { id: user.id },
             data: { email: dto.newEmail },
         });
+
+        await this.mailerService.sendEmailChangedEmail(
+            dto.newEmail,
+            user.email
+        );
 
         return { success: true };
     }
@@ -149,6 +160,11 @@ export class AuthService {
             data: { deletedAt: new Date() },
         });
 
+        await this.mailerService.sendAccountDeletedEmail(
+            user.email,
+            user.pseudo
+        );
+
         return { success: true };
     }
     async sendResetPasswordToken(email: string) {
@@ -170,8 +186,8 @@ export class AuthService {
             },
         });
 
-        // TODO : envoyer un mail si en prod
         console.log(`Token de reset pour ${email}: ${token}`);
+        await this.mailerService.sendPasswordResetEmail(email, token);
 
         return { success: true };
     }
@@ -206,6 +222,8 @@ export class AuthService {
         await prisma.passwordResetToken.delete({
             where: { token: token.token },
         });
+
+        await this.mailerService.sendPasswordChangedEmail(token.user.email);
 
         return { success: true };
     }

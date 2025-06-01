@@ -18,12 +18,15 @@ import { AvatarService } from "./avatar/avatar.service";
 import { AvatarController } from "./avatar/avatar.controller";
 import { UsersService } from "./users/users.service";
 import { SupabaseService } from "./supabase/supabase.service";
+import mailConfig from "./config/mail.config";
+import { MailerService } from "./mailer/mailer.service";
 
 @Module({
     imports: [
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({
             isGlobal: true,
+            load: [mailConfig],
             envFilePath: ["../../.env.shared", ".env", ".env.local"], // charge d'abord le partagé, puis local
         }),
         JwtModule.register({
@@ -48,6 +51,7 @@ import { SupabaseService } from "./supabase/supabase.service";
         ProfileService,
         AvatarService,
         UsersService,
+        MailerService,
     ],
     exports: [SupabaseService],
 })
