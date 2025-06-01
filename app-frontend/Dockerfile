@@ -15,6 +15,10 @@ RUN pnpm install --filter app-frontend...
 # Build
 FROM base AS builder
 WORKDIR /app
+
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 COPY --from=deps /app ./
 RUN pnpm --filter app-frontend... build
 
@@ -23,6 +27,7 @@ FROM node:22-alpine AS runner
 ENV NODE_ENV=production
 ENV PORT=3025
 ENV HOSTNAME=0.0.0.0
+
 
 RUN apk add --no-cache libc6-compat \
     && addgroup --system --gid 1001 nodejs \

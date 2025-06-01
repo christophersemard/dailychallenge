@@ -18,7 +18,9 @@ export const authOptions: AuthOptions = {
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error("Email et mot de passe requis.");
                 }
-
+      
+                console.log("API URL DANS CONNEXION :", process.env.NEXT_PUBLIC_API_URL);
+                
                 const res = await fetch(
                     `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
                     {

@@ -30,6 +30,7 @@ type GameCategory = {
 export default async function Page() {
     const session = await getServerSession(authOptions);
 
+    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     const { data: categories, error } = await fetchServerAction<GameCategory[]>(
         "/api/leaderboard/games-and-categories"
     );

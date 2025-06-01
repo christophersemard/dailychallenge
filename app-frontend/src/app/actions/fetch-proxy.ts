@@ -20,8 +20,10 @@ export async function fetchServerAction<T>(
     input: string,
     init: RequestInit = {}
 ): Promise<FetchResponse<T>> {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-
+    const IS_DOCKER = process.env.IS_DOCKER === "true";
+    const API_URL = IS_DOCKER
+        ? "http://ms-gateway:3000"
+        : "http://localhost:3000";
     const session = await getServerSession(authOptions);
     const token = session?.accessToken;
 

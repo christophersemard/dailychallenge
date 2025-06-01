@@ -1,7 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { lastValueFrom } from "rxjs";
-import { RpcExceptionHandlerService } from "../common/rpc-exception-handler.service";
+import { RpcProxyService } from "../common/rpc-proxy.service";
 import { UserPublicProfile } from "./users.types";
 import { UpdateProfileDto } from "../users/dto/update-profile.dto";
 import { UserProfile } from "../users/profile.types";
@@ -10,48 +9,82 @@ import { UserProfile } from "../users/profile.types";
 export class UsersService {
     constructor(
         @Inject("USERS_SERVICE") private readonly client: ClientProxy,
-        private readonly rpcExceptionHandler: RpcExceptionHandlerService
+        private readonly rpc: RpcProxyService
     ) {}
 
     async getUserById(
-        userId: number,
+        user: { id: number; username?: string },
         friendId: number
     ): Promise<UserPublicProfile> {
-        return lastValueFrom(
-            this.client.send<UserPublicProfile>("get_user_by_id", {
-                userId,
-                friendId,
-            })
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
+        return this.rpc.send<
+            { userId: number; friendId: number },
+            UserPublicProfile
+        >(
+            this.client,
+            "get_user_by_id",
+            { userId: user.id, friendId },
+            {
+                userId: user.id.toString(),
+                username: user.username,
+                origin: "UsersService.getUserById",
+            }
+        );
     }
 
     async getUserList(): Promise<UserPublicProfile[]> {
-        return lastValueFrom(
-            this.client.send<UserPublicProfile[]>("get_user_list", {})
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
+        return this.rpc.send<undefined, UserPublicProfile[]>(
+            this.client,
+            "get_user_list",
+            undefined,
+            {
+                origin: "UsersService.getUserList",
+            }
+        );
     }
 
-    async getProfile(userId: number): Promise<UserProfile> {
-        return lastValueFrom(
-            this.client.send<UserProfile>("get_user_profile", userId)
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
+    async getProfile(user: {
+        id: number;
+        username?: string;
+    }): Promise<UserProfile> {
+        return this.rpc.send<number, UserProfile>(
+            this.client,
+            "get_user_profile",
+            user.id,
+            {
+                userId: user.id.toString(),
+                username: user.username,
+                origin: "UsersService.getProfile",
+            }
+        );
     }
 
     async updateProfile(
-        userId: number,
+        user: { id: number; username?: string },
         dto: UpdateProfileDto
     ): Promise<UserProfile> {
-        return lastValueFrom(
-            this.client.send<UserProfile>("update_user_profile", {
-                userId,
-                data: dto,
-            })
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
+        return this.rpc.send<
+            { userId: number; data: UpdateProfileDto },
+            UserProfile
+        >(
+            this.client,
+            "update_user_profile",
+            { userId: user.id, data: dto },
+            {
+                userId: user.id.toString(),
+                username: user.username,
+                origin: "UsersService.updateProfile",
+            }
+        );
     }
 
     async searchUsers(query: string): Promise<UserPublicProfile[]> {
-        return lastValueFrom(
-            this.client.send<UserPublicProfile[]>("search_users", query)
-        ).catch((error) => this.rpcExceptionHandler.handle(error));
+        return this.rpc.send<string, UserPublicProfile[]>(
+            this.client,
+            "search_users",
+            query,
+            {
+                origin: "UsersService.searchUsers",
+            }
+        );
     }
 }

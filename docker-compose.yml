@@ -4,11 +4,14 @@ services:
     build:
       context: .
       dockerfile: app-frontend/Dockerfile
-    # depends_on:
-    #   - ms-gateway
+      args:
+        NEXT_PUBLIC_API_URL: http://ms-gateway:3000
+    depends_on:
+      - ms-gateway
     ports:
       - "3025:3025"
     environment:
+      - IS_DOCKER=true
       - NODE_ENV=production
       - PORT=3025
       - NEXTAUTH_URL=http://0.0.0.0:3025
@@ -21,9 +24,10 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3001
-      - JWT_SECRET=une_cle_secrete_tres_forte_dans_env_shared
+      - JWT_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
       - JWT_EXPIRES_IN=7d
       - HOST=0.0.0.0
       - SUPABASE_URL=https://wrivqparegjwiklfzsuq.supabase.co
@@ -38,7 +42,8 @@ services:
     ports:
       - "3002:3002"
     environment:
-      - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3002
       - HOST=0.0.0.0
     volumes:
@@ -51,7 +56,8 @@ services:
     ports:
       - "3003:3003"
     environment:
-      - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3003
       - HOST=0.0.0.0
     volumes:
@@ -67,7 +73,7 @@ services:
       - "3004:3004"
     environment:
       - IS_DOCKER=true
-      - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3004
       - HOST=0.0.0.0
     volumes:
@@ -83,7 +89,7 @@ services:
       - "3005:3005"
     environment:
       - IS_DOCKER=true
-      - DATABASE_URL=postgresql://postgres:ZienrLetWa7gw1MQ@db.wrivqparegjwiklfzsuq.supabase.co:5432/postgres
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3005
       - HOST=0.0.0.0
     volumes:
@@ -100,13 +106,12 @@ services:
       - ms-game-cinema-1
       - ms-game-cinema-2
       - ms-leaderboard
-
     ports:
       - "3000:3000"
     environment:
       - IS_DOCKER=true
       - PORT=3000
-      - JWT_SECRET=une_cle_secrete_tres_forte
+      - JWT_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
       - JWT_EXPIRES_IN=7d
     volumes:
       - /app/node_modules

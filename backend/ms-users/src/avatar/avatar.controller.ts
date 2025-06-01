@@ -9,6 +9,7 @@ export class AvatarController {
 
     @MessagePattern("get_avatar_assets")
     async getAvatarAssets() {
+        console.log("AvatarController: getAvatarAssets called");
         return this.avatarService.getAvatarAssets();
     }
 

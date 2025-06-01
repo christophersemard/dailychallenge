@@ -39,16 +39,15 @@ export async function fetchServerWithAuth<T>(
     }
 
     try {
-        const res = await fetch(
-            `${
-                process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
-            }${input}`,
-            {
-                ...init,
-                headers,
-                cache: "no-store",
-            }
-        );
+        const IS_DOCKER = process.env.IS_DOCKER === "true";
+        const API_URL = IS_DOCKER
+            ? "http://ms-gateway:3000"
+            : "http://localhost:3000";
+        const res = await fetch(`${API_URL}${input}`, {
+            ...init,
+            headers,
+            cache: "no-store",
+        });
 
         if (!res.ok) {
             const text = await res.text();

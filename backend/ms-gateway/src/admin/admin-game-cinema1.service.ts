@@ -1,42 +1,51 @@
+// src/admin-game-cinema1/admin-game-cinema1.service.ts
+
 import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { lastValueFrom } from "rxjs";
+import { RpcProxyService } from "../common/rpc-proxy.service";
 
 @Injectable()
 export class AdminGameCinema1Service {
     constructor(
-        @Inject("GAME_CINEMA_1_SERVICE") private gameCinemaClient: ClientProxy
+        @Inject("GAME_CINEMA_1_SERVICE") private gameCinemaClient: ClientProxy,
+        private readonly rpc: RpcProxyService
     ) {}
 
     async generateGameDays(
         startDate: string,
         endDate: string
     ): Promise<{ message: string }> {
-        return lastValueFrom(
-            this.gameCinemaClient.send<{ message: string }>(
-                "admin_generate_game_days",
-                { startDate, endDate }
-            )
+        return this.rpc.send(
+            this.gameCinemaClient,
+            "admin_generate_game_days",
+            { startDate, endDate },
+            {
+                origin: "AdminGameCinema1Service.generateGameDays",
+            }
         );
     }
 
     async getGameDaysStatus(
         month: string
     ): Promise<{ upcoming: string[]; missingDays: string[] }> {
-        return lastValueFrom(
-            this.gameCinemaClient.send<{
-                upcoming: string[];
-                missingDays: string[];
-            }>("admin_check_game_days_status", { month })
+        return this.rpc.send(
+            this.gameCinemaClient,
+            "admin_check_game_days_status",
+            { month },
+            {
+                origin: "AdminGameCinema1Service.getGameDaysStatus",
+            }
         );
     }
 
     async regenerateGameDay(date: string): Promise<{ message: string }> {
-        return lastValueFrom(
-            this.gameCinemaClient.send<{ message: string }>(
-                "admin_regenerate_game_day",
-                { date }
-            )
+        return this.rpc.send(
+            this.gameCinemaClient,
+            "admin_regenerate_game_day",
+            { date },
+            {
+                origin: "AdminGameCinema1Service.regenerateGameDay",
+            }
         );
     }
 }

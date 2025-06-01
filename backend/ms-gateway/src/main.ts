@@ -5,6 +5,7 @@ import * as path from "path";
 import { Logger } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { GlobalExceptionFilter } from "./filters/exception.filter";
+import { HttpLoggerInterceptor } from "./common/http-logger.interceptor";
 
 async function bootstrap() {
     // Charger les variables d'environnement (.env spécifique à ms-gateway)
@@ -24,6 +25,8 @@ async function bootstrap() {
 
     // Activer le filtre global pour les erreurs
     app.useGlobalFilters(new GlobalExceptionFilter());
+
+    app.useGlobalInterceptors(new HttpLoggerInterceptor());
 
     // Swagger - Documentation API
     const swaggerConfig = new DocumentBuilder()

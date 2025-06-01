@@ -16,7 +16,6 @@ export default async function MonProfilPage() {
     const { data: user, error } = await fetchServerWithAuth<UserMe>(
         "/api/users/me"
     );
-    console.log("Profil utilisateur :", user);
 
     if (!user) {
         console.error("Erreur récupération du profil utilisateur :", error);
