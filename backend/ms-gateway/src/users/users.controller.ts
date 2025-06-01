@@ -27,7 +27,10 @@ export class UsersController {
     @Get("me")
     @ApiOperation({ summary: "Récupère le profil connecté" })
     async getMe(@Req() req: UserRequest) {
-        return this.usersService.getProfile(req.user.id);
+        return this.usersService.getProfile({
+            id: req.user.id,
+            username: req.user.pseudo,
+        });
     }
 
     @Patch("update-profile")
@@ -36,7 +39,13 @@ export class UsersController {
         @Req() req: UserRequest,
         @Body() dto: UpdateProfileDto
     ) {
-        return this.usersService.updateProfile(req.user.id, dto);
+        return this.usersService.updateProfile(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            dto
+        );
     }
 
     // ✅ PUBLIC ----------------------
@@ -63,6 +72,12 @@ export class UsersController {
         @Param("id") id: string,
         @Req() req: UserRequest
     ): Promise<UserPublicProfile> {
-        return this.usersService.getUserById(Number(id), req.user.id);
+        return this.usersService.getUserById(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            Number(id)
+        );
     }
 }

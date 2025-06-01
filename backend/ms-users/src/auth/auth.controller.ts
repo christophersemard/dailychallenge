@@ -25,7 +25,13 @@ export class AuthController {
     }
 
     @MessagePattern("generate_jwt")
-    async generateJwt(user: { id: number; email: string; role: string }) {
+    async generateJwt(user: {
+        id: number;
+        email: string;
+        role: string;
+        pseudo: string;
+    }) {
+        // console.log("Generating JWT for user:", user);
         return { token: await this.authService.generateToken(user) };
     }
 }

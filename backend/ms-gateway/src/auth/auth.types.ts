@@ -4,6 +4,7 @@ export interface UserPayload {
     id: number;
     email: string;
     role: string;
+    pseudo: string;
 }
 
 export interface UserRequest extends Request {

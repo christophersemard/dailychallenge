@@ -17,12 +17,18 @@ export class AuthService {
         private userEventsService: UserEventsService
     ) {}
 
-    async generateToken(user: { id: number; email: string; role: string }) {
+    async generateToken(user: {
+        id: number;
+        email: string;
+        role: string;
+        pseudo: string;
+    }) {
         return this.jwtService.sign({
             sub: user.id,
             id: user.id,
             email: user.email,
             role: user.role,
+            pseudo: user.pseudo,
         });
     }
 

@@ -20,7 +20,10 @@ export class GameCinema1Controller {
     @UseGuards(JwtAuthGuard)
     @Get("today")
     async getTodayGame(@Req() req: UserRequest): Promise<GameData> {
-        return this.gameCinema1Service.getTodayGame(req.user.id);
+        return this.gameCinema1Service.getTodayGame({
+            id: req.user.id,
+            username: req.user.pseudo,
+        });
     }
 
     @UseGuards(JwtAuthGuard)
@@ -29,7 +32,13 @@ export class GameCinema1Controller {
         @Req() req: UserRequest,
         @Param("date") date: string
     ): Promise<GameData> {
-        return this.gameCinema1Service.getGameByDate(req.user.id, date);
+        return this.gameCinema1Service.getGameByDate(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            date
+        );
     }
 
     @UseGuards(JwtAuthGuard)
@@ -38,7 +47,14 @@ export class GameCinema1Controller {
         @Req() req: UserRequest,
         @Body() { guess, date }: { guess: number; date?: string }
     ): Promise<GuessResponse> {
-        return this.gameCinema1Service.submitGuess(req.user.id, guess, date);
+        return this.gameCinema1Service.submitGuess(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            guess,
+            date
+        );
     }
 
     @Get("search")
@@ -54,7 +70,13 @@ export class GameCinema1Controller {
         @Req() req: UserRequest,
         @Query("date") date?: string // ✅ `date` récupéré via Query
     ): Promise<GameResult | null> {
-        return this.gameCinema1Service.getGameResult(req.user.id, date);
+        return this.gameCinema1Service.getGameResult(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            date
+        );
     }
 
     @UseGuards(JwtAuthGuard)
@@ -64,7 +86,10 @@ export class GameCinema1Controller {
         @Query("month") month: string // ✅ `month` récupéré via Query
     ): Promise<GameResult[]> {
         return this.gameCinema1Service.getUserResultsByMonth(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             month
         );
     }
