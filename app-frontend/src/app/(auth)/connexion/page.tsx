@@ -24,6 +24,11 @@ function SearchParamHandler() {
                 }
             );
         }
+        if (searchParams.get("reset") === "true") {
+            toast.success("Mot de passe réinitialisé avec succès !", {
+                className: "toast-base toast-success",
+            });
+        }
     }, [searchParams]);
 
     return null;
@@ -143,6 +148,13 @@ export default function Connexion() {
                                             <Eye size={18} />
                                         )}
                                     </Button>
+                                </div><div className="text-end text-sm mt-4">
+                                    <Link
+                                        href="/mot-de-passe-oublie"
+                                        className="text-muted-foreground hover:underline"
+                                    >
+                                        Mot de passe oublié ?
+                                    </Link>
                                 </div>
                             </div>
 
