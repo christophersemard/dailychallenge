@@ -1,8 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { RpcProxyService } from "../common/rpc-proxy.service";
-import { UserPublicProfile } from "./users.types";
-import { UpdateProfileDto } from "../users/dto/update-profile.dto";
+import { UserPublicProfile, UpdatePseudoDto } from "./users.types";
 import { UserProfile } from "../users/profile.types";
 
 @Injectable()
@@ -58,21 +57,18 @@ export class UsersService {
         );
     }
 
-    async updateProfile(
+    async updatePseudo(
         user: { id: number; username?: string },
-        dto: UpdateProfileDto
+        dto: UpdatePseudoDto
     ): Promise<UserProfile> {
-        return this.rpc.send<
-            { userId: number; data: UpdateProfileDto },
-            UserProfile
-        >(
+        return this.rpc.send(
             this.client,
-            "update_user_profile",
+            "update_user_pseudo",
             { userId: user.id, data: dto },
             {
+                origin: "UsersService.updatePseudo",
                 userId: user.id.toString(),
                 username: user.username,
-                origin: "UsersService.updateProfile",
             }
         );
     }

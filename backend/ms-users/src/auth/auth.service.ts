@@ -1,14 +1,14 @@
 import {
     Injectable,
+    BadRequestException,
     UnauthorizedException,
     UnprocessableEntityException,
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
-import { BadRequestException } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { UserEventsService } from "../user-events/user-events.service";
-import { RpcException } from "@nestjs/microservices";
+import { randomUUID } from "crypto";
 
 @Injectable()
 export class AuthService {
@@ -37,79 +37,176 @@ export class AuthService {
     }
 
     async createUser(email: string, password: string, pseudo: string) {
-        if (!email || !password) {
+        if (!email || !password)
             throw new BadRequestException(
                 "Email et mot de passe obligatoires."
             );
-        }
 
-        // Vérification de l'existence de l'utilisateur
         const existingUser = await prisma.user.findUnique({
             where: { pseudo },
         });
-
-        if (existingUser) {
+        if (existingUser)
             throw new UnprocessableEntityException("Pseudo déjà pris.");
-        }
 
-        // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
-        // Création de l'utilisateur
         const user = await prisma.user.create({
-            data: {
-                email,
-                password: hashedPassword,
-                pseudo,
-            },
+            data: { email, password: hashedPassword, pseudo },
         });
 
-        // Création automatique des stats pour le nouvel utilisateur
         await prisma.userStats.create({
-            data: {
-                userId: user.id,
-                xp: 0,
-                level: 1,
-                streak: 0,
-            },
+            data: { userId: user.id, xp: 0, level: 1, streak: 0 },
         });
 
-        // 🔥 Ajout de l'événement "user_registered"
-        await this.userEventsService.addEvent(
-            user.id,
-            "user_registered",
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined
-        );
+        await this.userEventsService.addEvent(user.id, "user_registered");
 
         const { password: _, ...userWithoutPassword } = user;
         return userWithoutPassword;
     }
 
     async validateUser(email: string, password: string) {
-        if (!email || !password) {
+        if (!email || !password)
             throw new BadRequestException(
                 "Email et mot de passe obligatoires."
             );
-        }
 
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
             where: { email, deletedAt: null },
         });
 
-        if (!user) {
-            throw new BadRequestException("Identifiants incorrects.");
-        }
-
-        // ✅ Comparer le mot de passe entré avec le hash en base de données
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
+        if (!user || !(await bcrypt.compare(password, user.password))) {
             throw new BadRequestException("Identifiants incorrects.");
         }
 
         const { password: _, ...userWithoutPassword } = user;
         return userWithoutPassword;
+    }
+
+    async updatePassword(
+        userId: number,
+        dto: {
+            currentPassword: string;
+            newPassword: string;
+            confirmPassword: string;
+        }
+    ) {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) throw new UnauthorizedException("Utilisateur introuvable.");
+
+        const match = await bcrypt.compare(dto.currentPassword, user.password);
+        if (!match)
+            throw new UnauthorizedException("Mot de passe actuel incorrect.");
+
+        if (dto.newPassword !== dto.confirmPassword) {
+            throw new BadRequestException(
+                "Les mots de passe ne correspondent pas."
+            );
+        }
+
+        const newHash = await bcrypt.hash(dto.newPassword, 10);
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { password: newHash },
+        });
+
+        return { success: true };
+    }
+
+    async updateEmail(
+        userId: number,
+        dto: { currentPassword: string; newEmail: string }
+    ) {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) throw new UnauthorizedException("Utilisateur introuvable.");
+
+        const match = await bcrypt.compare(dto.currentPassword, user.password);
+        if (!match) throw new UnauthorizedException("Mot de passe incorrect.");
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { email: dto.newEmail },
+        });
+
+        return { success: true };
+    }
+
+    async deleteAccount(
+        userId: number,
+        currentPassword: string
+    ): Promise<{ success: boolean }> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+
+        if (!user) {
+            throw new UnauthorizedException("Utilisateur introuvable.");
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            throw new UnauthorizedException("Mot de passe incorrect.");
+        }
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: { deletedAt: new Date() },
+        });
+
+        return { success: true };
+    }
+    async sendResetPasswordToken(email: string) {
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user)
+            throw new BadRequestException("Aucun compte avec cet email.");
+
+        const token = randomUUID();
+
+        await prisma.passwordResetToken.deleteMany({
+            where: { userId: user.id },
+        });
+
+        await prisma.passwordResetToken.create({
+            data: {
+                userId: user.id,
+                token,
+                expiresAt: new Date(Date.now() + 1000 * 60 * 30),
+            },
+        });
+
+        // TODO : envoyer un mail si en prod
+        console.log(`Token de reset pour ${email}: ${token}`);
+
+        return { success: true };
+    }
+
+    async resetPasswordWithToken(data: {
+        token: string;
+        newPassword: string;
+        confirmPassword: string;
+    }) {
+        const token = await prisma.passwordResetToken.findUnique({
+            where: { token: data.token },
+            include: { user: true },
+        });
+
+        if (!token || token.expiresAt < new Date()) {
+            throw new BadRequestException("Token invalide ou expiré.");
+        }
+
+        if (data.newPassword !== data.confirmPassword) {
+            throw new BadRequestException(
+                "Les mots de passe ne correspondent pas."
+            );
+        }
+
+        const newHash = await bcrypt.hash(data.newPassword, 10);
+
+        await prisma.user.update({
+            where: { id: token.userId },
+            data: { password: newHash },
+        });
+
+        await prisma.passwordResetToken.delete({
+            where: { token: token.token },
+        });
+
+        return { success: true };
     }
 }

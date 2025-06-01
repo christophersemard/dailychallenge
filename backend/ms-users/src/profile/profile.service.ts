@@ -2,6 +2,7 @@ import {
     Injectable,
     ConflictException,
     NotFoundException,
+    BadRequestException,
 } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
@@ -14,9 +15,7 @@ export class ProfileService {
             select: {
                 id: true,
                 pseudo: true,
-                firstName: true,
-                lastName: true,
-                birthdate: true,
+                email: true,
                 isVip: true,
                 createdAt: true,
                 avatar: {
@@ -144,9 +143,7 @@ export class ProfileService {
         return {
             id: user.id,
             pseudo: user.pseudo,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            birthdate: user.birthdate,
+            email: user.email,
             createdAt: user.createdAt,
             isVip: user.isVip,
             avatar:
@@ -211,27 +208,21 @@ export class ProfileService {
         };
     }
 
-    async updateProfile(userId: number, dto: UpdateProfileDto) {
-        if (dto.pseudo) {
-            const existing = await prisma.user.findFirst({
-                where: {
-                    pseudo: dto.pseudo,
-                    id: { not: userId },
-                },
-            });
-            if (existing) {
-                throw new ConflictException("Ce pseudo est déjà utilisé");
-            }
+    async updatePseudo(userId: number, newPseudo: string) {
+        const existing = await prisma.user.findUnique({
+            where: { pseudo: newPseudo },
+        });
+
+        if (existing && existing.id !== userId) {
+            throw new BadRequestException("Ce pseudo est déjà utilisé.");
         }
 
-        return prisma.user.update({
+        const user = await prisma.user.update({
             where: { id: userId },
-            data: {
-                pseudo: dto.pseudo,
-                firstName: dto.firstName,
-                lastName: dto.lastName,
-                birthdate: dto.birthdate ? new Date(dto.birthdate) : undefined,
-            },
+            data: { pseudo: newPseudo },
         });
+
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
     }
 }

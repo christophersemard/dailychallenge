@@ -64,7 +64,7 @@ export default function LeaderboardUserList({
                 <Image
                     src={
                         entry.user.avatar ||
-                        `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`
+                        `/assets/default-avatar.webp`
                     }
                     alt={entry.user.pseudo}
                     width={50}

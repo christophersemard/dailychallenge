@@ -21,7 +21,7 @@ export default function DrawerUserMenuMobile({ user, onClose }: Props) {
                     <Image
                         height={50}
                         width={50}
-                        src={user!.avatar?.url || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                        src={user!.avatar?.url || `/assets/default-avatar.webp`}
                         alt={user!.pseudo}
                         className="size-12 me-2 rounded "
                     />

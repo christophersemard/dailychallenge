@@ -101,9 +101,6 @@ async function generateUsers() {
                     email,
                     password,
                     pseudo: `Player${i + 1}`,
-                    firstName: `Prenom${i + 1}`,
-                    lastName: `Nom${i + 1}`,
-                    birthdate: new Date(1995, i % 12, (i + 1) * 2),
                 },
             });
         })

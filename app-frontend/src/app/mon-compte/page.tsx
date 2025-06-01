@@ -1,23 +1,78 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
+import { toast } from "sonner";
 import Card from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { UserMe } from "@/types/user.types";
+import PasswordChangeBlock from "@/components/account/PasswordChangeBlock";
+import EmailChangeModal from "@/components/account/EmailChangeModal";
+import AccountDeleteModal from "@/components/account/AccountDeleteModal";
+import { useGameEventStore } from "@/lib/store/useGameEventStore";
 
 export default function MonComptePage() {
-    const [pseudo, setPseudo] = useState("Robert76140");
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    const [user, setUser] = useState<UserMe | null>(null);
+    const [pseudo, setPseudo] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    // Chargement des données utilisateur
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/connexion");
+        } else if (status === "authenticated") {
+            fetchClientWithAuth<UserMe>("/api/users/me").then(({ data, error }) => {
+                if (error || !data) {
+                    toast.error("Impossible de récupérer ton profil.");
+                    return;
+                }
+                console.log("Données utilisateur récupérées :", data);
+                setUser(data);
+                setPseudo(data.pseudo);
+            });
+        }
+    }, [status]);
+
+    if (!user) return <div className="mt-20" />;
+
+    const handlePseudoChange = async () => {
+        if (pseudo.trim().length < 3) {
+            toast.error("Ton pseudo doit contenir au moins 3 caractères.");
+            return;
+        }
+
+        setLoading(true);
+        const { data, error } = await fetchClientWithAuth("/api/users/pseudo", {
+            method: "PATCH",
+            body: JSON.stringify({ pseudo }),
+        });
+        setLoading(false);
+
+        if (error) {
+            toast.error(error.message || "Erreur lors de la mise à jour du pseudo.");
+            return;
+        }
+
+        toast.success("Ton pseudo a bien été mis à jour !");
+        setUser((prev) => (prev ? { ...prev, pseudo } : prev));
+        useGameEventStore.getState().notifyGameCompleted();
+    };
 
     return (
-        <div className="p-4 sm:p-8 max-w-6xl mx-auto">
+        <div className="p-4 sm:p-8 max-w-6xl mx-auto w-full">
             <h1 className="text-3xl font-bold mb-6">Mon compte</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6">
                 {/* COLONNE PRINCIPALE */}
-                <div className="space-y-6">
+                <div className="space-y-6 flex flex-col gap-6">
                     {/* Bloc Modifier Profil */}
-                    <Card title="Profil" color="primary" className="space-y-4">
+                    <Card title="Pseudo" color="primary" className="space-y-4">
                         <div>
                             <label className="text-sm font-medium block mb-1">
                                 Pseudo
@@ -27,112 +82,38 @@ export default function MonComptePage() {
                                 onChange={(e) => setPseudo(e.target.value)}
                             />
                         </div>
-                        <Button>Enregistrer</Button>
+                        <div className="flex justify-end">
+                            <Button
+                                onClick={handlePseudoChange}
+                                disabled={loading}
+                            >
+                                Modifier mon pseudo
+                            </Button>
+                        </div>
                     </Card>
 
                     {/* Bloc Mot de passe */}
-                    <Card
-                        title="Mot de passe"
-                        color="primary"
-                        className="space-y-4"
-                    >
-                        <div>
-                            <label className="text-sm font-medium block mb-1">
-                                Mot de passe actuel
-                            </label>
-                            <Input type="password" />
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium block mb-1">
-                                Nouveau mot de passe
-                            </label>
-                            <Input type="password" />
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium block mb-1">
-                                Confirmation
-                            </label>
-                            <Input type="password" />
-                        </div>
-                        <Button>Modifier mon mot de passe</Button>
+                    <Card title="Mot de passe" color="primary" className="space-y-4">
+                        <PasswordChangeBlock />
                     </Card>
                 </div>
 
                 {/* COLONNE SECONDAIRE */}
-                <div className="space-y-6">
+                <div className="space-y-6 flex flex-col gap-6">
                     {/* Bloc Email */}
-                    <Card
-                        title="Adresse email"
-                        color="primary"
-                        className="space-y-2"
-                    >
-                        <p className="text-sm text-muted-foreground">
+                    <Card title="Adresse email" color="primary" className="space-y-2">
+                        <p className="text-sm text-muted-foreground mb-2">
                             Tu peux modifier ton adresse email de connexion.
                         </p>
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button>Modifier mon email</Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <h2 className="text-lg font-bold mb-4">
-                                    Modifier mon email
-                                </h2>
-                                <div className="space-y-3">
-                                    <div>
-                                        <label className="text-sm font-medium block mb-1">
-                                            Mot de passe actuel
-                                        </label>
-                                        <Input type="password" />
-                                    </div>
-                                    <div>
-                                        <label className="text-sm font-medium block mb-1">
-                                            Nouvel email
-                                        </label>
-                                        <Input type="email" />
-                                    </div>
-                                    <Button className="mt-2 w-full">
-                                        Valider le changement
-                                    </Button>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                        <div className="flex items-center gap-2">
+                            <Input value={user.email} disabled className="flex-1" />
+                            <EmailChangeModal />
+                        </div>
                     </Card>
 
                     {/* Bloc Suppression compte */}
-                    <Card
-                        title="Suppression"
-                        color="primary"
-                        className="space-y-2"
-                    >
-                        <p className="text-sm text-danger">
-                            Cette action est irréversible. Ton compte sera
-                            supprimé.
-                        </p>
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button variant="danger">
-                                    Supprimer mon compte
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <h2 className="text-lg font-bold mb-4 text-danger">
-                                    Supprimer mon compte
-                                </h2>
-                                <div className="space-y-3">
-                                    <p className="text-sm text-muted-foreground">
-                                        Merci de confirmer avec ton mot de passe
-                                        :
-                                    </p>
-                                    <Input type="password" />
-                                    <Button
-                                        variant="danger"
-                                        className="mt-2 w-full"
-                                    >
-                                        Supprimer définitivement
-                                    </Button>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                    <Card title="" color="danger" className="space-y-2" >
+                        <AccountDeleteModal />
                     </Card>
                 </div>
             </div>

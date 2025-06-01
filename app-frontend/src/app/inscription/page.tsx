@@ -32,7 +32,7 @@ export default function Inscription() {
         }
 
         try {
-            const res = await fetchClientWithAuth<{ success: boolean }>("/auth/register", {
+            const res = await fetchClientWithAuth<{ success: boolean }>("/api/auth/register", {
                 method: "POST",
                 body: JSON.stringify({ email, password, pseudo }),
                 headers: { "Content-Type": "application/json" },

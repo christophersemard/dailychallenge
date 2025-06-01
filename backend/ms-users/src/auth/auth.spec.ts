@@ -100,6 +100,7 @@ describe("AuthController", () => {
                 id: 1,
                 email: "test@example.com",
                 role: "user",
+                pseudo: "Player_123",
             });
 
             expect(authService.generateToken).toHaveBeenCalledWith({
@@ -122,6 +123,7 @@ describe("AuthService", () => {
         email: "test@example.com",
         password: "hashedpassword",
         role: "user",
+        pseudo: "Player_123",
     };
 
     beforeEach(async () => {
@@ -196,9 +198,9 @@ describe("AuthService", () => {
                 streak: 0,
             } as any);
 
-            (bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>) = jest
-                .fn()
-                .mockResolvedValue("hashedpassword");
+            (bcrypt.hash as jest.MockedFunction<
+                typeof bcrypt.hash
+            >) = jest.fn().mockResolvedValue("hashedpassword");
         });
 
         it("should create a user and emit an event", async () => {
@@ -224,11 +226,12 @@ describe("AuthService", () => {
                 password: "hashedpassword",
             } as any);
 
-            (bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>) =
-                jest.fn().mockResolvedValue(true);
-            (bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>) = jest
-                .fn()
-                .mockResolvedValue("hashedpassword");
+            (bcrypt.compare as jest.MockedFunction<
+                typeof bcrypt.compare
+            >) = jest.fn().mockResolvedValue(true);
+            (bcrypt.hash as jest.MockedFunction<
+                typeof bcrypt.hash
+            >) = jest.fn().mockResolvedValue("hashedpassword");
         });
 
         it("should return user if credentials are valid", async () => {
@@ -240,8 +243,9 @@ describe("AuthService", () => {
         });
 
         it("should throw error if password is invalid", async () => {
-            (bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>) =
-                jest.fn().mockResolvedValue(false);
+            (bcrypt.compare as jest.MockedFunction<
+                typeof bcrypt.compare
+            >) = jest.fn().mockResolvedValue(false);
 
             await expect(
                 authService.validateUser("valid@example.com", "wrong")

@@ -125,14 +125,17 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   pseudo: 'pseudo',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  birthdate: 'birthdate',
   isVip: 'isVip',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  token: 'token',
+  userId: 'userId',
+  expiresAt: 'expiresAt'
 };
 
 exports.Prisma.AvatarScalarFieldEnum = {
@@ -315,6 +318,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  PasswordResetToken: 'PasswordResetToken',
   Avatar: 'Avatar',
   Color: 'Color',
   AvatarAsset: 'AvatarAsset',

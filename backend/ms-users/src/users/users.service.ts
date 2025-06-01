@@ -213,7 +213,7 @@ export class UsersService {
             throw new BadRequestException("Requête de recherche requise.");
         }
 
-        let users = await prisma.user.findMany({
+        const users = await prisma.user.findMany({
             where: {
                 deletedAt: null,
                 OR: [{ pseudo: { contains: query, mode: "insensitive" } }],
