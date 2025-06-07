@@ -27,6 +27,8 @@ import { AdminGameCinema2Service } from "./admin/admin-game-cinema2.service";
 import { AdminGameCinema2Controller } from "./admin/admin-game-cinema2.controller";
 import { RpcClientLoggerService } from "./common/rpc-client-logger.service";
 import { RpcProxyService } from "./common/rpc-proxy.service";
+import { AdminUsersController } from "./admin/admin-users.controller";
+import { AdminUsersService } from "./admin/admin-users.service";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -90,11 +92,14 @@ console.log("isDocker", isDocker);
     ],
     controllers: [
         AuthController,
+
+        AdminGameCinema1Controller,
+        AdminGameCinema2Controller,
+        AdminUsersController,
+
         FriendsController,
         UsersController,
         LeaderboardController,
-        AdminGameCinema1Controller,
-        AdminGameCinema2Controller,
         AvatarController,
         GameCinema1Controller,
         GameCinema2Controller,
@@ -102,16 +107,20 @@ console.log("isDocker", isDocker);
     providers: [
         AuthService,
         JwtStrategy,
-        FriendsService,
-        RpcExceptionHandlerService,
         CacheService,
-        UsersService,
-        LeaderboardService,
+
         AdminGameCinema1Service,
         AdminGameCinema2Service,
+        AdminUsersService,
+
+        FriendsService,
+        UsersService,
+        LeaderboardService,
         GameCinema1Service,
         GameCinema2Service,
         AvatarService,
+
+        RpcExceptionHandlerService,
         RpcClientLoggerService,
         RpcProxyService,
 

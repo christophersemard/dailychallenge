@@ -23,7 +23,7 @@ export class AvatarService {
             }),
         ]);
 
-        let objects = {
+        const objects = {
             shapes: assets.filter((a) => a.type === "shape"),
             patterns: assets.filter((a) => a.type === "pattern"),
             eyes: assets.filter((a) => a.type === "eyes"),
@@ -407,8 +407,8 @@ export class AvatarService {
             return path.join(__dirname, "..", "..", "src", "avatar", cleaned);
         };
 
-        let valueShape = colorShape.gradientValue || colorShape.value;
-        let valuePattern = colorPattern?.gradientValue || colorPattern?.value;
+        const valueShape = colorShape.gradientValue || colorShape.value;
+        const valuePattern = colorPattern?.gradientValue || colorPattern?.value;
 
         return {
             shape: await this.loadAssetBuffer(getPath(shapeAsset.url)),

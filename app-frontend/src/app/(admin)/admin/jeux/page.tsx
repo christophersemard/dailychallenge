@@ -48,7 +48,6 @@ const getMissingDays = async (
             `/api/admin/game-${path}/status?month=${month}`
         );
 
-        console.log(`Statut du jeu ${path} pour le mois ${month} :`, res);
 
         if (res.error?.statusCode === 404) {
             is404 = true;
@@ -113,7 +112,6 @@ export default async function AdminGamesPage() {
         }
     }
 
-    console.log("Jeux chargés :", allGames);
 
     return (
         <div className="p-4 space-y-6">

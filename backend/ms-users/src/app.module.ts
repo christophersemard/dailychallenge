@@ -20,6 +20,8 @@ import { UsersService } from "./users/users.service";
 import { SupabaseService } from "./supabase/supabase.service";
 import mailConfig from "./config/mail.config";
 import { MailerService } from "./mailer/mailer.service";
+import { AdminController } from "./admin/admin.controller";
+import { AdminService } from "./admin/admin.service";
 
 @Module({
     imports: [
@@ -40,6 +42,7 @@ import { MailerService } from "./mailer/mailer.service";
         UserGameController,
         ProfileController,
         AvatarController,
+        AdminController,
     ],
     providers: [
         SupabaseService,
@@ -52,6 +55,7 @@ import { MailerService } from "./mailer/mailer.service";
         AvatarService,
         UsersService,
         MailerService,
+        AdminService,
     ],
     exports: [SupabaseService],
 })
