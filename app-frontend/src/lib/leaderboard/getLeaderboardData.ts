@@ -71,9 +71,9 @@ export async function getLeaderboardData({
         }
     }
 
-    console.log("URL du leaderboard :", url);
-    console.log("Paramètres du leaderboard :", params.toString());
-    console.log(`${url}${separator}${params.toString()}`);
+    // console.log("URL du leaderboard :", url);
+    // console.log("Paramètres du leaderboard :", params.toString());
+    // console.log(`${url}${separator}${params.toString()}`);
 
     const { data, error } = await fetchClientWithAuth<LeaderboardData>(
         `${url}${separator}${params.toString()}`

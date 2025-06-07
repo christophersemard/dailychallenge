@@ -49,6 +49,16 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                     {/* Navigation (desktop uniquement) */}
                     <nav className="ps-4 hidden md:flex gap-8 text-sm font-medium">
                         <CategoryDropdown />
+                        <Link href="/classement?type=global&period=all&page=1" className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none">
+                            Classement
+                        </Link>
+                        {
+                            isAuthenticated && user?.role == "admin" && (
+                                <Link href="/admin" className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none">
+                                    Admin
+                                </Link>
+                            )
+                        }
                     </nav>
                 </div>
 

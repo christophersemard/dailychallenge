@@ -26,7 +26,7 @@ export default async function UserPublicProfilePage({ params }: Props) {
     const currentUserId = session!.user.id;
 
     return (
-        <div className="max-w-4xl mx-auto w-full">
+        <div className="max-w-6xl mx-auto w-full">
             <UserProfile user={data} currentUserId={Number(currentUserId)} />
         </div>
     );

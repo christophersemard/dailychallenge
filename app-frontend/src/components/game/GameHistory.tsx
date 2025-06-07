@@ -117,99 +117,98 @@ export default function GameHistory({
             <div className="grid grid-cols-7 gap-3 px-2 mt-4">
                 {results
                     ? results.map((res, i) => {
-                          const day = i + 1;
-                          const fullDate = new Date(
-                              currentDate.getFullYear(),
-                              currentDate.getMonth(),
-                              day
-                          );
-                          const dateStr = [
-                              fullDate.getFullYear(),
-                              String(fullDate.getMonth() + 1).padStart(2, "0"),
-                              String(fullDate.getDate()).padStart(2, "0"),
-                          ].join("-");
+                        const day = i + 1;
+                        const fullDate = new Date(
+                            currentDate.getFullYear(),
+                            currentDate.getMonth(),
+                            day
+                        );
+                        const dateStr = [
+                            fullDate.getFullYear(),
+                            String(fullDate.getMonth() + 1).padStart(2, "0"),
+                            String(fullDate.getDate()).padStart(2, "0"),
+                        ].join("-");
 
-                          const isFutureDay =
-                              fullDate > today &&
-                              fullDate.getMonth() === today.getMonth() &&
-                              fullDate.getFullYear() === today.getFullYear();
+                        const isFutureDay =
+                            fullDate > today &&
+                            fullDate.getMonth() === today.getMonth() &&
+                            fullDate.getFullYear() === today.getFullYear();
 
-                          let bg =
-                              "bg-white border-background border-2 hover:bg-background";
-                          let icon = null;
-                          let tooltip = `${day} ${getMonthName(currentDate)}`;
+                        let bg =
+                            "bg-white border-background border-2 hover:bg-background";
+                        let icon = null;
+                        let tooltip = `${day} ${getMonthName(currentDate)}`;
 
-                          if (isFutureDay) {
-                              return (
-                                  <div
-                                      key={i}
-                                      className="size-8 rounded bg-white border-none opacity-10 flex items-center justify-center  cursor-default"
-                                      title="Jour à venir"
-                                  >
-                                      {day}
-                                  </div>
-                              );
-                          }
+                        if (isFutureDay) {
+                            return (
+                                <div
+                                    key={i}
+                                    className="size-8 rounded bg-white border-none opacity-30 flex items-center justify-center  cursor-default"
+                                    title="Jour à venir"
+                                >
+                                    {day}
+                                </div>
+                            );
+                        }
 
-                          if (res.result) {
-                              tooltip += ` | ${
-                                  res.result.status === "passed"
-                                      ? "Réussi"
-                                      : "Échoué"
-                              }`;
-                              tooltip += ` | ${res.result.score} pts`;
-                              tooltip += ` | ${res.result.xpGained} XP`;
+                        if (res.result) {
+                            tooltip += ` | ${res.result.status === "passed"
+                                    ? "Réussi"
+                                    : "Échoué"
+                                }`;
+                            tooltip += ` | ${res.result.score} pts`;
+                            tooltip += ` | ${res.result.xpGained} XP`;
 
-                              if (res.result.status === "passed") {
-                                  bg = "bg-success";
-                                  icon = (
-                                      <Check
-                                          className="text-white size-4"
-                                          strokeWidth={4}
-                                      />
-                                  );
-                              } else {
-                                  bg = "bg-danger";
-                                  icon = (
-                                      <X
-                                          className="text-white size-4"
-                                          strokeWidth={4}
-                                      />
-                                  );
-                              }
-                          }
+                            if (res.result.status === "passed") {
+                                bg = "bg-success";
+                                icon = (
+                                    <Check
+                                        className="text-white size-4"
+                                        strokeWidth={4}
+                                    />
+                                );
+                            } else {
+                                bg = "bg-danger";
+                                icon = (
+                                    <X
+                                        className="text-white size-4"
+                                        strokeWidth={4}
+                                    />
+                                );
+                            }
+                        }
 
-                          const content = icon || (
-                              <span className=" text-black font-bold  border-none ">
-                                  {day}
-                              </span>
-                          );
+                        const content = icon || (
+                            <span className=" text-black font-bold  border-none ">
+                                {day}
+                            </span>
+                        );
 
-                          return res.gameDay ? (
-                              <Link
-                                  href={`/jeu/${gameId}/${dateStr}`}
-                                  key={i}
-                                  className={`size-7 rounded-sm ${bg} flex items-center justify-center  cursor-pointer hover:opacity-80`}
-                                  title={tooltip}
-                              >
-                                  {content}
-                              </Link>
-                          ) : (
-                              <div
-                                  key={i}
-                                  className={`size-7 rounded-sm ${bg} flex items-center cursor-pointer justify-center text-black hover:bg-white border-none font-bold opacity-50`}
-                                  title={tooltip + " | Pas de jeu ce jour-là"}
-                              >
-                                  {day}
-                              </div>
-                          );
-                      })
+                        return res.gameDay ? (
+                            <Link
+                                href={`/jeu/${gameId}/${dateStr}`}
+                                key={i}
+                                className={`size-7 rounded-sm ${bg} flex items-center justify-center  cursor-pointer hover:opacity-80`}
+                                title={tooltip}
+                            >
+                                {content}
+                            </Link>
+                        ) : (
+                            <div
+                                key={i}
+                                className={`size-7 rounded-sm ${bg} flex items-center cursor-pointer justify-center text-black hover:bg-white border-none font-bold opacity-50`}
+                                title={tooltip + " | Pas de jeu ce jour-là"}
+                            >
+                                {day}
+                            </div>
+                        );
+                    })
                     : Array.from({ length: 30 }).map((_, i) => (
-                          <div
-                              key={i}
-                              className="size-7 rounded bg-background animate-pulse"
-                          />
-                      ))}
+                        <div
+                            key={i}
+                            className="size-7 rounded bg-background animate-pulse"
+                        />
+                    ))}
             </div>
 
             <div className="w-full h-[1px] bg-black/10 my-2" />

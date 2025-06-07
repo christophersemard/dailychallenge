@@ -19,30 +19,9 @@ type LeaderboardParams = {
     page: number;
 };
 
-function ClassementSearchParamsHandler({
-    onParamsReady,
-}: {
-    onParamsReady: (params: LeaderboardParams) => void;
-}) {
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-        const type = (searchParams.get("type") ||
-            "global") as LeaderboardParams["type"];
-        const period = (searchParams.get("period") ||
-            "all") as LeaderboardParams["period"];
-        const category = searchParams.get("category") || "";
-        const gameId = searchParams.get("gameId") || null;
-        const page = Number(searchParams.get("page")) || 1;
-
-        onParamsReady({ type, period, category, gameId, page });
-    }, [searchParams, onParamsReady]);
-
-    return null;
-}
-
 export default function ClassementPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { data: session } = useSession();
     const userId = session?.user?.id;
     const limit = 3;
@@ -53,18 +32,44 @@ export default function ClassementPage() {
     const [numberOfPlayers, setNumberOfPlayers] = useState(0);
     const [loading, setLoading] = useState(true);
     const [title, setTitle] = useState("Classement");
+    const [isClient, setIsClient] = useState(false);
+
+    // ✅ on attend d'être côté client avant de faire quoi que ce soit
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     useEffect(() => {
-        if (!params) return;
+        if (!isClient) return;
+
+        // Si aucun paramètre, on redirige avec des valeurs par défaut
+        if (!searchParams.get("type") && !searchParams.get("period") && !searchParams.get("page")) {
+            const defaultParams = new URLSearchParams({
+                type: "global",
+                period: "all",
+                page: "1",
+            });
+            router.replace(`/classement?${defaultParams.toString()}`);
+            return;
+        }
+
+        const type = (searchParams.get("type") || "global") as LeaderboardParams["type"];
+        const period = (searchParams.get("period") || "all") as LeaderboardParams["period"];
+        const category = searchParams.get("category") || "";
+        const gameId = searchParams.get("gameId") || null;
+        const page = Number(searchParams.get("page")) || 1;
+
+        const finalParams: LeaderboardParams = { type, period, category, gameId, page };
+        setParams(finalParams);
 
         setLoading(true);
 
         getLeaderboardData({
-            type: params.type,
-            period: params.period,
-            category: params.category,
-            gameId: params.gameId,
-            offset: params.page === 1 ? 0 : params.page * limit - limit,
+            type,
+            period,
+            category,
+            gameId,
+            offset: page === 1 ? 0 : page * limit - limit,
             limit,
         }).then(({ players, player, numberOfPlayers }) => {
             setPlayers(players);
@@ -75,18 +80,18 @@ export default function ClassementPage() {
 
         // Mise à jour du titre dynamique
         let newTitle = "Classement";
-        if (params.type === "global") newTitle = "Classement global";
-        if (params.type === "friends") newTitle = "Classement amis";
-        if (params.period === "week") newTitle += " de la semaine en cours";
-        if (params.period === "month")
+        if (type === "global") newTitle = "Classement global";
+        if (type === "friends") newTitle = "Classement amis";
+        if (period === "week") newTitle += " de la semaine en cours";
+        if (period === "month")
             newTitle +=
                 " du mois de " +
                 new Date().toLocaleString("default", { month: "long" });
-        if (params.period === "year")
+        if (period === "year")
             newTitle += " de l'année " + new Date().getFullYear();
-        if (params.period === "all") newTitle += " de tous les temps";
+        if (period === "all") newTitle += " de tous les temps";
         setTitle(newTitle);
-    }, [params]);
+    }, [searchParams.toString(), isClient]);
 
     const updateSearchParam = (
         type: string,
@@ -102,30 +107,20 @@ export default function ClassementPage() {
 
     if (!params) {
         return (
-            <>
-                <Suspense>
-                    <ClassementSearchParamsHandler onParamsReady={setParams} />
-                </Suspense>
-                <div className="max-w-5xl mx-auto w-full p-6">
-                    Chargement...
-                </div>
-            </>
+            <div className="max-w-5xl mx-auto w-full p-6">
+                Chargement...
+            </div>
         );
     }
 
     return (
         <div className="max-w-5xl mx-auto w-full p-6 space-y-6">
-            <Suspense>
-                <ClassementSearchParamsHandler onParamsReady={setParams} />
-            </Suspense>
             <Card color="primary" title={title}>
                 <LeaderboardCategorySelector
                     initialCategory={params.category}
                     initialGame={params.gameId}
                     onChange={(cat, game) => {
-                        const newParams = new URLSearchParams(
-                            window.location.search
-                        );
+                        const newParams = new URLSearchParams(window.location.search);
                         if (cat) newParams.set("category", cat);
                         else newParams.delete("category");
 

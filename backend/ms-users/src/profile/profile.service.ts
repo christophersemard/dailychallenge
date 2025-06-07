@@ -16,6 +16,7 @@ export class ProfileService {
                 id: true,
                 pseudo: true,
                 email: true,
+                role: true,
                 isVip: true,
                 createdAt: true,
                 avatar: {
@@ -145,6 +146,7 @@ export class ProfileService {
             pseudo: user.pseudo,
             email: user.email,
             createdAt: user.createdAt,
+            role: user.role,
             isVip: user.isVip,
             avatar:
                 (user.avatar && {

@@ -30,6 +30,7 @@ export interface UserMe {
     id: string;
     email: string;
     pseudo: string;
+    role: string; // "user" | "admin"
     createdAt: string;
     avatar: UserAvatar | null; // Avatar de l'utilisateur
     userStats: UserStats;

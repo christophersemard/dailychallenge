@@ -43,16 +43,20 @@ export default async function Page() {
         );
     }
 
-    // Déterminer le nombre de colonnes selon le nombre de catégories
-    let categoriesLength = 0;
-    categories.forEach((category) => {
-        if (category.games.length > 0) {
-            categoriesLength++;
-        }
-    });
-    let gridCols = "md:grid-cols-3"; // par défaut
-    if (categoriesLength === 2) gridCols = "md:grid-cols-2";
-    else if (categoriesLength > 2 && categoriesLength % 2 === 0) gridCols = "md:grid-cols-4";
+    // Filtrage des catégories ayant au moins un jeu visible
+    const visibleCategories = categories.filter((category) =>
+        category.games.some(
+            (game) => game.status === "available" || game.status === "coming_soon"
+        )
+    );
+
+    const count = visibleCategories.length;
+
+    let gridClass = "grid grid-cols-1 gap-8 w-full mt-6";
+    if (count === 2) gridClass = "grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-6 max-w-4xl";
+    else if (count > 2 && count % 2 === 0) gridClass = "grid grid-cols-1 md:grid-cols-4 gap-8 w-full mt-6";
+    else if (count > 1) gridClass = "grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-6";
+    else if (count === 1) gridClass = "flex justify-center w-full mt-6"; // centré
 
     return (
         <>
@@ -98,31 +102,42 @@ export default async function Page() {
                         </div>
                     )}
 
+                    <h2 className="text-2xl font-bold text-foreground mb-6">
+                        Nos jeux disponibles en ce moment
+                    </h2>
+
                     {/* Grille dynamique des jeux par catégorie */}
-                    <div className={`grid grid-cols-1 ${gridCols} gap-8 w-full mt-6`}>
-                        {categories.map((category) => (
-                            category.games.length > 0 &&
+                    <div className={gridClass}>
+                        {visibleCategories.map((category) => (
                             <CategoryCard
                                 key={category.id}
                                 title={category.name}
                                 color={category.color as Color}
                             >
                                 <div className="flex flex-col gap-4">
-                                    {category.games.map((game) => (
-                                        <GameItem
-                                            key={game.id}
-                                            color={category.color as Color}
-                                            icon={game.imgUrl} // null accepté, fallback via <GameItem />
-                                            title={game.name}
-                                            description={game.description}
-                                            url={`/jeu/${game.path}`}
-                                            status={game.status as "available" | "coming-soon"}
-                                        />
-                                    ))}
+                                    {category.games.map((game) => {
+                                        if (
+                                            game.status !== "available" &&
+                                            game.status !== "coming_soon"
+                                        ) return null;
+
+                                        return (
+                                            <GameItem
+                                                key={game.id}
+                                                color={category.color as Color}
+                                                icon={game.imgUrl}
+                                                title={game.name}
+                                                description={game.description}
+                                                url={`/jeu/${game.path}`}
+                                                status={game.status as "available" | "coming_soon"}
+                                            />
+                                        );
+                                    })}
                                 </div>
                             </CategoryCard>
                         ))}
                     </div>
+
                 </div>
             </div>
         </>

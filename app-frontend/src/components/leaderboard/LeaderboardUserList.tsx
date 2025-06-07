@@ -23,6 +23,13 @@ export default function LeaderboardUserList({
     userId,
     userEntry,
 }: Props) {
+    console.log("LeaderboardUserList rendered", {
+        entries,
+        offset,
+        loading,
+        userId,
+        userEntry,
+    })
     const isUserInList = entries.some((e) => String(e.user.id) === String(userId))
 
     const getRankClass = (index: number | null) => {

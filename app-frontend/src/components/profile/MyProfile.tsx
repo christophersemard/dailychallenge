@@ -16,7 +16,7 @@ type Props = {
 export default function MyProfile({ user }: Props) {
     return (
         <div className="flex flex-col items-center gap-8">
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 w-full max-w-8xl">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 w-full max-w-6xl">
                 {/* Colonne gauche */}
                 <div className="flex flex-col gap-6">
                     <Card title={false} color="primary">

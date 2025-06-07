@@ -11,7 +11,7 @@ type Props = {
     title: string
     description: string
     url?: string
-    status?: "coming-soon" | "available"
+    status?: "coming_soon" | "available" | "unavailable"
 }
 
 
@@ -59,7 +59,7 @@ export default function GameItem({
                         <div className="text-sm text-muted-foreground text-start mb-1">{description}</div>
                     </div>
                 </Link>
-                :
+                : status === "coming_soon" &&
                 <div className={cn("p-3 rounded flex items-center space-x-5 relative hover:bg-white! ", bg)}>
                     <div className={cn("", text)}>
                         {icon ? (
