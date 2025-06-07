@@ -22,19 +22,6 @@ type GameWithStatus = {
     missingDays: number;
 };
 
-const translateStatus = (status: string) => {
-    switch (status) {
-        case "available":
-            return "Disponible";
-        case "coming_soon":
-            return "Bientôt";
-        case "unavailable":
-            return "Indisponible";
-        default:
-            return status;
-    }
-};
-
 const getMissingDays = async (
     path: string
 ): Promise<{ generationStatus: GameWithStatus["generationStatus"]; missingDays: number }> => {

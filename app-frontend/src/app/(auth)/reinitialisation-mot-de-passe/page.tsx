@@ -1,7 +1,15 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import {
+    useRouter,
+    useSearchParams
+} from "next/navigation";
+import {
+    useEffect,
+    useMemo,
+    useState,
+    Suspense
+} from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
@@ -12,13 +20,22 @@ import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShap
 import { Eye, EyeOff, Check, X } from "lucide-react";
 import clsx from "clsx";
 
+function TokenHandler({ onTokenReady }: { onTokenReady: (token: string | null) => void }) {
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const token = searchParams.get("token");
+        onTokenReady(token);
+    }, [searchParams]);
+
+    return null;
+}
+
 export default function ResetPasswordPage() {
     const router = useRouter();
-    const params = useSearchParams();
-    const token = params.get("token");
-
     const { data: session, status } = useSession();
 
+    const [token, setToken] = useState<string | null>(null);
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -76,15 +93,26 @@ export default function ResetPasswordPage() {
     }), [newPassword]);
 
     const renderRule = (label: string, isValid: boolean) => (
-        <li key={label} className={clsx("text-sm flex items-center gap-2", isValid ? "text-success" : "text-danger")}>
+        <li
+            key={label}
+            className={clsx("text-sm flex items-center gap-2", isValid ? "text-success" : "text-danger")}
+        >
             {isValid ? <Check size={16} /> : <X size={16} />}
             {label}
         </li>
     );
 
+    if (token === null && status !== "authenticated") {
+        return null;
+    }
+
     return (
         <div className="flex-1 flex items-center justify-center">
             <FloatingBackgroundShapes variant="yellow" />
+
+            <Suspense fallback={null}>
+                <TokenHandler onTokenReady={setToken} />
+            </Suspense>
 
             <Card color="yellow" title="Réinitialisation mot de passe">
                 <div className="grid md:grid-cols-1 gap-6">
@@ -94,13 +122,14 @@ export default function ResetPasswordPage() {
                         </p>
                     ) : (
                         <div className="space-y-4">
-
                             <p className="text-sm text-muted-foreground">
                                 Renseignez votre nouveau mot de passe.
                             </p>
 
                             <div>
-                                <label htmlFor="newPassword" className="block font-semibold mb-1 text-sm">Mot de passe</label>
+                                <label htmlFor="newPassword" className="block font-semibold mb-1 text-sm">
+                                    Mot de passe
+                                </label>
                                 <div className="relative">
                                     <Input
                                         id="newPassword"

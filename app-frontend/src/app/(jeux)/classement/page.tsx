@@ -1,3 +1,4 @@
+// app/classement/page.tsx
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
@@ -19,7 +20,7 @@ type LeaderboardParams = {
     page: number;
 };
 
-export default function ClassementPage() {
+function ClassementClient() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { data: session } = useSession();
@@ -32,43 +33,28 @@ export default function ClassementPage() {
     const [numberOfPlayers, setNumberOfPlayers] = useState(0);
     const [loading, setLoading] = useState(true);
     const [title, setTitle] = useState("Classement");
-    const [isClient, setIsClient] = useState(false);
-
-    // ✅ on attend d'être côté client avant de faire quoi que ce soit
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     useEffect(() => {
-        if (!isClient) return;
-
-        // Si aucun paramètre, on redirige avec des valeurs par défaut
-        if (!searchParams.get("type") && !searchParams.get("period") && !searchParams.get("page")) {
-            const defaultParams = new URLSearchParams({
-                type: "global",
-                period: "all",
-                page: "1",
-            });
-            router.replace(`/classement?${defaultParams.toString()}`);
-            return;
-        }
-
         const type = (searchParams.get("type") || "global") as LeaderboardParams["type"];
         const period = (searchParams.get("period") || "all") as LeaderboardParams["period"];
         const category = searchParams.get("category") || "";
         const gameId = searchParams.get("gameId") || null;
         const page = Number(searchParams.get("page")) || 1;
 
-        const finalParams: LeaderboardParams = { type, period, category, gameId, page };
-        setParams(finalParams);
+        // Redirection initiale si vide
+        if (!searchParams.get("type") && !searchParams.get("period") && !searchParams.get("page")) {
+            const defaults = new URLSearchParams({ type: "global", period: "all", page: "1" });
+            router.replace(`/classement?${defaults.toString()}`);
+            return;
+        }
+
+        const newParams: LeaderboardParams = { type, period, category, gameId, page };
+        setParams(newParams);
 
         setLoading(true);
 
         getLeaderboardData({
-            type,
-            period,
-            category,
-            gameId,
+            ...newParams,
             offset: page === 1 ? 0 : page * limit - limit,
             limit,
         }).then(({ players, player, numberOfPlayers }) => {
@@ -78,26 +64,18 @@ export default function ClassementPage() {
             setLoading(false);
         });
 
-        // Mise à jour du titre dynamique
+        // Mise à jour du titre
         let newTitle = "Classement";
         if (type === "global") newTitle = "Classement global";
         if (type === "friends") newTitle = "Classement amis";
         if (period === "week") newTitle += " de la semaine en cours";
-        if (period === "month")
-            newTitle +=
-                " du mois de " +
-                new Date().toLocaleString("default", { month: "long" });
-        if (period === "year")
-            newTitle += " de l'année " + new Date().getFullYear();
+        if (period === "month") newTitle += " du mois de " + new Date().toLocaleString("default", { month: "long" });
+        if (period === "year") newTitle += " de l'année " + new Date().getFullYear();
         if (period === "all") newTitle += " de tous les temps";
         setTitle(newTitle);
-    }, [searchParams.toString(), isClient]);
+    }, [searchParams, router]);
 
-    const updateSearchParam = (
-        type: string,
-        period: string,
-        newPage: number
-    ) => {
+    const updateSearchParam = (type: string, period: string, newPage: number) => {
         const newParams = new URLSearchParams(window.location.search);
         newParams.set("type", type);
         newParams.set("period", period);
@@ -106,11 +84,7 @@ export default function ClassementPage() {
     };
 
     if (!params) {
-        return (
-            <div className="max-w-5xl mx-auto w-full p-6">
-                Chargement...
-            </div>
-        );
+        return <div className="max-w-5xl mx-auto w-full p-6">Chargement...</div>;
     }
 
     return (
@@ -134,9 +108,7 @@ export default function ClassementPage() {
                 <LeaderboardFilters
                     initialScope={params.type}
                     initialPeriod={params.period}
-                    onChange={(type, period) =>
-                        updateSearchParam(type, period, params.page)
-                    }
+                    onChange={(type, period) => updateSearchParam(type, period, params.page)}
                 />
 
                 <LeaderboardUserList
@@ -152,11 +124,17 @@ export default function ClassementPage() {
                     limit={limit}
                     totalPlayers={numberOfPlayers}
                     totalPages={Math.ceil(numberOfPlayers / limit)}
-                    onChange={(newPage) =>
-                        updateSearchParam(params.type, params.period, newPage)
-                    }
+                    onChange={(newPage) => updateSearchParam(params.type, params.period, newPage)}
                 />
             </Card>
         </div>
+    );
+}
+
+export default function ClassementPage() {
+    return (
+        <Suspense fallback={<div className="max-w-5xl mx-auto w-full p-6">Chargement classement...</div>}>
+            <ClassementClient />
+        </Suspense>
     );
 }

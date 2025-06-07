@@ -1,13 +1,16 @@
 import { GameAdminPage } from "@/components/admin/GameAdminPage";
 
 type Props = {
-    params: { game: string };
+    params: Promise<{ game: string }>;
 };
 
-export default function AdminGamePage({ params }: Props) {
+export default async function AdminGamePage({ params }: Props) {
+
+
+    const { game } = await params;
     return (
         <div className="">
-            <GameAdminPage gameId={params.game} />
+            <GameAdminPage gameId={game} />
         </div>
     );
 }
