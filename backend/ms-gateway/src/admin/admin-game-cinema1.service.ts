@@ -48,4 +48,15 @@ export class AdminGameCinema1Service {
             }
         );
     }
+
+    async updateGameStatus(status: string): Promise<{ message: string }> {
+        return this.rpc.send(
+            this.gameCinemaClient,
+            "admin_update_game_status",
+            { status },
+            {
+                origin: "AdminGameCinema1Service.updateGameStatus",
+            }
+        );
+    }
 }

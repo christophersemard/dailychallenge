@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 
+const GAME_ID = 4; // Identifiant du jeu GameCinema1
+
 @Injectable()
 export class AdminService {
     // ✅ Génère un GameCinema2Day pour chaque jour entre `startDate` et `endDate`
@@ -100,5 +102,14 @@ export class AdminService {
         });
 
         return { message: `Film ${randomMovie.title} assigné au ${date}` };
+    }
+
+    async updateGameStatus(status: string) {
+        await prisma.game.update({
+            where: { id: GAME_ID },
+            data: { status },
+        });
+
+        return { message: `Statut du jeu mis à jour : ${status}` };
     }
 }

@@ -10,27 +10,12 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { fetchServerAction } from "@/app/actions/fetch-proxy";
 import { Color } from "@/types/colors.types";
+import { GameCategory } from "@/types/game.types";
 
-type Game = {
-    id: number;
-    name: string;
-    description: string;
-    imgUrl: string | null;
-    path: string;
-    status: string;
-};
-
-type GameCategory = {
-    id: number;
-    name: string;
-    color: string;
-    games: Game[];
-};
 
 export default async function Page() {
     const session = await getServerSession(authOptions);
 
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     const { data: categories, error } = await fetchServerAction<GameCategory[]>(
         "/api/leaderboard/games-and-categories"
     );
