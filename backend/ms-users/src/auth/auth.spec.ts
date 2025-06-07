@@ -16,9 +16,16 @@ jest.mock("../prisma/prisma.service", () => {
             user: {
                 create: jest.fn(),
                 findUnique: jest.fn(),
+                findFirst: jest.fn(), // ✅ à ajouter ici
             },
             userStats: {
                 create: jest.fn(),
+            },
+            passwordResetToken: {
+                create: jest.fn(),
+                findUnique: jest.fn(),
+                delete: jest.fn(),
+                deleteMany: jest.fn(),
             },
         },
     };
@@ -108,6 +115,7 @@ describe("AuthController", () => {
                 id: 1,
                 email: "test@example.com",
                 role: "user",
+                pseudo: "Player_123",
             });
             expect(result).toEqual({ token: "mocked-jwt-token" });
         });
@@ -176,6 +184,7 @@ describe("AuthService", () => {
                 id: mockUser.id,
                 email: mockUser.email,
                 role: mockUser.role,
+                pseudo: mockUser.pseudo,
             });
             expect(token).toBe("mocked-token");
         });
@@ -235,6 +244,7 @@ describe("AuthService", () => {
                 id: 1,
                 email: "valid@example.com",
                 password: "hashedpassword",
+                pseudo: "ValidUser",
             } as any);
 
             (bcrypt.compare as jest.MockedFunction<
@@ -246,6 +256,13 @@ describe("AuthService", () => {
         });
 
         it("should return user if credentials are valid", async () => {
+            jest.spyOn(prisma.user, "findFirst").mockResolvedValue({
+                id: 1,
+                email: "valid@example.com",
+                password: "hashedpassword",
+                pseudo: "ValidUser",
+            } as any);
+
             const user = await authService.validateUser(
                 "valid@example.com",
                 "securepassword"
@@ -264,7 +281,7 @@ describe("AuthService", () => {
         });
 
         it("should throw error if user not found", async () => {
-            jest.spyOn(prisma.user, "findUnique").mockResolvedValue(null);
+            jest.spyOn(prisma.user, "findFirst").mockResolvedValue(null);
 
             await expect(
                 authService.validateUser("missing@example.com", "password")
