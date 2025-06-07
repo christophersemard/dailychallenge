@@ -29,6 +29,9 @@ import { RpcClientLoggerService } from "./common/rpc-client-logger.service";
 import { RpcProxyService } from "./common/rpc-proxy.service";
 import { AdminUsersController } from "./admin/admin-users.controller";
 import { AdminUsersService } from "./admin/admin-users.service";
+import { WebhookController } from "./webhook/webhook.controller";
+import { VipController } from "./vip/vip.controller";
+import { VipService } from "./vip/vip.service";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -103,6 +106,9 @@ console.log("isDocker", isDocker);
         AvatarController,
         GameCinema1Controller,
         GameCinema2Controller,
+
+        WebhookController,
+        VipController,
     ],
     providers: [
         AuthService,
@@ -119,6 +125,7 @@ console.log("isDocker", isDocker);
         GameCinema1Service,
         GameCinema2Service,
         AvatarService,
+        VipService,
 
         RpcExceptionHandlerService,
         RpcClientLoggerService,

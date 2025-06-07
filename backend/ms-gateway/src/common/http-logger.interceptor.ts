@@ -23,6 +23,14 @@ export class HttpLoggerInterceptor implements NestInterceptor {
                 ? `\n➡️ Body: ${JSON.stringify(filteredBody)}`
                 : "";
 
+        // Si le corps a plus de 50 clés on ne l'affiche pas
+        if (Object.keys(filteredBody).length > 50) {
+            this.logger.log(
+                `📥 [${username}] ${method} ${originalUrl} - Body too large to display`
+            );
+            return next.handle();
+        }
+
         return next.handle().pipe(
             tap(() => {
                 this.logger.log(

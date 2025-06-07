@@ -33,7 +33,7 @@ export class AdminService {
                     id: true,
                     pseudo: true,
                     email: true,
-                    isVip: true,
+                    // isVip: true,
                     deletedAt: true,
                     userStats: {
                         select: {
@@ -56,7 +56,7 @@ export class AdminService {
             id: u.id,
             pseudo: u.pseudo,
             email: u.email,
-            isVip: u.isVip,
+            // isVip: u.isVip,
             isActive: u.deletedAt === null,
             xp: u.userStats?.xp ?? 0,
             level: u.userStats?.level ?? 1,
@@ -92,7 +92,7 @@ export class AdminService {
 
         if (pseudo !== undefined) data.pseudo = pseudo;
         if (email !== undefined) data.email = email;
-        if (isVip !== undefined) data.isVip = isVip;
+        // if (isVip !== undefined) data.isVip = isVip;
         if (isActive !== undefined)
             data.deletedAt = isActive ? null : new Date();
 
@@ -103,7 +103,7 @@ export class AdminService {
                 id: true,
                 pseudo: true,
                 email: true,
-                isVip: true,
+                // isVip: true,
                 deletedAt: true,
             },
         });

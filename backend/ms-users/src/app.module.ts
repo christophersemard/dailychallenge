@@ -22,6 +22,8 @@ import mailConfig from "./config/mail.config";
 import { MailerService } from "./mailer/mailer.service";
 import { AdminController } from "./admin/admin.controller";
 import { AdminService } from "./admin/admin.service";
+import { VipService } from "./vip/vip.service";
+import { VipController } from "./vip/vip.controller";
 
 @Module({
     imports: [
@@ -43,6 +45,7 @@ import { AdminService } from "./admin/admin.service";
         ProfileController,
         AvatarController,
         AdminController,
+        VipController,
     ],
     providers: [
         SupabaseService,
@@ -56,6 +59,7 @@ import { AdminService } from "./admin/admin.service";
         UsersService,
         MailerService,
         AdminService,
+        VipService,
     ],
     exports: [SupabaseService],
 })

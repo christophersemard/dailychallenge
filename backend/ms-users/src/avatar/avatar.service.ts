@@ -118,7 +118,7 @@ export class AvatarService {
                 userStats: {
                     select: { level: true },
                 },
-                isVip: true,
+                // isVip: true,
             },
         });
 
@@ -148,11 +148,11 @@ export class AvatarService {
                     `L'asset "${asset.name}" nécessite le niveau ${asset.level}`
                 );
             }
-            if (asset.vipOnly && !user.isVip) {
-                throw new RpcException(
-                    `L'asset "${asset.name}" est réservé aux VIP`
-                );
-            }
+            // if (asset.vipOnly && !user.isVip) {
+            //     throw new RpcException(
+            //         `L'asset "${asset.name}" est réservé aux VIP`
+            //     );
+            // }
         }
 
         for (const color of colors) {
@@ -161,11 +161,11 @@ export class AvatarService {
                     `La couleur "${color.name}" nécessite le niveau ${color.level}`
                 );
             }
-            if (color.vip && !user.isVip) {
-                throw new RpcException(
-                    `La couleur "${color.name}" est réservée aux VIP`
-                );
-            }
+            // if (color.vip && !user.isVip) {
+            //     throw new RpcException(
+            //         `La couleur "${color.name}" est réservée aux VIP`
+            //     );
+            // }
         }
     }
 
