@@ -6,6 +6,7 @@ import { AuthController } from "./auth.controller";
 import { UserEventsService } from "../user-events/user-events.service";
 import * as bcrypt from "bcryptjs";
 import prisma from "../prisma/prisma.service";
+import { MailerService } from "../mailer/mailer.service";
 
 jest.mock("../prisma/prisma.service", () => {
     const actual = jest.requireActual("../prisma/prisma.service");
@@ -145,6 +146,16 @@ describe("AuthService", () => {
                     provide: UserEventsService,
                     useValue: {
                         addEvent: jest.fn(),
+                    },
+                },
+                {
+                    provide: MailerService,
+                    useValue: {
+                        sendWelcomeEmail: jest.fn(),
+                        sendPasswordChangedEmail: jest.fn(),
+                        sendEmailChangedEmail: jest.fn(),
+                        sendAccountDeletedEmail: jest.fn(),
+                        sendPasswordResetEmail: jest.fn(),
                     },
                 },
             ],
