@@ -38,6 +38,8 @@ services:
       - SMTP_PASS=00c090c8ae3639
       - SMTP_FROM="DailyChallenge <noreply@mailtrap.io>"
       - FRONTEND_URL=http://localhost:3025
+      - STRIPE_SECRET_KEY=sk_test_51RXUO5CmEo8NdUUqMJDxA6remFQvkTJRDqvIaCNwxPME467DZqLOXFPmxFELcqyQjMUehCOHZGPQ2HrnqmLLtvI200yFuQhY0d
+      - STRIPE_WEBHOOK_SECRET=whsec_2f9ff5f34f636024910185d5485aae58bda0ac0f808587095287daaa081be7a8
     volumes:
       - /app/node_modules
 
@@ -119,6 +121,8 @@ services:
       - PORT=3000
       - JWT_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
       - JWT_EXPIRES_IN=7d
+      - STRIPE_SECRET_KEY=sk_test_51RXUO5CmEo8NdUUqMJDxA6remFQvkTJRDqvIaCNwxPME467DZqLOXFPmxFELcqyQjMUehCOHZGPQ2HrnqmLLtvI200yFuQhY0d
+      - STRIPE_WEBHOOK_SECRET=whsec_2f9ff5f34f636024910185d5485aae58bda0ac0f808587095287daaa081be7a8
     volumes:
       - /app/node_modules
 
