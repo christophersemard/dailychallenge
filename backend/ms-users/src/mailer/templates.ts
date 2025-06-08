@@ -53,3 +53,47 @@ export function emailResetPassword(token: string) {
             "Si tu n’es pas à l’origine de cette demande, tu peux ignorer cet email.",
     });
 }
+
+export function emailVipSubscribed(pseudo: string, endDate: Date) {
+    return generateEmailTemplate({
+        title: "Bienvenue parmi les VIP 👑",
+        message: `Merci ${pseudo} pour ton soutien ! Ton abonnement VIP est maintenant actif jusqu’au <strong>${endDate.toLocaleDateString(
+            "fr-FR"
+        )}</strong>.`,
+        buttonLabel: "Voir mes avantages",
+        buttonUrl: `${process.env.FRONTEND_URL}/vip`,
+        footer: "Profite bien de tous les avantages VIP sur DailyChallenge ✨",
+    });
+}
+
+export function emailVipCancelled(pseudo: string, endDate: Date) {
+    return generateEmailTemplate({
+        title: "Abonnement VIP résilié",
+        message: `Ton abonnement VIP a été résilié. Tu conserveras tes avantages jusqu’au <strong>${endDate.toLocaleDateString(
+            "fr-FR"
+        )}</strong>.`,
+        buttonLabel: "Gérer mon abonnement",
+        buttonUrl: `${process.env.FRONTEND_URL}/mon-compte`,
+        footer: "Tu pourras te réabonner à tout moment depuis ton compte.",
+    });
+}
+
+export function emailVipReactivated(pseudo: string) {
+    return generateEmailTemplate({
+        title: "Renouvellement automatique activé",
+        message: `Le renouvellement automatique de ton abonnement VIP a bien été réactivé, ${pseudo}.`,
+        buttonLabel: "Voir mon abonnement",
+        buttonUrl: `${process.env.FRONTEND_URL}/mon-compte`,
+        footer: "Merci pour ton soutien ! 💛",
+    });
+}
+
+export function emailVipExpired(pseudo: string) {
+    return generateEmailTemplate({
+        title: "Ton abonnement VIP a expiré",
+        message: `Ton abonnement VIP est arrivé à expiration. Tu n’as plus accès aux avantages VIP.`,
+        buttonLabel: "Se réabonner",
+        buttonUrl: `${process.env.FRONTEND_URL}/vip`,
+        footer: "Tu peux te réabonner à tout moment depuis ton compte.",
+    });
+}

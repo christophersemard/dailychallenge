@@ -105,7 +105,8 @@ export type GameCinema2Tries = $Result.DefaultSelection<Prisma.$GameCinema2Tries
 export namespace $Enums {
   export const VipPlan: {
   monthly: 'monthly',
-  yearly: 'yearly'
+  yearly: 'yearly',
+  manual: 'manual'
 };
 
 export type VipPlan = (typeof VipPlan)[keyof typeof VipPlan]

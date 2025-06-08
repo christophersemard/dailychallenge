@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     ConflictException,
     Inject,
     Injectable,
@@ -9,6 +10,7 @@ import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
 
 const GAME_ID = 1; // ID du jeu cinéma 1
+const BASE_MAX_ATTEMPTS = 10;
 
 @Injectable()
 export class GameService {
@@ -24,49 +26,61 @@ export class GameService {
             where: { date: new Date(date) },
             include: { movie: true },
         });
-
-        if (!game) {
+        if (!game)
             throw new NotFoundException("Aucun jeu trouvé pour cette date.");
+
+        const now = new Date();
+        const dateOnly = new Date(date);
+        dateOnly.setHours(0, 0, 0, 0);
+        const todayOnly = new Date();
+        todayOnly.setHours(0, 0, 0, 0);
+
+        const vipProfile = await this.getUserVipProfile(userId);
+
+        if (dateOnly.getTime() !== todayOnly.getTime() && !vipProfile.isVip) {
+            throw new BadRequestException(
+                "Tu dois être VIP pour jouer aux jours précédents."
+            );
         }
 
-        // ✅ Vérifier si le joueur a déjà trouvé en regardant GameResult
         const gameResult = await prisma.gameResult.findFirst({
             where: { userId, gameId: GAME_ID, date: game.date },
         });
 
-        // ✅ Vérifier le nombre d'essais réalisés
         const attempts = await prisma.gameCinema1Tries.findMany({
             where: { userId, dayId: game.id },
         });
 
+        console.log(
+            `User ${userId} has made ${
+                attempts.length
+            } attempts for game on ${game.date.toISOString()}`
+        );
+        const maxAttempts = BASE_MAX_ATTEMPTS + (vipProfile.extraAttempt ?? 0);
+
         const hints = await this.getHints(userId, game.id, attempts.length);
 
         return {
-            guessed: !!gameResult, // ✅ Retourne true si GameResult existe
+            guessed: !!gameResult,
             date: game.date,
             hints: hints.hints,
             lastHintUnlocked: hints.lastHintUnlocked,
-            maskedTitle: this.getMaskedTitle(game.movie.title), // ✅ Spectre du nom du film
+            maskedTitle: this.getMaskedTitle(game.movie.title),
             attempts: attempts.length,
-            maxAttempts: 10,
-            data: gameResult ? game.movie : null, // ✅ Si le joueur a trouvé, on retourne le film
-            gameResult: gameResult || null, // ✅ Si le joueur a trouvé, on retourne le GameResult
+            maxAttempts,
+            data: gameResult ? game.movie : null,
+            gameResult: gameResult || null,
             tries: attempts,
         };
     }
 
     async submitGuess(userId: number, guess: string, date?: string) {
-        const gameDate = date ? new Date(date) : new Date(); // ✅ Si pas de date, on prend aujourd'hui
+        const gameDate = date ? new Date(date) : new Date();
 
-        // ✅ Vérifier si un jeu existe pour cette date
         const game = await prisma.gameCinema1Days.findFirst({
             where: {
                 date: {
-                    gte: new Date(
-                        gameDate.getFullYear(),
-                        gameDate.getMonth(),
-                        gameDate.getDate()
-                    ),
+                    gte: new Date(gameDate.toDateString()),
                     lt: new Date(
                         gameDate.getFullYear(),
                         gameDate.getMonth(),
@@ -77,21 +91,29 @@ export class GameService {
             include: { movie: true },
         });
 
-        if (!game) {
+        if (!game)
             throw new NotFoundException("Aucun jeu trouvé pour cette date.");
+
+        const now = new Date();
+        const dateOnly = new Date(game.date);
+        dateOnly.setHours(0, 0, 0, 0);
+        const todayOnly = new Date();
+        todayOnly.setHours(0, 0, 0, 0);
+
+        const vipProfile = await this.getUserVipProfile(userId);
+
+        if (dateOnly.getTime() !== todayOnly.getTime() && !vipProfile.isVip) {
+            throw new BadRequestException(
+                "Tu dois être VIP pour jouer aux jours précédents."
+            );
         }
 
-        // Vérifier si le joueur a déjà trouvé en regardant GameResult
         const gameResult = await prisma.gameResult.findFirst({
             where: {
                 userId,
                 gameId: GAME_ID,
                 date: {
-                    gte: new Date(
-                        gameDate.getFullYear(),
-                        gameDate.getMonth(),
-                        gameDate.getDate()
-                    ),
+                    gte: new Date(gameDate.toDateString()),
                     lt: new Date(
                         gameDate.getFullYear(),
                         gameDate.getMonth(),
@@ -101,19 +123,19 @@ export class GameService {
             },
         });
 
-        if (gameResult) {
+        if (gameResult)
             throw new ConflictException("Vous avez déjà trouvé pour ce jour.");
-        }
 
         const existingTries = await prisma.gameCinema1Tries.count({
             where: { userId, dayId: game.id },
         });
 
-        if (existingTries >= 10) {
+        const maxAttempts = BASE_MAX_ATTEMPTS + (vipProfile.extraAttempt ?? 0);
+
+        if (existingTries >= maxAttempts) {
             throw new NotFoundException("Nombre maximal d'essais atteint.");
         }
 
-        // ✅ Vérifier si la réponse est correcte
         const formattedGuess = Number(guess);
         const correct = game.movie.id === formattedGuess;
 
@@ -121,7 +143,6 @@ export class GameService {
             where: { id: formattedGuess },
         });
 
-        // ✅ Enregistrer l'essai
         await prisma.gameCinema1Tries.create({
             data: {
                 userId,
@@ -131,79 +152,122 @@ export class GameService {
             },
         });
 
-        // ✅ Enregistrer dans `GameResult` si le joueur trouve la réponse
-        if (correct) {
+        const currentAttempts = existingTries + 1;
+
+        if (correct || currentAttempts >= maxAttempts) {
+            const status = correct ? "passed" : "failed";
+
             const result = await lastValueFrom(
                 this.usersClient.send("record_game_result", {
                     userId,
                     gameId: GAME_ID,
-                    attempts: existingTries + 1,
-                    maxAttempts: 10,
-                    status: "passed",
-                    gameDate: new Date(game.date),
+                    attempts: currentAttempts,
+                    maxAttempts,
+                    status,
+                    gameDate: game.date,
                 })
             );
 
             return {
-                lastGuessed: true,
-                hints: await this.getHints(
-                    userId,
-                    game.id,
-                    existingTries + 1
-                ).then((h) => h.hints),
-                newHint: null, // Pas utile ici car il a déjà trouvé
-                attempts: existingTries + 1,
-                maxAttempts: 10,
-                data: game.movie,
-                result, // On peut renvoyer le gameResult si tu veux l'afficher
-            };
-        } else {
-            // Si le joueur a atteint le nombre maximal d'essais, retourner la réponse
-            if (existingTries + 1 >= 10) {
-                // ✅ Enregistrer dans `GameResult` si le joueur n'a pas trouvé la réponse
-
-                const result = await lastValueFrom(
-                    this.usersClient.send("record_game_result", {
-                        userId,
-                        gameId: GAME_ID,
-                        attempts: existingTries + 1,
-                        maxAttempts: 10,
-                        status: "failed",
-                        gameDate: new Date(game.date),
-                    })
-                );
-
-                return {
-                    lastGuessed: false,
-                    hints: await this.getHints(
-                        userId,
-                        game.id,
-                        existingTries + 1
-                    ).then((h) => h.hints),
-                    newHint: null, // Pas utile ici car il a déjà trouvé
-                    attempts: existingTries + 1,
-                    maxAttempts: 10,
-                    data: game.movie,
-                    result, // On peut renvoyer le gameResult si tu veux l'afficher
-                };
-            }
-
-            const hints = await this.getHints(
-                userId,
-                game.id,
-                existingTries + 1
-            );
-            return {
                 lastGuessed: correct,
-                hints: hints.hints,
-                newHint: hints.lastHintUnlocked,
-                attempts: existingTries + 1,
-                maxAttempts: 10,
-                data: correct ? game.movie : null,
+                hints: (await this.getHints(userId, game.id, currentAttempts))
+                    .hints,
+                newHint: null,
+                attempts: currentAttempts,
+                maxAttempts,
+                data: game.movie,
+                result,
             };
+        }
+
+        const hints = await this.getHints(userId, game.id, currentAttempts);
+        return {
+            lastGuessed: false,
+            hints: hints.hints,
+            newHint: hints.lastHintUnlocked,
+            attempts: currentAttempts,
+            maxAttempts,
+            data: null,
+        };
+    }
+
+    private async getUserVipProfile(
+        userId: number
+    ): Promise<{ isVip: boolean; extraAttempt: number }> {
+        try {
+            const data = await lastValueFrom(
+                this.usersClient.send("get_user_profile", userId)
+            );
+
+            if (!data) return { isVip: false, extraAttempt: 0 };
+            if (
+                data.vip?.status === "active" ||
+                data.vip?.status === "cancelled"
+            ) {
+                return { isVip: true, extraAttempt: 1 };
+            }
+            return { isVip: false, extraAttempt: 0 };
+        } catch {
+            return { isVip: false, extraAttempt: 0 };
         }
     }
 
+    private async getHints(userId: number, dayId: number, attempts: number) {
+        const game = await prisma.gameCinema1Days.findUnique({
+            where: { id: dayId },
+            include: { movie: true },
+        });
+
+        if (!game)
+            throw new NotFoundException("Aucun jeu trouvé pour cette date.");
+
+        const formattedReleaseDate = new Date(
+            game.movie.releaseDate
+        ).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+        });
+        const formattedRuntime = `${Math.floor(game.movie.runtime! / 60)}h${
+            game.movie!.runtime! % 60
+        }`;
+
+        const formattedKeywords = game.movie
+            .keywords!.split(",")
+            .slice(0, 5)
+            .map((keyword) => keyword.trim())
+            .join(", ");
+
+        const hintsData = {
+            genres: game.movie.genres,
+            runtime: attempts > 0 ? formattedRuntime : null,
+            releaseDate: attempts > 1 ? formattedReleaseDate : null,
+            director: attempts > 2 ? game.movie.director : null,
+            actors: attempts > 3 ? game.movie.actors : null,
+            keywords: attempts > 4 ? formattedKeywords : null,
+            firstAndLastLetters:
+                attempts > 5
+                    ? `${game.movie.title[0]}${
+                          game.movie.title[game.movie.title.length - 1]
+                      }`
+                    : null,
+        };
+
+        const hintsKeys = Object.keys(hintsData);
+
+        return {
+            hints: hintsData,
+            lastHintUnlocked:
+                attempts < hintsKeys.length ? hintsKeys[attempts] : null,
+        };
+    }
+
+    private getMaskedTitle(title: string): string {
+        return title
+            .split("")
+            .map((char) => (char.match(/[a-zA-ZÀ-ÿ0-9]/i) ? "*" : char))
+            .join("");
+    }
     async searchMovie(query: string) {
         const movies = await prisma.dataMovie.findMany({
             where: {
@@ -248,11 +312,9 @@ export class GameService {
             }
         });
     }
-
     async getGameResult(userId: number, date?: string) {
-        const gameDate = date ? new Date(date) : new Date(); // ✅ Si pas de date, on prend aujourd'hui
+        const gameDate = date ? new Date(date) : new Date();
 
-        // ✅ Vérifier si un jeu existe pour cette date
         const game = await prisma.gameCinema1Days.findFirst({
             where: {
                 date: {
@@ -274,7 +336,6 @@ export class GameService {
             throw new NotFoundException("Aucun jeu trouvé pour cette date.");
         }
 
-        // ✅ Vérifier si le joueur a un résultat pour ce jour-là
         const gameResult = await prisma.gameResult.findFirst({
             where: { userId: Number(userId), gameId: game.id, date: gameDate },
         });
@@ -291,7 +352,6 @@ export class GameService {
         const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
         const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-        // On récupère tous les résultats de l'utilisateur sur le jeu cinéma 1 pour le mois donné
         const results = await prisma.gameResult.findMany({
             where: {
                 userId,
@@ -304,7 +364,6 @@ export class GameService {
             orderBy: { date: "asc" },
         });
 
-        // On récupère tous les jeux du mois donné
         const gamesInMonth = await prisma.gameCinema1Days.findMany({
             where: {
                 date: {
@@ -315,7 +374,6 @@ export class GameService {
             include: { movie: true },
         });
 
-        // On crée un tableau avec chaque jour du mois et on y associe son résultat ou null
         const daysInMonth = new Date(
             date.getFullYear(),
             date.getMonth() + 1,
@@ -344,79 +402,16 @@ export class GameService {
             return {
                 date: day,
                 result: result || null,
-                gameDay: gamesInMonth.find(
+                gameDay: gamesInMonth.some(
                     (game) =>
                         game.date.getDate() === day.getDate() &&
                         game.date.getMonth() === day.getMonth() &&
                         game.date.getFullYear() === day.getFullYear()
-                )
-                    ? true
-                    : false,
+                ),
                 guess: movie ? movie.movie.title : null,
             };
         });
 
         return resultsByDay;
-    }
-
-    private async getHints(userId: number, dayId: number, attempts: number) {
-        // ✅ Récupération du film lié à cette journée de jeu
-        const game = await prisma.gameCinema1Days.findUnique({
-            where: { id: dayId },
-            include: { movie: true },
-        });
-
-        if (!game)
-            throw new NotFoundException("Aucun jeu trouvé pour cette date.");
-
-        const formattedReleaseDate = new Date(
-            game.movie.releaseDate
-        ).toLocaleDateString("fr-FR", {
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
-        });
-        const formattedRuntime = `${Math.floor(game.movie.runtime! / 60)}h${
-            game.movie!.runtime! % 60
-        }`;
-
-        // On garde seulement les 5 premiers mots de la liste des mots-clés
-        const formattedKeywords = game.movie
-            .keywords!.split(",")
-            .slice(0, 5)
-            .map((keyword) => keyword.trim())
-            .join(", ");
-
-        // ✅ Liste des indices disponibles sous forme d'objet clé/valeur
-        const hintsData = {
-            genres: game.movie.genres,
-            runtime: attempts > 0 ? formattedRuntime : null,
-            releaseDate: attempts > 1 ? formattedReleaseDate : null,
-            director: attempts > 2 ? game.movie.director : null,
-            actors: attempts > 3 ? game.movie.actors : null,
-            keywords: attempts > 4 ? formattedKeywords : null,
-            firstAndLastLetters:
-                attempts > 5
-                    ? `${game.movie.title[0]}${
-                          game.movie.title[game.movie.title.length - 1]
-                      }`
-                    : null,
-        };
-
-        // ✅ Liste ordonnée des indices à débloquer
-        const hintsKeys = Object.keys(hintsData);
-
-        return {
-            hints: hintsData,
-            lastHintUnlocked:
-                attempts < hintsKeys.length ? hintsKeys[attempts] : null,
-        };
-    }
-
-    private getMaskedTitle(title: string): string {
-        return title
-            .split("")
-            .map((char) => (char.match(/[a-zA-ZÀ-ÿ0-9]/i) ? "*" : char)) // ✅ lettres + accents + chiffres
-            .join("");
     }
 }

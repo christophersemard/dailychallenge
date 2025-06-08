@@ -54,4 +54,15 @@ export class VipController {
     async cancel(@Req() req: UserRequest) {
         return this.vipService.cancelSubscription(req.user.id);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @Post("reactivate")
+    @HttpCode(200)
+    @ApiOperation({
+        summary: "Réactive le renouvellement automatique de l’abonnement VIP",
+    })
+    async reactivate(@Req() req: UserRequest) {
+        return this.vipService.reactivateSubscription(req.user.id);
+    }
 }

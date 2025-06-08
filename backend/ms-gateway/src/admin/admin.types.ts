@@ -1,5 +1,6 @@
 import { IsEnum } from "class-validator";
 import { IsEmail, IsOptional, IsString, IsBoolean } from "class-validator";
+import { IsISO8601 } from "class-validator";
 
 export class UpdateUserAdminDto {
     @IsOptional()
@@ -17,6 +18,10 @@ export class UpdateUserAdminDto {
     @IsOptional()
     @IsBoolean()
     isActive?: boolean;
+
+    @IsOptional()
+    @IsISO8601()
+    vipUntil?: string; // ou Date si tu préfères
 }
 
 export class UpdateGameStatusDto {

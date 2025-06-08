@@ -37,4 +37,9 @@ export class VipController {
     handleStripeWebhook(@Payload() payload: { event: any }) {
         return this.vipService.handleWebhook(payload.event);
     }
+
+    @MessagePattern("vip_reactivate_subscription")
+    reactivate(@Payload() payload: { userId: number }) {
+        return this.vipService.reactivateSubscription(payload.userId);
+    }
 }

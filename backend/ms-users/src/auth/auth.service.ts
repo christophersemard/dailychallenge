@@ -10,13 +10,16 @@ import prisma from "../prisma/prisma.service";
 import { UserEventsService } from "../user-events/user-events.service";
 import { randomUUID } from "crypto";
 import { MailerService } from "../mailer/mailer.service";
+import { VipService } from "../vip/vip.service";
+import { VipStatus } from "database";
 
 @Injectable()
 export class AuthService {
     constructor(
         private jwtService: JwtService,
         private userEventsService: UserEventsService,
-        private mailerService: MailerService
+        private mailerService: MailerService,
+        private vipService: VipService
     ) {}
 
     async generateToken(user: {
@@ -155,6 +158,18 @@ export class AuthService {
             throw new UnauthorizedException("Mot de passe incorrect.");
         }
 
+        const activeSub = await prisma.vipSubscription.findFirst({
+            where: {
+                userId,
+                status: { in: [VipStatus.active, VipStatus.cancelled] },
+                stripeSubscriptionId: { not: null },
+            },
+        });
+
+        if (activeSub?.stripeSubscriptionId) {
+            await this.vipService.cancelSubscription(userId);
+        }
+
         await prisma.user.update({
             where: { id: userId },
             data: { deletedAt: new Date() },
@@ -167,6 +182,7 @@ export class AuthService {
 
         return { success: true };
     }
+
     async sendResetPasswordToken(email: string) {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user)

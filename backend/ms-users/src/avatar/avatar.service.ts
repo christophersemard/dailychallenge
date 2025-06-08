@@ -118,11 +118,29 @@ export class AvatarService {
                 userStats: {
                     select: { level: true },
                 },
-                // isVip: true,
             },
         });
 
         if (!user) throw new Error("Utilisateur introuvable");
+
+        const latestVip = await prisma.vipSubscription.findFirst({
+            where: {
+                userId,
+                status: { in: ["active", "cancelled"] },
+            },
+            orderBy: { startDate: "desc" },
+            select: {
+                status: true,
+                endDate: true,
+            },
+        });
+
+        const now = new Date();
+        const isVip =
+            latestVip &&
+            latestVip.status === "active" &&
+            latestVip.endDate &&
+            latestVip.endDate > now;
 
         const assetIds = [
             dto.shapeId,
@@ -148,11 +166,11 @@ export class AvatarService {
                     `L'asset "${asset.name}" nécessite le niveau ${asset.level}`
                 );
             }
-            // if (asset.vipOnly && !user.isVip) {
-            //     throw new RpcException(
-            //         `L'asset "${asset.name}" est réservé aux VIP`
-            //     );
-            // }
+            if (asset.vipOnly && !isVip) {
+                throw new RpcException(
+                    `L'asset "${asset.name}" est réservé aux VIP`
+                );
+            }
         }
 
         for (const color of colors) {
@@ -161,11 +179,11 @@ export class AvatarService {
                     `La couleur "${color.name}" nécessite le niveau ${color.level}`
                 );
             }
-            // if (color.vip && !user.isVip) {
-            //     throw new RpcException(
-            //         `La couleur "${color.name}" est réservée aux VIP`
-            //     );
-            // }
+            if (color.vip && !isVip) {
+                throw new RpcException(
+                    `La couleur "${color.name}" est réservée aux VIP`
+                );
+            }
         }
     }
 

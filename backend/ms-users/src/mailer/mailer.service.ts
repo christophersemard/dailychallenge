@@ -8,6 +8,10 @@ import {
     emailPasswordChanged,
     emailEmailChanged,
     emailAccountDeleted,
+    emailVipCancelled,
+    emailVipExpired,
+    emailVipReactivated,
+    emailVipSubscribed,
 } from "./templates";
 
 @Injectable()
@@ -56,6 +60,39 @@ export class MailerService {
     async sendAccountDeletedEmail(email: string, pseudo: string) {
         const html = emailAccountDeleted(pseudo);
         await this.send(email, "Ton compte a été supprimé", html);
+    }
+
+    // 💎 VIP
+    async sendVipSubscribedEmail(email: string, pseudo: string, endDate: Date) {
+        await this.send(
+            email,
+            "Bienvenue parmi les VIP 👑",
+            emailVipSubscribed(pseudo, endDate)
+        );
+    }
+
+    async sendVipCancelledEmail(email: string, pseudo: string, endDate: Date) {
+        await this.send(
+            email,
+            "Abonnement VIP résilié",
+            emailVipCancelled(pseudo, endDate)
+        );
+    }
+
+    async sendVipReactivatedEmail(email: string, pseudo: string) {
+        await this.send(
+            email,
+            "Renouvellement réactivé",
+            emailVipReactivated(pseudo)
+        );
+    }
+
+    async sendVipExpiredEmail(email: string, pseudo: string) {
+        await this.send(
+            email,
+            "Ton abonnement VIP a expiré",
+            emailVipExpired(pseudo)
+        );
     }
 
     private async send(to: string, subject: string, html: string) {

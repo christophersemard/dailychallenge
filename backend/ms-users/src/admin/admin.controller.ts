@@ -20,8 +20,9 @@ export class AdminController {
             id: number;
             pseudo?: string;
             email?: string;
-            isVip?: boolean;
             isActive?: boolean;
+            isVip?: boolean;
+            vipUntil?: Date;
         }
     ) {
         return this.adminService.update(payload);

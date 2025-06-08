@@ -32,4 +32,14 @@ export class VipService {
             }
         );
     }
+
+    async reactivateSubscription(userId: number) {
+        return this.rpcProxy.send(
+            this.usersService,
+            "vip_reactivate_subscription",
+            {
+                userId,
+            }
+        );
+    }
 }

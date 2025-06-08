@@ -326,7 +326,8 @@ exports.Prisma.NullsOrder = {
 };
 exports.VipPlan = exports.$Enums.VipPlan = {
   monthly: 'monthly',
-  yearly: 'yearly'
+  yearly: 'yearly',
+  manual: 'manual'
 };
 
 exports.VipStatus = exports.$Enums.VipStatus = {

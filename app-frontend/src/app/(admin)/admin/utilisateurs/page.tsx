@@ -34,7 +34,13 @@ type User = {
     xp: number;
     level: number;
     streak: number;
-    isVip: boolean;
+    vip: {
+        status: "active" | "cancelled" | "expired" | "custom";
+        until: string | null;
+        renewing: boolean;
+        plan: "monthly" | "yearly" | "manual" | null;
+    } | null;
+
     isActive: boolean;
     avatarUrl: string | null;
 };
@@ -91,6 +97,7 @@ export default function AdminUsersPage() {
             );
 
             if (!res.error && res.data) {
+                console.log("Utilisateurs récupérés :", res.data.data);
                 setUsers(res.data.data);
                 setTotal(res.data.meta.total);
                 setTotalPages(res.data.meta.totalPages);
@@ -105,10 +112,14 @@ export default function AdminUsersPage() {
     const handleUpdate = async (formData: FormData) => {
         if (!selectedUser) return;
 
+        const vipUntilRaw = formData.get("vipUntil") as string;
+        const vipUntil = vipUntilRaw ? new Date(vipUntilRaw).toISOString() : null;
+
         const updated = {
             pseudo: formData.get("pseudo") as string,
             email: formData.get("email") as string,
             isVip: formData.get("vip") === "on",
+            vipUntil,
         };
 
         const res = await fetchClientWithAuth(
@@ -211,12 +222,15 @@ export default function AdminUsersPage() {
                                     </p>
                                 </td>
                                 <td className="px-4 py-2">
-                                    {user.isVip ? (
-                                        <Badge className="bg-yellow-400 text-black">VIP</Badge>
+                                    {user.vip?.status === "active" || user.vip?.status === "custom" ? (
+                                        <Badge className="bg-yellow-400 text-black">
+                                            VIP {user.vip.status === "custom" ? "(perso)" : ""}
+                                        </Badge>
                                     ) : (
                                         <span className="text-muted-foreground">—</span>
                                     )}
                                 </td>
+
                                 <td className="px-4 py-2">
                                     {user.isActive ? (
                                         <Badge className="bg-green-100 text-green-800">Actif</Badge>
@@ -310,8 +324,26 @@ export default function AdminUsersPage() {
                         </div>
                         <div className="flex items-center gap-2">
                             <label htmlFor="vip" className="font-medium">VIP</label>
-                            <Switch id="vip" name="vip" defaultChecked={selectedUser?.isVip} />
+                            <Switch disabled={
+                                selectedUser?.vip?.plan != "manual" ? true : false
+                            } id="vip" name="vip" defaultChecked={selectedUser?.vip ? true : false} />
                         </div>
+                        <div>
+                            <label htmlFor="vipUntil" className="block font-medium">VIP jusqu’au</label>
+                            <Input disabled={
+                                selectedUser?.vip?.plan != "manual" ? true : false
+                            }
+                                id="vipUntil"
+                                name="vipUntil"
+                                type="date"
+                                defaultValue={
+                                    selectedUser?.vip?.status === "custom" && selectedUser.vip.until
+                                        ? selectedUser.vip.until.split("T")[0]
+                                        : ""
+                                }
+                            />
+                        </div>
+
 
                         <DialogFooter className="pt-4">
                             <Button variant="secondary" type="button" onClick={() => setSelectedUser(null)}>Annuler</Button>

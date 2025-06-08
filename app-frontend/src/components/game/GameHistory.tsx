@@ -10,6 +10,7 @@ import { Color } from "@/types/colors.types";
 import { IconButton } from "@/components/ui/icon-button";
 import Link from "next/link";
 import { useGameEventStore } from "@/lib/store/useGameEventStore";
+import { Crown } from "lucide-react";
 
 type Props = {
     gameId: string;
@@ -31,36 +32,44 @@ export default function GameHistory({
     );
     const [totalPoints, setTotalPoints] = useState(0);
     const [currentDate, setCurrentDate] = useState(date);
+    const [isVip, setIsVip] = useState(false);
+
     const router = useRouter();
     const lastUpdate = useGameEventStore((state) => state.lastUpdate);
-
     useEffect(() => {
-        const fetchHistory = async () => {
-            const monthStr = currentDate
-                .toISOString()
-                .split("T")[0]
-                .slice(0, 7);
-            const { data, error } = await fetchClientWithAuth<
-                UserMonthlyGameResult[]
-            >(`${urlGame}/user-results?month=${monthStr}`);
+        const fetchAll = async () => {
+            const monthStr = currentDate.toISOString().split("T")[0].slice(0, 7);
 
-            if (error || !data) {
-                console.error("Erreur récupération historique :", error);
+            // 🔁 Résultats de jeu
+            const { data: resultsData, error: resErr } = await fetchClientWithAuth<UserMonthlyGameResult[]>(
+                `${urlGame}/user-results?month=${monthStr}`
+            );
+
+            // 👤 Statut VIP
+            const { data: me, error: meErr } = await fetchClientWithAuth<{ vip: { status: string; until: string | null } }>(
+                "/api/users/me"
+            );
+
+            if (resErr || !resultsData) {
+                console.error("Erreur récupération historique :", resErr);
                 return;
             }
 
-            setResults(data);
-            console.log("Historique :", data);
-            const total = data.reduce(
-                (acc, res) => acc + (res.result?.score ?? 0),
-                0
-            );
-            console.log("Total points :", total);
+            setResults(resultsData);
+            const total = resultsData.reduce((acc, res) => acc + (res.result?.score ?? 0), 0);
             setTotalPoints(total);
+
+            // Vérifie si VIP actif ou encore valable
+            if (me?.vip?.status === "active" || me?.vip?.status === "canceled") {
+                const now = new Date();
+                const until = me.vip.until ? new Date(me.vip.until) : null;
+                if (!until || until >= now) setIsVip(true);
+            }
         };
 
-        fetchHistory();
+        fetchAll();
     }, [currentDate, lastUpdate]);
+
 
     const getMonthName = (date: Date) =>
         date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
@@ -153,8 +162,8 @@ export default function GameHistory({
 
                         if (res.result) {
                             tooltip += ` | ${res.result.status === "passed"
-                                    ? "Réussi"
-                                    : "Échoué"
+                                ? "Réussi"
+                                : "Échoué"
                                 }`;
                             tooltip += ` | ${res.result.score} pts`;
                             tooltip += ` | ${res.result.xpGained} XP`;
@@ -178,11 +187,32 @@ export default function GameHistory({
                             }
                         }
 
-                        const content = icon || (
-                            <span className=" text-black font-bold  border-none ">
-                                {day}
-                            </span>
-                        );
+                        const isToday =
+                            fullDate.getFullYear() === today.getFullYear() &&
+                            fullDate.getMonth() === today.getMonth() &&
+                            fullDate.getDate() === today.getDate();
+
+                        let content = icon;
+
+                        if (!icon) {
+                            if (
+                                res.gameDay &&
+                                !res.result &&
+                                !isToday &&
+                                !isVip
+                            ) {
+                                content = <Crown className="text-yellow-500 size-4" strokeWidth={3} />;
+                                tooltip += " | Réservé aux membres VIP";
+                            } else {
+                                content = (
+                                    <span className="text-black font-bold border-none">
+                                        {day}
+                                    </span>
+                                );
+                            }
+                        }
+
+
 
                         return res.gameDay ? (
                             <Link

@@ -1,7 +1,11 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { GameService } from "./game.service";
 import { ClientProxy } from "@nestjs/microservices";
-import { NotFoundException, ConflictException } from "@nestjs/common";
+import {
+    NotFoundException,
+    ConflictException,
+    BadRequestException,
+} from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { of } from "rxjs";
 
@@ -44,6 +48,12 @@ describe("GameService - Cinéma 2", () => {
         }).compile();
 
         service = module.get<GameService>(GameService);
+
+        // Par défaut, VIP actif
+        jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+            isVip: true,
+            extraAttempt: 1,
+        });
     });
 
     afterEach(() => {
@@ -60,7 +70,28 @@ describe("GameService - Cinéma 2", () => {
             ).rejects.toThrow(NotFoundException);
         });
 
-        it("should return guessed=true if gameResult found", async () => {
+        it("should block past games if not VIP", async () => {
+            const pastDate = new Date();
+            pastDate.setDate(pastDate.getDate() - 1);
+            const dateIso = pastDate.toISOString().split("T")[0];
+
+            jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+                isVip: false,
+                extraAttempt: 0,
+            });
+
+            jest.spyOn(prisma.gameCinema2Days, "findUnique").mockResolvedValue({
+                id: 1,
+                date: new Date(dateIso),
+                movie: { title: "Test", image1: "", keywords: "" },
+            } as any);
+
+            await expect(service.getGameByDate(1, dateIso)).rejects.toThrow(
+                BadRequestException
+            );
+        });
+
+        it("should return guessed=true if result found", async () => {
             jest.spyOn(prisma.gameCinema2Days, "findUnique").mockResolvedValue({
                 id: 1,
                 date: new Date("2024-03-24"),
@@ -80,11 +111,12 @@ describe("GameService - Cinéma 2", () => {
             jest.spyOn(service as any, "getHints").mockResolvedValue({
                 hints: {},
                 lastHintUnlocked: null,
-            } as any);
+            });
 
             const result = await service.getGameByDate(1, "2024-03-24");
             expect(result.guessed).toBe(true);
             expect(result.attempts).toBe(1);
+            expect(result.maxAttempts).toBe(11); // 10 + 1 VIP
         });
     });
 
@@ -104,7 +136,29 @@ describe("GameService - Cinéma 2", () => {
             );
         });
 
-        it("should register a correct guess and return result", async () => {
+        it("should throw BadRequestException if trying past game without VIP", async () => {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const dateIso = yesterday.toISOString().split("T")[0];
+
+            jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+                isVip: false,
+                extraAttempt: 0,
+            });
+
+            jest.spyOn(prisma.gameCinema2Days, "findFirst").mockResolvedValue({
+                id: 1,
+                date: new Date(dateIso),
+                movie: { id: 9, title: "OldMovie", image1: "", keywords: "" },
+            } as any);
+            jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
+
+            await expect(service.submitGuess(1, "9", dateIso)).rejects.toThrow(
+                BadRequestException
+            );
+        });
+
+        it("should register a correct guess", async () => {
             jest.spyOn(prisma.gameCinema2Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
@@ -130,9 +184,10 @@ describe("GameService - Cinéma 2", () => {
             const result = await service.submitGuess(1, "5");
             expect(result.lastGuessed).toBe(true);
             expect(result.attempts).toBe(1);
+            expect(result.maxAttempts).toBe(11);
         });
 
-        it("should register failed guess at max attempts and return result", async () => {
+        it("should register failed guess at max attempts", async () => {
             jest.spyOn(prisma.gameCinema2Days, "findFirst").mockResolvedValue({
                 id: 1,
                 date: new Date(),
@@ -144,7 +199,7 @@ describe("GameService - Cinéma 2", () => {
                 },
             } as any);
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
-            jest.spyOn(prisma.gameCinema2Tries, "count").mockResolvedValue(9);
+            jest.spyOn(prisma.gameCinema2Tries, "count").mockResolvedValue(10); // VIP max atteint
             jest.spyOn(prisma.dataMovie, "findUnique").mockResolvedValue({
                 title: "Wrong",
             } as any);
@@ -157,7 +212,7 @@ describe("GameService - Cinéma 2", () => {
 
             const result = await service.submitGuess(1, "999");
             expect(result.lastGuessed).toBe(false);
-            expect(result.attempts).toBe(10);
+            expect(result.attempts).toBe(11); // 10 + 1
         });
     });
 

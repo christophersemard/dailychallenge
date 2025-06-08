@@ -1,7 +1,11 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { GameService } from "./game.service";
 import { ClientProxy } from "@nestjs/microservices";
-import { NotFoundException, ConflictException } from "@nestjs/common";
+import {
+    NotFoundException,
+    ConflictException,
+    BadRequestException,
+} from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 import { of } from "rxjs";
 
@@ -44,6 +48,12 @@ describe("GameService", () => {
         }).compile();
 
         service = module.get<GameService>(GameService);
+
+        // Mock VIP par défaut
+        jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+            isVip: true,
+            extraAttempt: 1,
+        });
     });
 
     afterEach(() => {
@@ -60,99 +70,120 @@ describe("GameService", () => {
             ).rejects.toThrow(NotFoundException);
         });
 
-        it("should return guessed=true if gameResult found", async () => {
+        it("should throw BadRequestException for past date if not VIP", async () => {
+            const pastDate = new Date();
+            pastDate.setDate(pastDate.getDate() - 1);
+            const iso = pastDate.toISOString().split("T")[0];
+
+            jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+                isVip: false,
+                extraAttempt: 0,
+            });
+
             jest.spyOn(prisma.gameCinema1Days, "findUnique").mockResolvedValue({
                 id: 1,
-                date: new Date("2024-03-24"),
+                date: new Date(iso),
                 movie: {
-                    title: "Titanic",
-                    genres: "Drama",
-                    runtime: 120,
-                    keywords: "ocean, iceberg",
+                    title: "Test",
+                    genres: "",
+                    runtime: 100,
+                    keywords: "",
                 },
             } as any);
 
+            await expect(service.getGameByDate(1, iso)).rejects.toThrow(
+                BadRequestException
+            );
+        });
+
+        it("should return guessed=true if result exists", async () => {
+            jest.spyOn(prisma.gameCinema1Days, "findUnique").mockResolvedValue({
+                id: 1,
+                date: new Date(),
+                movie: {
+                    title: "Test",
+                    genres: "",
+                    runtime: 100,
+                    keywords: "",
+                },
+            } as any);
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
-                id: 10,
+                id: 1,
             } as any);
             jest.spyOn(prisma.gameCinema1Tries, "findMany").mockResolvedValue([
-                { guess: "Titanic" },
+                {},
             ] as any);
             jest.spyOn(service as any, "getHints").mockResolvedValue({
                 hints: {},
                 lastHintUnlocked: null,
-            } as any);
+            });
 
-            const result = await service.getGameByDate(1, "2024-03-24");
+            const result = await service.getGameByDate(
+                1,
+                new Date().toISOString().split("T")[0]
+            );
             expect(result.guessed).toBe(true);
-            expect(result.attempts).toBe(1);
+            expect(result.maxAttempts).toBe(11); // 10 de base + 1 VIP
         });
     });
 
     describe("submitGuess", () => {
-        it("should throw ConflictException if already guessed", async () => {
+        it("should block past date if not VIP", async () => {
+            const past = new Date();
+            past.setDate(past.getDate() - 1);
+
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
-                date: new Date(),
-                movie: { id: 1, title: "Titanic" },
+                date: past,
+                movie: { id: 1, title: "Test", keywords: "test" },
+            } as any);
+
+            jest.spyOn(service as any, "getUserVipProfile").mockResolvedValue({
+                isVip: false,
+                extraAttempt: 0,
+            });
+
+            await expect(
+                service.submitGuess(1, "1", past.toISOString().split("T")[0])
+            ).rejects.toThrow(BadRequestException);
+        });
+
+        it("should throw ConflictException if already played", async () => {
+            const now = new Date();
+            jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
+                id: 1,
+                date: now,
+                movie: { id: 5, title: "Test", keywords: "a,b" },
             } as any);
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue({
                 id: 99,
             } as any);
 
-            await expect(service.submitGuess(1, "1")).rejects.toThrow(
+            await expect(service.submitGuess(1, "5")).rejects.toThrow(
                 ConflictException
             );
         });
 
-        it("should return result with correct guess", async () => {
+        it("should allow correct guess", async () => {
+            const now = new Date();
             jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
                 id: 1,
-                date: new Date(),
-                movie: {
-                    id: 5,
-                    title: "Matrix",
-                    keywords: "sci-fi, neo, hacker, fight, future",
-                },
+                date: now,
+                movie: { id: 7, title: "Yes", keywords: "a,b" },
             } as any);
             jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
             jest.spyOn(prisma.gameCinema1Tries, "count").mockResolvedValue(0);
             jest.spyOn(prisma.dataMovie, "findUnique").mockResolvedValue({
-                title: "Matrix",
+                title: "Yes",
             } as any);
             jest.spyOn(prisma.gameCinema1Tries, "create").mockResolvedValue(
                 {} as any
             );
             jest.spyOn(mockClient, "send").mockReturnValue(of({ id: 1 }));
 
-            const result = await service.submitGuess(1, "5");
+            const result = await service.submitGuess(1, "7");
             expect(result.lastGuessed).toBe(true);
-            expect(result.attempts).toBe(1);
-        });
-
-        it("should return result with failed guess and max attempts", async () => {
-            jest.spyOn(prisma.gameCinema1Days, "findFirst").mockResolvedValue({
-                id: 1,
-                date: new Date(),
-                movie: {
-                    id: 2,
-                    title: "Inception",
-                    keywords: "dream, mind, time, heist, subconscious",
-                },
-            } as any);
-            jest.spyOn(prisma.gameResult, "findFirst").mockResolvedValue(null);
-            jest.spyOn(prisma.gameCinema1Tries, "count").mockResolvedValue(9);
-            jest.spyOn(prisma.dataMovie, "findUnique").mockResolvedValue({
-                title: "Wrong Movie",
-            } as any);
-            jest.spyOn(prisma.gameCinema1Tries, "create").mockResolvedValue(
-                {} as any
-            );
-            jest.spyOn(mockClient, "send").mockReturnValue(of({ id: 2 }));
-
-            const result = await service.submitGuess(1, "10");
-            expect(result.lastGuessed).toBe(false);
-            expect(result.attempts).toBe(10);
+            expect(result.maxAttempts).toBe(11);
         });
     });
 

@@ -13,6 +13,7 @@ import PasswordChangeBlock from "@/components/account/PasswordChangeBlock";
 import EmailChangeModal from "@/components/account/EmailChangeModal";
 import AccountDeleteModal from "@/components/account/AccountDeleteModal";
 import { useGameEventStore } from "@/lib/store/useGameEventStore";
+import VipManagementBlock from "@/components/account/VipManagementBlock";
 
 export default function MonComptePage() {
     const { data: session, status } = useSession();
@@ -109,6 +110,14 @@ export default function MonComptePage() {
                             <EmailChangeModal />
                         </div>
                     </Card>
+                    {/* Bloc Historique VIP */}
+                    <VipManagementBlock
+                        status={user.vip.status}
+                        until={user.vip.until}
+                        renewing={user.vip.renewing}
+                        plan={user.vip.plan}
+                        history={user.vipHistory}
+                    />
 
                     {/* Bloc Suppression compte */}
                     <Card title="" color="danger" className="space-y-2" >

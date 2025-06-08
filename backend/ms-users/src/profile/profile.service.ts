@@ -5,7 +5,6 @@ import {
     BadRequestException,
 } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
-import { UpdateProfileDto } from "./dto/update-profile.dto";
 
 @Injectable()
 export class ProfileService {
@@ -17,7 +16,6 @@ export class ProfileService {
                 pseudo: true,
                 email: true,
                 role: true,
-                // isVip: true,
                 createdAt: true,
                 avatar: {
                     select: {
@@ -101,6 +99,51 @@ export class ProfileService {
             throw new NotFoundException("Utilisateur introuvable.");
         }
 
+        // Vérifier si l'utilisateur a un abonnement VIP actif ou annulé
+        const latestVip = await prisma.vipSubscription.findFirst({
+            where: {
+                userId,
+                status: { in: ["active", "cancelled"] },
+            },
+            orderBy: { startDate: "desc" },
+            select: {
+                status: true,
+                endDate: true,
+                cancelledAt: true,
+                plan: true,
+            },
+        });
+        const now = new Date();
+        const vip =
+            latestVip && latestVip.endDate && latestVip.endDate > now
+                ? {
+                      status: "active",
+                      until: latestVip.endDate.toISOString(),
+                      renewing:
+                          latestVip.plan !== "manual" &&
+                          latestVip.status === "active" &&
+                          latestVip.cancelledAt === null,
+                      plan: latestVip.plan,
+                  }
+                : {
+                      status: "inactive",
+                      until: null,
+                      renewing: false,
+                      plan: null,
+                  };
+
+        // Récupérer l'historique des abonnements VIP de l'utilisateur
+        const vipHistory = await prisma.vipSubscription.findMany({
+            where: { userId },
+            orderBy: { startDate: "desc" },
+            select: {
+                startDate: true,
+                endDate: true,
+                status: true,
+                plan: true,
+            },
+        });
+
         // Garder les 10 derniers événements de l'utilisateur et les trier par date de création décroissante
         const userEvents = user.userEvents
             ? user.userEvents
@@ -147,7 +190,13 @@ export class ProfileService {
             email: user.email,
             createdAt: user.createdAt,
             role: user.role,
-            // isVip: user.isVip,
+            vip: vip,
+            vipHistory: vipHistory.map((v) => ({
+                startDate: v.startDate.toISOString(),
+                endDate: v.endDate?.toISOString() ?? null,
+                status: v.status,
+                plan: v.plan,
+            })),
             avatar:
                 (user.avatar && {
                     id: user.avatar.id,
