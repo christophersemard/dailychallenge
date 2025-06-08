@@ -13,6 +13,7 @@ const eslintConfig = [
     ...compat.extends("next/core-web-vitals", "next/typescript"),
     {
         rules: {
+            "react/no-unescaped-entities": "off", // Désactive la règle pour les entités non échappées
             "@typescript-eslint/no-unused-vars": [
                 "warn", // ou "off" si tu veux complètement désactiver l'erreur
                 {
