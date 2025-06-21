@@ -1,3 +1,19 @@
+export type Game = {
+    id: number;
+    name: string;
+    description: string;
+    imgUrl: string | null;
+    path: string;
+    status: string;
+};
+
+export type GameCategory = {
+    id: number;
+    name: string;
+    color: string;
+    games: Game[];
+};
+
 export type GameResult = {
     id: number;
     userId: number;

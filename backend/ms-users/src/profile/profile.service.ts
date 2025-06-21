@@ -2,9 +2,9 @@ import {
     Injectable,
     ConflictException,
     NotFoundException,
+    BadRequestException,
 } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
-import { UpdateProfileDto } from "./dto/update-profile.dto";
 
 @Injectable()
 export class ProfileService {
@@ -14,10 +14,8 @@ export class ProfileService {
             select: {
                 id: true,
                 pseudo: true,
-                firstName: true,
-                lastName: true,
-                birthdate: true,
-                isVip: true,
+                email: true,
+                role: true,
                 createdAt: true,
                 avatar: {
                     select: {
@@ -101,6 +99,51 @@ export class ProfileService {
             throw new NotFoundException("Utilisateur introuvable.");
         }
 
+        // Vérifier si l'utilisateur a un abonnement VIP actif ou annulé
+        const latestVip = await prisma.vipSubscription.findFirst({
+            where: {
+                userId,
+                status: { in: ["active", "cancelled"] },
+            },
+            orderBy: { startDate: "desc" },
+            select: {
+                status: true,
+                endDate: true,
+                cancelledAt: true,
+                plan: true,
+            },
+        });
+        const now = new Date();
+        const vip =
+            latestVip && latestVip.endDate && latestVip.endDate > now
+                ? {
+                      status: "active",
+                      until: latestVip.endDate.toISOString(),
+                      renewing:
+                          latestVip.plan !== "manual" &&
+                          latestVip.status === "active" &&
+                          latestVip.cancelledAt === null,
+                      plan: latestVip.plan,
+                  }
+                : {
+                      status: "inactive",
+                      until: null,
+                      renewing: false,
+                      plan: null,
+                  };
+
+        // Récupérer l'historique des abonnements VIP de l'utilisateur
+        const vipHistory = await prisma.vipSubscription.findMany({
+            where: { userId },
+            orderBy: { startDate: "desc" },
+            select: {
+                startDate: true,
+                endDate: true,
+                status: true,
+                plan: true,
+            },
+        });
+
         // Garder les 10 derniers événements de l'utilisateur et les trier par date de création décroissante
         const userEvents = user.userEvents
             ? user.userEvents
@@ -144,11 +187,16 @@ export class ProfileService {
         return {
             id: user.id,
             pseudo: user.pseudo,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            birthdate: user.birthdate,
+            email: user.email,
             createdAt: user.createdAt,
-            isVip: user.isVip,
+            role: user.role,
+            vip: vip,
+            vipHistory: vipHistory.map((v) => ({
+                startDate: v.startDate.toISOString(),
+                endDate: v.endDate?.toISOString() ?? null,
+                status: v.status,
+                plan: v.plan,
+            })),
             avatar:
                 (user.avatar && {
                     id: user.avatar.id,
@@ -211,27 +259,21 @@ export class ProfileService {
         };
     }
 
-    async updateProfile(userId: number, dto: UpdateProfileDto) {
-        if (dto.pseudo) {
-            const existing = await prisma.user.findFirst({
-                where: {
-                    pseudo: dto.pseudo,
-                    id: { not: userId },
-                },
-            });
-            if (existing) {
-                throw new ConflictException("Ce pseudo est déjà utilisé");
-            }
+    async updatePseudo(userId: number, newPseudo: string) {
+        const existing = await prisma.user.findUnique({
+            where: { pseudo: newPseudo },
+        });
+
+        if (existing && existing.id !== userId) {
+            throw new BadRequestException("Ce pseudo est déjà utilisé.");
         }
 
-        return prisma.user.update({
+        const user = await prisma.user.update({
             where: { id: userId },
-            data: {
-                pseudo: dto.pseudo,
-                firstName: dto.firstName,
-                lastName: dto.lastName,
-                birthdate: dto.birthdate ? new Date(dto.birthdate) : undefined,
-            },
+            data: { pseudo: newPseudo },
         });
+
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
     }
 }

@@ -36,8 +36,6 @@ export class FriendsService {
             },
         });
 
-        console.log("Existing friendship", existing);
-
         if (existing) {
             throw new RpcException({
                 statusCode: 409,
@@ -45,8 +43,6 @@ export class FriendsService {
                 message: "Vous êtes déjà amis ou une demande est en attente.",
             });
         }
-
-        console.log("Creating friend request", userId, friendId);
 
         const friendRequest = await prisma.friend.create({
             data: { userId, friendId },
@@ -113,7 +109,7 @@ export class FriendsService {
         }
 
         if (accept) {
-            let updated = await prisma.friend.update({
+            const updated = await prisma.friend.update({
                 where: { id: friendRequest.id },
                 data: { status: "accepted" },
             });
@@ -124,7 +120,7 @@ export class FriendsService {
             };
         } else {
             // Refuser la demande d'ami
-            let updated = await prisma.friend.update({
+            const updated = await prisma.friend.update({
                 where: { id: friendRequest.id },
                 data: { status: "rejected" },
             });

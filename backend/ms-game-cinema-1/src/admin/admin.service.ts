@@ -1,13 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import prisma from "../prisma/prisma.service";
 
+const GAME_ID = 1; // Identifiant du jeu GameCinema1
+
 @Injectable()
 export class AdminService {
     // ✅ Génère un GameCinema1Day pour chaque jour entre `startDate` et `endDate`
     async generateGameDays(startDate: string, endDate: string) {
         const start = new Date(startDate);
         const end = new Date(endDate);
-        let current = new Date(start);
+        const current = new Date(start);
 
         while (current <= end) {
             await this.regenerateGameDay(current.toISOString().split("T")[0]);
@@ -63,7 +65,6 @@ export class AdminService {
             take: 90, // 3 mois d'historique
             select: { movieId: true },
         });
-
         const usedMovieIds = recentMovies.map((m) => m.movieId);
 
         // On doit exclure les films qui ont une propriété keywords à "" en plus de ceux qui ont été utilisés récemment
@@ -83,6 +84,8 @@ export class AdminService {
         const randomMovie =
             availableMovies[Math.floor(Math.random() * availableMovies.length)];
 
+        console.log("Film sélectionné :", randomMovie.title);
+        console.log("Date du jour :", date);
         await prisma.gameCinema1Days.create({
             data: {
                 date: new Date(date),
@@ -91,5 +94,14 @@ export class AdminService {
         });
 
         return { message: `Film ${randomMovie.title} assigné au ${date}` };
+    }
+
+    async updateGameStatus(status: string) {
+        await prisma.game.update({
+            where: { id: GAME_ID },
+            data: { status },
+        });
+
+        return { message: `Statut du jeu mis à jour : ${status}` };
     }
 }

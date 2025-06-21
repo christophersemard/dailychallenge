@@ -14,6 +14,8 @@ import GameTries from "../GameTries";
 import clsx from "clsx";
 import { useGameEventStore } from "@/lib/store/useGameEventStore";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type Props = {
     gameId: string;
@@ -50,13 +52,12 @@ type ApiResponse = {
 
 export default function GameCinema2({ gameId, color, date }: Props) {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<false | "vip_required" | "other">(false);
     const [data, setData] = useState<ApiResponse | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
-    const notifyGameCompleted =
-        useGameEventStore.getState().notifyGameCompleted;
+    const notifyGameCompleted = useGameEventStore.getState().notifyGameCompleted;
 
     const dateStr = date.toISOString().split("T")[0];
     const titleCard = `Photos - ${formatDateLong(date)}`;
@@ -66,12 +67,10 @@ export default function GameCinema2({ gameId, color, date }: Props) {
         const base = data.maskedTitle.split("");
         const hint = data.hints.firstAndLastLetters;
         if (!hint || hint.length !== 2) return data.maskedTitle;
-
         const [firstLetter, lastLetter] = hint;
         const chars = [...base];
         if (firstLetter) chars[0] = firstLetter;
         if (lastLetter) chars[chars.length - 1] = lastLetter;
-
         return chars.join("");
     }, [data]);
 
@@ -98,19 +97,18 @@ export default function GameCinema2({ gameId, color, date }: Props) {
 
             if (error) {
                 if (error.statusCode === 404) {
-                    setError(true);
+                    setError("other");
+                } else if (error.statusCode === 400 && error.message?.includes("VIP")) {
+                    setError("vip_required");
                 } else {
-                    console.error("Erreur API :", error.message);
-                    setError(true);
+                    setError("other");
                 }
             } else {
                 const previousAttempts = data?.attempts ?? 0;
                 setData(data);
 
                 if (data.lastHintUnlocked?.startsWith("image")) {
-                    const unlockedIndex =
-                        parseInt(data.lastHintUnlocked.replace("image", "")) -
-                        1;
+                    const unlockedIndex = parseInt(data.lastHintUnlocked.replace("image", "")) - 1;
                     if (!isNaN(unlockedIndex)) {
                         setCurrentImageIndex(unlockedIndex);
                     }
@@ -120,7 +118,7 @@ export default function GameCinema2({ gameId, color, date }: Props) {
             }
         } catch (err) {
             console.error("Erreur réseau :", err);
-            setError(true);
+            setError("other");
         } finally {
             if (showLoading) setLoading(false);
         }
@@ -145,24 +143,28 @@ export default function GameCinema2({ gameId, color, date }: Props) {
 
     if (loading) {
         return (
-            <Card
-                title={titleCard}
-                color={color}
-                className="min-h-64 flex justify-center items-center"
-            >
-                <p>Chargement...</p>
+            <Card title={titleCard} color={color} className="flex justify-center items-center min-h-64 font-bold text-xl">
+                <p className="text-center">Chargement...</p>
+            </Card>
+        );
+    }
+
+    if (error === "vip_required") {
+        return (
+            <Card title={titleCard} color={color} className="flex flex-col items-center justify-center min-h-64 text-center space-y-4">
+                <p className="text-lg font-bold">Ce défi est réservé aux membres VIP.</p>
+                <p>Abonne-toi pour accéder aux jeux des jours précédents, gagner un indice bonus et bien plus encore.</p>
+                <Button variant="secondary" size="lg" asChild>
+                    <Link href="/vip">Devenir VIP</Link>
+                </Button>
             </Card>
         );
     }
 
     if (error || !data) {
         return (
-            <Card
-                title={titleCard}
-                color={color}
-                className="flex justify-center items-center min-h-64 font-bold text-xl"
-            >
-                <p>Aucun jeu disponible pour cette date.</p>
+            <Card title={titleCard} color={color} className="flex justify-center items-center min-h-64 font-bold text-xl">
+                <p className="text-center">Aucun jeu disponible pour cette date.</p>
             </Card>
         );
     }
@@ -185,11 +187,9 @@ export default function GameCinema2({ gameId, color, date }: Props) {
     return (
         <>
             <Card title={titleCard} color={color}>
-                <div className="text-center mb-4">
-                    <p className="font-bold text-lg">
-                        Devine le film du jour grâce aux images !
-                    </p>
-                </div>
+                <p className="font-bold text-lg text-center mb-4">
+                    Devine le film du jour grâce aux images !
+                </p>
 
                 {unlockedImages.length > 0 && (
                     <div className="flex flex-col items-center mb-4 p-4">
@@ -198,11 +198,7 @@ export default function GameCinema2({ gameId, color, date }: Props) {
                             alt={`Indice ${currentImageIndex + 1}`}
                             width={500}
                             height={400}
-                            onClick={() =>
-                                setFullscreenImage(
-                                    unlockedImages[currentImageIndex]
-                                )
-                            }
+                            onClick={() => setFullscreenImage(unlockedImages[currentImageIndex])}
                             className="rounded-lg cursor-zoom-in mb-4"
                         />
 
@@ -212,9 +208,9 @@ export default function GameCinema2({ gameId, color, date }: Props) {
                                     key={i}
                                     onClick={() => setCurrentImageIndex(i)}
                                     className={clsx(
-                                        "px-2 py-1  rounded font-medium border hover:bg-background cursor-pointer size-8",
+                                        "px-2 py-1 rounded font-medium border hover:bg-background cursor-pointer size-8",
                                         {
-                                            "bg-red text-white font-black! border-none hover:bg-red":
+                                            "bg-red text-white font-black border-none hover:bg-red":
                                                 i === currentImageIndex,
                                             "text-muted-foreground border-background":
                                                 i !== currentImageIndex,
@@ -231,28 +227,20 @@ export default function GameCinema2({ gameId, color, date }: Props) {
                 {data.attempts >= 10 && (
                     <div className="flex justify-center items-center">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-widest text-white text-center my-4">
-                            {enhancedMaskedTitle
-                                .split("")
-                                .map((char, index) => {
-                                    if (char === " ") {
-                                        return (
-                                            <span
-                                                key={index}
-                                                className="inline-block mx-[2px] min-w-[1ch]"
-                                            >
-                                                &nbsp;
-                                            </span>
-                                        );
-                                    }
-                                    return (
-                                        <span
-                                            key={index}
-                                            className="inline-block mx-[2px] min-w-[1ch] text-center text-white border-b-2 border-white"
-                                        >
-                                            {char}
-                                        </span>
-                                    );
-                                })}
+                            {enhancedMaskedTitle.split("").map((char, index) =>
+                                char === " " ? (
+                                    <span key={index} className="inline-block mx-[2px] min-w-[1ch]">
+                                        &nbsp;
+                                    </span>
+                                ) : (
+                                    <span
+                                        key={index}
+                                        className="inline-block mx-[2px] min-w-[1ch] text-center text-white border-b-2 border-white"
+                                    >
+                                        {char}
+                                    </span>
+                                )
+                            )}
                         </h2>
                     </div>
                 )}

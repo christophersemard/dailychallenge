@@ -23,7 +23,7 @@ export class AvatarService {
             }),
         ]);
 
-        let objects = {
+        const objects = {
             shapes: assets.filter((a) => a.type === "shape"),
             patterns: assets.filter((a) => a.type === "pattern"),
             eyes: assets.filter((a) => a.type === "eyes"),
@@ -118,11 +118,29 @@ export class AvatarService {
                 userStats: {
                     select: { level: true },
                 },
-                isVip: true,
             },
         });
 
         if (!user) throw new Error("Utilisateur introuvable");
+
+        const latestVip = await prisma.vipSubscription.findFirst({
+            where: {
+                userId,
+                status: { in: ["active", "cancelled"] },
+            },
+            orderBy: { startDate: "desc" },
+            select: {
+                status: true,
+                endDate: true,
+            },
+        });
+
+        const now = new Date();
+        const isVip =
+            latestVip &&
+            latestVip.status === "active" &&
+            latestVip.endDate &&
+            latestVip.endDate > now;
 
         const assetIds = [
             dto.shapeId,
@@ -148,7 +166,7 @@ export class AvatarService {
                     `L'asset "${asset.name}" nécessite le niveau ${asset.level}`
                 );
             }
-            if (asset.vipOnly && !user.isVip) {
+            if (asset.vipOnly && !isVip) {
                 throw new RpcException(
                     `L'asset "${asset.name}" est réservé aux VIP`
                 );
@@ -161,7 +179,7 @@ export class AvatarService {
                     `La couleur "${color.name}" nécessite le niveau ${color.level}`
                 );
             }
-            if (color.vip && !user.isVip) {
+            if (color.vip && !isVip) {
                 throw new RpcException(
                     `La couleur "${color.name}" est réservée aux VIP`
                 );
@@ -407,8 +425,8 @@ export class AvatarService {
             return path.join(__dirname, "..", "..", "src", "avatar", cleaned);
         };
 
-        let valueShape = colorShape.gradientValue || colorShape.value;
-        let valuePattern = colorPattern?.gradientValue || colorPattern?.value;
+        const valueShape = colorShape.gradientValue || colorShape.value;
+        const valuePattern = colorPattern?.gradientValue || colorPattern?.value;
 
         return {
             shape: await this.loadAssetBuffer(getPath(shapeAsset.url)),

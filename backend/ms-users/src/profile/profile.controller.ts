@@ -12,10 +12,14 @@ export class ProfileController {
         return this.profileService.getProfile(userId);
     }
 
-    @MessagePattern("update_user_profile")
-    async updateProfile(
-        @Payload() payload: { userId: number; data: UpdateProfileDto }
-    ) {
-        return this.profileService.updateProfile(payload.userId, payload.data);
+    @MessagePattern("update_user_pseudo")
+    async updatePseudo({
+        userId,
+        data,
+    }: {
+        userId: number;
+        data: { pseudo: string };
+    }) {
+        return this.profileService.updatePseudo(userId, data.pseudo);
     }
 }

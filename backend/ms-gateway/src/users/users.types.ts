@@ -1,3 +1,11 @@
+import { IsString, Length } from "class-validator";
+
+export class UpdatePseudoDto {
+    @IsString()
+    @Length(3, 32)
+    pseudo: string;
+}
+
 export class UserStats {
     userId: number;
     xp: number;

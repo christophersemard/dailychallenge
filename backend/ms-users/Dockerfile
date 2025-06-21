@@ -1,49 +1,50 @@
-# Utiliser une image Node.js légère
-FROM node:20-alpine AS base
+# ---------------------
+# 1. Base : image avec PNPM
+# ---------------------
+FROM node:22-alpine AS base
 
-# Définir le répertoire de travail
 WORKDIR /app
-
-# Installer les dépendances système
 RUN apk add --no-cache libc6-compat curl
-
-# Installer PNPM via NPM
 RUN npm install -g pnpm@latest
 
-# Étape de build pour gérer le cache des dépendances
+# ---------------------
+# 2. Dépendances
+# ---------------------
 FROM base AS deps
 
 WORKDIR /app
 
-# Copier uniquement les fichiers essentiels pour le cache de pnpm
-COPY pnpm-lock.yaml ./
-COPY backend/ms-users/package.json ./package.json
+COPY pnpm-lock.yaml ./pnpm-lock.yaml
+COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY backend/ms-users/package.json ./backend/ms-users/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
-# Installer les dépendances sans exécuter de scripts inutiles
-RUN pnpm install --no-frozen-lockfile --recursive
+# Important : copier tous les package.json pour respecter la structure du monorepo
+RUN pnpm install --no-frozen-lockfile
 
-# Étape pour générer Prisma (seulement si le schéma change)
-FROM base AS prisma
+# ---------------------
+# 3. Prisma
+# ---------------------
+FROM deps AS prisma
 
 WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
 COPY packages/database ./packages/database
-RUN pnpm prisma generate --schema=packages/database/prisma/schema.prisma
+WORKDIR /app/packages/database
+RUN pnpm run db:generate
 
-# Étape finale
+# ---------------------
+# 4. Final
+# ---------------------
 FROM base AS final
 
 WORKDIR /app
 
-# Copier les fichiers du projet
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/backend/ms-users/node_modules ./backend/ms-users/node_modules
 COPY --from=prisma /app/packages/database ./packages/database
-COPY backend/ms-users/ .
+COPY backend/ms-users ./backend/ms-users
 
-# Exposer le port
+WORKDIR /app/backend/ms-users
 EXPOSE 3001
 
-# Lancer l'application
-CMD ["sh", "-c", "pnpm run start:dev"]
+CMD ["pnpm", "run", "start:dev"]

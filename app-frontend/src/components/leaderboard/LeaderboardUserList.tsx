@@ -23,6 +23,13 @@ export default function LeaderboardUserList({
     userId,
     userEntry,
 }: Props) {
+    console.log("LeaderboardUserList rendered", {
+        entries,
+        offset,
+        loading,
+        userId,
+        userEntry,
+    })
     const isUserInList = entries.some((e) => String(e.user.id) === String(userId))
 
     const getRankClass = (index: number | null) => {
@@ -64,7 +71,7 @@ export default function LeaderboardUserList({
                 <Image
                     src={
                         entry.user.avatar ||
-                        `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`
+                        `/assets/default-avatar.webp`
                     }
                     alt={entry.user.pseudo}
                     width={50}

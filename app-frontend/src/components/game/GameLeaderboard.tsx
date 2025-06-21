@@ -178,8 +178,8 @@ export default function GameLeaderboard({
                             {value == "week"
                                 ? "Sem."
                                 : value === "month"
-                                ? "Mois"
-                                : "Année"}
+                                    ? "Mois"
+                                    : "Année"}
                         </button>
                     ))}
                 </div>
@@ -232,9 +232,7 @@ export default function GameLeaderboard({
                                         width={32}
                                         src={
                                             entry.user.avatar ||
-                                            `/assets/avatar/avatar-default-${Math.floor(
-                                                Math.random() * 7 + 1
-                                            )}.png`
+                                            `/assets/default-avatar.webp`
                                         }
                                         alt={entry.user.pseudo}
                                         className="w-6 h-6 "

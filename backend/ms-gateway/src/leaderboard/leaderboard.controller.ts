@@ -22,7 +22,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getGlobalLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -42,7 +45,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getCategoryLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             Number(category),
             limit,
             offset,
@@ -63,7 +69,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getGameLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             Number(gameId),
             limit,
             offset,
@@ -83,7 +92,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getFriendsLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             limit,
             offset,
             dateStart ? new Date(dateStart) : undefined,
@@ -103,7 +115,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getFriendsCategoryLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             Number(category),
             limit,
             offset,
@@ -124,7 +139,10 @@ export class LeaderboardController {
         @Query("dateEnd") dateEnd?: string
     ): Promise<LeaderboardResponse> {
         return this.leaderboardService.getFriendsGameLeaderboard(
-            req.user.id,
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
             Number(gameId),
             limit,
             offset,

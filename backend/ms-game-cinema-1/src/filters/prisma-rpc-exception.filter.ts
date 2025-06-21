@@ -20,6 +20,8 @@ export class PrismaRpcExceptionFilter implements ExceptionFilter {
         let status = HttpStatus.INTERNAL_SERVER_ERROR;
         let message = "Erreur interne du serveur";
 
+        console.error(`Prisma Error (${exception.code}): ${exception.message}`);
+
         // Si c'est une erreur de validation
         if (exception instanceof Prisma.PrismaClientValidationError) {
             // Récupérer les informations des champs invalides

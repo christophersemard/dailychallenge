@@ -25,8 +25,6 @@ export class RolesGuard implements CanActivate {
             | { id: number; email: string; role: string }
             | undefined; // ✅ Définition du type utilisateur
 
-        console.log("User reçu", user);
-
         if (!user || !user.role || !requiredRoles.includes(user.role)) {
             throw new ForbiddenException(
                 "Vous n'avez pas l'autorisation d'accéder à cette ressource."

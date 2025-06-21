@@ -22,8 +22,6 @@ type Props = {
 export default function HeaderClient({ isAuthenticated, user }: Props) {
     const [showFriends, setShowFriends] = useState(false)
 
-    const isVip = false;
-
     return (
         <header className="fixed top-0 w-full z-50 py-2 md:py-4">
             <div className="mx-auto max-w-8xl  px-4 py-2 md:py-3 flex items-center justify-between">
@@ -49,6 +47,16 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                     {/* Navigation (desktop uniquement) */}
                     <nav className="ps-4 hidden md:flex gap-8 text-sm font-medium">
                         <CategoryDropdown />
+                        <Link href="/classement?type=global&period=all&page=1" className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none">
+                            Classement
+                        </Link>
+                        {
+                            isAuthenticated && user?.role == "admin" && (
+                                <Link href="/admin" className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none">
+                                    Admin
+                                </Link>
+                            )
+                        }
                     </nav>
                 </div>
 
@@ -73,11 +81,11 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                             </>
                         ) : (
                             <>
-                                {isVip ? (
+                                {user!.vip ? (
 
-                                    <Button variant="ghost-background" className="justify-start text-sm whitespace-nowrap hidden md:flex h-10" asChild>
-                                        <Link href="/vip" className="gap-2 items-center fill-primary text-primary">
-                                            <Crown fill="primary" size={16} />
+                                    <Button variant="primary" className="justify-start text-sm whitespace-nowrap hidden md:flex h-10" asChild>
+                                        <Link href="/vip" className="gap-2 items-center fill-black text-black">
+                                            <Crown fill="black" size={16} />
                                             <span className="text-black">VIP</span>
                                         </Link>
                                     </Button>

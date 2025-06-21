@@ -30,9 +30,7 @@ export interface UserMe {
     id: string;
     email: string;
     pseudo: string;
-    firstName: string;
-    lastName: string;
-    birthdate: string;
+    role: string; // "user" | "admin"
     createdAt: string;
     avatar: UserAvatar | null; // Avatar de l'utilisateur
     userStats: UserStats;
@@ -54,7 +52,19 @@ export interface UserMe {
     } | null;
     isFriend: boolean | "requested" | "received" | "accepted";
 
-    isVip: boolean;
+    vip: {
+        status: "active" | "inactive";
+        renewing: boolean;
+        until: string | null;
+        plan: "monthly" | "yearly" | "manual" | null;
+    };
+
+    vipHistory: {
+        startDate: string;
+        endDate: string | null;
+        status: "active" | "cancelled" | "expired";
+        plan: "monthly" | "yearly" | "manual";
+    }[];
 }
 
 // Type pour un ami

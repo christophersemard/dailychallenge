@@ -2,9 +2,6 @@ export interface UserProfile {
     id: number;
     email: string;
     pseudo: string;
-    firstName: string | null;
-    lastName: string | null;
-    birthdate: string | null;
     // vip: boolean;
     createdAt: string;
     updatedAt: string;

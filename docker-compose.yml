@@ -1,31 +1,45 @@
 services:
-  postgres:
-    image: postgres:15
-    restart: always
-    container_name: database-dailychallenge
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: dailychallenge
-    ports:
-      - "54335433"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
+  app-frontend:
+    build:
+      context: .
+      dockerfile: app-frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://ms-gateway:3000
+    depends_on:
+      - ms-gateway
+    ports:
+      - "3025:3025"
+    environment:
+      - IS_DOCKER=true
+      - NODE_ENV=production
+      - PORT=3025
+      - NEXTAUTH_URL=http://0.0.0.0:3025
+      - NEXT_PUBLIC_API_URL=http://ms-gateway:3000 # par exemple si ms-gateway
+      - NEXTAUTH_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
   ms-users:
     build:
       context: .
       dockerfile: backend/ms-users/Dockerfile
-    depends_on:
-      - postgres
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3001
-      - JWT_SECRET=une_cle_secrete_tres_forte
+      - JWT_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
       - JWT_EXPIRES_IN=7d
       - HOST=0.0.0.0
+      - SUPABASE_URL=https://wrivqparegjwiklfzsuq.supabase.co
+      - SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyaXZxcGFyZWdqd2lrbGZ6c3VxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI1MTg1MiwiZXhwIjoyMDYwODI3ODUyfQ.5OBB1uIifIYessGI4Nhz7YvbX5jzlOYVnd_kDzPtfoE
+      - SMTP_HOST=sandbox.smtp.mailtrap.io
+      - SMTP_PORT=2525
+      - SMTP_USER=b4d7a1ff591a14
+      - SMTP_PASS=00c090c8ae3639
+      - SMTP_FROM="DailyChallenge <noreply@mailtrap.io>"
+      - FRONTEND_URL=http://localhost:3025
+      - STRIPE_SECRET_KEY=sk_test_51RXUO5CmEo8NdUUqMJDxA6remFQvkTJRDqvIaCNwxPME467DZqLOXFPmxFELcqyQjMUehCOHZGPQ2HrnqmLLtvI200yFuQhY0d
+      - STRIPE_WEBHOOK_SECRET=whsec_2f9ff5f34f636024910185d5485aae58bda0ac0f808587095287daaa081be7a8
     volumes:
       - /app/node_modules
 
@@ -33,13 +47,26 @@ services:
     build:
       context: .
       dockerfile: backend/ms-friends/Dockerfile
-    depends_on:
-      - postgres
     ports:
       - "3002:3002"
     environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3002
+      - HOST=0.0.0.0
+    volumes:
+      - /app/node_modules
+
+  ms-leaderboard:
+    build:
+      context: .
+      dockerfile: backend/ms-leaderboard/Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - IS_DOCKER=true
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
+      - PORT=3003
       - HOST=0.0.0.0
     volumes:
       - /app/node_modules
@@ -49,13 +76,12 @@ services:
       context: .
       dockerfile: backend/ms-game-cinema-1/Dockerfile
     depends_on:
-      - postgres
       - ms-users
     ports:
       - "3004:3004"
     environment:
       - IS_DOCKER=true
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3004
       - HOST=0.0.0.0
     volumes:
@@ -66,13 +92,12 @@ services:
       context: .
       dockerfile: backend/ms-game-cinema-2/Dockerfile
     depends_on:
-      - postgres
       - ms-users
     ports:
       - "3005:3005"
     environment:
       - IS_DOCKER=true
-      - DATABASE_URL=postgresql://admin:secret@postgres:5433/dailychallenge?schema=public
+      - DATABASE_URL=postgresql://postgres.wrivqparegjwiklfzsuq:ZienrLetWa7gw1MQ@aws-0-eu-west-3.pooler.supabase.com:5432/postgres
       - PORT=3005
       - HOST=0.0.0.0
     volumes:
@@ -86,15 +111,18 @@ services:
     depends_on:
       - ms-users
       - ms-friends
+      - ms-game-cinema-1
+      - ms-game-cinema-2
+      - ms-leaderboard
     ports:
       - "3000:3000"
     environment:
       - IS_DOCKER=true
       - PORT=3000
-      - JWT_SECRET=une_cle_secrete_tres_forte
+      - JWT_SECRET=8a6yFlxNDYhU0OWM+Tbc0EQUwMFvJ8RWLPPL6mYfNbY=
       - JWT_EXPIRES_IN=7d
+      - STRIPE_SECRET_KEY=sk_test_51RXUO5CmEo8NdUUqMJDxA6remFQvkTJRDqvIaCNwxPME467DZqLOXFPmxFELcqyQjMUehCOHZGPQ2HrnqmLLtvI200yFuQhY0d
+      - STRIPE_WEBHOOK_SECRET=whsec_2f9ff5f34f636024910185d5485aae58bda0ac0f808587095287daaa081be7a8
     volumes:
       - /app/node_modules
 
-volumes:
-  pgdata:

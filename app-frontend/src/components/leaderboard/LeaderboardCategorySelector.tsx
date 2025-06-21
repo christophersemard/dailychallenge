@@ -57,6 +57,30 @@ export default function LeaderboardCategorySelector({
         setCategories(data)
     }
 
+    // Appliquer initialGame et initialCategory après chargement des catégories
+    useEffect(() => {
+        if (!categories.length) return
+
+        if (initialGame && initialGame !== "all") {
+            const found = categories
+                .flatMap((cat) => cat.games.map((g) => ({ ...g, catId: cat.id })))
+                .find((g) => String(g.id) === initialGame)
+
+            if (found) {
+                setSelectedCategory(String(found.catId))
+                setSelectedGame(String(found.id))
+                return
+            }
+        }
+
+        // Si pas de jeu ou jeu non trouvé → fallback sur initialCategory
+        if (initialCategory && initialCategory !== "all") {
+            setSelectedCategory(initialCategory)
+        }
+
+        setSelectedGame("all")
+    }, [categories, initialCategory, initialGame])
+
     useEffect(() => {
         onChange(
             selectedCategory === "all" ? null : selectedCategory,
@@ -73,7 +97,7 @@ export default function LeaderboardCategorySelector({
                 value={selectedCategory}
                 onValueChange={(value) => {
                     setSelectedCategory(value)
-                    setSelectedGame("all") // Réinitialiser les jeux
+                    setSelectedGame("all") // reset jeux quand catégorie change
                 }}
             >
                 <SelectTrigger className="w-56">

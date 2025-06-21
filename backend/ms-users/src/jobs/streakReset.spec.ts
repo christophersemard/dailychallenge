@@ -2,6 +2,18 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { StreakResetJob } from "./streakReset.cron";
 import prisma from "../prisma/prisma.service";
 
+jest.mock("../prisma/prisma.service", () => {
+    return {
+        __esModule: true,
+        default: {
+            userStats: {
+                findMany: jest.fn(),
+                updateMany: jest.fn(),
+            },
+        },
+    };
+});
+
 describe("StreakResetJob", () => {
     let streakResetJob: StreakResetJob;
 

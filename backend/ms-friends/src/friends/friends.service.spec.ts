@@ -3,6 +3,23 @@ import { FriendsService } from "./friends.service";
 import prisma from "../prisma/prisma.service";
 import { RpcException } from "@nestjs/microservices";
 
+jest.mock("../prisma/prisma.service", () => ({
+    __esModule: true,
+    default: {
+        user: {
+            findUnique: jest.fn(),
+        },
+        friend: {
+            findFirst: jest.fn(),
+            findMany: jest.fn(),
+            create: jest.fn(),
+            deleteMany: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn(),
+        },
+    },
+}));
+
 describe("FriendsService", () => {
     let service: FriendsService;
 
@@ -158,68 +175,6 @@ describe("FriendsService", () => {
 
     describe("getPendingRequests", () => {
         it("should return pending requests with requester info", async () => {
-            // const requestsReceived = await prisma.friend.findMany({
-            //     where: {
-            //         friendId: userId,
-            //         status: "pending",
-            //     },
-            //     select: {
-            //         id: true,
-            //         userId: true,
-            //         friendId: true,
-            //         status: true,
-            //         createdAt: true,
-            //         user: {
-            //             select: {
-            //                 email: true,
-            //                 pseudo: true,
-            //                 avatar: {
-            //                     select: {
-            //                         url: true,
-            //                     },
-            //                 },
-            //                 userStats: {
-            //                     select: {
-            //                         level: true,
-            //                     },
-            //                 },
-            //             },
-            //         },
-            //     },
-            // });
-
-            // const requestsSent = await prisma.friend.findMany({
-            //     where: {
-            //         userId,
-            //         status: "pending",
-            //     },
-            //     select: {
-            //         id: true,
-            //         userId: true,
-            //         friendId: true,
-            //         status: true,
-            //         createdAt: true,
-            //         friend: {
-            //             select: {
-            //                 email: true,
-            //                 pseudo: true,
-            //                 avatar: {
-            //                     select: {
-            //                         url: true,
-            //                     },
-            //                 },
-            //                 userStats: {
-            //                     select: {
-            //                         level: true,
-            //                     },
-            //                 },
-            //             },
-            //         },
-            //     },
-            // });
-
-            // Voici les fonctions à mocker
-
             jest.spyOn(prisma.friend, "findMany").mockResolvedValue([
                 {
                     id: 1,

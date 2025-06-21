@@ -45,86 +45,103 @@ export default function CategoryDropdown() {
 
     return (
         <>
-            {categories.map((category) => (
+            {categories.map((category) => {
+                const hasVisibleGames = category.games.length > 0 &&
+                    category.games.some(
+                        (game) => game.status === "available" || game.status === "coming_soon"
+                    );
 
-                category.games.length > 0 ? <Popover
-                    key={category.id}
-                    open={debouncedOpen === category.id}
-                    onOpenChange={(open) => setOpenCategory(open ? category.id : null)}
-                >
-                    <PopoverTrigger
-                        onMouseEnter={() => setOpenCategory(category.id)}
-                        onMouseLeave={() => setOpenCategory(null)}
-                        className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none"
-                    >
-                        {category.name} <ChevronDown size={14} />
-                    </PopoverTrigger>
+                if (!hasVisibleGames) return null;
 
-                    <PopoverContent
-                        onMouseEnter={() => setOpenCategory(category.id)}
-                        onMouseLeave={() => setOpenCategory(null)}
-                        className="mt-4 w-72 p-2 space-y-1 bg-white border-none shadow-lg"
-                        align="start"
+                return (
+                    <Popover
+                        key={category.id}
+                        open={debouncedOpen === category.id}
+                        onOpenChange={(open) => setOpenCategory(open ? category.id : null)}
                     >
-                        {category.games.map((game, i) => (
-                            <div key={game.id}>
-                                {game.status === "available" ? (
-                                    <Link
-                                        href={`/jeu/${game.path}`}
-                                        className="px-2 py-2 hover:bg-background rounded flex items-center space-x-5 text-sm transition"
-                                    >
-                                        <div>
-                                            {game.imgUrl ? (
-                                                <Image
-                                                    height={32}
-                                                    width={32}
-                                                    src={game.imgUrl}
-                                                    alt={game.name}
-                                                    className=""
-                                                />
-                                            ) : (
-                                                <Crown className="w-8 h-8" />
-                                            )}
-                                        </div>
-                                        <div className="flex flex-col items-start">
-                                            <div className="font-bold text-lg">{game.name}</div>
-                                            <div className="text-xs text-muted-foreground">{game.description}</div>
-                                        </div>
-                                    </Link>
-                                ) : game.status === "coming_soon" ? (
-                                    <div className="px-2 py-2 rounded flex items-center space-x-5 text-sm relative cursor-default">
-                                        <div>
-                                            {game.imgUrl ? (
-                                                <Image
-                                                    height={32}
-                                                    width={32}
-                                                    src={game.imgUrl}
-                                                    alt={game.name}
-                                                    className=""
-                                                />
-                                            ) : (
-                                                <Crown className="w-8 h-8" />
-                                            )}
-                                        </div>
-                                        <div className="flex flex-col items-start">
-                                            <div className="font-bold text-lg">{game.name}</div>
-                                            <div className="text-xs text-muted-foreground">{game.description}</div>
-                                        </div>
-                                        <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
-                                            <span className="-rotate-2">BIENTÔT DISPONIBLE</span>
-                                        </div>
+                        <PopoverTrigger
+                            onMouseEnter={() => setOpenCategory(category.id)}
+                            onMouseLeave={() => setOpenCategory(null)}
+                            className="flex items-center gap-1 font-bold text-base text-foreground dropdown-trigger focus:outline-none"
+                        >
+                            {category.name} <ChevronDown size={14} />
+                        </PopoverTrigger>
+
+                        <PopoverContent
+                            onMouseEnter={() => setOpenCategory(category.id)}
+                            onMouseLeave={() => setOpenCategory(null)}
+                            className="mt-4 w-72 p-2 space-y-1 bg-white border-none shadow-lg"
+                            align="start"
+                        >
+                            {category.games.map((game, i) => {
+                                if (
+                                    game.status !== "available" &&
+                                    game.status !== "coming_soon"
+                                ) return null;
+
+                                return (
+                                    <div key={game.id}>
+                                        {game.status === "available" ? (
+                                            <Link
+                                                href={`/jeu/${game.path}`}
+                                                className="px-2 py-2 hover:bg-background rounded flex items-center space-x-5 text-sm transition"
+                                            >
+                                                <div>
+                                                    {game.imgUrl ? (
+                                                        <Image
+                                                            height={32}
+                                                            width={32}
+                                                            src={game.imgUrl}
+                                                            alt={game.name}
+                                                        />
+                                                    ) : (
+                                                        <Crown className="w-8 h-8" />
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-col items-start">
+                                                    <div className="font-bold text-lg">{game.name}</div>
+                                                    <div className="text-xs text-muted-foreground">
+                                                        {game.description}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ) : (
+                                            <div className="px-2 py-2 rounded flex items-center space-x-5 text-sm relative cursor-default">
+                                                <div>
+                                                    {game.imgUrl ? (
+                                                        <Image
+                                                            height={32}
+                                                            width={32}
+                                                            src={game.imgUrl}
+                                                            alt={game.name}
+                                                        />
+                                                    ) : (
+                                                        <Crown className="w-8 h-8" />
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-col items-start">
+                                                    <div className="font-bold text-lg">{game.name}</div>
+                                                    <div className="text-xs text-muted-foreground">
+                                                        {game.description}
+                                                    </div>
+                                                </div>
+                                                <div className="absolute top-0 right-0 w-full h-full bg-white/50 rounded-md flex items-center justify-center text-black font-bold text-lg">
+                                                    <span className="-rotate-2">BIENTÔT DISPONIBLE</span>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {i < category.games.length - 1 && (
+                                            <div className="border-t border-muted/10" />
+                                        )}
                                     </div>
-                                ) :
-                                    (<></>)}
+                                );
+                            })}
+                        </PopoverContent>
+                    </Popover>
+                );
+            })}
 
-                                {i < category.games.length - 1 && (
-                                    <div className="border-t border-muted/10" />
-                                )}
-                            </div>
-                        ))}
-                    </PopoverContent>
-                </Popover> : <></>
-            ))}
         </>
     )
 }

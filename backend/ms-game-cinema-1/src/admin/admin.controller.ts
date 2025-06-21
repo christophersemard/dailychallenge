@@ -23,4 +23,9 @@ export class AdminController {
     async regenerateGameDay(@Payload() { date }: { date: string }) {
         return this.adminService.regenerateGameDay(date);
     }
+
+    @MessagePattern("admin_update_game_status")
+    async updateGameStatus(@Payload() { status }: { status: string }) {
+        return this.adminService.updateGameStatus(status);
+    }
 }

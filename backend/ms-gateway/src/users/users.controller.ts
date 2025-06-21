@@ -11,8 +11,7 @@ import {
 import { ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
 import { JwtAuthGuard } from "../auth/auth.guard";
 import { UsersService } from "./users.service";
-import { UpdateProfileDto } from "./dto/update-profile.dto";
-import { UserPublicProfile } from "./users.types";
+import { UserPublicProfile, UpdatePseudoDto } from "./users.types";
 import { UserRequest } from "../auth/auth.types";
 
 @ApiTags("Users")
@@ -27,16 +26,23 @@ export class UsersController {
     @Get("me")
     @ApiOperation({ summary: "Récupère le profil connecté" })
     async getMe(@Req() req: UserRequest) {
-        return this.usersService.getProfile(req.user.id);
+        return this.usersService.getProfile({
+            id: req.user.id,
+            username: req.user.pseudo,
+        });
     }
 
-    @Patch("update-profile")
-    @ApiOperation({ summary: "Met à jour le profil utilisateur" })
-    async updateProfile(
-        @Req() req: UserRequest,
-        @Body() dto: UpdateProfileDto
-    ) {
-        return this.usersService.updateProfile(req.user.id, dto);
+    @UseGuards(JwtAuthGuard)
+    @Patch("pseudo")
+    @ApiOperation({ summary: "Met à jour le pseudo de l'utilisateur" })
+    updatePseudo(@Req() req: UserRequest, @Body() dto: UpdatePseudoDto) {
+        return this.usersService.updatePseudo(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            dto
+        );
     }
 
     // ✅ PUBLIC ----------------------
@@ -63,6 +69,12 @@ export class UsersController {
         @Param("id") id: string,
         @Req() req: UserRequest
     ): Promise<UserPublicProfile> {
-        return this.usersService.getUserById(Number(id), req.user.id);
+        return this.usersService.getUserById(
+            {
+                id: req.user.id,
+                username: req.user.pseudo,
+            },
+            Number(id)
+        );
     }
 }

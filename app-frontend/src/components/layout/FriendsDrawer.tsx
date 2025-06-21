@@ -222,7 +222,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                                         <Image
                                                             height={40}
                                                             width={40}
-                                                            src={request.user.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                            src={request.user.avatarUrl || `/assets/default-avatar.webp`}
                                                             alt={request.user.pseudo}
                                                             className="w-6 h-6 rounded "
                                                         />
@@ -269,7 +269,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                                         <Image
                                                             height={40}
                                                             width={40}
-                                                            src={request.user.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                            src={request.user.avatarUrl || `/assets/default-avatar.webp`}
                                                             alt={request.user.pseudo}
                                                             className="w-6 h-6 rounded "
                                                         />
@@ -333,7 +333,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                                                 <Image
                                                     height={40}
                                                     width={40}
-                                                    src={friend.avatarUrl || `/assets/avatar/avatar-default-${Math.floor(Math.random() * 7 + 1)}.png`}
+                                                    src={friend.avatarUrl || `/assets/default-avatar.webp`}
                                                     alt={friend.pseudo}
                                                     className="w-10 h-10 rounded "
                                                 />

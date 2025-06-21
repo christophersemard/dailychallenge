@@ -1,0 +1,99 @@
+name: CICD
+run-name: ${{ github.actor }} déploie ${{ github.ref_name }}
+
+on:
+    push:
+        branches: [main, dev]
+        tags: [v*]
+
+jobs:
+    verify-all:
+        name: Vérification ${{ matrix.name }}
+        runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: ${{ vars.DATABASE_URL }}
+        strategy:
+            matrix:
+                include:
+                    - name: frontend
+                      path: app-frontend
+                    - name: ms-users
+                      path: backend/ms-users
+                    - name: ms-friends
+                      path: backend/ms-friends
+                    - name: ms-gateway
+                      path: backend/ms-gateway
+                    - name: ms-game-cinema-1
+                      path: backend/ms-game-cinema-1
+                    - name: ms-game-cinema-2
+                      path: backend/ms-game-cinema-2
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: true
+
+            - name: Lint ${{ matrix.name }}
+              working-directory: ${{ matrix.path }}
+              run: pnpm lint
+
+            - name: Test ${{ matrix.name }}
+              working-directory: ${{ matrix.path }}
+              run: pnpm test
+
+            - name: Build ${{ matrix.name }}
+              working-directory: ${{ matrix.path }}
+              run: pnpm build
+
+    deploy-all:
+        name: Build & Push Docker images
+        runs-on: ubuntu-latest
+        needs: verify-all
+        permissions:
+            contents: read
+            packages: write
+
+        strategy:
+            matrix:
+                include:
+                    - name: frontend
+                      path: app-frontend
+                      dockerfile: app-frontend/Dockerfile
+                    - name: ms-users
+                      path: backend/ms-users
+                      dockerfile: backend/ms-users/Dockerfile
+                    - name: ms-friends
+                      path: backend/ms-friends
+                      dockerfile: backend/ms-friends/Dockerfile
+                    - name: ms-gateway
+                      path: backend/ms-gateway
+                      dockerfile: backend/ms-gateway/Dockerfile
+                    - name: ms-game-cinema-1
+                      path: backend/ms-game-cinema-1
+                      dockerfile: backend/ms-game-cinema-1/Dockerfile
+                    - name: ms-game-cinema-2
+                      path: backend/ms-game-cinema-2
+                      dockerfile: backend/ms-game-cinema-2/Dockerfile
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build & Push ${{ matrix.name }}
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./${{ matrix.dockerfile }}
+                  push: true
+                  tags: |
+                      ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:${{ github.ref_name }}
+                      ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:latest

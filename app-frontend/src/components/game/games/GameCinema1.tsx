@@ -14,6 +14,8 @@ import { GameResult, MovieData, Try } from "@/types/game.types"
 import GameTries from "../GameTries"
 import clsx from "clsx"
 import { useGameEventStore } from "@/lib/store/useGameEventStore"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 
 
@@ -49,7 +51,7 @@ type ApiResponse = {
 
 export default function GameCinema1({ gameId, color, date }: Props) {
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
+    const [error, setError] = useState<false | "vip_required" | "other">(false);
     const [data, setData] = useState<ApiResponse | null>(null)
     const [submitting, setSubmitting] = useState(false)
     const notifyGameCompleted = useGameEventStore.getState().notifyGameCompleted
@@ -90,11 +92,16 @@ export default function GameCinema1({ gameId, color, date }: Props) {
 
             if (error) {
                 if (error.statusCode === 404) {
-                    setError(true)
+                    setError("other");
+                } else if (
+                    error.statusCode === 400 &&
+                    error.message?.includes("VIP")
+                ) {
+                    setError("vip_required");
                 } else {
-                    console.error("Erreur API :", error.message)
-                    setError(true)
+                    setError("other");
                 }
+
             } else {
                 setData(data)
 
@@ -105,7 +112,7 @@ export default function GameCinema1({ gameId, color, date }: Props) {
             }
         } catch (err) {
             console.error("Erreur réseau :", err)
-            setError(true)
+            setError("other")
         } finally {
             if (showLoading) setLoading(false)
         }
@@ -170,17 +177,31 @@ export default function GameCinema1({ gameId, color, date }: Props) {
     if (loading) {
         return (
             <Card title={titleCard} color={color} className="flex justify-center items-center min-h-64 font-bold text-xl">
-                <p>Chargement en cours...</p>
+                <p className="text-center">Chargement...</p>
             </Card>
         )
+    }
+
+
+    if (error === "vip_required") {
+        return (
+            <Card title={titleCard} color={color} className="flex flex-col items-center justify-center min-h-64 text-center space-y-4">
+                <p className="text-lg font-bold">Ce défi est réservé aux membres VIP.</p>
+                <p>Abonne-toi pour accéder aux jeux des jours précédents, gagner un indice bonus et bien plus encore.</p>
+
+                <Button variant="secondary" size={"lg"} asChild>
+                    <Link href="/vip">Devenir VIP</Link>
+                </Button>
+            </Card>
+        );
     }
 
     if (error || !data) {
         return (
             <Card title={titleCard} color={color} className="flex justify-center items-center min-h-64 font-bold text-xl">
-                <p>Aucun jeu disponible pour cette date.</p>
+                <p className="text-center">Aucun jeu disponible pour cette date.</p>
             </Card>
-        )
+        );
     }
 
     if (data.guessed && data.data && data.gameResult) {
@@ -198,6 +219,8 @@ export default function GameCinema1({ gameId, color, date }: Props) {
         </>
         )
     }
+
+
 
     const INDICE_LABELS: Record<keyof Hints, string> = {
         genres: "Genres",

@@ -89,7 +89,7 @@ export default function UserProfile({ user, currentUserId }: Props) {
 
     return (
         <div className="flex flex-col items-center gap-8">
-            <Card title={false} color="primary" className="w-full max-w-5xl">
+            <Card title={false} color="primary" className="w-full max-w-6xl">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                     <Image
                         src={
@@ -130,12 +130,12 @@ export default function UserProfile({ user, currentUserId }: Props) {
                                             stateUser.isFriend === "accepted"
                                                 ? "text-green"
                                                 : stateUser.isFriend ===
-                                                  "requested"
-                                                ? "text-black"
-                                                : stateUser.isFriend ===
-                                                  "received"
-                                                ? "text-black"
-                                                : "text-gray"
+                                                    "requested"
+                                                    ? "text-black"
+                                                    : stateUser.isFriend ===
+                                                        "received"
+                                                        ? "text-black"
+                                                        : "text-gray"
                                         )}
                                     >
                                         {stateUser.isFriend && (
@@ -144,10 +144,10 @@ export default function UserProfile({ user, currentUserId }: Props) {
                                         {stateUser.isFriend === "accepted"
                                             ? "Vous êtes amis"
                                             : stateUser.isFriend === "requested"
-                                            ? "Demande d'amis envoyée"
-                                            : stateUser.isFriend === "received"
-                                            ? "Demande d'amis reçue"
-                                            : ""}
+                                                ? "Demande d'amis envoyée"
+                                                : stateUser.isFriend === "received"
+                                                    ? "Demande d'amis reçue"
+                                                    : ""}
                                     </span>
                                 </div>
 
@@ -169,7 +169,7 @@ export default function UserProfile({ user, currentUserId }: Props) {
                                         {stateUser.isFriend === "accepted" && (
                                             <DropdownMenuItem
                                                 className="cursor-pointer text-danger"
-                                                onClick={() => {}}
+                                                onClick={() => { }}
                                             >
                                                 Retirer de mes amis
                                             </DropdownMenuItem>
@@ -214,14 +214,14 @@ export default function UserProfile({ user, currentUserId }: Props) {
                                         <DropdownMenuItem
                                             disabled
                                             className="cursor-pointer"
-                                            onClick={() => {}}
+                                            onClick={() => { }}
                                         >
                                             Bloquer l&apos;utilisateur
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             disabled
                                             className="cursor-pointer"
-                                            onClick={() => {}}
+                                            onClick={() => { }}
                                         >
                                             Signaler l&apos;utilisateur
                                         </DropdownMenuItem>
@@ -287,7 +287,7 @@ export default function UserProfile({ user, currentUserId }: Props) {
             <Card
                 title="Fil d'actualité"
                 color="primary"
-                className="w-full max-w-5xl"
+                className="w-full max-w-6xl"
             >
                 {stateUser.userEvents.length > 0 ? (
                     stateUser.userEvents.map((event, index) => (

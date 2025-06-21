@@ -40,8 +40,6 @@ export class UserEventsService {
             eventData.gameResultId = gameResult.id;
         }
 
-        console.log("Event data to be created:", eventData);
-
         // Enregistrement de l'événement
         const event = await prisma.userEvent.create({
             data: eventData,

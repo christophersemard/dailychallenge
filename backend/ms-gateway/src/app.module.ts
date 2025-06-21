@@ -25,6 +25,13 @@ import { AvatarController } from "./avatar/avatar.controller";
 import { AvatarService } from "./avatar/avatar.service";
 import { AdminGameCinema2Service } from "./admin/admin-game-cinema2.service";
 import { AdminGameCinema2Controller } from "./admin/admin-game-cinema2.controller";
+import { RpcClientLoggerService } from "./common/rpc-client-logger.service";
+import { RpcProxyService } from "./common/rpc-proxy.service";
+import { AdminUsersController } from "./admin/admin-users.controller";
+import { AdminUsersService } from "./admin/admin-users.service";
+import { WebhookController } from "./webhook/webhook.controller";
+import { VipController } from "./vip/vip.controller";
+import { VipService } from "./vip/vip.service";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -88,28 +95,41 @@ console.log("isDocker", isDocker);
     ],
     controllers: [
         AuthController,
+
+        AdminGameCinema1Controller,
+        AdminGameCinema2Controller,
+        AdminUsersController,
+
         FriendsController,
         UsersController,
         LeaderboardController,
-        AdminGameCinema1Controller,
-        AdminGameCinema2Controller,
         AvatarController,
         GameCinema1Controller,
         GameCinema2Controller,
+
+        WebhookController,
+        VipController,
     ],
     providers: [
         AuthService,
         JwtStrategy,
-        FriendsService,
-        RpcExceptionHandlerService,
         CacheService,
-        UsersService,
-        LeaderboardService,
+
         AdminGameCinema1Service,
         AdminGameCinema2Service,
+        AdminUsersService,
+
+        FriendsService,
+        UsersService,
+        LeaderboardService,
         GameCinema1Service,
         GameCinema2Service,
         AvatarService,
+        VipService,
+
+        RpcExceptionHandlerService,
+        RpcClientLoggerService,
+        RpcProxyService,
 
         {
             provide: APP_GUARD,
@@ -120,6 +140,10 @@ console.log("isDocker", isDocker);
             useClass: RolesGuard, // ✅ Active la gestion des rôles sur les routes avec @Roles()
         },
     ],
-    exports: [RpcExceptionHandlerService],
+    exports: [
+        RpcExceptionHandlerService,
+        RpcProxyService,
+        RpcClientLoggerService,
+    ],
 })
 export class AppModule {}

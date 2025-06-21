@@ -18,12 +18,19 @@ import { AvatarService } from "./avatar/avatar.service";
 import { AvatarController } from "./avatar/avatar.controller";
 import { UsersService } from "./users/users.service";
 import { SupabaseService } from "./supabase/supabase.service";
+import mailConfig from "./config/mail.config";
+import { MailerService } from "./mailer/mailer.service";
+import { AdminController } from "./admin/admin.controller";
+import { AdminService } from "./admin/admin.service";
+import { VipService } from "./vip/vip.service";
+import { VipController } from "./vip/vip.controller";
 
 @Module({
     imports: [
         ScheduleModule.forRoot(),
         ConfigModule.forRoot({
             isGlobal: true,
+            load: [mailConfig],
             envFilePath: ["../../.env.shared", ".env", ".env.local"], // charge d'abord le partagé, puis local
         }),
         JwtModule.register({
@@ -37,6 +44,8 @@ import { SupabaseService } from "./supabase/supabase.service";
         UserGameController,
         ProfileController,
         AvatarController,
+        AdminController,
+        VipController,
     ],
     providers: [
         SupabaseService,
@@ -48,6 +57,9 @@ import { SupabaseService } from "./supabase/supabase.service";
         ProfileService,
         AvatarService,
         UsersService,
+        MailerService,
+        AdminService,
+        VipService,
     ],
     exports: [SupabaseService],
 })

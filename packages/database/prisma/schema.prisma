@@ -7,7 +7,8 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "../generated/client"
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  engineType    = "binary"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -18,14 +19,10 @@ datasource db {
 /////////////// USER MODELS ///////////////
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  pseudo    String    @unique
-  firstName String?
-  lastName  String?
-  birthdate DateTime? // Seulement la date 
-  isVip     Boolean   @default(false) // ✅ VIP
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  pseudo   String @unique
 
   avatar Avatar?
 
@@ -35,11 +32,50 @@ model User {
   deletedAt DateTime?
 
   // Relations
-  friends     Friend[]     @relation("UserFriends")
-  friend      Friend[]     @relation("FriendUser")
-  userStats   UserStats?
-  userEvents  UserEvent[]
-  gameResults GameResult[]
+  friends            Friend[]             @relation("UserFriends")
+  friend             Friend[]             @relation("FriendUser")
+  userStats          UserStats?
+  userEvents         UserEvent[]
+  gameResults        GameResult[]
+  PasswordResetToken PasswordResetToken[]
+  vipSubscriptions   VipSubscription[]
+}
+
+model VipSubscription {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  stripeSubscriptionId String? // si abonnement actif
+  stripeCustomerId     String? // si on veut garder une trace
+
+  plan        VipPlan // "monthly" | "yearly"
+  startDate   DateTime
+  endDate     DateTime?
+  cancelledAt DateTime?
+  status      VipStatus // active | cancelled | expired
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum VipPlan {
+  monthly
+  yearly
+  manual
+}
+
+enum VipStatus {
+  active
+  cancelled
+  expired
+}
+
+model PasswordResetToken {
+  token     String   @id
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  expiresAt DateTime
 }
 
 model Avatar {
