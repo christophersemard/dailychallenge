@@ -24,8 +24,13 @@ export async function fetchServerAction<T>(
     const API_URL = IS_DOCKER
         ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
         : "http://localhost:3000";
+
+    console.log("API URL DANS FETCH SERVER ACTION :", API_URL);
+
     const session = await getServerSession(authOptions);
     const token = session?.accessToken;
+
+    console.log("Token dans fetchServerAction :", token);
 
     const headers: Record<string, string> = {
         ...(init.headers as Record<string, string>),
@@ -59,8 +64,12 @@ export async function fetchServerAction<T>(
         }
 
         const result: T = await res.json();
+
+        console.log("Résultat de la requête :", result);
+
         return { data: result, error: null };
     } catch (err) {
+        console.error("Erreur lors de la requête :", err);
         return {
             data: null,
             error: {
