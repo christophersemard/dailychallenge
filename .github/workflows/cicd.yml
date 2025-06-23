@@ -23,6 +23,8 @@ jobs:
                       path: backend/ms-friends
                     - name: ms-gateway
                       path: backend/ms-gateway
+                    - name: ms-leaderboard
+                      path: backend/ms-leaderboard
                     - name: ms-game-cinema-1
                       path: backend/ms-game-cinema-1
                     - name: ms-game-cinema-2
@@ -71,6 +73,9 @@ jobs:
                     - name: ms-gateway
                       path: backend/ms-gateway
                       dockerfile: backend/ms-gateway/Dockerfile
+                    - name: ms-leaderboard
+                      path: backend/ms-leaderboard
+                      dockerfile: backend/ms-leaderboard/Dockerfile
                     - name: ms-game-cinema-1
                       path: backend/ms-game-cinema-1
                       dockerfile: backend/ms-game-cinema-1/Dockerfile
