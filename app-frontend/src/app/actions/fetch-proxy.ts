@@ -22,7 +22,7 @@ export async function fetchServerAction<T>(
 ): Promise<FetchResponse<T>> {
     const IS_DOCKER = process.env.IS_DOCKER === "true";
     const API_URL = IS_DOCKER
-        ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+        ? process.env.NEXT_PUBLIC_API_URL || "https://api.dailychallenge.fr"
         : "http://localhost:3000";
 
     console.log("API URL DANS FETCH SERVER ACTION :", API_URL);

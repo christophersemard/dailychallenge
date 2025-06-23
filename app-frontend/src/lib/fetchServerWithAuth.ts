@@ -43,7 +43,7 @@ export async function fetchServerWithAuth<T>(
     try {
         const IS_DOCKER = process.env.IS_DOCKER === "true";
         const API_URL = IS_DOCKER
-            ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+            ? process.env.NEXT_PUBLIC_API_URL || "https://api.dailychallenge.fr"
             : "http://localhost:3000";
         console.log("API URL DANS FETCH SERVER :", API_URL);
         const res = await fetch(`${API_URL}${input}`, {
