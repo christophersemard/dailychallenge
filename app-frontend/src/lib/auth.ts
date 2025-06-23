@@ -40,7 +40,11 @@ export const authOptions: AuthOptions = {
                     }
                 );
 
+                console.log("Réponse de l'API :", res.status, res.statusText);
+
                 const data = await res.json();
+
+                console.log("Données de l'API :", data);
 
                 if (!res.ok || !data?.token || !data?.user) {
                     console.error("Erreur d'authentification :", data);
@@ -49,6 +53,13 @@ export const authOptions: AuthOptions = {
 
                 const { token, user } = data;
                 const { id, email, pseudo, role } = user;
+
+                console.log("Utilisateur connecté :", {
+                    id,
+                    email,
+                    pseudo,
+                    role,
+                });
 
                 return {
                     id: id.toString(),
