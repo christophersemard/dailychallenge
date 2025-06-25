@@ -17,7 +17,6 @@ RUN npm install -g pnpm@latest
 # 2. Dépendances
 # ---------------------
 FROM base AS deps
-
 ARG SERVICE_NAME
 WORKDIR /app
 
@@ -31,7 +30,6 @@ RUN pnpm install --filter ${SERVICE_NAME}... --frozen-lockfile
 # 3. Prisma
 # ---------------------
 FROM deps AS prisma
-
 COPY packages/database ./packages/database
 WORKDIR /app/packages/database
 RUN pnpm run db:generate
@@ -40,7 +38,6 @@ RUN pnpm run db:generate
 # 4. Build (NestJS)
 # ---------------------
 FROM deps AS build
-
 ARG SERVICE_NAME
 COPY packages/database ./packages/database
 COPY backend/${SERVICE_NAME} ./backend/${SERVICE_NAME}
@@ -51,7 +48,6 @@ RUN pnpm run build
 # 5. Final image
 # ---------------------
 FROM base AS final
-
 ARG SERVICE_NAME
 ARG SERVICE_PORT
 WORKDIR /app
