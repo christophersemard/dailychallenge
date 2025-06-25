@@ -37,7 +37,8 @@ jobs:
             - name: Detect changes
               id: skip-check
               run: |
-                  if git diff --quiet HEAD^ HEAD -- ${{ matrix.path }}; then
+                  git fetch origin ${{ github.event.repository.default_branch }} --depth=1
+                  if git diff --quiet origin/${{ github.event.repository.default_branch }}...HEAD -- ${{ matrix.path }}; then
                     echo "skip=true" >> $GITHUB_OUTPUT
                   else
                     echo "skip=false" >> $GITHUB_OUTPUT
