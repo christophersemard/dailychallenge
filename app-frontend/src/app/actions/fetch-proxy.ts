@@ -21,17 +21,12 @@ export async function fetchServerAction<T>(
     init: RequestInit = {}
 ): Promise<FetchResponse<T>> {
     const IS_DOCKER = process.env.IS_DOCKER === "true";
-    console.log("IS_DOCKER :", IS_DOCKER);
     const API_URL = IS_DOCKER
         ? process.env.NEXT_PUBLIC_API_URL || "https://api.dailychallenge.fr"
         : "http://localhost:3000";
 
-    console.log("API URL DANS FETCH SERVER ACTION :", API_URL);
-
     const session = await getServerSession(authOptions);
     const token = session?.accessToken;
-
-    console.log("Token dans fetchServerAction :", token);
 
     const headers: Record<string, string> = {
         ...(init.headers as Record<string, string>),
@@ -66,7 +61,7 @@ export async function fetchServerAction<T>(
 
         const result: T = await res.json();
 
-        console.log("Résultat de la requête :", result);
+        // console.log("Résultat de la requête :", result);
 
         return { data: result, error: null };
     } catch (err) {

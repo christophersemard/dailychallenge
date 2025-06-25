@@ -48,7 +48,7 @@ export default function GameLeaderboard({
             let dateStart: Date;
             let dateEnd: Date;
 
-            console.log("Fetching leaderboard data...");
+            // console.log("Fetching leaderboard data...");
 
             if (period === "week") {
                 const day = now.getDay() || 7;
@@ -65,7 +65,7 @@ export default function GameLeaderboard({
                 dateEnd = new Date(now.getFullYear(), 11, 31);
             }
 
-            console.log("Date start:", dateStart, dateStart.toISOString());
+            // console.log("Date start:", dateStart, dateStart.toISOString());
 
             const params = new URLSearchParams({
                 gameId: String(leaderboardId),
@@ -90,7 +90,7 @@ export default function GameLeaderboard({
                 setEntries(data.players);
                 setNumberOfPlayers(data.numberOfPlayers);
 
-                console.log("Leaderboard data fetched:", data);
+                // console.log("Leaderboard data fetched:", data);
             }
 
             setLoading(false);
@@ -178,8 +178,8 @@ export default function GameLeaderboard({
                             {value == "week"
                                 ? "Sem."
                                 : value === "month"
-                                    ? "Mois"
-                                    : "Année"}
+                                ? "Mois"
+                                : "Année"}
                         </button>
                     ))}
                 </div>

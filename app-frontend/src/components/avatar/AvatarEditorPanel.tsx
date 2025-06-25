@@ -51,7 +51,7 @@ export default function AvatarEditorPanel({
                 colors: ColorAsset[];
             }>("/api/avatar/assets");
 
-            console.log("Assets avatar chargés :", data);
+            // console.log("Assets avatar chargés :", data);
 
             if (error || !data) {
                 console.error("Erreur chargement assets avatar :", error);

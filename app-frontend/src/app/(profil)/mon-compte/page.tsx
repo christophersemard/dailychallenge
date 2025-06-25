@@ -28,15 +28,17 @@ export default function MonComptePage() {
         if (status === "unauthenticated") {
             router.push("/connexion");
         } else if (status === "authenticated") {
-            fetchClientWithAuth<UserMe>("/api/users/me").then(({ data, error }) => {
-                if (error || !data) {
-                    toast.error("Impossible de récupérer ton profil.");
-                    return;
+            fetchClientWithAuth<UserMe>("/api/users/me").then(
+                ({ data, error }) => {
+                    if (error || !data) {
+                        toast.error("Impossible de récupérer ton profil.");
+                        return;
+                    }
+                    // console.log("Données utilisateur récupérées :", data);
+                    setUser(data);
+                    setPseudo(data.pseudo);
                 }
-                console.log("Données utilisateur récupérées :", data);
-                setUser(data);
-                setPseudo(data.pseudo);
-            });
+            );
         }
     }, [status]);
 
@@ -56,7 +58,9 @@ export default function MonComptePage() {
         setLoading(false);
 
         if (error) {
-            toast.error(error.message || "Erreur lors de la mise à jour du pseudo.");
+            toast.error(
+                error.message || "Erreur lors de la mise à jour du pseudo."
+            );
             return;
         }
 
@@ -67,7 +71,6 @@ export default function MonComptePage() {
 
     return (
         <div className="p-4 sm:p-8 max-w-6xl mx-auto w-full">
-
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-8">
                 {/* COLONNE PRINCIPALE */}
                 <div className="space-y-6 flex flex-col gap-6">
@@ -93,7 +96,11 @@ export default function MonComptePage() {
                     </Card>
 
                     {/* Bloc Mot de passe */}
-                    <Card title="Mot de passe" color="primary" className="space-y-4">
+                    <Card
+                        title="Mot de passe"
+                        color="primary"
+                        className="space-y-4"
+                    >
                         <PasswordChangeBlock />
                     </Card>
                 </div>
@@ -101,12 +108,20 @@ export default function MonComptePage() {
                 {/* COLONNE SECONDAIRE */}
                 <div className="space-y-6 flex flex-col gap-6">
                     {/* Bloc Email */}
-                    <Card title="Adresse email" color="primary" className="space-y-2">
+                    <Card
+                        title="Adresse email"
+                        color="primary"
+                        className="space-y-2"
+                    >
                         <p className="text-sm text-muted-foreground mb-2">
                             Tu peux modifier ton adresse email de connexion.
                         </p>
                         <div className="flex items-center gap-2">
-                            <Input value={user.email} disabled className="flex-1" />
+                            <Input
+                                value={user.email}
+                                disabled
+                                className="flex-1"
+                            />
                             <EmailChangeModal />
                         </div>
                     </Card>
@@ -120,7 +135,7 @@ export default function MonComptePage() {
                     />
 
                     {/* Bloc Suppression compte */}
-                    <Card title="" color="danger" className="space-y-2" >
+                    <Card title="" color="danger" className="space-y-2">
                         <AccountDeleteModal />
                     </Card>
                 </div>
