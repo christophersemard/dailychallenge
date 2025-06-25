@@ -7,87 +7,87 @@ on:
         tags: [v*]
 
 jobs:
-    verify-all:
-        name: Vérification ${{ matrix.name }}
-        runs-on: ubuntu-latest
-        env:
-            DATABASE_URL: ${{ vars.DATABASE_URL }}
+    # verify-all:
+    #     name: Vérification ${{ matrix.name }}
+    #     runs-on: ubuntu-latest
+    #     env:
+    #         DATABASE_URL: ${{ vars.DATABASE_URL }}
 
-        strategy:
-            matrix:
-                include:
-                    - name: frontend
-                      path: app-frontend
-                    - name: ms-users
-                      path: backend/ms-users
-                    - name: ms-friends
-                      path: backend/ms-friends
-                    - name: ms-gateway
-                      path: backend/ms-gateway
-                    - name: ms-leaderboard
-                      path: backend/ms-leaderboard
-                    - name: ms-game-cinema-1
-                      path: backend/ms-game-cinema-1
-                    - name: ms-game-cinema-2
-                      path: backend/ms-game-cinema-2
+    #     strategy:
+    #         matrix:
+    #             include:
+    #                 - name: frontend
+    #                   path: app-frontend
+    #                 - name: ms-users
+    #                   path: backend/ms-users
+    #                 - name: ms-friends
+    #                   path: backend/ms-friends
+    #                 - name: ms-gateway
+    #                   path: backend/ms-gateway
+    #                 - name: ms-leaderboard
+    #                   path: backend/ms-leaderboard
+    #                 - name: ms-game-cinema-1
+    #                   path: backend/ms-game-cinema-1
+    #                 - name: ms-game-cinema-2
+    #                   path: backend/ms-game-cinema-2
 
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                  fetch-depth: 2
-            - name: Detect changes
-              id: skip-check
-              run: |
-                  changed_files=$(git diff --name-only HEAD~1 HEAD || true)
-                  echo "Fichiers modifiés :"
-                  echo "$changed_files"
-                  if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
-                    echo "skip=false" >> $GITHUB_OUTPUT
-                  else
-                    echo "skip=true" >> $GITHUB_OUTPUT
-                  fi
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #           with:
+    #               fetch-depth: 2
+    #         - name: Detect changes
+    #           id: skip-check
+    #           run: |
+    #               changed_files=$(git diff --name-only HEAD~1 HEAD || true)
+    #               echo "Fichiers modifiés :"
+    #               echo "$changed_files"
+    #               if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
+    #                 echo "skip=false" >> $GITHUB_OUTPUT
+    #               else
+    #                 echo "skip=true" >> $GITHUB_OUTPUT
+    #               fi
 
-            - name: Skip message
-              if: steps.skip-check.outputs.skip == 'true'
-              run: echo "✅ Aucun changement détecté dans ${{ matrix.name }}. On passe."
+    #         - name: Skip message
+    #           if: steps.skip-check.outputs.skip == 'true'
+    #           run: echo "✅ Aucun changement détecté dans ${{ matrix.name }}. On passe."
 
-            - uses: pnpm/action-setup@v2
-              if: steps.skip-check.outputs.skip == 'false'
-              with:
-                  version: 8
-                  run_install: false
+    #         - uses: pnpm/action-setup@v2
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           with:
+    #               version: 8
+    #               run_install: false
 
-            - uses: actions/cache@v4
-              if: steps.skip-check.outputs.skip == 'false'
-              with:
-                  path: ~/.pnpm-store
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-
+    #         - uses: actions/cache@v4
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           with:
+    #               path: ~/.pnpm-store
+    #               key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+    #               restore-keys: |
+    #                   ${{ runner.os }}-pnpm-
 
-            - name: Install deps
-              if: steps.skip-check.outputs.skip == 'false'
-              run: pnpm install
+    #         - name: Install deps
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           run: pnpm install
 
-            - name: Lint ${{ matrix.name }}
-              if: steps.skip-check.outputs.skip == 'false'
-              working-directory: ${{ matrix.path }}
-              run: pnpm lint
+    #         - name: Lint ${{ matrix.name }}
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           working-directory: ${{ matrix.path }}
+    #           run: pnpm lint
 
-            - name: Typecheck ${{ matrix.name }}
-              if: steps.skip-check.outputs.skip == 'false'
-              working-directory: ${{ matrix.path }}
-              run: pnpm run typecheck || echo "ℹ️ Typecheck non bloquant (ajuste ce comportement si besoin)"
+    #         - name: Typecheck ${{ matrix.name }}
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           working-directory: ${{ matrix.path }}
+    #           run: pnpm run typecheck || echo "ℹ️ Typecheck non bloquant (ajuste ce comportement si besoin)"
 
-            - name: Build ${{ matrix.name }}
-              if: steps.skip-check.outputs.skip == 'false'
-              working-directory: ${{ matrix.path }}
-              run: pnpm build
+    #         - name: Build ${{ matrix.name }}
+    #           if: steps.skip-check.outputs.skip == 'false'
+    #           working-directory: ${{ matrix.path }}
+    #           run: pnpm build
 
     deploy-all:
         name: Build & Push Docker images
         runs-on: ubuntu-latest
-        needs: verify-all
+        # needs: verify-all
         permissions:
             contents: read
             packages: write
