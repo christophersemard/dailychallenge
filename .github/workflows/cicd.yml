@@ -38,11 +38,13 @@ jobs:
             - name: Detect changes
               id: skip-check
               run: |
-                  git fetch origin ${{ github.event.repository.default_branch }} --depth=1
-                  if git diff --quiet origin/${{ github.event.repository.default_branch }}...HEAD -- ${{ matrix.path }}; then
-                    echo "skip=true" >> $GITHUB_OUTPUT
-                  else
+                  changed_files=$(git diff --name-only HEAD~1 HEAD || true)
+                  echo "Fichiers modifiés :"
+                  echo "$changed_files"
+                  if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
                     echo "skip=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "skip=true" >> $GITHUB_OUTPUT
                   fi
 
             - name: Skip message
