@@ -119,14 +119,18 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-
+              with:
+                  fetch-depth: 2
             - name: Detect changes
               id: skip-check
               run: |
-                  if git diff --quiet HEAD^ HEAD -- ${{ matrix.path }}; then
-                    echo "skip=true" >> $GITHUB_OUTPUT
-                  else
+                  changed_files=$(git diff --name-only HEAD~1 HEAD || true)
+                  echo "Fichiers modifiés :"
+                  echo "$changed_files"
+                  if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
                     echo "skip=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "skip=true" >> $GITHUB_OUTPUT
                   fi
 
             - name: Skip message
