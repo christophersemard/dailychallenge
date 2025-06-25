@@ -93,13 +93,13 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
 
-         - name: Build & Push ${{ matrix.name }}
-            uses: docker/build-push-action@v5
-            with:
-              context: .
-              file: ./${{ matrix.dockerfile }}
-              push: true
-              tags: |
-                ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:${{ github.ref_name }}
-                ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:latest
-              build-args: ${{ matrix.name == 'frontend' && 'IS_DOCKER=true\nNEXT_PUBLIC_API_URL=http://ms-gateway:3000' || '' }}
+            - name: Build & Push ${{ matrix.name }}
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./${{ matrix.dockerfile }}
+                  push: true
+                  tags: |
+                      ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:${{ github.ref_name }}
+                      ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:latest
+                  build-args: ${{ matrix.name == 'frontend' && 'IS_DOCKER=true\nNEXT_PUBLIC_API_URL=http://ms-gateway:3000' || '' }}
