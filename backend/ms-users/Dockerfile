@@ -18,7 +18,7 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY backend/ms-users/package.json ./backend/ms-users/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --filter ms-users... --frozen-lockfile
 
 # ---------------------
 # 3. Prisma
@@ -34,6 +34,7 @@ RUN pnpm run db:generate
 # ---------------------
 FROM deps AS build
 
+COPY packages/database ./packages/database
 COPY backend/ms-users ./backend/ms-users
 WORKDIR /app/backend/ms-users
 RUN pnpm run build
