@@ -1,6 +1,8 @@
 import { type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
+import { fetchServerAction } from "@/app/actions/fetch-proxy";
+
 interface DecodedJwt {
     exp: number;
     [key: string]: unknown;
@@ -25,29 +27,44 @@ export const authOptions: AuthOptions = {
                         "https://api.dailychallenge.fr"
                 );
 
-                const res = await fetch(
-                    `${
-                        process.env.NEXT_PUBLIC_API_URL ||
-                        "https://api.dailychallenge.fr"
-                    }/api/auth/login`,
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email: credentials.email,
-                            password: credentials.password,
-                        }),
-                    }
-                );
+                // const res = await fetch(
+                //     `${
+                //         process.env.NEXT_PUBLIC_API_URL ||
+                //         "https://api.dailychallenge.fr"
+                //     }/api/auth/login`,
+                //     {
+                //         method: "POST",
+                //         headers: { "Content-Type": "application/json" },
+                //         body: JSON.stringify({
+                //             email: credentials.email,
+                //             password: credentials.password,
+                //         }),
+                //     }
+                // );
+                const { data, error } = await fetchServerAction<{
+                    token: string;
+                    user: {
+                        id: number;
+                        email: string;
+                        pseudo: string;
+                        role: string;
+                    };
+                }>("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: credentials.email,
+                        password: credentials.password,
+                    }),
+                });
 
-                console.log("Réponse de l'API :", res.status, res.statusText);
+                if (error) {
+                    console.error("Erreur lors de la connexion :", error);
+                    return null;
+                }
 
-                const data = await res.json();
-
-                console.log("Données de l'API :", data);
-
-                if (!res.ok || !data?.token || !data?.user) {
-                    console.error("Erreur d'authentification :", data);
+                if (!data || !data.token || !data.user) {
+                    console.error("Données de connexion invalides :", data);
                     return null;
                 }
 

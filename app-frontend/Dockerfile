@@ -17,7 +17,9 @@ FROM base AS builder
 WORKDIR /app
 
 ARG NEXT_PUBLIC_API_URL
+ARG IS_DOCKER
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV IS_DOCKER=$IS_DOCKER
 
 COPY --from=deps /app ./
 RUN pnpm --filter app-frontend... build

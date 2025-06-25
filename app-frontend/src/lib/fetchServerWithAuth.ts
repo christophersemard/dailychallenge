@@ -42,6 +42,7 @@ export async function fetchServerWithAuth<T>(
 
     try {
         const IS_DOCKER = process.env.IS_DOCKER === "true";
+        console.log("IS_DOCKER :", IS_DOCKER);
         const API_URL = IS_DOCKER
             ? process.env.NEXT_PUBLIC_API_URL || "https://api.dailychallenge.fr"
             : "http://localhost:3000";
