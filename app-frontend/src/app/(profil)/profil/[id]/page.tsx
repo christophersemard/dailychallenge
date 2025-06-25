@@ -19,7 +19,7 @@ export default async function UserPublicProfilePage({ params }: Props) {
     const { data, error } = await fetchServerAction<UserPublic>(
         `/api/users/${userId}`
     );
-    console.log("UserPublicProfilePage", { data, error });
+    // console.log("UserPublicProfilePage", { data, error });
 
     if (!data || error) return notFound();
 

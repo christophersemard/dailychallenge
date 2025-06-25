@@ -20,7 +20,7 @@ const PRICE_IDS: Record<"monthly" | "yearly", string> = {
 
 type ApiVipResponse = {
     url: string;
-}
+};
 
 export default function VipPage() {
     const [loading, setLoading] = useState<"monthly" | "yearly" | null>(null);
@@ -28,17 +28,20 @@ export default function VipPage() {
     const createVipSession = async (plan: "monthly" | "yearly") => {
         setLoading(plan);
         try {
-            const res = await fetchClientWithAuth<ApiVipResponse>("/api/vip/create", {
-                method: "POST",
-                body: JSON.stringify({
-                    plan,
-                    priceId: PRICE_IDS[plan],
-                }),
-            });
+            const res = await fetchClientWithAuth<ApiVipResponse>(
+                "/api/vip/create",
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        plan,
+                        priceId: PRICE_IDS[plan],
+                    }),
+                }
+            );
 
-            console.log(res);
+            // console.log(res);
 
-            console.log("Response from VIP session creation:", res);
+            // console.log("Response from VIP session creation:", res);
 
             if (!res.data) {
                 toast.error("Erreur lors de la création de la session.");
@@ -62,7 +65,8 @@ export default function VipPage() {
                         Deviens VIP
                     </h1>
                     <p className="text-muted-foreground mt-2 text-sm">
-                        Accède à encore plus de contenu chaque jour et soutiens le projet
+                        Accède à encore plus de contenu chaque jour et soutiens
+                        le projet
                     </p>
                 </div>
 
@@ -74,14 +78,17 @@ export default function VipPage() {
                         "Soutiens le développement du projet",
                     ].map((b, i) => (
                         <li key={i} className="flex gap-2 items-start">
-                            <span className="text-primary text-center">✔️</span> {b}
+                            <span className="text-primary text-center">✔️</span>{" "}
+                            {b}
                         </li>
                     ))}
                 </ul>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="border rounded-lg p-6 flex flex-col items-center">
-                        <h2 className="text-lg font-semibold mb-1">Abonnement Mensuel</h2>
+                        <h2 className="text-lg font-semibold mb-1">
+                            Abonnement Mensuel
+                        </h2>
                         <p className="text-2xl font-black mb-4">1.99€ / mois</p>
                         <Button
                             onClick={() => createVipSession("monthly")}
@@ -89,7 +96,8 @@ export default function VipPage() {
                         >
                             {loading === "monthly" ? (
                                 <>
-                                    <Loader2 className="animate-spin mr-2 size-4" /> Redirection...
+                                    <Loader2 className="animate-spin mr-2 size-4" />{" "}
+                                    Redirection...
                                 </>
                             ) : (
                                 "Souscrire"
@@ -98,7 +106,9 @@ export default function VipPage() {
                     </div>
 
                     <div className="border rounded-lg p-6 flex flex-col items-center">
-                        <h2 className="text-lg font-semibold mb-1">Abonnement Annuel</h2>
+                        <h2 className="text-lg font-semibold mb-1">
+                            Abonnement Annuel
+                        </h2>
                         <p className="text-2xl font-black mb-4">19.99€ / an</p>
                         <Button
                             variant="secondary"
@@ -107,7 +117,8 @@ export default function VipPage() {
                         >
                             {loading === "yearly" ? (
                                 <>
-                                    <Loader2 className="animate-spin mr-2 size-4" /> Redirection...
+                                    <Loader2 className="animate-spin mr-2 size-4" />{" "}
+                                    Redirection...
                                 </>
                             ) : (
                                 "Souscrire"

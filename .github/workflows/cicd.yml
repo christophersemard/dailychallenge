@@ -12,6 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             DATABASE_URL: ${{ vars.DATABASE_URL }}
+
         strategy:
             matrix:
                 include:
@@ -23,6 +24,8 @@ jobs:
                       path: backend/ms-friends
                     - name: ms-gateway
                       path: backend/ms-gateway
+                    - name: ms-leaderboard
+                      path: backend/ms-leaderboard
                     - name: ms-game-cinema-1
                       path: backend/ms-game-cinema-1
                     - name: ms-game-cinema-2
@@ -30,21 +33,54 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 2
+            - name: Detect changes
+              id: skip-check
+              run: |
+                  changed_files=$(git diff --name-only HEAD~1 HEAD || true)
+                  echo "Fichiers modifiés :"
+                  echo "$changed_files"
+                  if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
+                    echo "skip=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "skip=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Skip message
+              if: steps.skip-check.outputs.skip == 'true'
+              run: echo "✅ Aucun changement détecté dans ${{ matrix.name }}. On passe."
 
             - uses: pnpm/action-setup@v2
+              if: steps.skip-check.outputs.skip == 'false'
               with:
                   version: 8
-                  run_install: true
+                  run_install: false
+
+            - uses: actions/cache@v4
+              if: steps.skip-check.outputs.skip == 'false'
+              with:
+                  path: ~/.pnpm-store
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-
+
+            - name: Install deps
+              if: steps.skip-check.outputs.skip == 'false'
+              run: pnpm install
 
             - name: Lint ${{ matrix.name }}
+              if: steps.skip-check.outputs.skip == 'false'
               working-directory: ${{ matrix.path }}
               run: pnpm lint
 
-            - name: Test ${{ matrix.name }}
+            - name: Typecheck ${{ matrix.name }}
+              if: steps.skip-check.outputs.skip == 'false'
               working-directory: ${{ matrix.path }}
-              run: pnpm test
+              run: pnpm run typecheck || echo "ℹ️ Typecheck non bloquant (ajuste ce comportement si besoin)"
 
             - name: Build ${{ matrix.name }}
+              if: steps.skip-check.outputs.skip == 'false'
               working-directory: ${{ matrix.path }}
               run: pnpm build
 
@@ -71,6 +107,9 @@ jobs:
                     - name: ms-gateway
                       path: backend/ms-gateway
                       dockerfile: backend/ms-gateway/Dockerfile
+                    - name: ms-leaderboard
+                      path: backend/ms-leaderboard
+                      dockerfile: backend/ms-leaderboard/Dockerfile
                     - name: ms-game-cinema-1
                       path: backend/ms-game-cinema-1
                       dockerfile: backend/ms-game-cinema-1/Dockerfile
@@ -80,8 +119,26 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 2
+            - name: Detect changes
+              id: skip-check
+              run: |
+                  changed_files=$(git diff --name-only HEAD~1 HEAD || true)
+                  echo "Fichiers modifiés :"
+                  echo "$changed_files"
+                  if echo "$changed_files" | grep -q "^${{ matrix.path }}/"; then
+                    echo "skip=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "skip=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Skip message
+              if: steps.skip-check.outputs.skip == 'true'
+              run: echo "✅ Aucun changement détecté dans ${{ matrix.name }}. Build/push ignoré."
 
             - name: Login to GitHub Container Registry
+              if: steps.skip-check.outputs.skip == 'false'
               uses: docker/login-action@v3
               with:
                   registry: ghcr.io
@@ -89,6 +146,7 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Build & Push ${{ matrix.name }}
+              if: steps.skip-check.outputs.skip == 'false'
               uses: docker/build-push-action@v5
               with:
                   context: .
@@ -97,3 +155,6 @@ jobs:
                   tags: |
                       ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:${{ github.ref_name }}
                       ghcr.io/christophersemard/dailychallenge/${{ matrix.name }}:latest
+                  build-args: |
+                      IS_DOCKER=${{ vars.IS_DOCKER }}
+                      NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}

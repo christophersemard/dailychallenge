@@ -12,7 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { MoreVertical, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import {
+    MoreVertical,
+    ChevronLeft,
+    ChevronRight,
+    MoreHorizontal,
+} from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -25,7 +30,6 @@ import Link from "next/link";
 import Image from "next/image";
 import OutlineText from "@/components/ui/outline-text";
 import { Streak } from "@/components/ui/streak";
-
 
 type User = {
     id: number;
@@ -93,11 +97,13 @@ export default function AdminUsersPage() {
                     totalPages: number;
                 };
             }>(
-                `/api/admin/users?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(search)}`
+                `/api/admin/users?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(
+                    search
+                )}`
             );
 
             if (!res.error && res.data) {
-                console.log("Utilisateurs récupérés :", res.data.data);
+                // console.log("Utilisateurs récupérés :", res.data.data);
                 setUsers(res.data.data);
                 setTotal(res.data.meta.total);
                 setTotalPages(res.data.meta.totalPages);
@@ -113,7 +119,9 @@ export default function AdminUsersPage() {
         if (!selectedUser) return;
 
         const vipUntilRaw = formData.get("vipUntil") as string;
-        const vipUntil = vipUntilRaw ? new Date(vipUntilRaw).toISOString() : null;
+        const vipUntil = vipUntilRaw
+            ? new Date(vipUntilRaw).toISOString()
+            : null;
 
         const updated = {
             pseudo: formData.get("pseudo") as string,
@@ -133,7 +141,9 @@ export default function AdminUsersPage() {
         if (!res.error) {
             setSelectedUser(null);
             setUsers((prev) =>
-                prev.map((u) => (u.id === selectedUser.id ? { ...u, ...updated } : u))
+                prev.map((u) =>
+                    u.id === selectedUser.id ? { ...u, ...updated } : u
+                )
             );
         }
     };
@@ -141,15 +151,20 @@ export default function AdminUsersPage() {
     const handleToggleActive = async () => {
         if (!userToToggle) return;
 
-        const res = await fetchClientWithAuth(`/api/admin/users/${userToToggle.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({ isActive: !userToToggle.isActive }),
-        });
+        const res = await fetchClientWithAuth(
+            `/api/admin/users/${userToToggle.id}`,
+            {
+                method: "PATCH",
+                body: JSON.stringify({ isActive: !userToToggle.isActive }),
+            }
+        );
 
         if (!res.error) {
             setUsers((prev) =>
                 prev.map((u) =>
-                    u.id === userToToggle.id ? { ...u, isActive: !u.isActive } : u
+                    u.id === userToToggle.id
+                        ? { ...u, isActive: !u.isActive }
+                        : u
                 )
             );
             setUserToToggle(null);
@@ -159,7 +174,11 @@ export default function AdminUsersPage() {
     };
 
     return (
-        <Card className="space-y-6" title="Gestion des utilisateurs" color="primary">
+        <Card
+            className="space-y-6"
+            title="Gestion des utilisateurs"
+            color="primary"
+        >
             <div className="flex justify-end items-center mt-[-1rem] mb-4">
                 <Input
                     placeholder="Rechercher par pseudo ou email"
@@ -199,7 +218,10 @@ export default function AdminUsersPage() {
                                         <Image
                                             height={32}
                                             width={32}
-                                            src={user.avatarUrl || "/assets/default-avatar.webp"}
+                                            src={
+                                                user.avatarUrl ||
+                                                "/assets/default-avatar.webp"
+                                            }
                                             alt={user.pseudo}
                                             className="w-6 h-6"
                                         />
@@ -211,9 +233,17 @@ export default function AdminUsersPage() {
                                 <td className="px-4 py-2">{user.email}</td>
                                 <td className="px-4 py-2 text-muted-foreground">
                                     <p className="flex items-center mb-0">
-                                        <span className="text-sm ms-4">Niv. </span>
-                                        <OutlineText color="black" text={String(user.level)} className="mt-0.5 me-1" />
-                                        <span className="text-xs">({user.xp} XP)</span>
+                                        <span className="text-sm ms-4">
+                                            Niv.{" "}
+                                        </span>
+                                        <OutlineText
+                                            color="black"
+                                            text={String(user.level)}
+                                            className="mt-0.5 me-1"
+                                        />
+                                        <span className="text-xs">
+                                            ({user.xp} XP)
+                                        </span>
                                     </p>
                                 </td>
                                 <td className="px-4 py-2">
@@ -222,20 +252,30 @@ export default function AdminUsersPage() {
                                     </p>
                                 </td>
                                 <td className="px-4 py-2">
-                                    {user.vip?.status === "active" || user.vip?.status === "custom" ? (
+                                    {user.vip?.status === "active" ||
+                                    user.vip?.status === "custom" ? (
                                         <Badge className="bg-yellow-400 text-black">
-                                            VIP {user.vip.status === "custom" ? "(perso)" : ""}
+                                            VIP{" "}
+                                            {user.vip.status === "custom"
+                                                ? "(perso)"
+                                                : ""}
                                         </Badge>
                                     ) : (
-                                        <span className="text-muted-foreground">—</span>
+                                        <span className="text-muted-foreground">
+                                            —
+                                        </span>
                                     )}
                                 </td>
 
                                 <td className="px-4 py-2">
                                     {user.isActive ? (
-                                        <Badge className="bg-green-100 text-green-800">Actif</Badge>
+                                        <Badge className="bg-green-100 text-green-800">
+                                            Actif
+                                        </Badge>
                                     ) : (
-                                        <Badge className="bg-danger/20 text-danger">Désactivé</Badge>
+                                        <Badge className="bg-danger/20 text-danger">
+                                            Désactivé
+                                        </Badge>
                                     )}
                                 </td>
                                 <td className="px-4 py-2 text-right">
@@ -246,14 +286,22 @@ export default function AdminUsersPage() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem onClick={() => setSelectedUser(user)}>
+                                            <DropdownMenuItem
+                                                onClick={() =>
+                                                    setSelectedUser(user)
+                                                }
+                                            >
                                                 Modifier
                                             </DropdownMenuItem>
                                             <DropdownMenuItem
                                                 className="text-red-600"
-                                                onClick={() => setUserToToggle(user)}
+                                                onClick={() =>
+                                                    setUserToToggle(user)
+                                                }
                                             >
-                                                {user.isActive ? "Désactiver" : "Réactiver"}
+                                                {user.isActive
+                                                    ? "Désactiver"
+                                                    : "Réactiver"}
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
@@ -266,7 +314,8 @@ export default function AdminUsersPage() {
 
             <div className="flex justify-between items-center gap-4">
                 <span className="text-sm text-muted-foreground">
-                    {total} utilisateur{total > 1 ? "s" : ""} – Page {currentPage} sur {totalPages}
+                    {total} utilisateur{total > 1 ? "s" : ""} – Page{" "}
+                    {currentPage} sur {totalPages}
                 </span>
 
                 <div className="flex items-center gap-1">
@@ -281,14 +330,21 @@ export default function AdminUsersPage() {
 
                     {renderPageButtons().map((page, i) =>
                         page === "..." ? (
-                            <span key={`ellipsis-${i}`} className="px-2 text-muted-foreground text-sm">
+                            <span
+                                key={`ellipsis-${i}`}
+                                className="px-2 text-muted-foreground text-sm"
+                            >
                                 <MoreHorizontal className="w-4 h-4" />
                             </span>
                         ) : (
                             <Button
                                 key={page}
                                 size="sm"
-                                variant={page === currentPage ? "primary" : "outline-background"}
+                                variant={
+                                    page === currentPage
+                                        ? "primary"
+                                        : "outline-background"
+                                }
                                 onClick={() => setCurrentPage(page as number)}
                             >
                                 {page}
@@ -307,7 +363,10 @@ export default function AdminUsersPage() {
                 </div>
             </div>
 
-            <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
+            <Dialog
+                open={!!selectedUser}
+                onOpenChange={() => setSelectedUser(null)}
+            >
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Modifier l’utilisateur</DialogTitle>
@@ -315,57 +374,118 @@ export default function AdminUsersPage() {
 
                     <form action={handleUpdate} className="space-y-4">
                         <div>
-                            <label htmlFor="pseudo" className="block font-medium">Pseudo</label>
-                            <Input id="pseudo" name="pseudo" defaultValue={selectedUser?.pseudo} />
+                            <label
+                                htmlFor="pseudo"
+                                className="block font-medium"
+                            >
+                                Pseudo
+                            </label>
+                            <Input
+                                id="pseudo"
+                                name="pseudo"
+                                defaultValue={selectedUser?.pseudo}
+                            />
                         </div>
                         <div>
-                            <label htmlFor="email" className="block font-medium">Email</label>
-                            <Input id="email" name="email" defaultValue={selectedUser?.email} />
+                            <label
+                                htmlFor="email"
+                                className="block font-medium"
+                            >
+                                Email
+                            </label>
+                            <Input
+                                id="email"
+                                name="email"
+                                defaultValue={selectedUser?.email}
+                            />
                         </div>
                         <div className="flex items-center gap-2">
-                            <label htmlFor="vip" className="font-medium">VIP</label>
-                            <Switch disabled={
-                                selectedUser?.vip?.plan != "manual" ? true : false
-                            } id="vip" name="vip" defaultChecked={selectedUser?.vip ? true : false} />
+                            <label htmlFor="vip" className="font-medium">
+                                VIP
+                            </label>
+                            <Switch
+                                disabled={
+                                    selectedUser?.vip?.plan != "manual"
+                                        ? true
+                                        : false
+                                }
+                                id="vip"
+                                name="vip"
+                                defaultChecked={
+                                    selectedUser?.vip ? true : false
+                                }
+                            />
                         </div>
                         <div>
-                            <label htmlFor="vipUntil" className="block font-medium">VIP jusqu’au</label>
-                            <Input disabled={
-                                selectedUser?.vip?.plan != "manual" ? true : false
-                            }
+                            <label
+                                htmlFor="vipUntil"
+                                className="block font-medium"
+                            >
+                                VIP jusqu’au
+                            </label>
+                            <Input
+                                disabled={
+                                    selectedUser?.vip?.plan != "manual"
+                                        ? true
+                                        : false
+                                }
                                 id="vipUntil"
                                 name="vipUntil"
                                 type="date"
                                 defaultValue={
-                                    selectedUser?.vip?.status === "custom" && selectedUser.vip.until
+                                    selectedUser?.vip?.status === "custom" &&
+                                    selectedUser.vip.until
                                         ? selectedUser.vip.until.split("T")[0]
                                         : ""
                                 }
                             />
                         </div>
 
-
                         <DialogFooter className="pt-4">
-                            <Button variant="secondary" type="button" onClick={() => setSelectedUser(null)}>Annuler</Button>
+                            <Button
+                                variant="secondary"
+                                type="button"
+                                onClick={() => setSelectedUser(null)}
+                            >
+                                Annuler
+                            </Button>
                             <Button type="submit">Enregistrer</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>
             </Dialog>
 
-            <Dialog open={!!userToToggle} onOpenChange={() => setUserToToggle(null)}>
+            <Dialog
+                open={!!userToToggle}
+                onOpenChange={() => setUserToToggle(null)}
+            >
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            {userToToggle?.isActive ? "Désactiver" : "Réactiver"} l’utilisateur
+                            {userToToggle?.isActive
+                                ? "Désactiver"
+                                : "Réactiver"}{" "}
+                            l’utilisateur
                         </DialogTitle>
                     </DialogHeader>
                     <p>
-                        Es-tu sûr de vouloir {userToToggle?.isActive ? "désactiver" : "réactiver"} <strong>{userToToggle?.pseudo}</strong> ?
+                        Es-tu sûr de vouloir{" "}
+                        {userToToggle?.isActive ? "désactiver" : "réactiver"}{" "}
+                        <strong>{userToToggle?.pseudo}</strong> ?
                     </p>
                     <DialogFooter className="pt-4">
-                        <Button variant="secondary" onClick={() => setUserToToggle(null)}>Annuler</Button>
-                        <Button variant={userToToggle?.isActive ? "danger" : "primary"} onClick={handleToggleActive}>
+                        <Button
+                            variant="secondary"
+                            onClick={() => setUserToToggle(null)}
+                        >
+                            Annuler
+                        </Button>
+                        <Button
+                            variant={
+                                userToToggle?.isActive ? "danger" : "primary"
+                            }
+                            onClick={handleToggleActive}
+                        >
                             Confirmer
                         </Button>
                     </DialogFooter>

@@ -1,6 +1,8 @@
 import { type AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
+import { fetchServerAction } from "@/app/actions/fetch-proxy";
+
 interface DecodedJwt {
     exp: number;
     [key: string]: unknown;
@@ -18,30 +20,63 @@ export const authOptions: AuthOptions = {
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error("Email et mot de passe requis.");
                 }
-      
-                console.log("API URL DANS CONNEXION :", process.env.NEXT_PUBLIC_API_URL);
-                
-                const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email: credentials.email,
-                            password: credentials.password,
-                        }),
-                    }
+
+                console.log(
+                    "API URL DANS CONNEXION :",
+                    process.env.NEXT_PUBLIC_API_URL ||
+                        "https://api.dailychallenge.fr"
                 );
 
-                const data = await res.json();
+                // const res = await fetch(
+                //     `${
+                //         process.env.NEXT_PUBLIC_API_URL ||
+                //         "https://api.dailychallenge.fr"
+                //     }/api/auth/login`,
+                //     {
+                //         method: "POST",
+                //         headers: { "Content-Type": "application/json" },
+                //         body: JSON.stringify({
+                //             email: credentials.email,
+                //             password: credentials.password,
+                //         }),
+                //     }
+                // );
+                const { data, error } = await fetchServerAction<{
+                    token: string;
+                    user: {
+                        id: number;
+                        email: string;
+                        pseudo: string;
+                        role: string;
+                    };
+                }>("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: credentials.email,
+                        password: credentials.password,
+                    }),
+                });
 
-                if (!res.ok || !data?.token || !data?.user) {
-                    console.error("Erreur d'authentification :", data);
+                if (error) {
+                    console.error("Erreur lors de la connexion :", error);
+                    return null;
+                }
+
+                if (!data || !data.token || !data.user) {
+                    console.error("Données de connexion invalides :", data);
                     return null;
                 }
 
                 const { token, user } = data;
                 const { id, email, pseudo, role } = user;
+
+                console.log("Utilisateur connecté :", {
+                    id,
+                    email,
+                    pseudo,
+                    role,
+                });
 
                 return {
                     id: id.toString(),

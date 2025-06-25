@@ -22,8 +22,9 @@ export async function fetchServerAction<T>(
 ): Promise<FetchResponse<T>> {
     const IS_DOCKER = process.env.IS_DOCKER === "true";
     const API_URL = IS_DOCKER
-        ? "http://ms-gateway:3000"
+        ? process.env.NEXT_PUBLIC_API_URL || "https://api.dailychallenge.fr"
         : "http://localhost:3000";
+
     const session = await getServerSession(authOptions);
     const token = session?.accessToken;
 
@@ -59,8 +60,12 @@ export async function fetchServerAction<T>(
         }
 
         const result: T = await res.json();
+
+        // console.log("Résultat de la requête :", result);
+
         return { data: result, error: null };
     } catch (err) {
+        console.error("Erreur lors de la requête :", err);
         return {
             data: null,
             error: {

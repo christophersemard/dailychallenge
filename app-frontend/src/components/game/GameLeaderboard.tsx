@@ -22,7 +22,7 @@ type Props = {
     gameId: string;
 };
 
-type Period = "week" | "month" | "year";
+type Period = "week" | "month" | "year" | "all";
 type Tab = "global" | "amis";
 
 export default function GameLeaderboard({
@@ -31,7 +31,7 @@ export default function GameLeaderboard({
     color,
 }: Props) {
     const [tab, setTab] = useState<Tab>("global");
-    const [period, setPeriod] = useState<Period>("week");
+    const [period, setPeriod] = useState<Period>("all");
     const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
     const [numberOfPlayers, setNumberOfPlayers] = useState(0);
     const [offset, setOffset] = useState(0);
@@ -48,7 +48,7 @@ export default function GameLeaderboard({
             let dateStart: Date;
             let dateEnd: Date;
 
-            console.log("Fetching leaderboard data...");
+            // console.log("Fetching leaderboard data...");
 
             if (period === "week") {
                 const day = now.getDay() || 7;
@@ -60,12 +60,20 @@ export default function GameLeaderboard({
             } else if (period === "month") {
                 dateStart = new Date(now.getFullYear(), now.getMonth(), 1);
                 dateEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            } else {
+            } else if (period === "year") {
                 dateStart = new Date(now.getFullYear(), 0, 1);
                 dateEnd = new Date(now.getFullYear(), 11, 31);
+            } else {
+                // Depuis toujours
+                dateStart = new Date(2000, 0, 1); // 1er janvier 2000
+                dateEnd = new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate()
+                );
             }
 
-            console.log("Date start:", dateStart, dateStart.toISOString());
+            // console.log("Date start:", dateStart, dateStart.toISOString());
 
             const params = new URLSearchParams({
                 gameId: String(leaderboardId),
@@ -90,7 +98,7 @@ export default function GameLeaderboard({
                 setEntries(data.players);
                 setNumberOfPlayers(data.numberOfPlayers);
 
-                console.log("Leaderboard data fetched:", data);
+                // console.log("Leaderboard data fetched:", data);
             }
 
             setLoading(false);
@@ -161,27 +169,32 @@ export default function GameLeaderboard({
                 </div>
 
                 <div className="flex gap-1 text-xs text-muted-foreground">
-                    {(["week", "month", "year"] as Period[]).map((value) => (
-                        <button
-                            key={value}
-                            onClick={() => {
-                                setPeriod(value);
-                                setOffset(0);
-                            }}
-                            className={clsx(
-                                "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background",
-                                {
-                                    "font-bold bg-background": period === value,
-                                }
-                            )}
-                        >
-                            {value == "week"
-                                ? "Sem."
-                                : value === "month"
+                    {(["week", "month", "year", "all"] as Period[]).map(
+                        (value) => (
+                            <button
+                                key={value}
+                                onClick={() => {
+                                    setPeriod(value);
+                                    setOffset(0);
+                                }}
+                                className={clsx(
+                                    "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background",
+                                    {
+                                        "font-bold bg-background":
+                                            period === value,
+                                    }
+                                )}
+                            >
+                                {value === "week"
+                                    ? "Sem."
+                                    : value === "month"
                                     ? "Mois"
-                                    : "Année"}
-                        </button>
-                    ))}
+                                    : value === "year"
+                                    ? "Année"
+                                    : "Tout"}
+                            </button>
+                        )
+                    )}
                 </div>
             </div>
 
