@@ -142,6 +142,8 @@ describe("LeaderboardService", () => {
             },
         ]);
 
+        console.log = jest.fn(); // Mock console.log to avoid cluttering test output
+
         const result = await service.getCategoriesWithGames();
         expect(result).toHaveLength(1);
         expect(result[0].games[0].name).toBe("FilmQuiz");
