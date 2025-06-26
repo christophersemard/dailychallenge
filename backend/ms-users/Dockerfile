@@ -20,11 +20,10 @@ FROM base AS deps
 ARG SERVICE_NAME
 WORKDIR /app
 
-COPY package.json ./package.json
-COPY pnpm-lock.yaml ./
-COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
-COPY backend/${SERVICE_NAME}/package.json  ./backend/${SERVICE_NAME}/package.json
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 COPY packages/database/package.json ./packages/database/package.json
+
 
 RUN pnpm install --no-frozen-lockfile --recursive
 
@@ -54,14 +53,11 @@ ARG SERVICE_NAME
 ARG SERVICE_PORT
 WORKDIR /app
 
-# Copie node_modules globaux (gérés par pnpm en hoisting)
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
-COPY --from=deps /app/package.json ./package.json
 
-# Copie des fichiers spécifiques au service
-COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/dist
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/backend/${SERVICE_NAME}/node_modules ./backend/${SERVICE_NAME}/node_modules
 COPY --from=prisma /app/packages/database ./packages/database
+COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/dist
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 
 COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/dist/avatar/assets
