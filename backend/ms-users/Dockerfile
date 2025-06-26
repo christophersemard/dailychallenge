@@ -53,16 +53,20 @@ ARG SERVICE_NAME
 ARG SERVICE_PORT
 WORKDIR /app
 
-
+# Copie node_modules globaux (gérés par pnpm en hoisting)
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/backend/${SERVICE_NAME}/node_modules ./backend/${SERVICE_NAME}/node_modules
 COPY --from=prisma /app/packages/database ./packages/database
+
+# Copie du dist (après build)
 COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/dist
+
+# Copie des sources nécessaires
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
+COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/src/avatar/assets
 
-COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/dist/avatar/assets
-
-WORKDIR /app/backend/${SERVICE_NAME}
-EXPOSE ${SERVICE_PORT}
+# Copie manuelle des assets dans le dist
+RUN mkdir -p ./backend/${SERVICE_NAME}/dist/avatar/assets && \
+  cp -r ./backend/${SERVICE_NAME}/src/avatar/assets/* ./backend/${SERVICE_NAME}/dist/avatar/assets/
 
 CMD ["pnpm", "run", "start:prod"]
