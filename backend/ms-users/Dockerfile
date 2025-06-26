@@ -25,7 +25,7 @@ COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
 
-RUN pnpm install --filter ${SERVICE_NAME}... --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # ---------------------
 # 3. Prisma
