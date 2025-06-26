@@ -21,6 +21,7 @@ ARG SERVICE_NAME
 WORKDIR /app
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json ./package.json
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
