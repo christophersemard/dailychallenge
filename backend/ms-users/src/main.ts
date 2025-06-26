@@ -23,7 +23,6 @@ async function bootstrap() {
 
     await app.listen();
     console.log(`🚀 ms-users démarré sur port TCP: ${port}`);
-    console.log(`📂 Répertoire de travail: ${path.resolve(process.cwd())}`);
 }
 
 bootstrap();
