@@ -15,12 +15,11 @@ async function bootstrap() {
         },
     });
 
-    await app.listen();
-    console.log("ms-leaderboard lancé sur le port TCP:", port);
-
     app.useGlobalFilters(
         new PrismaRpcExceptionFilter(),
         new GlobalRpcExceptionFilter()
     );
+    await app.listen();
+    console.log("ms-leaderboard lancé sur le port TCP:", port);
 }
 bootstrap();

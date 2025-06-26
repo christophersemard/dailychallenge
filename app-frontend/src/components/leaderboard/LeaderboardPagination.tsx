@@ -43,7 +43,8 @@ export default function LeaderboardPagination({
     return (
         <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 mt-6">
             <div className="text-sm text-muted-foreground">
-                <span className="font-bold">{totalPlayers}</span> joueur{totalPlayers > 1 ? "s" : ""}
+                <span className="font-bold">{totalPlayers}</span> joueur
+                {totalPlayers > 1 ? "s" : ""}
             </div>
 
             <div className="flex items-center gap-2">

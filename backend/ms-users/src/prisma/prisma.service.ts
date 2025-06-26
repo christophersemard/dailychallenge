@@ -1,5 +1,18 @@
-import { PrismaClient } from "database"; // 👈 Import du PrismaClient depuis `database`
+import { PrismaClient } from "database";
 
-const prisma = new PrismaClient(); // 👈 Chaque microservice instancie son propre client
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClient | undefined;
+};
+
+const prisma =
+    globalForPrisma.prisma ??
+    new PrismaClient({
+        log:
+            process.env.NODE_ENV === "development"
+                ? ["query", "error", "warn"]
+                : [],
+    });
+
+if (process.env.NODE_ENV === "development") globalForPrisma.prisma = prisma;
 
 export default prisma;

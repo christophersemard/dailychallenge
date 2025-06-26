@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontend": "pnpm --filter=app-frontend dev",
+    "stop:frontend": "taskkill /F /IM node.exe /T",
     "start:services": "pnpm --parallel --filter=ms-* run start:dev",
     "stop:services": "taskkill /F /IM node.exe /T",
     "test:all": "pnpm -r --filter ./backend/ms-* test",

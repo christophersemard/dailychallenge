@@ -109,17 +109,21 @@ export default function GameLeaderboard({
 
     const getRankClass = (rank: number, offset: number) => {
         if (offset != 0) return "";
-        if (rank === 0) return "text-red-500 font-bold ";
-        if (rank === 1) return "text-orange-500 font-bold";
-        if (rank === 2) return "text-yellow-500 font-bold";
+
+        if (rank === 0)
+            return "text-white bg-amber-300 rounded-lg size-5 text-center flex mx-auto items-center justify-center font-bold";
+        if (rank === 1)
+            return "text-white bg-stone-400 rounded-lg size-5 text-center flex mx-auto  items-center justify-center font-bold";
+        if (rank === 2)
+            return "text-white bg-amber-700 rounded-lg size-5 text-center flex mx-auto  items-center justify-center font-bold";
         return "";
     };
 
     const getRankColor = (rank: number, offset: number) => {
         if (offset != 0) return "black";
-        if (rank === 0) return "red";
-        if (rank === 1) return "orange";
-        if (rank === 2) return "yellow";
+        if (rank === 0) return " bg-amber-300";
+        if (rank === 1) return "bg-stone-400";
+        if (rank === 2) return "bg-amber-700";
         return "black";
     };
 
@@ -229,7 +233,7 @@ export default function GameLeaderboard({
                                 {/* Position */}
                                 <div
                                     className={clsx(
-                                        "text-center font-black text-base me-2",
+                                        "text-center font-black text-base me-3  rounded-lg size-5 flex mx-auto items-center justify-center ",
                                         getRankClass(i, offset)
                                     )}
                                 >
