@@ -19,13 +19,12 @@ RUN npm install -g pnpm@latest
 FROM base AS deps
 ARG SERVICE_NAME
 WORKDIR /app
-
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY package.json ./package.json
-COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY backend/${SERVICE_NAME}/package.json  ./backend/${SERVICE_NAME}/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile --recursive
 
 # ---------------------
 # 3. Prisma
