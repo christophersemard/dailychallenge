@@ -24,6 +24,7 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 COPY packages/database/package.json ./packages/database/package.json
 
+
 RUN pnpm install --filter ${SERVICE_NAME}... --frozen-lockfile
 
 # ---------------------
@@ -56,6 +57,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/dist
 COPY --from=prisma /app/packages/database ./packages/database
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
+COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/dist/avatar/assets
 
 WORKDIR /app/backend/${SERVICE_NAME}
 EXPOSE ${SERVICE_PORT}
