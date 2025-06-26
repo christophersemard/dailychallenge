@@ -16,7 +16,7 @@ async function bootstrap() {
     });
 
     await app.listen();
-    console.log("ms-leaderboard lancé sur le port 3003");
+    console.log("ms-leaderboard lancé sur le port TCP:", port);
 
     app.useGlobalFilters(
         new PrismaRpcExceptionFilter(),
