@@ -60,7 +60,6 @@ COPY --from=prisma /app/packages/database ./packages/database
 COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/dist
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 
-COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/dist/avatar/assets
 
 WORKDIR /app/backend/${SERVICE_NAME}
 EXPOSE ${SERVICE_PORT}
