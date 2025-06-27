@@ -405,6 +405,7 @@ export default function AdminUsersPage() {
                             </label>
                             <Switch
                                 disabled={
+                                    selectedUser?.vip &&
                                     selectedUser?.vip?.plan != "manual"
                                         ? true
                                         : false
@@ -425,6 +426,7 @@ export default function AdminUsersPage() {
                             </label>
                             <Input
                                 disabled={
+                                    selectedUser?.vip &&
                                     selectedUser?.vip?.plan != "manual"
                                         ? true
                                         : false

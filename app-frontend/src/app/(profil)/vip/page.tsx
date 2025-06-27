@@ -5,8 +5,10 @@ import { Crown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { useState } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
+import { UserMe } from "@/types/user.types";
 
 // export const metadata: Metadata = {
 //     title: "Deviens VIP",
@@ -55,6 +57,37 @@ export default function VipPage() {
             setLoading(null);
         }
     };
+
+    useEffect(() => {
+        // Vérifie si l'utilisateur est déjà VIP
+        const checkVipStatus = async () => {
+            try {
+                const { data: user, error } = await fetchClientWithAuth<UserMe>(
+                    "/api/users/me"
+                );
+
+                if (error) {
+                    console.error(
+                        "Erreur lors de la récupération de l'utilisateur :",
+                        error
+                    );
+                    return;
+                }
+                if (user?.vip) {
+                    toast.success("Vous êtes déjà VIP !");
+                    window.location.href = "/mon-profil";
+                    return;
+                }
+            } catch (e) {
+                console.error(
+                    "Erreur lors de la vérification du statut VIP :",
+                    e
+                );
+            }
+        };
+
+        checkVipStatus();
+    }, []);
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-10 w-full">

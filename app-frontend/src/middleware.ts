@@ -9,8 +9,8 @@ const ADMIN_ROUTES = ["/admin", "/dashboard"];
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
 
-    console.log("Middleware", pathname);
-    console.log("Request URL", req.url);
+    // console.log("Middleware", pathname);
+    // console.log("Request URL", req.url);
 
     if (
         PUBLIC_ROUTES.some(
@@ -21,26 +21,26 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    console.log("Checking token for protected route", pathname);
+    // console.log("Checking token for protected route", pathname);
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    console.log("Token", token);
+    // console.log("Token", token);
 
     if (!token) {
-        console.log("No token found, redirecting to login");
+        // console.log("No token found, redirecting to login");
         const loginUrl = new URL("/connexion", req.url);
         loginUrl.searchParams.set("callbackUrl", pathname);
         return NextResponse.redirect(loginUrl);
     }
 
     if (ADMIN_ROUTES.some((r) => pathname.startsWith(r))) {
-        console.log("Admin route", pathname);
+        // console.log("Admin route", pathname);
         if (token.role !== "admin") {
             return NextResponse.redirect(new URL("/", req.url));
         }
     }
 
     if (USER_ROUTES.some((r) => pathname.startsWith(r))) {
-        console.log("User route", pathname);
+        // console.log("User route", pathname);
         if (token.role !== "user" && token.role !== "admin") {
             return NextResponse.redirect(new URL("/", req.url));
         }
