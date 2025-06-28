@@ -75,6 +75,7 @@ jobs:
               run: pnpm lint
 
             - name: Test ${{ matrix.name }}
+              if: steps.skip-check.outputs.skip == 'false'
               working-directory: ${{ matrix.path }}
               run: pnpm test
 
