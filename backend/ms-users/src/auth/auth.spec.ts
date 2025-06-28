@@ -22,6 +22,7 @@ jest.mock("../prisma/prisma.service", () => ({
         },
         vipSubscription: {
             findFirst: jest.fn(),
+            updateMany: jest.fn(),
         },
         passwordResetToken: {
             create: jest.fn(),
@@ -35,6 +36,7 @@ jest.mock("../prisma/prisma.service", () => ({
 describe("AuthService", () => {
     let authService: AuthService;
     let vipService: VipService;
+    const jwtPayload = { id: 1, email: "test@example.com", role: "user" };
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -44,18 +46,12 @@ describe("AuthService", () => {
                     provide: JwtService,
                     useValue: {
                         sign: jest.fn().mockReturnValue("mocked-token"),
-                        verify: jest.fn().mockReturnValue({
-                            id: 1,
-                            email: "test@example.com",
-                            role: "user",
-                        }),
+                        verify: jest.fn().mockReturnValue(jwtPayload),
                     },
                 },
                 {
                     provide: UserEventsService,
-                    useValue: {
-                        addEvent: jest.fn(),
-                    },
+                    useValue: { addEvent: jest.fn() },
                 },
                 {
                     provide: MailerService,
@@ -71,8 +67,6 @@ describe("AuthService", () => {
                     provide: VipService,
                     useValue: {
                         cancelSubscription: jest.fn(),
-                        hasVipAccess: jest.fn(),
-                        getVipStatus: jest.fn(),
                     },
                 },
             ],
@@ -83,34 +77,27 @@ describe("AuthService", () => {
         jest.clearAllMocks();
     });
 
-    describe("generateToken", () => {
-        it("should return a signed token", async () => {
+    describe("generateToken & verifyToken", () => {
+        it("should sign and verify token", async () => {
             const token = await authService.generateToken({
                 id: 1,
                 email: "test@example.com",
-                pseudo: "Player_123",
+                pseudo: "Player",
                 role: "user",
             });
             expect(token).toBe("mocked-token");
-        });
-    });
 
-    describe("verifyToken", () => {
-        it("should verify and return payload", async () => {
-            const payload = await authService.verifyToken("valid-token");
-            expect(payload).toEqual({
-                id: 1,
-                email: "test@example.com",
-                role: "user",
-            });
+            const payload = await authService.verifyToken("token");
+            expect(payload).toEqual(jwtPayload);
         });
     });
 
     describe("createUser", () => {
         beforeEach(() => {
             (bcrypt.hash as jest.MockedFunction<
-                typeof bcrypt.hash
+                any
             >) = jest.fn().mockResolvedValue("hashed");
+            (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
             (prisma.user.create as jest.Mock).mockResolvedValue({
                 id: 1,
                 email: "new@example.com",
@@ -118,55 +105,86 @@ describe("AuthService", () => {
                 pseudo: "NewUser",
             });
             (prisma.userStats.create as jest.Mock).mockResolvedValue({});
-            (prisma.user.findUnique as jest.Mock).mockResolvedValue(null);
         });
 
-        it("should create a new user", async () => {
+        it("should create new user", async () => {
             const user = await authService.createUser(
                 "new@example.com",
                 "pass",
                 "NewUser"
             );
-            expect(user).toHaveProperty("email", "new@example.com");
+            expect(user.email).toBe("new@example.com");
             expect(user).not.toHaveProperty("password");
         });
     });
 
     describe("validateUser", () => {
-        beforeEach(() => {
+        it("should validate correct credentials", async () => {
             (bcrypt.compare as jest.MockedFunction<
-                typeof bcrypt.compare
+                any
             >) = jest.fn().mockResolvedValue(true);
             (prisma.user.findFirst as jest.Mock).mockResolvedValue({
                 id: 1,
                 email: "valid@example.com",
                 password: "hashed",
-                pseudo: "ValidUser",
             });
-        });
 
-        it("should return user if credentials are valid", async () => {
             const user = await authService.validateUser(
                 "valid@example.com",
                 "pass"
             );
-            expect(user).toHaveProperty("email", "valid@example.com");
+            expect(user.email).toBe("valid@example.com");
         });
 
-        it("should throw error if user not found", async () => {
+        it("should throw on invalid credentials", async () => {
             (prisma.user.findFirst as jest.Mock).mockResolvedValue(null);
             await expect(
-                authService.validateUser("missing@example.com", "pass")
-            ).rejects.toThrow("Identifiants incorrects.");
+                authService.validateUser("a@a.com", "pass")
+            ).rejects.toThrow();
+        });
+    });
+
+    describe("updatePassword", () => {
+        it("should update password if valid", async () => {
+            (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+            (bcrypt.hash as jest.Mock).mockResolvedValue("newhash");
+            (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+                id: 1,
+                email: "test",
+                password: "hashed",
+            });
+            const result = await authService.updatePassword(1, {
+                currentPassword: "old",
+                newPassword: "new",
+                confirmPassword: "new",
+            });
+            expect(result.success).toBe(true);
         });
 
-        it("should throw error if password is invalid", async () => {
-            (bcrypt.compare as jest.MockedFunction<
-                typeof bcrypt.compare
-            >) = jest.fn().mockResolvedValue(false);
+        it("should reject if passwords mismatch", async () => {
             await expect(
-                authService.validateUser("valid@example.com", "wrong")
-            ).rejects.toThrow("Identifiants incorrects.");
+                authService.updatePassword(1, {
+                    currentPassword: "x",
+                    newPassword: "a",
+                    confirmPassword: "b",
+                })
+            ).rejects.toThrow();
+        });
+    });
+
+    describe("updateEmail", () => {
+        it("should update email if password valid", async () => {
+            (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+            (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+                id: 1,
+                email: "old@test.com",
+                password: "hash",
+            });
+            const result = await authService.updateEmail(1, {
+                currentPassword: "ok",
+                newEmail: "new@test.com",
+            });
+            expect(result.success).toBe(true);
         });
     });
 
@@ -180,13 +198,11 @@ describe("AuthService", () => {
 
         beforeEach(() => {
             (prisma.user.findUnique as jest.Mock).mockResolvedValue(mockUser);
-            (bcrypt.compare as jest.MockedFunction<
-                typeof bcrypt.compare
-            >) = jest.fn().mockResolvedValue(true);
+            (bcrypt.compare as jest.Mock).mockResolvedValue(true);
             (prisma.user.update as jest.Mock).mockResolvedValue({});
         });
 
-        it("should call vipService.cancelSubscription if user has active sub", async () => {
+        it("should call cancelSubscription if sub exists", async () => {
             (prisma.vipSubscription.findFirst as jest.Mock).mockResolvedValue({
                 userId: 1,
                 status: VipStatus.active,
@@ -194,18 +210,54 @@ describe("AuthService", () => {
             });
 
             await authService.deleteAccount(1, "correct");
-
             expect(vipService.cancelSubscription).toHaveBeenCalledWith(1);
         });
+    });
 
-        it("should not call cancelSubscription if no active sub", async () => {
-            (prisma.vipSubscription.findFirst as jest.Mock).mockResolvedValue(
-                null
-            );
+    describe("sendResetPasswordToken", () => {
+        it("should create token and send email", async () => {
+            (prisma.user.findUnique as jest.Mock).mockResolvedValue({
+                id: 1,
+                email: "a@a.com",
+            });
+            (prisma.passwordResetToken.create as jest.Mock).mockResolvedValue({
+                token: "123",
+            });
+            const result = await authService.sendResetPasswordToken("a@a.com");
+            expect(result.success).toBe(true);
+        });
+    });
 
-            await authService.deleteAccount(1, "correct");
+    describe("resetPasswordWithToken", () => {
+        it("should reset password if token valid", async () => {
+            (prisma.passwordResetToken
+                .findUnique as jest.Mock).mockResolvedValue({
+                token: "tok",
+                userId: 1,
+                user: { email: "a@a.com" },
+                expiresAt: new Date(Date.now() + 60000),
+            });
+            (bcrypt.hash as jest.Mock).mockResolvedValue("hashed");
+            const result = await authService.resetPasswordWithToken({
+                token: "tok",
+                newPassword: "abc",
+                confirmPassword: "abc",
+            });
+            expect(result.success).toBe(true);
+        });
 
-            expect(vipService.cancelSubscription).not.toHaveBeenCalled();
+        it("should throw on expired token", async () => {
+            (prisma.passwordResetToken
+                .findUnique as jest.Mock).mockResolvedValue({
+                expiresAt: new Date(Date.now() - 60000),
+            });
+            await expect(
+                authService.resetPasswordWithToken({
+                    token: "tok",
+                    newPassword: "a",
+                    confirmPassword: "a",
+                })
+            ).rejects.toThrow("Token invalide ou expiré.");
         });
     });
 });

@@ -164,6 +164,184 @@ describe("UserGameService", () => {
         });
     });
 
+    describe("calculateScore - autres cas", () => {
+        it("should return scoreIfToday when not same day", async () => {
+            const oldDate = new Date("2000-01-01");
+            const result = await userGameService.calculateScore(
+                1,
+                5,
+                "passed",
+                oldDate
+            );
+            expect(result.scoreIfToday).toBeGreaterThan(0);
+            expect(result.isSameDay).toBe(false);
+        });
+
+        it("should apply minimum score of 30 when too many attempts", async () => {
+            const result = await userGameService.calculateScore(
+                5,
+                5,
+                "passed",
+                new Date()
+            );
+            expect(result.score).toBe(30);
+        });
+    });
+
+    describe("calculateXPAndStreak - autres cas", () => {
+        it("should initialize streak to 1 if lastPlayedAt is null", async () => {
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                xp: 0,
+                streak: 0,
+                level: 1,
+                lastPlayedAt: null,
+            });
+            const result = await userGameService.calculateXPAndStreak(
+                1,
+                50,
+                1,
+                new Date(),
+                "passed"
+            );
+            expect(result.newStreak).toBe(1);
+        });
+
+        it("should reset streak to 0 if diffDays > 1 and game not today", async () => {
+            const old = new Date();
+            old.setDate(old.getDate() - 5);
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                xp: 0,
+                streak: 3,
+                level: 1,
+                lastPlayedAt: old,
+            });
+            const result = await userGameService.calculateXPAndStreak(
+                1,
+                50,
+                1,
+                old,
+                "passed"
+            );
+            expect(result.newStreak).toBe(0);
+        });
+
+        it("should reset streak to 1 if diffDays > 1 but game is today", async () => {
+            const old = new Date();
+            old.setDate(old.getDate() - 5);
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                xp: 0,
+                streak: 3,
+                level: 1,
+                lastPlayedAt: old,
+            });
+            const result = await userGameService.calculateXPAndStreak(
+                1,
+                50,
+                1,
+                new Date(),
+                "passed"
+            );
+            expect(result.newStreak).toBe(1);
+        });
+
+        it("should not increase XP fully if game not played today", async () => {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                xp: 0,
+                streak: 1,
+                level: 1,
+                lastPlayedAt: yesterday,
+            });
+            const result = await userGameService.calculateXPAndStreak(
+                1,
+                100,
+                1,
+                new Date("2000-01-01"),
+                "passed"
+            );
+            expect(result.finalXP).toBeLessThan(100);
+        });
+
+        it("should not increase streak if status failed or score is 0", async () => {
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                xp: 0,
+                streak: 1,
+                level: 1,
+                lastPlayedAt: new Date(),
+            });
+            const result = await userGameService.calculateXPAndStreak(
+                1,
+                0,
+                1,
+                new Date(),
+                "failed"
+            );
+            expect(result.newStreak).toBe(1);
+        });
+    });
+
+    describe("handleLevelUpEvent - pas de level up", () => {
+        it("should not call addEvent if no level up", async () => {
+            (prisma.userStats.findUnique as jest.Mock).mockResolvedValue({
+                userId: 1,
+                level: 99,
+            });
+
+            const mockResult = { xpGained: 10 };
+            await userGameService.handleLevelUpEvent(1, 1, mockResult);
+
+            expect(userEventsService.addEvent).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("handleGameEvents", () => {
+        it("should call addEvent with game_completed for passed", async () => {
+            const mockResult = { status: "passed" };
+            await userGameService.handleGameEvents(1, 3, mockResult);
+            expect(userEventsService.addEvent).toHaveBeenCalledWith(
+                1,
+                "game_completed",
+                undefined,
+                undefined,
+                mockResult,
+                undefined,
+                3
+            );
+        });
+
+        it("should call addEvent with game_failed for failed", async () => {
+            const mockResult = { status: "failed" };
+            await userGameService.handleGameEvents(1, 2, mockResult);
+            expect(userEventsService.addEvent).toHaveBeenCalledWith(
+                1,
+                "game_failed",
+                undefined,
+                undefined,
+                mockResult,
+                undefined,
+                2
+            );
+        });
+    });
+
+    describe("calculateLevel", () => {
+        it("should return level 1 if xpTotal < required", () => {
+            const result = userGameService.calculateLevel(0);
+            expect(result.level).toBe(1);
+        });
+
+        it("should return high level if xpTotal is large", () => {
+            const result = userGameService.calculateLevel(10000);
+            expect(result.level).toBeGreaterThan(1);
+        });
+    });
+
     describe("processGameResult", () => {
         it("should throw if game not found", async () => {
             (prisma.game.findUnique as jest.Mock).mockResolvedValue(null);
