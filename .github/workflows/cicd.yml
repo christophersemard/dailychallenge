@@ -74,10 +74,9 @@ jobs:
               working-directory: ${{ matrix.path }}
               run: pnpm lint
 
-            - name: Typecheck ${{ matrix.name }}
-              if: steps.skip-check.outputs.skip == 'false'
+            - name: Test ${{ matrix.name }}
               working-directory: ${{ matrix.path }}
-              run: pnpm run typecheck || echo "ℹ️ Typecheck non bloquant (ajuste ce comportement si besoin)"
+              run: pnpm test
 
             - name: Build ${{ matrix.name }}
               if: steps.skip-check.outputs.skip == 'false'
