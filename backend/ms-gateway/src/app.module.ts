@@ -32,6 +32,8 @@ import { AdminUsersService } from "./admin/admin-users.service";
 import { WebhookController } from "./webhook/webhook.controller";
 import { VipController } from "./vip/vip.controller";
 import { VipService } from "./vip/vip.service";
+import { AdminController } from "./admin/admin.controller";
+import { AdminService } from "./admin/admin.service";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -99,6 +101,7 @@ console.log("isDocker", isDocker);
         AdminGameCinema1Controller,
         AdminGameCinema2Controller,
         AdminUsersController,
+        AdminController,
 
         FriendsController,
         UsersController,
@@ -118,6 +121,7 @@ console.log("isDocker", isDocker);
         AdminGameCinema1Service,
         AdminGameCinema2Service,
         AdminUsersService,
+        AdminService,
 
         FriendsService,
         UsersService,

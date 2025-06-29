@@ -35,8 +35,8 @@ function SearchParamHandler() {
 }
 
 export default function Connexion() {
-    const [email, setEmail] = useState("michel@michelle.com");
-    const [password, setPassword] = useState("Azerty123456*");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
