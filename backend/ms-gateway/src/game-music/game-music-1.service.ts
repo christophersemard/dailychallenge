@@ -62,7 +62,7 @@ export class GameMusic1Service {
         );
     }
 
-    async searchMovie(
+    async searchArtist(
         query: string
     ): Promise<{ id: number; title: string; originalTitle: string }[]> {
         return this.rpc.send<
@@ -70,10 +70,10 @@ export class GameMusic1Service {
             { id: number; title: string; originalTitle: string }[]
         >(
             this.gameCinemaClient,
-            "search_movie",
+            "search_artist",
             { query },
             {
-                origin: "GameMusic1Service.searchMovie",
+                origin: "GameMusic1Service.searchArtist",
             }
         );
     }

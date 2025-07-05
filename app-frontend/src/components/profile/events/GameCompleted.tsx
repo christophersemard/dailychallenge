@@ -23,6 +23,9 @@ export default function GameCompleted({
     if (event.gameResult.game!.id === 4) {
         label = "a deviné le film du";
     }
+    if (event.gameResult.game!.id === 5) {
+        label = "a deviné l'artiste du";
+    }
 
     const getPathGameOfTheDay = () => {
         // SI le jour de l'event est aujourd'hui, on renvoie le path du jeu du jour
@@ -41,9 +44,8 @@ export default function GameCompleted({
     return (
         <>
             <div
-                className={`flex gap-4 items-center justify-between flex-wrap md:flex-nowrap ${
-                    isCurrentUser ? "current-user" : ""
-                }`}
+                className={`flex gap-4 items-center justify-between flex-wrap md:flex-nowrap ${isCurrentUser ? "current-user" : ""
+                    }`}
             >
                 <div className="flex gap-2 items-center flex-col md:flex-row">
                     <div className="flex-shrink-0 px-2 hidden md:block">

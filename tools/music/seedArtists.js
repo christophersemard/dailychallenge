@@ -14,7 +14,8 @@ async function main() {
     const all = JSON.parse(buffer);
 
     let inserted = 0;
-    for (const a of all) {
+    for (let i = 0; i < all.length; i++) {
+        const a = all[i];
         const existing = await prisma.dataArtist.findUnique({
             where: { name: a.name },
         });
@@ -44,7 +45,7 @@ async function main() {
                     ? new Date(a.musicbrainz.startDate)
                     : null,
                 isDead: a.musicbrainz?.isDead ?? null,
-                mainGenres: a.musicbrainz?.mainGenres?.slice(0, 3) || [],
+                mainGenres: a.musicbrainz?.genres?.slice(0, 3) || [],
                 aliases: a.musicbrainz?.aliases || [],
                 members: a.musicbrainz?.members || [],
                 albumsJson: a.musicbrainz?.albums || [],
@@ -54,8 +55,10 @@ async function main() {
             },
         });
 
-        a.songs?.forEach((track) => {
-            const song = prisma.dataSong.create({
+        console.log(`🎤 Ajout artiste : ${artist.name}, ${artist.id}`);
+
+        for (const track of a.songs || []) {
+            const song = await prisma.dataSong.create({
                 data: {
                     title: track.title,
                     artistId: artist.id,
@@ -66,10 +69,8 @@ async function main() {
                     explicit: track.explicit || false,
                 },
             });
-            console.log(
-                `🎵 Ajout chanson : ${track.title} pour ${artist.name}`
-            );
-        });
+            console.log(`🎵 Ajout chanson : ${song.title} pour ${artist.name}`);
+        }
 
         inserted++;
         console.log(`✅ Ajouté : ${artist.name}`);

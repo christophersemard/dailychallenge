@@ -5,7 +5,7 @@ import { PrismaRpcExceptionFilter } from "./filters/prisma-rpc-exception.filter"
 import { GlobalRpcExceptionFilter } from "./filters/global-rpc-exception.filter";
 
 async function bootstrap() {
-    const port = parseInt(process.env.PORT || "3005", 10);
+    const port = parseInt(process.env.PORT || "3006", 10);
     const app = await NestFactory.createMicroservice(AppModule, {
         transport: Transport.TCP,
         options: {
@@ -18,6 +18,6 @@ async function bootstrap() {
         new GlobalRpcExceptionFilter()
     );
     await app.listen();
-    console.log("ms-game-cinema-2 lancé sur le port 3005");
+    console.log("ms-game-music-1 lancé sur le port 3006");
 }
 bootstrap();

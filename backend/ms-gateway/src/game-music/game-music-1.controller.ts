@@ -61,7 +61,7 @@ export class GameMusic1Controller {
     async searchMovie(
         @Query("query") query: string
     ): Promise<{ id: number; title: string; originalTitle: string }[]> {
-        return this.gameMusic1Service.searchMovie(query);
+        return this.gameMusic1Service.searchArtist(query);
     }
 
     @UseGuards(JwtAuthGuard)

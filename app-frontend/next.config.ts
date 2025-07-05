@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
                 hostname: "image.tmdb.org",
                 pathname: "**",
             },
+            {
+                protocol: "https",
+                hostname: "cdn-images.dzcdn.net",
+                pathname: "**",
+            },
             // wrivqparegjwiklfzsuq.supabase.co
             {
                 protocol: "https",

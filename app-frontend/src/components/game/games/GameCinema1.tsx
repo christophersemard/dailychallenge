@@ -125,7 +125,7 @@ export default function GameCinema1({ gameId, color, date }: Props) {
 
 
 
-    const handleGuess = async (guess: number) => {
+    const handleGuess = async (guess: number | string | null) => {
         setSubmitting(true)
         try {
             const res = await fetchClientWithAuth<unknown>("/api/game-cinema-1/guess", {
@@ -236,7 +236,7 @@ export default function GameCinema1({ gameId, color, date }: Props) {
     return (
         <>
             <Card title={titleCard} color={color}>
-                <h2 className="text-lg font-bold text-center mb-0 ">Devine le film du jour grâce aux indices et gagnez des points ! </h2>
+                <h2 className="text-lg font-bold text-center mb-0 ">Devine le film du jour grâce aux indices et gagne des points ! </h2>
 
                 <div className="flex justify-center items-center">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-widest text-white text-center my-8">

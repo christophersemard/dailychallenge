@@ -114,7 +114,7 @@ function ClassementClient() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto w-full p-6 space-y-6">
+        <div className="max-w-5xl mx-auto w-full md:p-6 py-8 space-y-6 ">
             <Card color="primary" title={title}>
                 <LeaderboardCategorySelector
                     initialCategory={params.category}
@@ -140,14 +140,15 @@ function ClassementClient() {
                         updateSearchParam(type, period, params.page)
                     }
                 />
-
-                <LeaderboardUserList
-                    entries={players}
-                    loading={loading}
-                    offset={params.page * limit - limit}
-                    userId={userId}
-                    userEntry={player}
-                />
+                <div className="overflow-x-auto">
+                    <LeaderboardUserList
+                        entries={players}
+                        loading={loading}
+                        offset={params.page * limit - limit}
+                        userId={userId}
+                        userEntry={player}
+                    />
+                </div>
 
                 <LeaderboardPagination
                     initialPage={params.page}

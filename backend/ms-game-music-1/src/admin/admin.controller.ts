@@ -16,6 +16,10 @@ export class AdminController {
 
     @MessagePattern("admin_check_game_days_status")
     async getGameDaysStatus(@Payload() { month }: { month: string }) {
+        console.log(
+            "Received request to check game days status for month:",
+            month
+        );
         return this.adminService.getGameDaysStatus(month);
     }
 

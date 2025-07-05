@@ -8,6 +8,7 @@ import {
 import prisma from "../prisma/prisma.service";
 import { ClientProxy } from "@nestjs/microservices";
 import { lastValueFrom } from "rxjs";
+import { Prisma, DataArtist } from "database";
 
 const GAME_ID = 5; // ID du jeu music 1
 const BASE_MAX_ATTEMPTS = 10;
@@ -141,9 +142,12 @@ export class GameService {
 
         const correct = game.artist.id === guess;
 
-        const artistGuessed = await prisma.dataArtist.findUnique({
-            where: { id: guess },
-        });
+        let artistGuessed: DataArtist | null = null;
+        if (guess != null) {
+            artistGuessed = await prisma.dataArtist.findUnique({
+                where: { id: guess },
+            });
+        }
 
         await prisma.gameMusic1Tries.create({
             data: {
@@ -225,42 +229,31 @@ export class GameService {
 
         const a = game.artist;
         const hintsData = {
-            type: a.type, // "Person" ou "Group"
+            type: a.type == "Group" ? "Groupe" : "Artiste Solo",
             country: attempts > 0 ? a.country || null : null,
             membersOrGenre:
                 attempts > 1
                     ? a.type === "Group"
-                        ? a.members.length.toString() + " membres"
+                        ? a.members.length.toString()
                         : a.mainGenres[0] || null
-                    : null,
-            ageOrDeath:
-                attempts > 2
-                    ? a.isDead
-                        ? a.startDate
-                            ? `Mort (${a.startDate.getFullYear()})`
-                            : "Mort"
-                        : a.startDate
-                        ? `${
-                              new Date().getFullYear() -
-                              a.startDate.getFullYear()
-                          } ans`
-                        : null
                     : null,
             firstAlbum:
                 attempts > 3 && a.firstAlbumDate
                     ? `${a.firstAlbumDate.getFullYear()}`
                     : null,
             genres: attempts > 4 ? a.mainGenres.join(", ") || null : null,
-            fans:
-                attempts > 5 ? `${a.deezerFans?.toLocaleString()} fans` : null,
+            fans: attempts > 5 ? `${a.deezerFans?.toLocaleString()}` : null,
             albumsCount:
-                attempts > 6
-                    ? `${(a.albumsJson as any[])?.length || 0} albums`
-                    : null,
+                attempts > 6 ? `${(a.albumsJson as any[])?.length || 0}` : null,
             song1: attempts > 7 ? a.songs?.[0]?.title || null : null,
             song2and3:
                 attempts > 8
-                    ? [a.songs?.[1]?.title, a.songs?.[2]?.title]
+                    ? [
+                          a.songs?.[1]?.title,
+                          a.songs?.[2]?.title,
+                          a.songs?.[3]?.title,
+                          a.songs?.[4]?.title,
+                      ]
                           .filter(Boolean)
                           .join(" / ") || null
                     : null,

@@ -103,3 +103,33 @@ export type MovieData = {
     image10: string | null;
     createdAt: string;
 };
+
+export type ArtistData = {
+    id: string;
+    name: string;
+    listeners: number;
+    source: string;
+    mbid: string | null;
+    type: "Person" | "Group";
+    country: string | null; // ex: "FR"
+    gender: string | null;
+    startDate: string | null; // format ISO string
+    isDead: boolean | null;
+    mainGenres: string[];
+    aliases: string[];
+    members: string[];
+    imageUrl: string | null;
+    albumsJson: { title: string; date: string }[] | null;
+    firstAlbumDate: string | null; // format ISO
+    deezerFans: number | null;
+
+    songs: {
+        id: string;
+        title: string;
+        previewUrl: string | null;
+        deezerLink: string;
+        duration: number;
+        rank: number | null;
+        explicit: boolean;
+    }[];
+};

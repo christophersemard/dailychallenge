@@ -72,9 +72,13 @@ export class AdminService {
         const availableArtists = await prisma.dataArtist.findMany({
             where: {
                 AND: [
-                    { songs: { some: {} } },
                     { id: { notIn: usedArtistIds } },
+                    { deezerFans: { gt: 100000 } }, // Exclure les artistes sans fans
+                    { songs: { some: {} } }, // Exclure les artistes sans chansons
                 ],
+            },
+            include: {
+                songs: true,
             },
         });
 

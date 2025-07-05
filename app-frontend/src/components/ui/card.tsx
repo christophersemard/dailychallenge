@@ -57,7 +57,7 @@ export default function CategoryCard({ title, color, children, className }: Prop
                     {title}
                 </div>
             )}
-            <div className="p-4 md:p-5 space-y-3 w-full">{children}</div>
+            <div className="p-5 md:p-5 space-y-3 w-full ">{children}</div>
         </div>
     )
 }

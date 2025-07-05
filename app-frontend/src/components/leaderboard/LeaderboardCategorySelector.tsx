@@ -92,45 +92,48 @@ export default function LeaderboardCategorySelector({
         categories.find((cat) => String(cat.id) === selectedCategory)?.games ?? []
 
     return (
-        <div className="flex flex-wrap gap-4 mb-4">
-            <Select
-                value={selectedCategory}
-                onValueChange={(value) => {
-                    setSelectedCategory(value)
-                    setSelectedGame("all") // reset jeux quand catégorie change
-                }}
-            >
-                <SelectTrigger className="w-56">
-                    <SelectValue placeholder="Toutes les catégories" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="all">Toutes les catégories</SelectItem>
-                    {categories.map((cat) => (
-                        <SelectItem key={cat.id} value={String(cat.id)}>
-                            {cat.name}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-
-            {selectedCategory !== "all" && (
+        <>          <div className="text-sm text-center mt-4 md:text-base font-bold text-muted-foreground md:hidden">
+            Trier par
+        </div>
+            <div className="flex flex-wrap justify-center md:justify-start my-4 md:my-0 gap-4 md:mb-4">
                 <Select
-                    value={selectedGame}
-                    onValueChange={(value) => setSelectedGame(value)}
+                    value={selectedCategory}
+                    onValueChange={(value) => {
+                        setSelectedCategory(value)
+                        setSelectedGame("all") // reset jeux quand catégorie change
+                    }}
                 >
                     <SelectTrigger className="w-56">
-                        <SelectValue placeholder="Tous les jeux" />
+                        <SelectValue placeholder="Toutes les catégories" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">Tous les jeux</SelectItem>
-                        {games.map((game) => (
-                            <SelectItem key={game.id} value={String(game.id)}>
-                                {game.name}
+                        <SelectItem value="all">Toutes les catégories</SelectItem>
+                        {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={String(cat.id)}>
+                                {cat.name}
                             </SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
-            )}
-        </div>
+
+                {selectedCategory !== "all" && (
+                    <Select
+                        value={selectedGame}
+                        onValueChange={(value) => setSelectedGame(value)}
+                    >
+                        <SelectTrigger className="w-56">
+                            <SelectValue placeholder="Tous les jeux" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">Tous les jeux</SelectItem>
+                            {games.map((game) => (
+                                <SelectItem key={game.id} value={String(game.id)}>
+                                    {game.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                )}
+            </div></>
     )
 }

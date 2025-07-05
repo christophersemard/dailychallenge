@@ -22,6 +22,10 @@ export class PrismaRpcExceptionFilter implements ExceptionFilter {
 
         // Si c'est une erreur de validation
         if (exception instanceof Prisma.PrismaClientValidationError) {
+            console.error(
+                `Prisma Validation Error: ${exception.message}`,
+                exception.meta?.target
+            );
             // Récupérer les informations des champs invalides
             status = HttpStatus.BAD_REQUEST;
             message = "Donnée invalide. Vérifier les champs.";
