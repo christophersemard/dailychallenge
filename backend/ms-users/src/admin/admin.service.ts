@@ -196,4 +196,24 @@ export class AdminService {
             },
         };
     }
+
+    async countUsers(): Promise<number> {
+        return prisma.user.count({
+            where: {
+                deletedAt: null,
+            },
+        });
+    }
+
+    async countActiveVip(): Promise<number> {
+        return prisma.vipSubscription.count({
+            where: {
+                status: { in: ["active", "cancelled"] },
+                plan: { not: VipPlan.manual }, // Exclut les VIP manuels
+                endDate: {
+                    gt: new Date(), // encore valable
+                },
+            },
+        });
+    }
 }

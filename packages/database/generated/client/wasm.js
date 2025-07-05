@@ -278,6 +278,40 @@ exports.Prisma.DataMovieScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.DataArtistScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  listeners: 'listeners',
+  source: 'source',
+  mbid: 'mbid',
+  type: 'type',
+  country: 'country',
+  gender: 'gender',
+  startDate: 'startDate',
+  isDead: 'isDead',
+  mainGenres: 'mainGenres',
+  aliases: 'aliases',
+  members: 'members',
+  imageUrl: 'imageUrl',
+  albumsJson: 'albumsJson',
+  firstAlbumDate: 'firstAlbumDate',
+  deezerFans: 'deezerFans',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DataSongScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  previewUrl: 'previewUrl',
+  deezerLink: 'deezerLink',
+  duration: 'duration',
+  rank: 'rank',
+  explicit: 'explicit',
+  artistId: 'artistId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.GameCinema1DaysScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -310,9 +344,30 @@ exports.Prisma.GameCinema2TriesScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.GameMusic1DaysScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  artistId: 'artistId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GameMusic1TriesScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dayId: 'dayId',
+  guess: 'guess',
+  correct: 'correct',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -323,6 +378,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.VipPlan = exports.$Enums.VipPlan = {
   monthly: 'monthly',
@@ -350,10 +411,14 @@ exports.Prisma.ModelName = {
   Game: 'Game',
   GameCategory: 'GameCategory',
   DataMovie: 'DataMovie',
+  DataArtist: 'DataArtist',
+  DataSong: 'DataSong',
   GameCinema1Days: 'GameCinema1Days',
   GameCinema1Tries: 'GameCinema1Tries',
   GameCinema2Days: 'GameCinema2Days',
-  GameCinema2Tries: 'GameCinema2Tries'
+  GameCinema2Tries: 'GameCinema2Tries',
+  GameMusic1Days: 'GameMusic1Days',
+  GameMusic1Tries: 'GameMusic1Tries'
 };
 
 /**

@@ -1,4 +1,6 @@
+"use client"
 
+import { useEffect, useState } from "react"
 
 type OutlineColor =
     | "yellow"
@@ -33,7 +35,6 @@ const strokeMap: Record<OutlineColor, string> = {
     success: "#03914f",
     warning: "#ff7400",
     gray: "#6C757D",
-
 }
 
 const sizeMap = {
@@ -55,13 +56,48 @@ type Props = {
     className?: string
 }
 
+/** Utilitaire responsive : écoute la taille de la fenêtre */
+function useWindowSize() {
+    const [width, setWidth] = useState<number | null>(null)
+
+    useEffect(() => {
+        function handleResize() {
+            setWidth(window.innerWidth)
+        }
+        handleResize()
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    return width
+}
+
 export default function OutlineText({
     text,
     color = "black",
     size = "md",
     className,
 }: Props) {
-    const fontSize = sizeMap[size] ?? sizeMap.base
+    const windowWidth = useWindowSize()
+
+    console.log("OutlineText rendered", {
+        text,
+        color,
+        size,
+        className,
+        windowWidth,
+    })
+
+    // ✅ Taille auto-ajustée selon la taille d’écran
+    let fontSize = sizeMap[size] ?? sizeMap.base
+    if (windowWidth !== null) {
+        if (windowWidth < 480) fontSize = 16
+        else if (windowWidth < 768) fontSize = 18
+        else if (windowWidth < 1024) fontSize = 22
+    }
+
+    console.log("OutlineText fontSize", fontSize)
+
     const stroke = strokeMap[color as OutlineColor] ?? strokeMap.black
     const padding = fontSize * 0.2
     const textString = text.toString()
@@ -76,7 +112,6 @@ export default function OutlineText({
             viewBox={`0 0 ${width} ${height}`}
             className={className}
         >
-
             <text
                 x="50%"
                 y="50%"

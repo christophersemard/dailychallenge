@@ -23,6 +23,9 @@ export default function GameFailed({
     if (event.gameResult.game!.id === 4) {
         label = "n'a pas réussi à deviné le film du";
     }
+    if (event.gameResult.game!.id === 5) {
+        label = "n'a pas réussi à deviné l'artiste du";
+    }
 
     const getPathGameOfTheDay = () => {
         // SI le jour de l'event est aujourd'hui, on renvoie le path du jeu du jour
@@ -41,9 +44,8 @@ export default function GameFailed({
     return (
         <>
             <div
-                className={`flex gap-4 items-center justify-between  flex-wrap ${
-                    isCurrentUser ? "current-user" : ""
-                }`}
+                className={`flex gap-4 items-center justify-between  flex-wrap ${isCurrentUser ? "current-user" : ""
+                    }`}
             >
                 <div className="flex gap-2 items-center">
                     <div className="flex-shrink-0 px-2 hidden md:block">

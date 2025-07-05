@@ -30,6 +30,8 @@ jobs:
                       path: backend/ms-game-cinema-1
                     - name: ms-game-cinema-2
                       path: backend/ms-game-cinema-2
+                    - name: ms-game-music-1
+                      path: backend/ms-game-music-1
 
         steps:
             - uses: actions/checkout@v4
@@ -74,10 +76,10 @@ jobs:
               working-directory: ${{ matrix.path }}
               run: pnpm lint
 
-            - name: Typecheck ${{ matrix.name }}
+            - name: Test ${{ matrix.name }}
               if: steps.skip-check.outputs.skip == 'false'
               working-directory: ${{ matrix.path }}
-              run: pnpm run typecheck || echo "ℹ️ Typecheck non bloquant (ajuste ce comportement si besoin)"
+              run: pnpm test
 
             - name: Build ${{ matrix.name }}
               if: steps.skip-check.outputs.skip == 'false'
@@ -116,6 +118,9 @@ jobs:
                     - name: ms-game-cinema-2
                       path: backend/ms-game-cinema-2
                       dockerfile: backend/ms-game-cinema-2/Dockerfile
+                    - name: ms-game-music-1
+                      path: backend/ms-game-music-1
+                      dockerfile: backend/ms-game-music-1/Dockerfile
 
         steps:
             - uses: actions/checkout@v4

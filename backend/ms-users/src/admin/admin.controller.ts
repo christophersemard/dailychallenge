@@ -27,4 +27,14 @@ export class AdminController {
     ) {
         return this.adminService.update(payload);
     }
+
+    @MessagePattern("admin_count_users")
+    async countUsers() {
+        return this.adminService.countUsers();
+    }
+
+    @MessagePattern("admin_count_active_vip")
+    async countActiveVip() {
+        return this.adminService.countActiveVip();
+    }
 }

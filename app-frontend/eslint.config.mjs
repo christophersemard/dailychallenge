@@ -11,16 +11,26 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
     ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+    // règles globales
     {
         rules: {
-            "react/no-unescaped-entities": "off", // Désactive la règle pour les entités non échappées
+            "react/no-unescaped-entities": "off",
             "@typescript-eslint/no-unused-vars": [
-                "warn", // ou "off" si tu veux complètement désactiver l'erreur
+                "warn",
                 {
-                    argsIgnorePattern: "^_", // Ignore les paramètres inutilisés qui commencent par "_"
-                    varsIgnorePattern: "^_", // Ignore les variables inutilisées qui commencent par "_"
+                    argsIgnorePattern: "^_",
+                    varsIgnorePattern: "^_",
                 },
             ],
+        },
+    },
+
+    // override pour les fichiers de test
+    {
+        files: ["**/*.spec.ts", "**/*.spec.tsx"],
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
         },
     },
 ];

@@ -19,7 +19,7 @@ type Props = {
     maxTries: number
     triesLeft: number
     loading: boolean
-    onSubmit: (movieId: number) => void
+    onSubmit: (movieId: number | string) => void
     onSkip: () => void
     searchUrl: string
 }
@@ -36,12 +36,21 @@ export default function GamePlay({
     const [input, setInput] = useState("")
     const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null)
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
-    const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null)
+    const [selectedMovieId, setSelectedMovieId] = useState<number | string | null>(null)
     const [isSuggestionOpen, setIsSuggestionOpen] = useState(false)
 
     const skipNextSearchRef = useRef(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
+
+
+    // Debug useeffect pour le bouton Soumettre
+    useEffect(() => {
+        console.log("Selected Movie ID:", selectedMovieId)
+        console.log(loading || triesLeft <= 0 || !selectedMovieId)
+    }, [selectedMovieId])
+
+
 
     // Fermer les suggestions en cliquant à l'extérieur
     useEffect(() => {
@@ -82,6 +91,7 @@ export default function GamePlay({
                     console.error("Erreur API suggestions :", error)
                     setSuggestions([])
                 } else {
+                    console.log("Suggestions reçues :", data)
                     setSuggestions(data)
                 }
 
@@ -107,11 +117,12 @@ export default function GamePlay({
     }
 
     const handleSelect = (suggestion: Suggestion) => {
+        console.log("Suggestion sélectionnée :", suggestion)
         inputRef.current?.blur()
         inputRef.current?.focus()
         skipNextSearchRef.current = true
         setInput(suggestion.name)
-        setSelectedMovieId(Number(suggestion.id))
+        setSelectedMovieId(suggestion.id)
         setSuggestions([])
         setIsSuggestionOpen(false)
     }
@@ -171,7 +182,7 @@ export default function GamePlay({
                     )}
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-6 md:gap-2">
+                <div className="flex flex-col md:flex-row gap-2 md:gap-2">
                     <Button
                         variant={color as ButtonVariant}
                         onClick={handleSubmit}

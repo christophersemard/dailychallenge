@@ -5,6 +5,8 @@ import { LogOut, Settings, UserCircle2, X, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { UserMe } from "@/types/user.types"
 import Image from "next/image"
+import Link from "next/link"
+import { signOut } from "next-auth/react"
 
 type Props = {
     user: UserMe
@@ -38,13 +40,17 @@ export default function DrawerUserMenuMobile({ user, onClose }: Props) {
 
             {/* Liens */}
             <div className="p-4 space-y-2">
-                <Button variant="ghost" className="w-full justify-start text-sm">
-                    <UserCircle2 className="w-4 h-4 mr-2" /> Voir mon profil
+                <Button variant="ghost" className="w-full justify-start text-sm" asChild>
+                    <Link href="/mon-profil">
+                        <UserCircle2 className="w-4 h-4 mr-2" /> Voir mon profil
+                    </Link>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start text-sm">
-                    <Settings className="w-4 h-4 mr-2" /> Gérer mon compte
+                <Button variant="ghost" className="w-full justify-start text-sm" asChild>
+                    <Link href="/mon-compte">
+                        <Settings className="w-4 h-4 mr-2" /> Gérer mon compte
+                    </Link>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start text-sm text-danger">
+                <Button variant="ghost" className="w-full justify-start text-sm text-danger" onClick={() => signOut()}>
                     <LogOut className="w-4 h-4 mr-2" /> Me déconnecter
                 </Button>
             </div>

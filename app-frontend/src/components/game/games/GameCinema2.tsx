@@ -124,7 +124,7 @@ export default function GameCinema2({ gameId, color, date }: Props) {
         }
     };
 
-    const handleGuess = async (guess: number | null) => {
+    const handleGuess = async (guess: number | string | null) => {
         setSubmitting(true);
         try {
             const res = await fetchClientWithAuth("/api/game-cinema-2/guess", {
@@ -188,7 +188,7 @@ export default function GameCinema2({ gameId, color, date }: Props) {
         <>
             <Card title={titleCard} color={color}>
                 <p className="font-bold text-lg text-center mb-4">
-                    Devine le film du jour grâce aux images !
+                    Devine le film du jour grâce aux images et gagne des points !
                 </p>
 
                 {unlockedImages.length > 0 && (

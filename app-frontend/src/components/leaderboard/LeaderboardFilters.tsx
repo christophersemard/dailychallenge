@@ -28,13 +28,16 @@ export default function LeaderboardFilters({
     };
 
     return (
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col md:flex-row gap-2  justify-between items-center mb-4">
+            <div className="text-sm md:text-base font-bold text-muted-foreground md:hidden">
+                Filtrer par :
+            </div>
             <div className="flex gap-2">
                 {(["global", "friends"] as Scope[]).map((value) => (
                     <button
                         key={value}
                         className={clsx(
-                            "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background",
+                            "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background text-xs md:text-base",
                             {
                                 "font-bold bg-background": scope === value,
                             }
@@ -51,7 +54,7 @@ export default function LeaderboardFilters({
                     <button
                         key={value}
                         className={clsx(
-                            "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background",
+                            "cursor-pointer px-1.5 py-1 rounded border-2 border-white hover:border-background  text-xs md:text-base",
                             {
                                 "font-bold bg-background": period === value,
                             }

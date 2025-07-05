@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Color } from "@/types/colors.types";
 import GameCinema1 from "@/components/game/games/GameCinema1";
 import GameCinema2 from "@/components/game/games/GameCinema2";
+import GameMusic1 from "@/components/game/games/GameMusic1";
 
 export default async function GamePage({
     params,
@@ -29,6 +30,9 @@ export default async function GamePage({
         "autres-1": "blue",
         "autres-2": "blue",
         "autres-3": "blue",
+        "music-1": "purple",
+        "music-2": "purple",
+        "music-3": "purple",
     };
 
     const color = colorMap[gameId];
@@ -39,6 +43,9 @@ export default async function GamePage({
     }
     if (gameId === "cinema-2") {
         return <GameCinema2 gameId={gameId} color={color} date={dateObj} />;
+    }
+    if (gameId === "music-1") {
+        return <GameMusic1 gameId={gameId} color={color} date={dateObj} />;
     }
 
     return <div>Jeu pas encore disponible.</div>;

@@ -37,11 +37,11 @@ export default function LeaderboardUserList({
     const getRankClass = (index: number | null) => {
         if (offset !== 0) return "";
         if (index === 0)
-            return "text-white bg-amber-300 rounded-lg size-7 text-center flex items-center justify-center font-bold";
+            return "text-white bg-amber-300 rounded md:rounded-lg size-5 md:size-7 text-center flex items-center justify-center font-bold";
         if (index === 1)
-            return "text-white bg-stone-400 rounded-lg size-7 text-center flex items-center justify-center font-bold";
+            return "text-white bg-stone-400 rounded md:rounded-lg size-5 md:size-7 text-center flex items-center justify-center font-bold";
         if (index === 2)
-            return "text-white bg-amber-700 rounded-lg size-7 text-center flex items-center justify-center font-bold";
+            return "text-white bg-amber-700 rounded md:rounded-lg size-5 md:size-7 text-center flex items-center justify-center font-bold";
         return "";
     };
 
@@ -54,18 +54,19 @@ export default function LeaderboardUserList({
         rank: number | null,
         highlight = false
     ) => (
+
         <li
             key={entry.user.id}
             className={clsx(
-                "grid grid-cols-[40px_1fr_80px_60px_60px_100px] items-center px-2 py-2 rounded",
+                "grid grid-cols-[40px_120px_60px_100px] md:grid-cols-[40px_1fr_80px_60px_60px_100px] items-center px-2 py-2 rounded",
                 {
-                    "bg-background font-semibold": highlight,
+                    "bg-background font-semibold ": highlight,
                 }
             )}
         >
             <div
                 className={clsx(
-                    "text-center font-black text-xl me-3",
+                    "text-center font-black  text-md md:text-xl me-3",
                     getRankClass(rank && rank - 1)
                 )}
             >
@@ -74,21 +75,21 @@ export default function LeaderboardUserList({
 
             <Link
                 href={`/profil/${entry.user.id}`}
-                className="flex items-center gap-2 truncate"
+                className="flex items-center md:gap-2 truncate min-w-24"
             >
                 <Image
                     src={entry.user.avatar || `/assets/default-avatar.webp`}
                     alt={entry.user.pseudo}
                     width={50}
                     height={50}
-                    className="size-8"
+                    className="size-6 md:size-8"
                 />
-                <span className="ps-2 truncate font-bold text-base">
+                <span className="ps-2 truncate font-bold text-sm md:text-base">
                     {entry.user.pseudo}
                 </span>
             </Link>
 
-            <div className=" text-muted-foreground flex justify-center px-2">
+            <div className=" text-muted-foreground justify-center px-2 hidden md:flex">
                 <OutlineText
                     text={`${entry.user.level ?? "-"}`}
                     color="black"
@@ -96,7 +97,7 @@ export default function LeaderboardUserList({
                     className=""
                 />
             </div>
-            <div className=" text-muted-foreground text-center flex items-end gap-1 px-2 ">
+            <div className=" text-muted-foreground text-center items-end gap-1 px-2  hidden md:flex">
                 <Streak streak={entry.user.streak} />
             </div>
             <div className=" text-muted-foreground text-center px-2">
@@ -116,11 +117,11 @@ export default function LeaderboardUserList({
     return (
         <ul className="space-y-1 text-sm mt-4">
             {/* En-têtes */}
-            <li className="grid grid-cols-[40px_1fr_80px_60px_60px_100px] font-bold text-xs text-muted-foreground uppercase mb-4 px-2">
+            <li className="grid  grid-cols-[40px_120px_60px_100px] md:grid-cols-[40px_1fr_80px_60px_60px_100px]  font-bold text-xs text-muted-foreground uppercase mb-4 px-2">
                 <div>#</div>
                 <div>Joueur</div>
-                <div className="text-center">Niv.</div>
-                <div className="text-center">Streak</div>
+                <div className="text-center  hidden md:flex">Niv.</div>
+                <div className="text-center  hidden md:flex">Streak</div>
                 <div className="text-center">Parties</div>
                 <div className="text-right pr-2">Score</div>
             </li>

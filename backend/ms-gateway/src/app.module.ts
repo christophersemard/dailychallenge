@@ -32,6 +32,12 @@ import { AdminUsersService } from "./admin/admin-users.service";
 import { WebhookController } from "./webhook/webhook.controller";
 import { VipController } from "./vip/vip.controller";
 import { VipService } from "./vip/vip.service";
+import { AdminController } from "./admin/admin.controller";
+import { AdminService } from "./admin/admin.service";
+import { AdminGameMusic1Controller } from "./admin/admin-game-music1.controller";
+import { AdminGameMusic1Service } from "./admin/admin-game-music1.service";
+import { GameMusic1Service } from "./game-music/game-music-1.service";
+import { GameMusic1Controller } from "./game-music/game-music-1.controller";
 
 const isDocker = process.env.IS_DOCKER === "true";
 console.log("isDocker", isDocker);
@@ -84,10 +90,10 @@ console.log("isDocker", isDocker);
                 },
             },
             {
-                name: "AVATAR_SERVICE",
+                name: "GAME_MUSIC_1_SERVICE",
                 transport: Transport.TCP,
                 options: {
-                    host: isDocker ? "ms-avatar" : "localhost",
+                    host: isDocker ? "ms-game-music-1" : "localhost",
                     port: 3006,
                 },
             },
@@ -98,7 +104,9 @@ console.log("isDocker", isDocker);
 
         AdminGameCinema1Controller,
         AdminGameCinema2Controller,
+        AdminGameMusic1Controller,
         AdminUsersController,
+        AdminController,
 
         FriendsController,
         UsersController,
@@ -106,6 +114,7 @@ console.log("isDocker", isDocker);
         AvatarController,
         GameCinema1Controller,
         GameCinema2Controller,
+        GameMusic1Controller,
 
         WebhookController,
         VipController,
@@ -117,13 +126,16 @@ console.log("isDocker", isDocker);
 
         AdminGameCinema1Service,
         AdminGameCinema2Service,
+        AdminGameMusic1Service,
         AdminUsersService,
+        AdminService,
 
         FriendsService,
         UsersService,
         LeaderboardService,
         GameCinema1Service,
         GameCinema2Service,
+        GameMusic1Service,
         AvatarService,
         VipService,
 

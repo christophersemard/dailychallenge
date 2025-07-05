@@ -279,6 +279,46 @@ model DataMovie {
   gameDays2 GameCinema2Days[]
 }
 
+model DataArtist {
+  id             String    @id @default(cuid())
+  name           String    @unique
+  listeners      Int
+  source         String
+  mbid           String?   @unique
+  type           String // "Person" ou "Group"
+  country        String? // ISO code, ex: "FR", "US"
+  gender         String? // null pour les groupes
+  startDate      DateTime? // Date de début ou de naissance
+  isDead         Boolean? // Si connu (true/false/null)
+  mainGenres     String[] // Max 3 genres principaux
+  aliases        String[] // pour la recherche
+  members        String[] // noms des membres si group
+  imageUrl       String? // récupéré ailleurs (ex: MusicStory, Deezer)
+  albumsJson     Json? // [{ title: "x", date: "yyyy-mm-dd" }]
+  firstAlbumDate DateTime?
+  deezerFans     Int? // Nombre de fans sur Deezer
+
+  songs DataSong[] // Liste des chansons de l'artiste
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  GameMusic1Days GameMusic1Days[]
+}
+
+model DataSong {
+  id         String     @id @default(cuid())
+  title      String
+  previewUrl String? // extrait 30 sec
+  deezerLink String
+  duration   Int // en secondes
+  rank       Int? // classement interne Deezer
+  explicit   Boolean
+  artistId   String
+  artist     DataArtist @relation(fields: [artistId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
 /////////////////////////////////////////////
 
 /////////////// GAME CINEMA 1 ///////////////
@@ -331,3 +371,27 @@ model GameCinema2Tries {
 }
 
 /////////////////////////////////////////////
+
+/////////////// GAME MUSIC 1 ///////////////
+model GameMusic1Days {
+  id        Int        @id @default(autoincrement())
+  date      DateTime   @unique // Un jour ne peut avoir qu'un seul artiste
+  artistId  String
+  artist    DataArtist @relation(fields: [artistId], references: [id])
+  createdAt DateTime   @default(now())
+
+  // Relation avec les essais des joueurs
+  tries GameMusic1Tries[]
+}
+
+model GameMusic1Tries {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  dayId     Int
+  guess     String
+  correct   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relation avec le jour du jeu
+  day GameMusic1Days @relation(fields: [dayId], references: [id])
+}

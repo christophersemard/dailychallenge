@@ -79,6 +79,16 @@ export type GameCategory = $Result.DefaultSelection<Prisma.$GameCategoryPayload>
  */
 export type DataMovie = $Result.DefaultSelection<Prisma.$DataMoviePayload>
 /**
+ * Model DataArtist
+ * 
+ */
+export type DataArtist = $Result.DefaultSelection<Prisma.$DataArtistPayload>
+/**
+ * Model DataSong
+ * 
+ */
+export type DataSong = $Result.DefaultSelection<Prisma.$DataSongPayload>
+/**
  * Model GameCinema1Days
  * 
  */
@@ -98,6 +108,16 @@ export type GameCinema2Days = $Result.DefaultSelection<Prisma.$GameCinema2DaysPa
  * 
  */
 export type GameCinema2Tries = $Result.DefaultSelection<Prisma.$GameCinema2TriesPayload>
+/**
+ * Model GameMusic1Days
+ * //////////// GAME MUSIC 1 ///////////////
+ */
+export type GameMusic1Days = $Result.DefaultSelection<Prisma.$GameMusic1DaysPayload>
+/**
+ * Model GameMusic1Tries
+ * 
+ */
+export type GameMusic1Tries = $Result.DefaultSelection<Prisma.$GameMusic1TriesPayload>
 
 /**
  * Enums
@@ -386,6 +406,26 @@ export class PrismaClient<
   get dataMovie(): Prisma.DataMovieDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.dataArtist`: Exposes CRUD operations for the **DataArtist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DataArtists
+    * const dataArtists = await prisma.dataArtist.findMany()
+    * ```
+    */
+  get dataArtist(): Prisma.DataArtistDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dataSong`: Exposes CRUD operations for the **DataSong** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DataSongs
+    * const dataSongs = await prisma.dataSong.findMany()
+    * ```
+    */
+  get dataSong(): Prisma.DataSongDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.gameCinema1Days`: Exposes CRUD operations for the **GameCinema1Days** model.
     * Example usage:
     * ```ts
@@ -424,6 +464,26 @@ export class PrismaClient<
     * ```
     */
   get gameCinema2Tries(): Prisma.GameCinema2TriesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameMusic1Days`: Exposes CRUD operations for the **GameMusic1Days** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameMusic1Days
+    * const gameMusic1Days = await prisma.gameMusic1Days.findMany()
+    * ```
+    */
+  get gameMusic1Days(): Prisma.GameMusic1DaysDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameMusic1Tries`: Exposes CRUD operations for the **GameMusic1Tries** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameMusic1Tries
+    * const gameMusic1Tries = await prisma.gameMusic1Tries.findMany()
+    * ```
+    */
+  get gameMusic1Tries(): Prisma.GameMusic1TriesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -877,10 +937,14 @@ export namespace Prisma {
     Game: 'Game',
     GameCategory: 'GameCategory',
     DataMovie: 'DataMovie',
+    DataArtist: 'DataArtist',
+    DataSong: 'DataSong',
     GameCinema1Days: 'GameCinema1Days',
     GameCinema1Tries: 'GameCinema1Tries',
     GameCinema2Days: 'GameCinema2Days',
-    GameCinema2Tries: 'GameCinema2Tries'
+    GameCinema2Tries: 'GameCinema2Tries',
+    GameMusic1Days: 'GameMusic1Days',
+    GameMusic1Tries: 'GameMusic1Tries'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -896,7 +960,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "vipSubscription" | "passwordResetToken" | "avatar" | "color" | "avatarAsset" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "gameCinema1Days" | "gameCinema1Tries" | "gameCinema2Days" | "gameCinema2Tries"
+      modelProps: "user" | "vipSubscription" | "passwordResetToken" | "avatar" | "color" | "avatarAsset" | "friend" | "userStats" | "userEvent" | "gameResult" | "game" | "gameCategory" | "dataMovie" | "dataArtist" | "dataSong" | "gameCinema1Days" | "gameCinema1Tries" | "gameCinema2Days" | "gameCinema2Tries" | "gameMusic1Days" | "gameMusic1Tries"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1862,6 +1926,154 @@ export namespace Prisma {
           }
         }
       }
+      DataArtist: {
+        payload: Prisma.$DataArtistPayload<ExtArgs>
+        fields: Prisma.DataArtistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DataArtistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DataArtistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          findFirst: {
+            args: Prisma.DataArtistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DataArtistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          findMany: {
+            args: Prisma.DataArtistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>[]
+          }
+          create: {
+            args: Prisma.DataArtistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          createMany: {
+            args: Prisma.DataArtistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DataArtistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>[]
+          }
+          delete: {
+            args: Prisma.DataArtistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          update: {
+            args: Prisma.DataArtistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          deleteMany: {
+            args: Prisma.DataArtistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DataArtistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DataArtistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>[]
+          }
+          upsert: {
+            args: Prisma.DataArtistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataArtistPayload>
+          }
+          aggregate: {
+            args: Prisma.DataArtistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDataArtist>
+          }
+          groupBy: {
+            args: Prisma.DataArtistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DataArtistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DataArtistCountArgs<ExtArgs>
+            result: $Utils.Optional<DataArtistCountAggregateOutputType> | number
+          }
+        }
+      }
+      DataSong: {
+        payload: Prisma.$DataSongPayload<ExtArgs>
+        fields: Prisma.DataSongFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DataSongFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DataSongFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          findFirst: {
+            args: Prisma.DataSongFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DataSongFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          findMany: {
+            args: Prisma.DataSongFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>[]
+          }
+          create: {
+            args: Prisma.DataSongCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          createMany: {
+            args: Prisma.DataSongCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DataSongCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>[]
+          }
+          delete: {
+            args: Prisma.DataSongDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          update: {
+            args: Prisma.DataSongUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          deleteMany: {
+            args: Prisma.DataSongDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DataSongUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DataSongUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>[]
+          }
+          upsert: {
+            args: Prisma.DataSongUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DataSongPayload>
+          }
+          aggregate: {
+            args: Prisma.DataSongAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDataSong>
+          }
+          groupBy: {
+            args: Prisma.DataSongGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DataSongGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DataSongCountArgs<ExtArgs>
+            result: $Utils.Optional<DataSongCountAggregateOutputType> | number
+          }
+        }
+      }
       GameCinema1Days: {
         payload: Prisma.$GameCinema1DaysPayload<ExtArgs>
         fields: Prisma.GameCinema1DaysFieldRefs
@@ -2158,6 +2370,154 @@ export namespace Prisma {
           }
         }
       }
+      GameMusic1Days: {
+        payload: Prisma.$GameMusic1DaysPayload<ExtArgs>
+        fields: Prisma.GameMusic1DaysFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameMusic1DaysFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameMusic1DaysFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          findFirst: {
+            args: Prisma.GameMusic1DaysFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameMusic1DaysFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          findMany: {
+            args: Prisma.GameMusic1DaysFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>[]
+          }
+          create: {
+            args: Prisma.GameMusic1DaysCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          createMany: {
+            args: Prisma.GameMusic1DaysCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameMusic1DaysCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>[]
+          }
+          delete: {
+            args: Prisma.GameMusic1DaysDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          update: {
+            args: Prisma.GameMusic1DaysUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameMusic1DaysDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameMusic1DaysUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameMusic1DaysUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameMusic1DaysUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1DaysPayload>
+          }
+          aggregate: {
+            args: Prisma.GameMusic1DaysAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameMusic1Days>
+          }
+          groupBy: {
+            args: Prisma.GameMusic1DaysGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameMusic1DaysGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameMusic1DaysCountArgs<ExtArgs>
+            result: $Utils.Optional<GameMusic1DaysCountAggregateOutputType> | number
+          }
+        }
+      }
+      GameMusic1Tries: {
+        payload: Prisma.$GameMusic1TriesPayload<ExtArgs>
+        fields: Prisma.GameMusic1TriesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameMusic1TriesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameMusic1TriesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          findFirst: {
+            args: Prisma.GameMusic1TriesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameMusic1TriesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          findMany: {
+            args: Prisma.GameMusic1TriesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>[]
+          }
+          create: {
+            args: Prisma.GameMusic1TriesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          createMany: {
+            args: Prisma.GameMusic1TriesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameMusic1TriesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>[]
+          }
+          delete: {
+            args: Prisma.GameMusic1TriesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          update: {
+            args: Prisma.GameMusic1TriesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameMusic1TriesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameMusic1TriesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameMusic1TriesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameMusic1TriesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameMusic1TriesPayload>
+          }
+          aggregate: {
+            args: Prisma.GameMusic1TriesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameMusic1Tries>
+          }
+          groupBy: {
+            args: Prisma.GameMusic1TriesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameMusic1TriesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameMusic1TriesCountArgs<ExtArgs>
+            result: $Utils.Optional<GameMusic1TriesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2255,10 +2615,14 @@ export namespace Prisma {
     game?: GameOmit
     gameCategory?: GameCategoryOmit
     dataMovie?: DataMovieOmit
+    dataArtist?: DataArtistOmit
+    dataSong?: DataSongOmit
     gameCinema1Days?: GameCinema1DaysOmit
     gameCinema1Tries?: GameCinema1TriesOmit
     gameCinema2Days?: GameCinema2DaysOmit
     gameCinema2Tries?: GameCinema2TriesOmit
+    gameMusic1Days?: GameMusic1DaysOmit
+    gameMusic1Tries?: GameMusic1TriesOmit
   }
 
   /* Types for Logging */
@@ -2696,6 +3060,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type DataArtistCountOutputType
+   */
+
+  export type DataArtistCountOutputType = {
+    songs: number
+    GameMusic1Days: number
+  }
+
+  export type DataArtistCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    songs?: boolean | DataArtistCountOutputTypeCountSongsArgs
+    GameMusic1Days?: boolean | DataArtistCountOutputTypeCountGameMusic1DaysArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DataArtistCountOutputType without action
+   */
+  export type DataArtistCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtistCountOutputType
+     */
+    select?: DataArtistCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DataArtistCountOutputType without action
+   */
+  export type DataArtistCountOutputTypeCountSongsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataSongWhereInput
+  }
+
+  /**
+   * DataArtistCountOutputType without action
+   */
+  export type DataArtistCountOutputTypeCountGameMusic1DaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameMusic1DaysWhereInput
+  }
+
+
+  /**
    * Count Type GameCinema1DaysCountOutputType
    */
 
@@ -2754,6 +3158,37 @@ export namespace Prisma {
    */
   export type GameCinema2DaysCountOutputTypeCountTriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GameCinema2TriesWhereInput
+  }
+
+
+  /**
+   * Count Type GameMusic1DaysCountOutputType
+   */
+
+  export type GameMusic1DaysCountOutputType = {
+    tries: number
+  }
+
+  export type GameMusic1DaysCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tries?: boolean | GameMusic1DaysCountOutputTypeCountTriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GameMusic1DaysCountOutputType without action
+   */
+  export type GameMusic1DaysCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1DaysCountOutputType
+     */
+    select?: GameMusic1DaysCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GameMusic1DaysCountOutputType without action
+   */
+  export type GameMusic1DaysCountOutputTypeCountTriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameMusic1TriesWhereInput
   }
 
 
@@ -18522,6 +18957,2456 @@ export namespace Prisma {
 
 
   /**
+   * Model DataArtist
+   */
+
+  export type AggregateDataArtist = {
+    _count: DataArtistCountAggregateOutputType | null
+    _avg: DataArtistAvgAggregateOutputType | null
+    _sum: DataArtistSumAggregateOutputType | null
+    _min: DataArtistMinAggregateOutputType | null
+    _max: DataArtistMaxAggregateOutputType | null
+  }
+
+  export type DataArtistAvgAggregateOutputType = {
+    listeners: number | null
+    deezerFans: number | null
+  }
+
+  export type DataArtistSumAggregateOutputType = {
+    listeners: number | null
+    deezerFans: number | null
+  }
+
+  export type DataArtistMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    listeners: number | null
+    source: string | null
+    mbid: string | null
+    type: string | null
+    country: string | null
+    gender: string | null
+    startDate: Date | null
+    isDead: boolean | null
+    imageUrl: string | null
+    firstAlbumDate: Date | null
+    deezerFans: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DataArtistMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    listeners: number | null
+    source: string | null
+    mbid: string | null
+    type: string | null
+    country: string | null
+    gender: string | null
+    startDate: Date | null
+    isDead: boolean | null
+    imageUrl: string | null
+    firstAlbumDate: Date | null
+    deezerFans: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DataArtistCountAggregateOutputType = {
+    id: number
+    name: number
+    listeners: number
+    source: number
+    mbid: number
+    type: number
+    country: number
+    gender: number
+    startDate: number
+    isDead: number
+    mainGenres: number
+    aliases: number
+    members: number
+    imageUrl: number
+    albumsJson: number
+    firstAlbumDate: number
+    deezerFans: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DataArtistAvgAggregateInputType = {
+    listeners?: true
+    deezerFans?: true
+  }
+
+  export type DataArtistSumAggregateInputType = {
+    listeners?: true
+    deezerFans?: true
+  }
+
+  export type DataArtistMinAggregateInputType = {
+    id?: true
+    name?: true
+    listeners?: true
+    source?: true
+    mbid?: true
+    type?: true
+    country?: true
+    gender?: true
+    startDate?: true
+    isDead?: true
+    imageUrl?: true
+    firstAlbumDate?: true
+    deezerFans?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DataArtistMaxAggregateInputType = {
+    id?: true
+    name?: true
+    listeners?: true
+    source?: true
+    mbid?: true
+    type?: true
+    country?: true
+    gender?: true
+    startDate?: true
+    isDead?: true
+    imageUrl?: true
+    firstAlbumDate?: true
+    deezerFans?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DataArtistCountAggregateInputType = {
+    id?: true
+    name?: true
+    listeners?: true
+    source?: true
+    mbid?: true
+    type?: true
+    country?: true
+    gender?: true
+    startDate?: true
+    isDead?: true
+    mainGenres?: true
+    aliases?: true
+    members?: true
+    imageUrl?: true
+    albumsJson?: true
+    firstAlbumDate?: true
+    deezerFans?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DataArtistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataArtist to aggregate.
+     */
+    where?: DataArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataArtists to fetch.
+     */
+    orderBy?: DataArtistOrderByWithRelationInput | DataArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DataArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataArtists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataArtists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DataArtists
+    **/
+    _count?: true | DataArtistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DataArtistAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DataArtistSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DataArtistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DataArtistMaxAggregateInputType
+  }
+
+  export type GetDataArtistAggregateType<T extends DataArtistAggregateArgs> = {
+        [P in keyof T & keyof AggregateDataArtist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDataArtist[P]>
+      : GetScalarType<T[P], AggregateDataArtist[P]>
+  }
+
+
+
+
+  export type DataArtistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataArtistWhereInput
+    orderBy?: DataArtistOrderByWithAggregationInput | DataArtistOrderByWithAggregationInput[]
+    by: DataArtistScalarFieldEnum[] | DataArtistScalarFieldEnum
+    having?: DataArtistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DataArtistCountAggregateInputType | true
+    _avg?: DataArtistAvgAggregateInputType
+    _sum?: DataArtistSumAggregateInputType
+    _min?: DataArtistMinAggregateInputType
+    _max?: DataArtistMaxAggregateInputType
+  }
+
+  export type DataArtistGroupByOutputType = {
+    id: string
+    name: string
+    listeners: number
+    source: string
+    mbid: string | null
+    type: string
+    country: string | null
+    gender: string | null
+    startDate: Date | null
+    isDead: boolean | null
+    mainGenres: string[]
+    aliases: string[]
+    members: string[]
+    imageUrl: string | null
+    albumsJson: JsonValue | null
+    firstAlbumDate: Date | null
+    deezerFans: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DataArtistCountAggregateOutputType | null
+    _avg: DataArtistAvgAggregateOutputType | null
+    _sum: DataArtistSumAggregateOutputType | null
+    _min: DataArtistMinAggregateOutputType | null
+    _max: DataArtistMaxAggregateOutputType | null
+  }
+
+  type GetDataArtistGroupByPayload<T extends DataArtistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DataArtistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DataArtistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DataArtistGroupByOutputType[P]>
+            : GetScalarType<T[P], DataArtistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DataArtistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    listeners?: boolean
+    source?: boolean
+    mbid?: boolean
+    type?: boolean
+    country?: boolean
+    gender?: boolean
+    startDate?: boolean
+    isDead?: boolean
+    mainGenres?: boolean
+    aliases?: boolean
+    members?: boolean
+    imageUrl?: boolean
+    albumsJson?: boolean
+    firstAlbumDate?: boolean
+    deezerFans?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    songs?: boolean | DataArtist$songsArgs<ExtArgs>
+    GameMusic1Days?: boolean | DataArtist$GameMusic1DaysArgs<ExtArgs>
+    _count?: boolean | DataArtistCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataArtist"]>
+
+  export type DataArtistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    listeners?: boolean
+    source?: boolean
+    mbid?: boolean
+    type?: boolean
+    country?: boolean
+    gender?: boolean
+    startDate?: boolean
+    isDead?: boolean
+    mainGenres?: boolean
+    aliases?: boolean
+    members?: boolean
+    imageUrl?: boolean
+    albumsJson?: boolean
+    firstAlbumDate?: boolean
+    deezerFans?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["dataArtist"]>
+
+  export type DataArtistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    listeners?: boolean
+    source?: boolean
+    mbid?: boolean
+    type?: boolean
+    country?: boolean
+    gender?: boolean
+    startDate?: boolean
+    isDead?: boolean
+    mainGenres?: boolean
+    aliases?: boolean
+    members?: boolean
+    imageUrl?: boolean
+    albumsJson?: boolean
+    firstAlbumDate?: boolean
+    deezerFans?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["dataArtist"]>
+
+  export type DataArtistSelectScalar = {
+    id?: boolean
+    name?: boolean
+    listeners?: boolean
+    source?: boolean
+    mbid?: boolean
+    type?: boolean
+    country?: boolean
+    gender?: boolean
+    startDate?: boolean
+    isDead?: boolean
+    mainGenres?: boolean
+    aliases?: boolean
+    members?: boolean
+    imageUrl?: boolean
+    albumsJson?: boolean
+    firstAlbumDate?: boolean
+    deezerFans?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DataArtistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "listeners" | "source" | "mbid" | "type" | "country" | "gender" | "startDate" | "isDead" | "mainGenres" | "aliases" | "members" | "imageUrl" | "albumsJson" | "firstAlbumDate" | "deezerFans" | "createdAt" | "updatedAt", ExtArgs["result"]["dataArtist"]>
+  export type DataArtistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    songs?: boolean | DataArtist$songsArgs<ExtArgs>
+    GameMusic1Days?: boolean | DataArtist$GameMusic1DaysArgs<ExtArgs>
+    _count?: boolean | DataArtistCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DataArtistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DataArtistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DataArtistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DataArtist"
+    objects: {
+      songs: Prisma.$DataSongPayload<ExtArgs>[]
+      GameMusic1Days: Prisma.$GameMusic1DaysPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      listeners: number
+      source: string
+      mbid: string | null
+      type: string
+      country: string | null
+      gender: string | null
+      startDate: Date | null
+      isDead: boolean | null
+      mainGenres: string[]
+      aliases: string[]
+      members: string[]
+      imageUrl: string | null
+      albumsJson: Prisma.JsonValue | null
+      firstAlbumDate: Date | null
+      deezerFans: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dataArtist"]>
+    composites: {}
+  }
+
+  type DataArtistGetPayload<S extends boolean | null | undefined | DataArtistDefaultArgs> = $Result.GetResult<Prisma.$DataArtistPayload, S>
+
+  type DataArtistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DataArtistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DataArtistCountAggregateInputType | true
+    }
+
+  export interface DataArtistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataArtist'], meta: { name: 'DataArtist' } }
+    /**
+     * Find zero or one DataArtist that matches the filter.
+     * @param {DataArtistFindUniqueArgs} args - Arguments to find a DataArtist
+     * @example
+     * // Get one DataArtist
+     * const dataArtist = await prisma.dataArtist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DataArtistFindUniqueArgs>(args: SelectSubset<T, DataArtistFindUniqueArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one DataArtist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DataArtistFindUniqueOrThrowArgs} args - Arguments to find a DataArtist
+     * @example
+     * // Get one DataArtist
+     * const dataArtist = await prisma.dataArtist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DataArtistFindUniqueOrThrowArgs>(args: SelectSubset<T, DataArtistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataArtist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistFindFirstArgs} args - Arguments to find a DataArtist
+     * @example
+     * // Get one DataArtist
+     * const dataArtist = await prisma.dataArtist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DataArtistFindFirstArgs>(args?: SelectSubset<T, DataArtistFindFirstArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataArtist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistFindFirstOrThrowArgs} args - Arguments to find a DataArtist
+     * @example
+     * // Get one DataArtist
+     * const dataArtist = await prisma.dataArtist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DataArtistFindFirstOrThrowArgs>(args?: SelectSubset<T, DataArtistFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more DataArtists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DataArtists
+     * const dataArtists = await prisma.dataArtist.findMany()
+     * 
+     * // Get first 10 DataArtists
+     * const dataArtists = await prisma.dataArtist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dataArtistWithIdOnly = await prisma.dataArtist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DataArtistFindManyArgs>(args?: SelectSubset<T, DataArtistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a DataArtist.
+     * @param {DataArtistCreateArgs} args - Arguments to create a DataArtist.
+     * @example
+     * // Create one DataArtist
+     * const DataArtist = await prisma.dataArtist.create({
+     *   data: {
+     *     // ... data to create a DataArtist
+     *   }
+     * })
+     * 
+     */
+    create<T extends DataArtistCreateArgs>(args: SelectSubset<T, DataArtistCreateArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many DataArtists.
+     * @param {DataArtistCreateManyArgs} args - Arguments to create many DataArtists.
+     * @example
+     * // Create many DataArtists
+     * const dataArtist = await prisma.dataArtist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DataArtistCreateManyArgs>(args?: SelectSubset<T, DataArtistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DataArtists and returns the data saved in the database.
+     * @param {DataArtistCreateManyAndReturnArgs} args - Arguments to create many DataArtists.
+     * @example
+     * // Create many DataArtists
+     * const dataArtist = await prisma.dataArtist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DataArtists and only return the `id`
+     * const dataArtistWithIdOnly = await prisma.dataArtist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DataArtistCreateManyAndReturnArgs>(args?: SelectSubset<T, DataArtistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a DataArtist.
+     * @param {DataArtistDeleteArgs} args - Arguments to delete one DataArtist.
+     * @example
+     * // Delete one DataArtist
+     * const DataArtist = await prisma.dataArtist.delete({
+     *   where: {
+     *     // ... filter to delete one DataArtist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DataArtistDeleteArgs>(args: SelectSubset<T, DataArtistDeleteArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one DataArtist.
+     * @param {DataArtistUpdateArgs} args - Arguments to update one DataArtist.
+     * @example
+     * // Update one DataArtist
+     * const dataArtist = await prisma.dataArtist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DataArtistUpdateArgs>(args: SelectSubset<T, DataArtistUpdateArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more DataArtists.
+     * @param {DataArtistDeleteManyArgs} args - Arguments to filter DataArtists to delete.
+     * @example
+     * // Delete a few DataArtists
+     * const { count } = await prisma.dataArtist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DataArtistDeleteManyArgs>(args?: SelectSubset<T, DataArtistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataArtists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DataArtists
+     * const dataArtist = await prisma.dataArtist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DataArtistUpdateManyArgs>(args: SelectSubset<T, DataArtistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataArtists and returns the data updated in the database.
+     * @param {DataArtistUpdateManyAndReturnArgs} args - Arguments to update many DataArtists.
+     * @example
+     * // Update many DataArtists
+     * const dataArtist = await prisma.dataArtist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DataArtists and only return the `id`
+     * const dataArtistWithIdOnly = await prisma.dataArtist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DataArtistUpdateManyAndReturnArgs>(args: SelectSubset<T, DataArtistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one DataArtist.
+     * @param {DataArtistUpsertArgs} args - Arguments to update or create a DataArtist.
+     * @example
+     * // Update or create a DataArtist
+     * const dataArtist = await prisma.dataArtist.upsert({
+     *   create: {
+     *     // ... data to create a DataArtist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DataArtist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DataArtistUpsertArgs>(args: SelectSubset<T, DataArtistUpsertArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of DataArtists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistCountArgs} args - Arguments to filter DataArtists to count.
+     * @example
+     * // Count the number of DataArtists
+     * const count = await prisma.dataArtist.count({
+     *   where: {
+     *     // ... the filter for the DataArtists we want to count
+     *   }
+     * })
+    **/
+    count<T extends DataArtistCountArgs>(
+      args?: Subset<T, DataArtistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DataArtistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DataArtist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DataArtistAggregateArgs>(args: Subset<T, DataArtistAggregateArgs>): Prisma.PrismaPromise<GetDataArtistAggregateType<T>>
+
+    /**
+     * Group by DataArtist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataArtistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DataArtistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DataArtistGroupByArgs['orderBy'] }
+        : { orderBy?: DataArtistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DataArtistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDataArtistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DataArtist model
+   */
+  readonly fields: DataArtistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DataArtist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DataArtistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    songs<T extends DataArtist$songsArgs<ExtArgs> = {}>(args?: Subset<T, DataArtist$songsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    GameMusic1Days<T extends DataArtist$GameMusic1DaysArgs<ExtArgs> = {}>(args?: Subset<T, DataArtist$GameMusic1DaysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DataArtist model
+   */ 
+  interface DataArtistFieldRefs {
+    readonly id: FieldRef<"DataArtist", 'String'>
+    readonly name: FieldRef<"DataArtist", 'String'>
+    readonly listeners: FieldRef<"DataArtist", 'Int'>
+    readonly source: FieldRef<"DataArtist", 'String'>
+    readonly mbid: FieldRef<"DataArtist", 'String'>
+    readonly type: FieldRef<"DataArtist", 'String'>
+    readonly country: FieldRef<"DataArtist", 'String'>
+    readonly gender: FieldRef<"DataArtist", 'String'>
+    readonly startDate: FieldRef<"DataArtist", 'DateTime'>
+    readonly isDead: FieldRef<"DataArtist", 'Boolean'>
+    readonly mainGenres: FieldRef<"DataArtist", 'String[]'>
+    readonly aliases: FieldRef<"DataArtist", 'String[]'>
+    readonly members: FieldRef<"DataArtist", 'String[]'>
+    readonly imageUrl: FieldRef<"DataArtist", 'String'>
+    readonly albumsJson: FieldRef<"DataArtist", 'Json'>
+    readonly firstAlbumDate: FieldRef<"DataArtist", 'DateTime'>
+    readonly deezerFans: FieldRef<"DataArtist", 'Int'>
+    readonly createdAt: FieldRef<"DataArtist", 'DateTime'>
+    readonly updatedAt: FieldRef<"DataArtist", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DataArtist findUnique
+   */
+  export type DataArtistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter, which DataArtist to fetch.
+     */
+    where: DataArtistWhereUniqueInput
+  }
+
+  /**
+   * DataArtist findUniqueOrThrow
+   */
+  export type DataArtistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter, which DataArtist to fetch.
+     */
+    where: DataArtistWhereUniqueInput
+  }
+
+  /**
+   * DataArtist findFirst
+   */
+  export type DataArtistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter, which DataArtist to fetch.
+     */
+    where?: DataArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataArtists to fetch.
+     */
+    orderBy?: DataArtistOrderByWithRelationInput | DataArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataArtists.
+     */
+    cursor?: DataArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataArtists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataArtists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataArtists.
+     */
+    distinct?: DataArtistScalarFieldEnum | DataArtistScalarFieldEnum[]
+  }
+
+  /**
+   * DataArtist findFirstOrThrow
+   */
+  export type DataArtistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter, which DataArtist to fetch.
+     */
+    where?: DataArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataArtists to fetch.
+     */
+    orderBy?: DataArtistOrderByWithRelationInput | DataArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataArtists.
+     */
+    cursor?: DataArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataArtists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataArtists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataArtists.
+     */
+    distinct?: DataArtistScalarFieldEnum | DataArtistScalarFieldEnum[]
+  }
+
+  /**
+   * DataArtist findMany
+   */
+  export type DataArtistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter, which DataArtists to fetch.
+     */
+    where?: DataArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataArtists to fetch.
+     */
+    orderBy?: DataArtistOrderByWithRelationInput | DataArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DataArtists.
+     */
+    cursor?: DataArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataArtists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataArtists.
+     */
+    skip?: number
+    distinct?: DataArtistScalarFieldEnum | DataArtistScalarFieldEnum[]
+  }
+
+  /**
+   * DataArtist create
+   */
+  export type DataArtistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DataArtist.
+     */
+    data: XOR<DataArtistCreateInput, DataArtistUncheckedCreateInput>
+  }
+
+  /**
+   * DataArtist createMany
+   */
+  export type DataArtistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DataArtists.
+     */
+    data: DataArtistCreateManyInput | DataArtistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataArtist createManyAndReturn
+   */
+  export type DataArtistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * The data used to create many DataArtists.
+     */
+    data: DataArtistCreateManyInput | DataArtistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataArtist update
+   */
+  export type DataArtistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DataArtist.
+     */
+    data: XOR<DataArtistUpdateInput, DataArtistUncheckedUpdateInput>
+    /**
+     * Choose, which DataArtist to update.
+     */
+    where: DataArtistWhereUniqueInput
+  }
+
+  /**
+   * DataArtist updateMany
+   */
+  export type DataArtistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DataArtists.
+     */
+    data: XOR<DataArtistUpdateManyMutationInput, DataArtistUncheckedUpdateManyInput>
+    /**
+     * Filter which DataArtists to update
+     */
+    where?: DataArtistWhereInput
+    /**
+     * Limit how many DataArtists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataArtist updateManyAndReturn
+   */
+  export type DataArtistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * The data used to update DataArtists.
+     */
+    data: XOR<DataArtistUpdateManyMutationInput, DataArtistUncheckedUpdateManyInput>
+    /**
+     * Filter which DataArtists to update
+     */
+    where?: DataArtistWhereInput
+    /**
+     * Limit how many DataArtists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataArtist upsert
+   */
+  export type DataArtistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DataArtist to update in case it exists.
+     */
+    where: DataArtistWhereUniqueInput
+    /**
+     * In case the DataArtist found by the `where` argument doesn't exist, create a new DataArtist with this data.
+     */
+    create: XOR<DataArtistCreateInput, DataArtistUncheckedCreateInput>
+    /**
+     * In case the DataArtist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DataArtistUpdateInput, DataArtistUncheckedUpdateInput>
+  }
+
+  /**
+   * DataArtist delete
+   */
+  export type DataArtistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+    /**
+     * Filter which DataArtist to delete.
+     */
+    where: DataArtistWhereUniqueInput
+  }
+
+  /**
+   * DataArtist deleteMany
+   */
+  export type DataArtistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataArtists to delete
+     */
+    where?: DataArtistWhereInput
+    /**
+     * Limit how many DataArtists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataArtist.songs
+   */
+  export type DataArtist$songsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    where?: DataSongWhereInput
+    orderBy?: DataSongOrderByWithRelationInput | DataSongOrderByWithRelationInput[]
+    cursor?: DataSongWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DataSongScalarFieldEnum | DataSongScalarFieldEnum[]
+  }
+
+  /**
+   * DataArtist.GameMusic1Days
+   */
+  export type DataArtist$GameMusic1DaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    where?: GameMusic1DaysWhereInput
+    orderBy?: GameMusic1DaysOrderByWithRelationInput | GameMusic1DaysOrderByWithRelationInput[]
+    cursor?: GameMusic1DaysWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameMusic1DaysScalarFieldEnum | GameMusic1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * DataArtist without action
+   */
+  export type DataArtistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataArtist
+     */
+    select?: DataArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataArtist
+     */
+    omit?: DataArtistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataArtistInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DataSong
+   */
+
+  export type AggregateDataSong = {
+    _count: DataSongCountAggregateOutputType | null
+    _avg: DataSongAvgAggregateOutputType | null
+    _sum: DataSongSumAggregateOutputType | null
+    _min: DataSongMinAggregateOutputType | null
+    _max: DataSongMaxAggregateOutputType | null
+  }
+
+  export type DataSongAvgAggregateOutputType = {
+    duration: number | null
+    rank: number | null
+  }
+
+  export type DataSongSumAggregateOutputType = {
+    duration: number | null
+    rank: number | null
+  }
+
+  export type DataSongMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    previewUrl: string | null
+    deezerLink: string | null
+    duration: number | null
+    rank: number | null
+    explicit: boolean | null
+    artistId: string | null
+    createdAt: Date | null
+  }
+
+  export type DataSongMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    previewUrl: string | null
+    deezerLink: string | null
+    duration: number | null
+    rank: number | null
+    explicit: boolean | null
+    artistId: string | null
+    createdAt: Date | null
+  }
+
+  export type DataSongCountAggregateOutputType = {
+    id: number
+    title: number
+    previewUrl: number
+    deezerLink: number
+    duration: number
+    rank: number
+    explicit: number
+    artistId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DataSongAvgAggregateInputType = {
+    duration?: true
+    rank?: true
+  }
+
+  export type DataSongSumAggregateInputType = {
+    duration?: true
+    rank?: true
+  }
+
+  export type DataSongMinAggregateInputType = {
+    id?: true
+    title?: true
+    previewUrl?: true
+    deezerLink?: true
+    duration?: true
+    rank?: true
+    explicit?: true
+    artistId?: true
+    createdAt?: true
+  }
+
+  export type DataSongMaxAggregateInputType = {
+    id?: true
+    title?: true
+    previewUrl?: true
+    deezerLink?: true
+    duration?: true
+    rank?: true
+    explicit?: true
+    artistId?: true
+    createdAt?: true
+  }
+
+  export type DataSongCountAggregateInputType = {
+    id?: true
+    title?: true
+    previewUrl?: true
+    deezerLink?: true
+    duration?: true
+    rank?: true
+    explicit?: true
+    artistId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DataSongAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataSong to aggregate.
+     */
+    where?: DataSongWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataSongs to fetch.
+     */
+    orderBy?: DataSongOrderByWithRelationInput | DataSongOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DataSongWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataSongs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataSongs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DataSongs
+    **/
+    _count?: true | DataSongCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DataSongAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DataSongSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DataSongMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DataSongMaxAggregateInputType
+  }
+
+  export type GetDataSongAggregateType<T extends DataSongAggregateArgs> = {
+        [P in keyof T & keyof AggregateDataSong]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDataSong[P]>
+      : GetScalarType<T[P], AggregateDataSong[P]>
+  }
+
+
+
+
+  export type DataSongGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DataSongWhereInput
+    orderBy?: DataSongOrderByWithAggregationInput | DataSongOrderByWithAggregationInput[]
+    by: DataSongScalarFieldEnum[] | DataSongScalarFieldEnum
+    having?: DataSongScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DataSongCountAggregateInputType | true
+    _avg?: DataSongAvgAggregateInputType
+    _sum?: DataSongSumAggregateInputType
+    _min?: DataSongMinAggregateInputType
+    _max?: DataSongMaxAggregateInputType
+  }
+
+  export type DataSongGroupByOutputType = {
+    id: string
+    title: string
+    previewUrl: string | null
+    deezerLink: string
+    duration: number
+    rank: number | null
+    explicit: boolean
+    artistId: string
+    createdAt: Date
+    _count: DataSongCountAggregateOutputType | null
+    _avg: DataSongAvgAggregateOutputType | null
+    _sum: DataSongSumAggregateOutputType | null
+    _min: DataSongMinAggregateOutputType | null
+    _max: DataSongMaxAggregateOutputType | null
+  }
+
+  type GetDataSongGroupByPayload<T extends DataSongGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DataSongGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DataSongGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DataSongGroupByOutputType[P]>
+            : GetScalarType<T[P], DataSongGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DataSongSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    previewUrl?: boolean
+    deezerLink?: boolean
+    duration?: boolean
+    rank?: boolean
+    explicit?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataSong"]>
+
+  export type DataSongSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    previewUrl?: boolean
+    deezerLink?: boolean
+    duration?: boolean
+    rank?: boolean
+    explicit?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataSong"]>
+
+  export type DataSongSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    previewUrl?: boolean
+    deezerLink?: boolean
+    duration?: boolean
+    rank?: boolean
+    explicit?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dataSong"]>
+
+  export type DataSongSelectScalar = {
+    id?: boolean
+    title?: boolean
+    previewUrl?: boolean
+    deezerLink?: boolean
+    duration?: boolean
+    rank?: boolean
+    explicit?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+  }
+
+  export type DataSongOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "previewUrl" | "deezerLink" | "duration" | "rank" | "explicit" | "artistId" | "createdAt", ExtArgs["result"]["dataSong"]>
+  export type DataSongInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }
+  export type DataSongIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }
+  export type DataSongIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }
+
+  export type $DataSongPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DataSong"
+    objects: {
+      artist: Prisma.$DataArtistPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      previewUrl: string | null
+      deezerLink: string
+      duration: number
+      rank: number | null
+      explicit: boolean
+      artistId: string
+      createdAt: Date
+    }, ExtArgs["result"]["dataSong"]>
+    composites: {}
+  }
+
+  type DataSongGetPayload<S extends boolean | null | undefined | DataSongDefaultArgs> = $Result.GetResult<Prisma.$DataSongPayload, S>
+
+  type DataSongCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DataSongFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DataSongCountAggregateInputType | true
+    }
+
+  export interface DataSongDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DataSong'], meta: { name: 'DataSong' } }
+    /**
+     * Find zero or one DataSong that matches the filter.
+     * @param {DataSongFindUniqueArgs} args - Arguments to find a DataSong
+     * @example
+     * // Get one DataSong
+     * const dataSong = await prisma.dataSong.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DataSongFindUniqueArgs>(args: SelectSubset<T, DataSongFindUniqueArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one DataSong that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DataSongFindUniqueOrThrowArgs} args - Arguments to find a DataSong
+     * @example
+     * // Get one DataSong
+     * const dataSong = await prisma.dataSong.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DataSongFindUniqueOrThrowArgs>(args: SelectSubset<T, DataSongFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataSong that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongFindFirstArgs} args - Arguments to find a DataSong
+     * @example
+     * // Get one DataSong
+     * const dataSong = await prisma.dataSong.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DataSongFindFirstArgs>(args?: SelectSubset<T, DataSongFindFirstArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first DataSong that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongFindFirstOrThrowArgs} args - Arguments to find a DataSong
+     * @example
+     * // Get one DataSong
+     * const dataSong = await prisma.dataSong.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DataSongFindFirstOrThrowArgs>(args?: SelectSubset<T, DataSongFindFirstOrThrowArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more DataSongs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DataSongs
+     * const dataSongs = await prisma.dataSong.findMany()
+     * 
+     * // Get first 10 DataSongs
+     * const dataSongs = await prisma.dataSong.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dataSongWithIdOnly = await prisma.dataSong.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DataSongFindManyArgs>(args?: SelectSubset<T, DataSongFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a DataSong.
+     * @param {DataSongCreateArgs} args - Arguments to create a DataSong.
+     * @example
+     * // Create one DataSong
+     * const DataSong = await prisma.dataSong.create({
+     *   data: {
+     *     // ... data to create a DataSong
+     *   }
+     * })
+     * 
+     */
+    create<T extends DataSongCreateArgs>(args: SelectSubset<T, DataSongCreateArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many DataSongs.
+     * @param {DataSongCreateManyArgs} args - Arguments to create many DataSongs.
+     * @example
+     * // Create many DataSongs
+     * const dataSong = await prisma.dataSong.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DataSongCreateManyArgs>(args?: SelectSubset<T, DataSongCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DataSongs and returns the data saved in the database.
+     * @param {DataSongCreateManyAndReturnArgs} args - Arguments to create many DataSongs.
+     * @example
+     * // Create many DataSongs
+     * const dataSong = await prisma.dataSong.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DataSongs and only return the `id`
+     * const dataSongWithIdOnly = await prisma.dataSong.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DataSongCreateManyAndReturnArgs>(args?: SelectSubset<T, DataSongCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a DataSong.
+     * @param {DataSongDeleteArgs} args - Arguments to delete one DataSong.
+     * @example
+     * // Delete one DataSong
+     * const DataSong = await prisma.dataSong.delete({
+     *   where: {
+     *     // ... filter to delete one DataSong
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DataSongDeleteArgs>(args: SelectSubset<T, DataSongDeleteArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one DataSong.
+     * @param {DataSongUpdateArgs} args - Arguments to update one DataSong.
+     * @example
+     * // Update one DataSong
+     * const dataSong = await prisma.dataSong.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DataSongUpdateArgs>(args: SelectSubset<T, DataSongUpdateArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more DataSongs.
+     * @param {DataSongDeleteManyArgs} args - Arguments to filter DataSongs to delete.
+     * @example
+     * // Delete a few DataSongs
+     * const { count } = await prisma.dataSong.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DataSongDeleteManyArgs>(args?: SelectSubset<T, DataSongDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataSongs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DataSongs
+     * const dataSong = await prisma.dataSong.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DataSongUpdateManyArgs>(args: SelectSubset<T, DataSongUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DataSongs and returns the data updated in the database.
+     * @param {DataSongUpdateManyAndReturnArgs} args - Arguments to update many DataSongs.
+     * @example
+     * // Update many DataSongs
+     * const dataSong = await prisma.dataSong.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DataSongs and only return the `id`
+     * const dataSongWithIdOnly = await prisma.dataSong.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DataSongUpdateManyAndReturnArgs>(args: SelectSubset<T, DataSongUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one DataSong.
+     * @param {DataSongUpsertArgs} args - Arguments to update or create a DataSong.
+     * @example
+     * // Update or create a DataSong
+     * const dataSong = await prisma.dataSong.upsert({
+     *   create: {
+     *     // ... data to create a DataSong
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DataSong we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DataSongUpsertArgs>(args: SelectSubset<T, DataSongUpsertArgs<ExtArgs>>): Prisma__DataSongClient<$Result.GetResult<Prisma.$DataSongPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of DataSongs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongCountArgs} args - Arguments to filter DataSongs to count.
+     * @example
+     * // Count the number of DataSongs
+     * const count = await prisma.dataSong.count({
+     *   where: {
+     *     // ... the filter for the DataSongs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DataSongCountArgs>(
+      args?: Subset<T, DataSongCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DataSongCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DataSong.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DataSongAggregateArgs>(args: Subset<T, DataSongAggregateArgs>): Prisma.PrismaPromise<GetDataSongAggregateType<T>>
+
+    /**
+     * Group by DataSong.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DataSongGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DataSongGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DataSongGroupByArgs['orderBy'] }
+        : { orderBy?: DataSongGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DataSongGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDataSongGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DataSong model
+   */
+  readonly fields: DataSongFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DataSong.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DataSongClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    artist<T extends DataArtistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataArtistDefaultArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DataSong model
+   */ 
+  interface DataSongFieldRefs {
+    readonly id: FieldRef<"DataSong", 'String'>
+    readonly title: FieldRef<"DataSong", 'String'>
+    readonly previewUrl: FieldRef<"DataSong", 'String'>
+    readonly deezerLink: FieldRef<"DataSong", 'String'>
+    readonly duration: FieldRef<"DataSong", 'Int'>
+    readonly rank: FieldRef<"DataSong", 'Int'>
+    readonly explicit: FieldRef<"DataSong", 'Boolean'>
+    readonly artistId: FieldRef<"DataSong", 'String'>
+    readonly createdAt: FieldRef<"DataSong", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DataSong findUnique
+   */
+  export type DataSongFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter, which DataSong to fetch.
+     */
+    where: DataSongWhereUniqueInput
+  }
+
+  /**
+   * DataSong findUniqueOrThrow
+   */
+  export type DataSongFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter, which DataSong to fetch.
+     */
+    where: DataSongWhereUniqueInput
+  }
+
+  /**
+   * DataSong findFirst
+   */
+  export type DataSongFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter, which DataSong to fetch.
+     */
+    where?: DataSongWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataSongs to fetch.
+     */
+    orderBy?: DataSongOrderByWithRelationInput | DataSongOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataSongs.
+     */
+    cursor?: DataSongWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataSongs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataSongs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataSongs.
+     */
+    distinct?: DataSongScalarFieldEnum | DataSongScalarFieldEnum[]
+  }
+
+  /**
+   * DataSong findFirstOrThrow
+   */
+  export type DataSongFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter, which DataSong to fetch.
+     */
+    where?: DataSongWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataSongs to fetch.
+     */
+    orderBy?: DataSongOrderByWithRelationInput | DataSongOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DataSongs.
+     */
+    cursor?: DataSongWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataSongs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataSongs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DataSongs.
+     */
+    distinct?: DataSongScalarFieldEnum | DataSongScalarFieldEnum[]
+  }
+
+  /**
+   * DataSong findMany
+   */
+  export type DataSongFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter, which DataSongs to fetch.
+     */
+    where?: DataSongWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DataSongs to fetch.
+     */
+    orderBy?: DataSongOrderByWithRelationInput | DataSongOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DataSongs.
+     */
+    cursor?: DataSongWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DataSongs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DataSongs.
+     */
+    skip?: number
+    distinct?: DataSongScalarFieldEnum | DataSongScalarFieldEnum[]
+  }
+
+  /**
+   * DataSong create
+   */
+  export type DataSongCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DataSong.
+     */
+    data: XOR<DataSongCreateInput, DataSongUncheckedCreateInput>
+  }
+
+  /**
+   * DataSong createMany
+   */
+  export type DataSongCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DataSongs.
+     */
+    data: DataSongCreateManyInput | DataSongCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DataSong createManyAndReturn
+   */
+  export type DataSongCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * The data used to create many DataSongs.
+     */
+    data: DataSongCreateManyInput | DataSongCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DataSong update
+   */
+  export type DataSongUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DataSong.
+     */
+    data: XOR<DataSongUpdateInput, DataSongUncheckedUpdateInput>
+    /**
+     * Choose, which DataSong to update.
+     */
+    where: DataSongWhereUniqueInput
+  }
+
+  /**
+   * DataSong updateMany
+   */
+  export type DataSongUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DataSongs.
+     */
+    data: XOR<DataSongUpdateManyMutationInput, DataSongUncheckedUpdateManyInput>
+    /**
+     * Filter which DataSongs to update
+     */
+    where?: DataSongWhereInput
+    /**
+     * Limit how many DataSongs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataSong updateManyAndReturn
+   */
+  export type DataSongUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * The data used to update DataSongs.
+     */
+    data: XOR<DataSongUpdateManyMutationInput, DataSongUncheckedUpdateManyInput>
+    /**
+     * Filter which DataSongs to update
+     */
+    where?: DataSongWhereInput
+    /**
+     * Limit how many DataSongs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DataSong upsert
+   */
+  export type DataSongUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DataSong to update in case it exists.
+     */
+    where: DataSongWhereUniqueInput
+    /**
+     * In case the DataSong found by the `where` argument doesn't exist, create a new DataSong with this data.
+     */
+    create: XOR<DataSongCreateInput, DataSongUncheckedCreateInput>
+    /**
+     * In case the DataSong was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DataSongUpdateInput, DataSongUncheckedUpdateInput>
+  }
+
+  /**
+   * DataSong delete
+   */
+  export type DataSongDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+    /**
+     * Filter which DataSong to delete.
+     */
+    where: DataSongWhereUniqueInput
+  }
+
+  /**
+   * DataSong deleteMany
+   */
+  export type DataSongDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DataSongs to delete
+     */
+    where?: DataSongWhereInput
+    /**
+     * Limit how many DataSongs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DataSong without action
+   */
+  export type DataSongDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DataSong
+     */
+    select?: DataSongSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DataSong
+     */
+    omit?: DataSongOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DataSongInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model GameCinema1Days
    */
 
@@ -22974,6 +25859,2228 @@ export namespace Prisma {
 
 
   /**
+   * Model GameMusic1Days
+   */
+
+  export type AggregateGameMusic1Days = {
+    _count: GameMusic1DaysCountAggregateOutputType | null
+    _avg: GameMusic1DaysAvgAggregateOutputType | null
+    _sum: GameMusic1DaysSumAggregateOutputType | null
+    _min: GameMusic1DaysMinAggregateOutputType | null
+    _max: GameMusic1DaysMaxAggregateOutputType | null
+  }
+
+  export type GameMusic1DaysAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type GameMusic1DaysSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type GameMusic1DaysMinAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    artistId: string | null
+    createdAt: Date | null
+  }
+
+  export type GameMusic1DaysMaxAggregateOutputType = {
+    id: number | null
+    date: Date | null
+    artistId: string | null
+    createdAt: Date | null
+  }
+
+  export type GameMusic1DaysCountAggregateOutputType = {
+    id: number
+    date: number
+    artistId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameMusic1DaysAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type GameMusic1DaysSumAggregateInputType = {
+    id?: true
+  }
+
+  export type GameMusic1DaysMinAggregateInputType = {
+    id?: true
+    date?: true
+    artistId?: true
+    createdAt?: true
+  }
+
+  export type GameMusic1DaysMaxAggregateInputType = {
+    id?: true
+    date?: true
+    artistId?: true
+    createdAt?: true
+  }
+
+  export type GameMusic1DaysCountAggregateInputType = {
+    id?: true
+    date?: true
+    artistId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameMusic1DaysAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameMusic1Days to aggregate.
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Days to fetch.
+     */
+    orderBy?: GameMusic1DaysOrderByWithRelationInput | GameMusic1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameMusic1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameMusic1Days
+    **/
+    _count?: true | GameMusic1DaysCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameMusic1DaysAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameMusic1DaysSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameMusic1DaysMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameMusic1DaysMaxAggregateInputType
+  }
+
+  export type GetGameMusic1DaysAggregateType<T extends GameMusic1DaysAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameMusic1Days]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameMusic1Days[P]>
+      : GetScalarType<T[P], AggregateGameMusic1Days[P]>
+  }
+
+
+
+
+  export type GameMusic1DaysGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameMusic1DaysWhereInput
+    orderBy?: GameMusic1DaysOrderByWithAggregationInput | GameMusic1DaysOrderByWithAggregationInput[]
+    by: GameMusic1DaysScalarFieldEnum[] | GameMusic1DaysScalarFieldEnum
+    having?: GameMusic1DaysScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameMusic1DaysCountAggregateInputType | true
+    _avg?: GameMusic1DaysAvgAggregateInputType
+    _sum?: GameMusic1DaysSumAggregateInputType
+    _min?: GameMusic1DaysMinAggregateInputType
+    _max?: GameMusic1DaysMaxAggregateInputType
+  }
+
+  export type GameMusic1DaysGroupByOutputType = {
+    id: number
+    date: Date
+    artistId: string
+    createdAt: Date
+    _count: GameMusic1DaysCountAggregateOutputType | null
+    _avg: GameMusic1DaysAvgAggregateOutputType | null
+    _sum: GameMusic1DaysSumAggregateOutputType | null
+    _min: GameMusic1DaysMinAggregateOutputType | null
+    _max: GameMusic1DaysMaxAggregateOutputType | null
+  }
+
+  type GetGameMusic1DaysGroupByPayload<T extends GameMusic1DaysGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameMusic1DaysGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameMusic1DaysGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameMusic1DaysGroupByOutputType[P]>
+            : GetScalarType<T[P], GameMusic1DaysGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameMusic1DaysSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+    tries?: boolean | GameMusic1Days$triesArgs<ExtArgs>
+    _count?: boolean | GameMusic1DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Days"]>
+
+  export type GameMusic1DaysSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Days"]>
+
+  export type GameMusic1DaysSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Days"]>
+
+  export type GameMusic1DaysSelectScalar = {
+    id?: boolean
+    date?: boolean
+    artistId?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameMusic1DaysOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "artistId" | "createdAt", ExtArgs["result"]["gameMusic1Days"]>
+  export type GameMusic1DaysInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+    tries?: boolean | GameMusic1Days$triesArgs<ExtArgs>
+    _count?: boolean | GameMusic1DaysCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GameMusic1DaysIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }
+  export type GameMusic1DaysIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    artist?: boolean | DataArtistDefaultArgs<ExtArgs>
+  }
+
+  export type $GameMusic1DaysPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameMusic1Days"
+    objects: {
+      artist: Prisma.$DataArtistPayload<ExtArgs>
+      tries: Prisma.$GameMusic1TriesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      date: Date
+      artistId: string
+      createdAt: Date
+    }, ExtArgs["result"]["gameMusic1Days"]>
+    composites: {}
+  }
+
+  type GameMusic1DaysGetPayload<S extends boolean | null | undefined | GameMusic1DaysDefaultArgs> = $Result.GetResult<Prisma.$GameMusic1DaysPayload, S>
+
+  type GameMusic1DaysCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameMusic1DaysFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameMusic1DaysCountAggregateInputType | true
+    }
+
+  export interface GameMusic1DaysDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameMusic1Days'], meta: { name: 'GameMusic1Days' } }
+    /**
+     * Find zero or one GameMusic1Days that matches the filter.
+     * @param {GameMusic1DaysFindUniqueArgs} args - Arguments to find a GameMusic1Days
+     * @example
+     * // Get one GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameMusic1DaysFindUniqueArgs>(args: SelectSubset<T, GameMusic1DaysFindUniqueArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one GameMusic1Days that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameMusic1DaysFindUniqueOrThrowArgs} args - Arguments to find a GameMusic1Days
+     * @example
+     * // Get one GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameMusic1DaysFindUniqueOrThrowArgs>(args: SelectSubset<T, GameMusic1DaysFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameMusic1Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysFindFirstArgs} args - Arguments to find a GameMusic1Days
+     * @example
+     * // Get one GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameMusic1DaysFindFirstArgs>(args?: SelectSubset<T, GameMusic1DaysFindFirstArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameMusic1Days that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysFindFirstOrThrowArgs} args - Arguments to find a GameMusic1Days
+     * @example
+     * // Get one GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameMusic1DaysFindFirstOrThrowArgs>(args?: SelectSubset<T, GameMusic1DaysFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more GameMusic1Days that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findMany()
+     * 
+     * // Get first 10 GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameMusic1DaysWithIdOnly = await prisma.gameMusic1Days.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameMusic1DaysFindManyArgs>(args?: SelectSubset<T, GameMusic1DaysFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a GameMusic1Days.
+     * @param {GameMusic1DaysCreateArgs} args - Arguments to create a GameMusic1Days.
+     * @example
+     * // Create one GameMusic1Days
+     * const GameMusic1Days = await prisma.gameMusic1Days.create({
+     *   data: {
+     *     // ... data to create a GameMusic1Days
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameMusic1DaysCreateArgs>(args: SelectSubset<T, GameMusic1DaysCreateArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many GameMusic1Days.
+     * @param {GameMusic1DaysCreateManyArgs} args - Arguments to create many GameMusic1Days.
+     * @example
+     * // Create many GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameMusic1DaysCreateManyArgs>(args?: SelectSubset<T, GameMusic1DaysCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameMusic1Days and returns the data saved in the database.
+     * @param {GameMusic1DaysCreateManyAndReturnArgs} args - Arguments to create many GameMusic1Days.
+     * @example
+     * // Create many GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameMusic1Days and only return the `id`
+     * const gameMusic1DaysWithIdOnly = await prisma.gameMusic1Days.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameMusic1DaysCreateManyAndReturnArgs>(args?: SelectSubset<T, GameMusic1DaysCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a GameMusic1Days.
+     * @param {GameMusic1DaysDeleteArgs} args - Arguments to delete one GameMusic1Days.
+     * @example
+     * // Delete one GameMusic1Days
+     * const GameMusic1Days = await prisma.gameMusic1Days.delete({
+     *   where: {
+     *     // ... filter to delete one GameMusic1Days
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameMusic1DaysDeleteArgs>(args: SelectSubset<T, GameMusic1DaysDeleteArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one GameMusic1Days.
+     * @param {GameMusic1DaysUpdateArgs} args - Arguments to update one GameMusic1Days.
+     * @example
+     * // Update one GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameMusic1DaysUpdateArgs>(args: SelectSubset<T, GameMusic1DaysUpdateArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more GameMusic1Days.
+     * @param {GameMusic1DaysDeleteManyArgs} args - Arguments to filter GameMusic1Days to delete.
+     * @example
+     * // Delete a few GameMusic1Days
+     * const { count } = await prisma.gameMusic1Days.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameMusic1DaysDeleteManyArgs>(args?: SelectSubset<T, GameMusic1DaysDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameMusic1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameMusic1DaysUpdateManyArgs>(args: SelectSubset<T, GameMusic1DaysUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameMusic1Days and returns the data updated in the database.
+     * @param {GameMusic1DaysUpdateManyAndReturnArgs} args - Arguments to update many GameMusic1Days.
+     * @example
+     * // Update many GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameMusic1Days and only return the `id`
+     * const gameMusic1DaysWithIdOnly = await prisma.gameMusic1Days.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameMusic1DaysUpdateManyAndReturnArgs>(args: SelectSubset<T, GameMusic1DaysUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one GameMusic1Days.
+     * @param {GameMusic1DaysUpsertArgs} args - Arguments to update or create a GameMusic1Days.
+     * @example
+     * // Update or create a GameMusic1Days
+     * const gameMusic1Days = await prisma.gameMusic1Days.upsert({
+     *   create: {
+     *     // ... data to create a GameMusic1Days
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameMusic1Days we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameMusic1DaysUpsertArgs>(args: SelectSubset<T, GameMusic1DaysUpsertArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of GameMusic1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysCountArgs} args - Arguments to filter GameMusic1Days to count.
+     * @example
+     * // Count the number of GameMusic1Days
+     * const count = await prisma.gameMusic1Days.count({
+     *   where: {
+     *     // ... the filter for the GameMusic1Days we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameMusic1DaysCountArgs>(
+      args?: Subset<T, GameMusic1DaysCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameMusic1DaysCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameMusic1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameMusic1DaysAggregateArgs>(args: Subset<T, GameMusic1DaysAggregateArgs>): Prisma.PrismaPromise<GetGameMusic1DaysAggregateType<T>>
+
+    /**
+     * Group by GameMusic1Days.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1DaysGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameMusic1DaysGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameMusic1DaysGroupByArgs['orderBy'] }
+        : { orderBy?: GameMusic1DaysGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameMusic1DaysGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameMusic1DaysGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameMusic1Days model
+   */
+  readonly fields: GameMusic1DaysFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameMusic1Days.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameMusic1DaysClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    artist<T extends DataArtistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DataArtistDefaultArgs<ExtArgs>>): Prisma__DataArtistClient<$Result.GetResult<Prisma.$DataArtistPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    tries<T extends GameMusic1Days$triesArgs<ExtArgs> = {}>(args?: Subset<T, GameMusic1Days$triesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameMusic1Days model
+   */ 
+  interface GameMusic1DaysFieldRefs {
+    readonly id: FieldRef<"GameMusic1Days", 'Int'>
+    readonly date: FieldRef<"GameMusic1Days", 'DateTime'>
+    readonly artistId: FieldRef<"GameMusic1Days", 'String'>
+    readonly createdAt: FieldRef<"GameMusic1Days", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameMusic1Days findUnique
+   */
+  export type GameMusic1DaysFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Days to fetch.
+     */
+    where: GameMusic1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Days findUniqueOrThrow
+   */
+  export type GameMusic1DaysFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Days to fetch.
+     */
+    where: GameMusic1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Days findFirst
+   */
+  export type GameMusic1DaysFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Days to fetch.
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Days to fetch.
+     */
+    orderBy?: GameMusic1DaysOrderByWithRelationInput | GameMusic1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameMusic1Days.
+     */
+    cursor?: GameMusic1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameMusic1Days.
+     */
+    distinct?: GameMusic1DaysScalarFieldEnum | GameMusic1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Days findFirstOrThrow
+   */
+  export type GameMusic1DaysFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Days to fetch.
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Days to fetch.
+     */
+    orderBy?: GameMusic1DaysOrderByWithRelationInput | GameMusic1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameMusic1Days.
+     */
+    cursor?: GameMusic1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Days.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameMusic1Days.
+     */
+    distinct?: GameMusic1DaysScalarFieldEnum | GameMusic1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Days findMany
+   */
+  export type GameMusic1DaysFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Days to fetch.
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Days to fetch.
+     */
+    orderBy?: GameMusic1DaysOrderByWithRelationInput | GameMusic1DaysOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameMusic1Days.
+     */
+    cursor?: GameMusic1DaysWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Days from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Days.
+     */
+    skip?: number
+    distinct?: GameMusic1DaysScalarFieldEnum | GameMusic1DaysScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Days create
+   */
+  export type GameMusic1DaysCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameMusic1Days.
+     */
+    data: XOR<GameMusic1DaysCreateInput, GameMusic1DaysUncheckedCreateInput>
+  }
+
+  /**
+   * GameMusic1Days createMany
+   */
+  export type GameMusic1DaysCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameMusic1Days.
+     */
+    data: GameMusic1DaysCreateManyInput | GameMusic1DaysCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameMusic1Days createManyAndReturn
+   */
+  export type GameMusic1DaysCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameMusic1Days.
+     */
+    data: GameMusic1DaysCreateManyInput | GameMusic1DaysCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameMusic1Days update
+   */
+  export type GameMusic1DaysUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameMusic1Days.
+     */
+    data: XOR<GameMusic1DaysUpdateInput, GameMusic1DaysUncheckedUpdateInput>
+    /**
+     * Choose, which GameMusic1Days to update.
+     */
+    where: GameMusic1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Days updateMany
+   */
+  export type GameMusic1DaysUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameMusic1Days.
+     */
+    data: XOR<GameMusic1DaysUpdateManyMutationInput, GameMusic1DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameMusic1Days to update
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * Limit how many GameMusic1Days to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameMusic1Days updateManyAndReturn
+   */
+  export type GameMusic1DaysUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * The data used to update GameMusic1Days.
+     */
+    data: XOR<GameMusic1DaysUpdateManyMutationInput, GameMusic1DaysUncheckedUpdateManyInput>
+    /**
+     * Filter which GameMusic1Days to update
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * Limit how many GameMusic1Days to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameMusic1Days upsert
+   */
+  export type GameMusic1DaysUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameMusic1Days to update in case it exists.
+     */
+    where: GameMusic1DaysWhereUniqueInput
+    /**
+     * In case the GameMusic1Days found by the `where` argument doesn't exist, create a new GameMusic1Days with this data.
+     */
+    create: XOR<GameMusic1DaysCreateInput, GameMusic1DaysUncheckedCreateInput>
+    /**
+     * In case the GameMusic1Days was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameMusic1DaysUpdateInput, GameMusic1DaysUncheckedUpdateInput>
+  }
+
+  /**
+   * GameMusic1Days delete
+   */
+  export type GameMusic1DaysDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+    /**
+     * Filter which GameMusic1Days to delete.
+     */
+    where: GameMusic1DaysWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Days deleteMany
+   */
+  export type GameMusic1DaysDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameMusic1Days to delete
+     */
+    where?: GameMusic1DaysWhereInput
+    /**
+     * Limit how many GameMusic1Days to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameMusic1Days.tries
+   */
+  export type GameMusic1Days$triesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    where?: GameMusic1TriesWhereInput
+    orderBy?: GameMusic1TriesOrderByWithRelationInput | GameMusic1TriesOrderByWithRelationInput[]
+    cursor?: GameMusic1TriesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameMusic1TriesScalarFieldEnum | GameMusic1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Days without action
+   */
+  export type GameMusic1DaysDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Days
+     */
+    select?: GameMusic1DaysSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Days
+     */
+    omit?: GameMusic1DaysOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1DaysInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GameMusic1Tries
+   */
+
+  export type AggregateGameMusic1Tries = {
+    _count: GameMusic1TriesCountAggregateOutputType | null
+    _avg: GameMusic1TriesAvgAggregateOutputType | null
+    _sum: GameMusic1TriesSumAggregateOutputType | null
+    _min: GameMusic1TriesMinAggregateOutputType | null
+    _max: GameMusic1TriesMaxAggregateOutputType | null
+  }
+
+  export type GameMusic1TriesAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameMusic1TriesSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+  }
+
+  export type GameMusic1TriesMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameMusic1TriesMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    dayId: number | null
+    guess: string | null
+    correct: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GameMusic1TriesCountAggregateOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: number
+    correct: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameMusic1TriesAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameMusic1TriesSumAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+  }
+
+  export type GameMusic1TriesMinAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameMusic1TriesMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+  }
+
+  export type GameMusic1TriesCountAggregateInputType = {
+    id?: true
+    userId?: true
+    dayId?: true
+    guess?: true
+    correct?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameMusic1TriesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameMusic1Tries to aggregate.
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Tries to fetch.
+     */
+    orderBy?: GameMusic1TriesOrderByWithRelationInput | GameMusic1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameMusic1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameMusic1Tries
+    **/
+    _count?: true | GameMusic1TriesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameMusic1TriesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameMusic1TriesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameMusic1TriesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameMusic1TriesMaxAggregateInputType
+  }
+
+  export type GetGameMusic1TriesAggregateType<T extends GameMusic1TriesAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameMusic1Tries]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameMusic1Tries[P]>
+      : GetScalarType<T[P], AggregateGameMusic1Tries[P]>
+  }
+
+
+
+
+  export type GameMusic1TriesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameMusic1TriesWhereInput
+    orderBy?: GameMusic1TriesOrderByWithAggregationInput | GameMusic1TriesOrderByWithAggregationInput[]
+    by: GameMusic1TriesScalarFieldEnum[] | GameMusic1TriesScalarFieldEnum
+    having?: GameMusic1TriesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameMusic1TriesCountAggregateInputType | true
+    _avg?: GameMusic1TriesAvgAggregateInputType
+    _sum?: GameMusic1TriesSumAggregateInputType
+    _min?: GameMusic1TriesMinAggregateInputType
+    _max?: GameMusic1TriesMaxAggregateInputType
+  }
+
+  export type GameMusic1TriesGroupByOutputType = {
+    id: number
+    userId: number
+    dayId: number
+    guess: string
+    correct: boolean
+    createdAt: Date
+    _count: GameMusic1TriesCountAggregateOutputType | null
+    _avg: GameMusic1TriesAvgAggregateOutputType | null
+    _sum: GameMusic1TriesSumAggregateOutputType | null
+    _min: GameMusic1TriesMinAggregateOutputType | null
+    _max: GameMusic1TriesMaxAggregateOutputType | null
+  }
+
+  type GetGameMusic1TriesGroupByPayload<T extends GameMusic1TriesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameMusic1TriesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameMusic1TriesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameMusic1TriesGroupByOutputType[P]>
+            : GetScalarType<T[P], GameMusic1TriesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameMusic1TriesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Tries"]>
+
+  export type GameMusic1TriesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Tries"]>
+
+  export type GameMusic1TriesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameMusic1Tries"]>
+
+  export type GameMusic1TriesSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    dayId?: boolean
+    guess?: boolean
+    correct?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameMusic1TriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "dayId" | "guess" | "correct" | "createdAt", ExtArgs["result"]["gameMusic1Tries"]>
+  export type GameMusic1TriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }
+  export type GameMusic1TriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }
+  export type GameMusic1TriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | GameMusic1DaysDefaultArgs<ExtArgs>
+  }
+
+  export type $GameMusic1TriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameMusic1Tries"
+    objects: {
+      day: Prisma.$GameMusic1DaysPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      dayId: number
+      guess: string
+      correct: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["gameMusic1Tries"]>
+    composites: {}
+  }
+
+  type GameMusic1TriesGetPayload<S extends boolean | null | undefined | GameMusic1TriesDefaultArgs> = $Result.GetResult<Prisma.$GameMusic1TriesPayload, S>
+
+  type GameMusic1TriesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameMusic1TriesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameMusic1TriesCountAggregateInputType | true
+    }
+
+  export interface GameMusic1TriesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameMusic1Tries'], meta: { name: 'GameMusic1Tries' } }
+    /**
+     * Find zero or one GameMusic1Tries that matches the filter.
+     * @param {GameMusic1TriesFindUniqueArgs} args - Arguments to find a GameMusic1Tries
+     * @example
+     * // Get one GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameMusic1TriesFindUniqueArgs>(args: SelectSubset<T, GameMusic1TriesFindUniqueArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one GameMusic1Tries that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameMusic1TriesFindUniqueOrThrowArgs} args - Arguments to find a GameMusic1Tries
+     * @example
+     * // Get one GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameMusic1TriesFindUniqueOrThrowArgs>(args: SelectSubset<T, GameMusic1TriesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameMusic1Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesFindFirstArgs} args - Arguments to find a GameMusic1Tries
+     * @example
+     * // Get one GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameMusic1TriesFindFirstArgs>(args?: SelectSubset<T, GameMusic1TriesFindFirstArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first GameMusic1Tries that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesFindFirstOrThrowArgs} args - Arguments to find a GameMusic1Tries
+     * @example
+     * // Get one GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameMusic1TriesFindFirstOrThrowArgs>(args?: SelectSubset<T, GameMusic1TriesFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more GameMusic1Tries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findMany()
+     * 
+     * // Get first 10 GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameMusic1TriesWithIdOnly = await prisma.gameMusic1Tries.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameMusic1TriesFindManyArgs>(args?: SelectSubset<T, GameMusic1TriesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a GameMusic1Tries.
+     * @param {GameMusic1TriesCreateArgs} args - Arguments to create a GameMusic1Tries.
+     * @example
+     * // Create one GameMusic1Tries
+     * const GameMusic1Tries = await prisma.gameMusic1Tries.create({
+     *   data: {
+     *     // ... data to create a GameMusic1Tries
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameMusic1TriesCreateArgs>(args: SelectSubset<T, GameMusic1TriesCreateArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many GameMusic1Tries.
+     * @param {GameMusic1TriesCreateManyArgs} args - Arguments to create many GameMusic1Tries.
+     * @example
+     * // Create many GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameMusic1TriesCreateManyArgs>(args?: SelectSubset<T, GameMusic1TriesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameMusic1Tries and returns the data saved in the database.
+     * @param {GameMusic1TriesCreateManyAndReturnArgs} args - Arguments to create many GameMusic1Tries.
+     * @example
+     * // Create many GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameMusic1Tries and only return the `id`
+     * const gameMusic1TriesWithIdOnly = await prisma.gameMusic1Tries.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameMusic1TriesCreateManyAndReturnArgs>(args?: SelectSubset<T, GameMusic1TriesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a GameMusic1Tries.
+     * @param {GameMusic1TriesDeleteArgs} args - Arguments to delete one GameMusic1Tries.
+     * @example
+     * // Delete one GameMusic1Tries
+     * const GameMusic1Tries = await prisma.gameMusic1Tries.delete({
+     *   where: {
+     *     // ... filter to delete one GameMusic1Tries
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameMusic1TriesDeleteArgs>(args: SelectSubset<T, GameMusic1TriesDeleteArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one GameMusic1Tries.
+     * @param {GameMusic1TriesUpdateArgs} args - Arguments to update one GameMusic1Tries.
+     * @example
+     * // Update one GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameMusic1TriesUpdateArgs>(args: SelectSubset<T, GameMusic1TriesUpdateArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more GameMusic1Tries.
+     * @param {GameMusic1TriesDeleteManyArgs} args - Arguments to filter GameMusic1Tries to delete.
+     * @example
+     * // Delete a few GameMusic1Tries
+     * const { count } = await prisma.gameMusic1Tries.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameMusic1TriesDeleteManyArgs>(args?: SelectSubset<T, GameMusic1TriesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameMusic1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameMusic1TriesUpdateManyArgs>(args: SelectSubset<T, GameMusic1TriesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameMusic1Tries and returns the data updated in the database.
+     * @param {GameMusic1TriesUpdateManyAndReturnArgs} args - Arguments to update many GameMusic1Tries.
+     * @example
+     * // Update many GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameMusic1Tries and only return the `id`
+     * const gameMusic1TriesWithIdOnly = await prisma.gameMusic1Tries.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameMusic1TriesUpdateManyAndReturnArgs>(args: SelectSubset<T, GameMusic1TriesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one GameMusic1Tries.
+     * @param {GameMusic1TriesUpsertArgs} args - Arguments to update or create a GameMusic1Tries.
+     * @example
+     * // Update or create a GameMusic1Tries
+     * const gameMusic1Tries = await prisma.gameMusic1Tries.upsert({
+     *   create: {
+     *     // ... data to create a GameMusic1Tries
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameMusic1Tries we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameMusic1TriesUpsertArgs>(args: SelectSubset<T, GameMusic1TriesUpsertArgs<ExtArgs>>): Prisma__GameMusic1TriesClient<$Result.GetResult<Prisma.$GameMusic1TriesPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of GameMusic1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesCountArgs} args - Arguments to filter GameMusic1Tries to count.
+     * @example
+     * // Count the number of GameMusic1Tries
+     * const count = await prisma.gameMusic1Tries.count({
+     *   where: {
+     *     // ... the filter for the GameMusic1Tries we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameMusic1TriesCountArgs>(
+      args?: Subset<T, GameMusic1TriesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameMusic1TriesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameMusic1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameMusic1TriesAggregateArgs>(args: Subset<T, GameMusic1TriesAggregateArgs>): Prisma.PrismaPromise<GetGameMusic1TriesAggregateType<T>>
+
+    /**
+     * Group by GameMusic1Tries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameMusic1TriesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameMusic1TriesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameMusic1TriesGroupByArgs['orderBy'] }
+        : { orderBy?: GameMusic1TriesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameMusic1TriesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameMusic1TriesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameMusic1Tries model
+   */
+  readonly fields: GameMusic1TriesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameMusic1Tries.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameMusic1TriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    day<T extends GameMusic1DaysDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GameMusic1DaysDefaultArgs<ExtArgs>>): Prisma__GameMusic1DaysClient<$Result.GetResult<Prisma.$GameMusic1DaysPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameMusic1Tries model
+   */ 
+  interface GameMusic1TriesFieldRefs {
+    readonly id: FieldRef<"GameMusic1Tries", 'Int'>
+    readonly userId: FieldRef<"GameMusic1Tries", 'Int'>
+    readonly dayId: FieldRef<"GameMusic1Tries", 'Int'>
+    readonly guess: FieldRef<"GameMusic1Tries", 'String'>
+    readonly correct: FieldRef<"GameMusic1Tries", 'Boolean'>
+    readonly createdAt: FieldRef<"GameMusic1Tries", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameMusic1Tries findUnique
+   */
+  export type GameMusic1TriesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Tries to fetch.
+     */
+    where: GameMusic1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Tries findUniqueOrThrow
+   */
+  export type GameMusic1TriesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Tries to fetch.
+     */
+    where: GameMusic1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Tries findFirst
+   */
+  export type GameMusic1TriesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Tries to fetch.
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Tries to fetch.
+     */
+    orderBy?: GameMusic1TriesOrderByWithRelationInput | GameMusic1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameMusic1Tries.
+     */
+    cursor?: GameMusic1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameMusic1Tries.
+     */
+    distinct?: GameMusic1TriesScalarFieldEnum | GameMusic1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Tries findFirstOrThrow
+   */
+  export type GameMusic1TriesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Tries to fetch.
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Tries to fetch.
+     */
+    orderBy?: GameMusic1TriesOrderByWithRelationInput | GameMusic1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameMusic1Tries.
+     */
+    cursor?: GameMusic1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Tries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameMusic1Tries.
+     */
+    distinct?: GameMusic1TriesScalarFieldEnum | GameMusic1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Tries findMany
+   */
+  export type GameMusic1TriesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter, which GameMusic1Tries to fetch.
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameMusic1Tries to fetch.
+     */
+    orderBy?: GameMusic1TriesOrderByWithRelationInput | GameMusic1TriesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameMusic1Tries.
+     */
+    cursor?: GameMusic1TriesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameMusic1Tries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameMusic1Tries.
+     */
+    skip?: number
+    distinct?: GameMusic1TriesScalarFieldEnum | GameMusic1TriesScalarFieldEnum[]
+  }
+
+  /**
+   * GameMusic1Tries create
+   */
+  export type GameMusic1TriesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameMusic1Tries.
+     */
+    data: XOR<GameMusic1TriesCreateInput, GameMusic1TriesUncheckedCreateInput>
+  }
+
+  /**
+   * GameMusic1Tries createMany
+   */
+  export type GameMusic1TriesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameMusic1Tries.
+     */
+    data: GameMusic1TriesCreateManyInput | GameMusic1TriesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameMusic1Tries createManyAndReturn
+   */
+  export type GameMusic1TriesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameMusic1Tries.
+     */
+    data: GameMusic1TriesCreateManyInput | GameMusic1TriesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameMusic1Tries update
+   */
+  export type GameMusic1TriesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameMusic1Tries.
+     */
+    data: XOR<GameMusic1TriesUpdateInput, GameMusic1TriesUncheckedUpdateInput>
+    /**
+     * Choose, which GameMusic1Tries to update.
+     */
+    where: GameMusic1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Tries updateMany
+   */
+  export type GameMusic1TriesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameMusic1Tries.
+     */
+    data: XOR<GameMusic1TriesUpdateManyMutationInput, GameMusic1TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameMusic1Tries to update
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * Limit how many GameMusic1Tries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameMusic1Tries updateManyAndReturn
+   */
+  export type GameMusic1TriesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * The data used to update GameMusic1Tries.
+     */
+    data: XOR<GameMusic1TriesUpdateManyMutationInput, GameMusic1TriesUncheckedUpdateManyInput>
+    /**
+     * Filter which GameMusic1Tries to update
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * Limit how many GameMusic1Tries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameMusic1Tries upsert
+   */
+  export type GameMusic1TriesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameMusic1Tries to update in case it exists.
+     */
+    where: GameMusic1TriesWhereUniqueInput
+    /**
+     * In case the GameMusic1Tries found by the `where` argument doesn't exist, create a new GameMusic1Tries with this data.
+     */
+    create: XOR<GameMusic1TriesCreateInput, GameMusic1TriesUncheckedCreateInput>
+    /**
+     * In case the GameMusic1Tries was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameMusic1TriesUpdateInput, GameMusic1TriesUncheckedUpdateInput>
+  }
+
+  /**
+   * GameMusic1Tries delete
+   */
+  export type GameMusic1TriesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+    /**
+     * Filter which GameMusic1Tries to delete.
+     */
+    where: GameMusic1TriesWhereUniqueInput
+  }
+
+  /**
+   * GameMusic1Tries deleteMany
+   */
+  export type GameMusic1TriesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameMusic1Tries to delete
+     */
+    where?: GameMusic1TriesWhereInput
+    /**
+     * Limit how many GameMusic1Tries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameMusic1Tries without action
+   */
+  export type GameMusic1TriesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameMusic1Tries
+     */
+    select?: GameMusic1TriesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameMusic1Tries
+     */
+    omit?: GameMusic1TriesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameMusic1TriesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -23187,6 +28294,46 @@ export namespace Prisma {
   export type DataMovieScalarFieldEnum = (typeof DataMovieScalarFieldEnum)[keyof typeof DataMovieScalarFieldEnum]
 
 
+  export const DataArtistScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    listeners: 'listeners',
+    source: 'source',
+    mbid: 'mbid',
+    type: 'type',
+    country: 'country',
+    gender: 'gender',
+    startDate: 'startDate',
+    isDead: 'isDead',
+    mainGenres: 'mainGenres',
+    aliases: 'aliases',
+    members: 'members',
+    imageUrl: 'imageUrl',
+    albumsJson: 'albumsJson',
+    firstAlbumDate: 'firstAlbumDate',
+    deezerFans: 'deezerFans',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DataArtistScalarFieldEnum = (typeof DataArtistScalarFieldEnum)[keyof typeof DataArtistScalarFieldEnum]
+
+
+  export const DataSongScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    previewUrl: 'previewUrl',
+    deezerLink: 'deezerLink',
+    duration: 'duration',
+    rank: 'rank',
+    explicit: 'explicit',
+    artistId: 'artistId',
+    createdAt: 'createdAt'
+  };
+
+  export type DataSongScalarFieldEnum = (typeof DataSongScalarFieldEnum)[keyof typeof DataSongScalarFieldEnum]
+
+
   export const GameCinema1DaysScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -23231,12 +28378,42 @@ export namespace Prisma {
   export type GameCinema2TriesScalarFieldEnum = (typeof GameCinema2TriesScalarFieldEnum)[keyof typeof GameCinema2TriesScalarFieldEnum]
 
 
+  export const GameMusic1DaysScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    artistId: 'artistId',
+    createdAt: 'createdAt'
+  };
+
+  export type GameMusic1DaysScalarFieldEnum = (typeof GameMusic1DaysScalarFieldEnum)[keyof typeof GameMusic1DaysScalarFieldEnum]
+
+
+  export const GameMusic1TriesScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    dayId: 'dayId',
+    guess: 'guess',
+    correct: 'correct',
+    createdAt: 'createdAt'
+  };
+
+  export type GameMusic1TriesScalarFieldEnum = (typeof GameMusic1TriesScalarFieldEnum)[keyof typeof GameMusic1TriesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -23253,6 +28430,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -23348,6 +28534,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
   /**
    * Deep Input Types
@@ -24462,6 +29662,213 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"DataMovie"> | Date | string
   }
 
+  export type DataArtistWhereInput = {
+    AND?: DataArtistWhereInput | DataArtistWhereInput[]
+    OR?: DataArtistWhereInput[]
+    NOT?: DataArtistWhereInput | DataArtistWhereInput[]
+    id?: StringFilter<"DataArtist"> | string
+    name?: StringFilter<"DataArtist"> | string
+    listeners?: IntFilter<"DataArtist"> | number
+    source?: StringFilter<"DataArtist"> | string
+    mbid?: StringNullableFilter<"DataArtist"> | string | null
+    type?: StringFilter<"DataArtist"> | string
+    country?: StringNullableFilter<"DataArtist"> | string | null
+    gender?: StringNullableFilter<"DataArtist"> | string | null
+    startDate?: DateTimeNullableFilter<"DataArtist"> | Date | string | null
+    isDead?: BoolNullableFilter<"DataArtist"> | boolean | null
+    mainGenres?: StringNullableListFilter<"DataArtist">
+    aliases?: StringNullableListFilter<"DataArtist">
+    members?: StringNullableListFilter<"DataArtist">
+    imageUrl?: StringNullableFilter<"DataArtist"> | string | null
+    albumsJson?: JsonNullableFilter<"DataArtist">
+    firstAlbumDate?: DateTimeNullableFilter<"DataArtist"> | Date | string | null
+    deezerFans?: IntNullableFilter<"DataArtist"> | number | null
+    createdAt?: DateTimeFilter<"DataArtist"> | Date | string
+    updatedAt?: DateTimeFilter<"DataArtist"> | Date | string
+    songs?: DataSongListRelationFilter
+    GameMusic1Days?: GameMusic1DaysListRelationFilter
+  }
+
+  export type DataArtistOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    listeners?: SortOrder
+    source?: SortOrder
+    mbid?: SortOrderInput | SortOrder
+    type?: SortOrder
+    country?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    isDead?: SortOrderInput | SortOrder
+    mainGenres?: SortOrder
+    aliases?: SortOrder
+    members?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    albumsJson?: SortOrderInput | SortOrder
+    firstAlbumDate?: SortOrderInput | SortOrder
+    deezerFans?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    songs?: DataSongOrderByRelationAggregateInput
+    GameMusic1Days?: GameMusic1DaysOrderByRelationAggregateInput
+  }
+
+  export type DataArtistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    mbid?: string
+    AND?: DataArtistWhereInput | DataArtistWhereInput[]
+    OR?: DataArtistWhereInput[]
+    NOT?: DataArtistWhereInput | DataArtistWhereInput[]
+    listeners?: IntFilter<"DataArtist"> | number
+    source?: StringFilter<"DataArtist"> | string
+    type?: StringFilter<"DataArtist"> | string
+    country?: StringNullableFilter<"DataArtist"> | string | null
+    gender?: StringNullableFilter<"DataArtist"> | string | null
+    startDate?: DateTimeNullableFilter<"DataArtist"> | Date | string | null
+    isDead?: BoolNullableFilter<"DataArtist"> | boolean | null
+    mainGenres?: StringNullableListFilter<"DataArtist">
+    aliases?: StringNullableListFilter<"DataArtist">
+    members?: StringNullableListFilter<"DataArtist">
+    imageUrl?: StringNullableFilter<"DataArtist"> | string | null
+    albumsJson?: JsonNullableFilter<"DataArtist">
+    firstAlbumDate?: DateTimeNullableFilter<"DataArtist"> | Date | string | null
+    deezerFans?: IntNullableFilter<"DataArtist"> | number | null
+    createdAt?: DateTimeFilter<"DataArtist"> | Date | string
+    updatedAt?: DateTimeFilter<"DataArtist"> | Date | string
+    songs?: DataSongListRelationFilter
+    GameMusic1Days?: GameMusic1DaysListRelationFilter
+  }, "id" | "name" | "mbid">
+
+  export type DataArtistOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    listeners?: SortOrder
+    source?: SortOrder
+    mbid?: SortOrderInput | SortOrder
+    type?: SortOrder
+    country?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    isDead?: SortOrderInput | SortOrder
+    mainGenres?: SortOrder
+    aliases?: SortOrder
+    members?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    albumsJson?: SortOrderInput | SortOrder
+    firstAlbumDate?: SortOrderInput | SortOrder
+    deezerFans?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DataArtistCountOrderByAggregateInput
+    _avg?: DataArtistAvgOrderByAggregateInput
+    _max?: DataArtistMaxOrderByAggregateInput
+    _min?: DataArtistMinOrderByAggregateInput
+    _sum?: DataArtistSumOrderByAggregateInput
+  }
+
+  export type DataArtistScalarWhereWithAggregatesInput = {
+    AND?: DataArtistScalarWhereWithAggregatesInput | DataArtistScalarWhereWithAggregatesInput[]
+    OR?: DataArtistScalarWhereWithAggregatesInput[]
+    NOT?: DataArtistScalarWhereWithAggregatesInput | DataArtistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DataArtist"> | string
+    name?: StringWithAggregatesFilter<"DataArtist"> | string
+    listeners?: IntWithAggregatesFilter<"DataArtist"> | number
+    source?: StringWithAggregatesFilter<"DataArtist"> | string
+    mbid?: StringNullableWithAggregatesFilter<"DataArtist"> | string | null
+    type?: StringWithAggregatesFilter<"DataArtist"> | string
+    country?: StringNullableWithAggregatesFilter<"DataArtist"> | string | null
+    gender?: StringNullableWithAggregatesFilter<"DataArtist"> | string | null
+    startDate?: DateTimeNullableWithAggregatesFilter<"DataArtist"> | Date | string | null
+    isDead?: BoolNullableWithAggregatesFilter<"DataArtist"> | boolean | null
+    mainGenres?: StringNullableListFilter<"DataArtist">
+    aliases?: StringNullableListFilter<"DataArtist">
+    members?: StringNullableListFilter<"DataArtist">
+    imageUrl?: StringNullableWithAggregatesFilter<"DataArtist"> | string | null
+    albumsJson?: JsonNullableWithAggregatesFilter<"DataArtist">
+    firstAlbumDate?: DateTimeNullableWithAggregatesFilter<"DataArtist"> | Date | string | null
+    deezerFans?: IntNullableWithAggregatesFilter<"DataArtist"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"DataArtist"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DataArtist"> | Date | string
+  }
+
+  export type DataSongWhereInput = {
+    AND?: DataSongWhereInput | DataSongWhereInput[]
+    OR?: DataSongWhereInput[]
+    NOT?: DataSongWhereInput | DataSongWhereInput[]
+    id?: StringFilter<"DataSong"> | string
+    title?: StringFilter<"DataSong"> | string
+    previewUrl?: StringNullableFilter<"DataSong"> | string | null
+    deezerLink?: StringFilter<"DataSong"> | string
+    duration?: IntFilter<"DataSong"> | number
+    rank?: IntNullableFilter<"DataSong"> | number | null
+    explicit?: BoolFilter<"DataSong"> | boolean
+    artistId?: StringFilter<"DataSong"> | string
+    createdAt?: DateTimeFilter<"DataSong"> | Date | string
+    artist?: XOR<DataArtistScalarRelationFilter, DataArtistWhereInput>
+  }
+
+  export type DataSongOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    previewUrl?: SortOrderInput | SortOrder
+    deezerLink?: SortOrder
+    duration?: SortOrder
+    rank?: SortOrderInput | SortOrder
+    explicit?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+    artist?: DataArtistOrderByWithRelationInput
+  }
+
+  export type DataSongWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DataSongWhereInput | DataSongWhereInput[]
+    OR?: DataSongWhereInput[]
+    NOT?: DataSongWhereInput | DataSongWhereInput[]
+    title?: StringFilter<"DataSong"> | string
+    previewUrl?: StringNullableFilter<"DataSong"> | string | null
+    deezerLink?: StringFilter<"DataSong"> | string
+    duration?: IntFilter<"DataSong"> | number
+    rank?: IntNullableFilter<"DataSong"> | number | null
+    explicit?: BoolFilter<"DataSong"> | boolean
+    artistId?: StringFilter<"DataSong"> | string
+    createdAt?: DateTimeFilter<"DataSong"> | Date | string
+    artist?: XOR<DataArtistScalarRelationFilter, DataArtistWhereInput>
+  }, "id">
+
+  export type DataSongOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    previewUrl?: SortOrderInput | SortOrder
+    deezerLink?: SortOrder
+    duration?: SortOrder
+    rank?: SortOrderInput | SortOrder
+    explicit?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+    _count?: DataSongCountOrderByAggregateInput
+    _avg?: DataSongAvgOrderByAggregateInput
+    _max?: DataSongMaxOrderByAggregateInput
+    _min?: DataSongMinOrderByAggregateInput
+    _sum?: DataSongSumOrderByAggregateInput
+  }
+
+  export type DataSongScalarWhereWithAggregatesInput = {
+    AND?: DataSongScalarWhereWithAggregatesInput | DataSongScalarWhereWithAggregatesInput[]
+    OR?: DataSongScalarWhereWithAggregatesInput[]
+    NOT?: DataSongScalarWhereWithAggregatesInput | DataSongScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DataSong"> | string
+    title?: StringWithAggregatesFilter<"DataSong"> | string
+    previewUrl?: StringNullableWithAggregatesFilter<"DataSong"> | string | null
+    deezerLink?: StringWithAggregatesFilter<"DataSong"> | string
+    duration?: IntWithAggregatesFilter<"DataSong"> | number
+    rank?: IntNullableWithAggregatesFilter<"DataSong"> | number | null
+    explicit?: BoolWithAggregatesFilter<"DataSong"> | boolean
+    artistId?: StringWithAggregatesFilter<"DataSong"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DataSong"> | Date | string
+  }
+
   export type GameCinema1DaysWhereInput = {
     AND?: GameCinema1DaysWhereInput | GameCinema1DaysWhereInput[]
     OR?: GameCinema1DaysWhereInput[]
@@ -24694,6 +30101,123 @@ export namespace Prisma {
     guess?: StringWithAggregatesFilter<"GameCinema2Tries"> | string
     correct?: BoolWithAggregatesFilter<"GameCinema2Tries"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"GameCinema2Tries"> | Date | string
+  }
+
+  export type GameMusic1DaysWhereInput = {
+    AND?: GameMusic1DaysWhereInput | GameMusic1DaysWhereInput[]
+    OR?: GameMusic1DaysWhereInput[]
+    NOT?: GameMusic1DaysWhereInput | GameMusic1DaysWhereInput[]
+    id?: IntFilter<"GameMusic1Days"> | number
+    date?: DateTimeFilter<"GameMusic1Days"> | Date | string
+    artistId?: StringFilter<"GameMusic1Days"> | string
+    createdAt?: DateTimeFilter<"GameMusic1Days"> | Date | string
+    artist?: XOR<DataArtistScalarRelationFilter, DataArtistWhereInput>
+    tries?: GameMusic1TriesListRelationFilter
+  }
+
+  export type GameMusic1DaysOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+    artist?: DataArtistOrderByWithRelationInput
+    tries?: GameMusic1TriesOrderByRelationAggregateInput
+  }
+
+  export type GameMusic1DaysWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    date?: Date | string
+    AND?: GameMusic1DaysWhereInput | GameMusic1DaysWhereInput[]
+    OR?: GameMusic1DaysWhereInput[]
+    NOT?: GameMusic1DaysWhereInput | GameMusic1DaysWhereInput[]
+    artistId?: StringFilter<"GameMusic1Days"> | string
+    createdAt?: DateTimeFilter<"GameMusic1Days"> | Date | string
+    artist?: XOR<DataArtistScalarRelationFilter, DataArtistWhereInput>
+    tries?: GameMusic1TriesListRelationFilter
+  }, "id" | "date">
+
+  export type GameMusic1DaysOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameMusic1DaysCountOrderByAggregateInput
+    _avg?: GameMusic1DaysAvgOrderByAggregateInput
+    _max?: GameMusic1DaysMaxOrderByAggregateInput
+    _min?: GameMusic1DaysMinOrderByAggregateInput
+    _sum?: GameMusic1DaysSumOrderByAggregateInput
+  }
+
+  export type GameMusic1DaysScalarWhereWithAggregatesInput = {
+    AND?: GameMusic1DaysScalarWhereWithAggregatesInput | GameMusic1DaysScalarWhereWithAggregatesInput[]
+    OR?: GameMusic1DaysScalarWhereWithAggregatesInput[]
+    NOT?: GameMusic1DaysScalarWhereWithAggregatesInput | GameMusic1DaysScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameMusic1Days"> | number
+    date?: DateTimeWithAggregatesFilter<"GameMusic1Days"> | Date | string
+    artistId?: StringWithAggregatesFilter<"GameMusic1Days"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"GameMusic1Days"> | Date | string
+  }
+
+  export type GameMusic1TriesWhereInput = {
+    AND?: GameMusic1TriesWhereInput | GameMusic1TriesWhereInput[]
+    OR?: GameMusic1TriesWhereInput[]
+    NOT?: GameMusic1TriesWhereInput | GameMusic1TriesWhereInput[]
+    id?: IntFilter<"GameMusic1Tries"> | number
+    userId?: IntFilter<"GameMusic1Tries"> | number
+    dayId?: IntFilter<"GameMusic1Tries"> | number
+    guess?: StringFilter<"GameMusic1Tries"> | string
+    correct?: BoolFilter<"GameMusic1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameMusic1Tries"> | Date | string
+    day?: XOR<GameMusic1DaysScalarRelationFilter, GameMusic1DaysWhereInput>
+  }
+
+  export type GameMusic1TriesOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    day?: GameMusic1DaysOrderByWithRelationInput
+  }
+
+  export type GameMusic1TriesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: GameMusic1TriesWhereInput | GameMusic1TriesWhereInput[]
+    OR?: GameMusic1TriesWhereInput[]
+    NOT?: GameMusic1TriesWhereInput | GameMusic1TriesWhereInput[]
+    userId?: IntFilter<"GameMusic1Tries"> | number
+    dayId?: IntFilter<"GameMusic1Tries"> | number
+    guess?: StringFilter<"GameMusic1Tries"> | string
+    correct?: BoolFilter<"GameMusic1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameMusic1Tries"> | Date | string
+    day?: XOR<GameMusic1DaysScalarRelationFilter, GameMusic1DaysWhereInput>
+  }, "id">
+
+  export type GameMusic1TriesOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+    _count?: GameMusic1TriesCountOrderByAggregateInput
+    _avg?: GameMusic1TriesAvgOrderByAggregateInput
+    _max?: GameMusic1TriesMaxOrderByAggregateInput
+    _min?: GameMusic1TriesMinOrderByAggregateInput
+    _sum?: GameMusic1TriesSumOrderByAggregateInput
+  }
+
+  export type GameMusic1TriesScalarWhereWithAggregatesInput = {
+    AND?: GameMusic1TriesScalarWhereWithAggregatesInput | GameMusic1TriesScalarWhereWithAggregatesInput[]
+    OR?: GameMusic1TriesScalarWhereWithAggregatesInput[]
+    NOT?: GameMusic1TriesScalarWhereWithAggregatesInput | GameMusic1TriesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GameMusic1Tries"> | number
+    userId?: IntWithAggregatesFilter<"GameMusic1Tries"> | number
+    dayId?: IntWithAggregatesFilter<"GameMusic1Tries"> | number
+    guess?: StringWithAggregatesFilter<"GameMusic1Tries"> | string
+    correct?: BoolWithAggregatesFilter<"GameMusic1Tries"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"GameMusic1Tries"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -25852,6 +31376,251 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DataArtistCreateInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    songs?: DataSongCreateNestedManyWithoutArtistInput
+    GameMusic1Days?: GameMusic1DaysCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistUncheckedCreateInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    songs?: DataSongUncheckedCreateNestedManyWithoutArtistInput
+    GameMusic1Days?: GameMusic1DaysUncheckedCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: DataSongUpdateManyWithoutArtistNestedInput
+    GameMusic1Days?: GameMusic1DaysUpdateManyWithoutArtistNestedInput
+  }
+
+  export type DataArtistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: DataSongUncheckedUpdateManyWithoutArtistNestedInput
+    GameMusic1Days?: GameMusic1DaysUncheckedUpdateManyWithoutArtistNestedInput
+  }
+
+  export type DataArtistCreateManyInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DataArtistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataArtistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataSongCreateInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    createdAt?: Date | string
+    artist: DataArtistCreateNestedOneWithoutSongsInput
+  }
+
+  export type DataSongUncheckedCreateInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    artistId: string
+    createdAt?: Date | string
+  }
+
+  export type DataSongUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artist?: DataArtistUpdateOneRequiredWithoutSongsNestedInput
+  }
+
+  export type DataSongUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    artistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataSongCreateManyInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    artistId: string
+    createdAt?: Date | string
+  }
+
+  export type DataSongUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataSongUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    artistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GameCinema1DaysCreateInput = {
     date: Date | string
     createdAt?: Date | string
@@ -26060,6 +31829,114 @@ export namespace Prisma {
   }
 
   export type GameCinema2TriesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1DaysCreateInput = {
+    date: Date | string
+    createdAt?: Date | string
+    artist: DataArtistCreateNestedOneWithoutGameMusic1DaysInput
+    tries?: GameMusic1TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameMusic1DaysUncheckedCreateInput = {
+    id?: number
+    date: Date | string
+    artistId: string
+    createdAt?: Date | string
+    tries?: GameMusic1TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameMusic1DaysUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artist?: DataArtistUpdateOneRequiredWithoutGameMusic1DaysNestedInput
+    tries?: GameMusic1TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameMusic1DaysUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    artistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameMusic1TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameMusic1DaysCreateManyInput = {
+    id?: number
+    date: Date | string
+    artistId: string
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1DaysUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1DaysUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    artistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesCreateInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+    day: GameMusic1DaysCreateNestedOneWithoutTriesInput
+  }
+
+  export type GameMusic1TriesUncheckedCreateInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1TriesUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: GameMusic1DaysUpdateOneRequiredWithoutTriesNestedInput
+  }
+
+  export type GameMusic1TriesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    dayId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesCreateManyInput = {
+    id?: number
+    userId: number
+    dayId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1TriesUpdateManyMutationInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     dayId?: IntFieldUpdateOperationsInput | number
@@ -27122,6 +32999,215 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type DataSongListRelationFilter = {
+    every?: DataSongWhereInput
+    some?: DataSongWhereInput
+    none?: DataSongWhereInput
+  }
+
+  export type GameMusic1DaysListRelationFilter = {
+    every?: GameMusic1DaysWhereInput
+    some?: GameMusic1DaysWhereInput
+    none?: GameMusic1DaysWhereInput
+  }
+
+  export type DataSongOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameMusic1DaysOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DataArtistCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    listeners?: SortOrder
+    source?: SortOrder
+    mbid?: SortOrder
+    type?: SortOrder
+    country?: SortOrder
+    gender?: SortOrder
+    startDate?: SortOrder
+    isDead?: SortOrder
+    mainGenres?: SortOrder
+    aliases?: SortOrder
+    members?: SortOrder
+    imageUrl?: SortOrder
+    albumsJson?: SortOrder
+    firstAlbumDate?: SortOrder
+    deezerFans?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataArtistAvgOrderByAggregateInput = {
+    listeners?: SortOrder
+    deezerFans?: SortOrder
+  }
+
+  export type DataArtistMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    listeners?: SortOrder
+    source?: SortOrder
+    mbid?: SortOrder
+    type?: SortOrder
+    country?: SortOrder
+    gender?: SortOrder
+    startDate?: SortOrder
+    isDead?: SortOrder
+    imageUrl?: SortOrder
+    firstAlbumDate?: SortOrder
+    deezerFans?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataArtistMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    listeners?: SortOrder
+    source?: SortOrder
+    mbid?: SortOrder
+    type?: SortOrder
+    country?: SortOrder
+    gender?: SortOrder
+    startDate?: SortOrder
+    isDead?: SortOrder
+    imageUrl?: SortOrder
+    firstAlbumDate?: SortOrder
+    deezerFans?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DataArtistSumOrderByAggregateInput = {
+    listeners?: SortOrder
+    deezerFans?: SortOrder
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type DataArtistScalarRelationFilter = {
+    is?: DataArtistWhereInput
+    isNot?: DataArtistWhereInput
+  }
+
+  export type DataSongCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    previewUrl?: SortOrder
+    deezerLink?: SortOrder
+    duration?: SortOrder
+    rank?: SortOrder
+    explicit?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataSongAvgOrderByAggregateInput = {
+    duration?: SortOrder
+    rank?: SortOrder
+  }
+
+  export type DataSongMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    previewUrl?: SortOrder
+    deezerLink?: SortOrder
+    duration?: SortOrder
+    rank?: SortOrder
+    explicit?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataSongMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    previewUrl?: SortOrder
+    deezerLink?: SortOrder
+    duration?: SortOrder
+    rank?: SortOrder
+    explicit?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DataSongSumOrderByAggregateInput = {
+    duration?: SortOrder
+    rank?: SortOrder
+  }
+
   export type DataMovieScalarRelationFilter = {
     is?: DataMovieWhereInput
     isNot?: DataMovieWhereInput
@@ -27292,6 +33378,89 @@ export namespace Prisma {
   }
 
   export type GameCinema2TriesSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type GameMusic1TriesListRelationFilter = {
+    every?: GameMusic1TriesWhereInput
+    some?: GameMusic1TriesWhereInput
+    none?: GameMusic1TriesWhereInput
+  }
+
+  export type GameMusic1TriesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameMusic1DaysCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1DaysAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type GameMusic1DaysMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1DaysMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    artistId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1DaysSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type GameMusic1DaysScalarRelationFilter = {
+    is?: GameMusic1DaysWhereInput
+    isNot?: GameMusic1DaysWhereInput
+  }
+
+  export type GameMusic1TriesCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1TriesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+  }
+
+  export type GameMusic1TriesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1TriesMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    dayId?: SortOrder
+    guess?: SortOrder
+    correct?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameMusic1TriesSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     dayId?: SortOrder
@@ -28487,6 +34656,135 @@ export namespace Prisma {
     deleteMany?: GameCinema2DaysScalarWhereInput | GameCinema2DaysScalarWhereInput[]
   }
 
+  export type DataArtistCreatemainGenresInput = {
+    set: string[]
+  }
+
+  export type DataArtistCreatealiasesInput = {
+    set: string[]
+  }
+
+  export type DataArtistCreatemembersInput = {
+    set: string[]
+  }
+
+  export type DataSongCreateNestedManyWithoutArtistInput = {
+    create?: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput> | DataSongCreateWithoutArtistInput[] | DataSongUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: DataSongCreateOrConnectWithoutArtistInput | DataSongCreateOrConnectWithoutArtistInput[]
+    createMany?: DataSongCreateManyArtistInputEnvelope
+    connect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+  }
+
+  export type GameMusic1DaysCreateNestedManyWithoutArtistInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput> | GameMusic1DaysCreateWithoutArtistInput[] | GameMusic1DaysUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutArtistInput | GameMusic1DaysCreateOrConnectWithoutArtistInput[]
+    createMany?: GameMusic1DaysCreateManyArtistInputEnvelope
+    connect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+  }
+
+  export type DataSongUncheckedCreateNestedManyWithoutArtistInput = {
+    create?: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput> | DataSongCreateWithoutArtistInput[] | DataSongUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: DataSongCreateOrConnectWithoutArtistInput | DataSongCreateOrConnectWithoutArtistInput[]
+    createMany?: DataSongCreateManyArtistInputEnvelope
+    connect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+  }
+
+  export type GameMusic1DaysUncheckedCreateNestedManyWithoutArtistInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput> | GameMusic1DaysCreateWithoutArtistInput[] | GameMusic1DaysUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutArtistInput | GameMusic1DaysCreateOrConnectWithoutArtistInput[]
+    createMany?: GameMusic1DaysCreateManyArtistInputEnvelope
+    connect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type DataArtistUpdatemainGenresInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DataArtistUpdatealiasesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DataArtistUpdatemembersInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DataSongUpdateManyWithoutArtistNestedInput = {
+    create?: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput> | DataSongCreateWithoutArtistInput[] | DataSongUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: DataSongCreateOrConnectWithoutArtistInput | DataSongCreateOrConnectWithoutArtistInput[]
+    upsert?: DataSongUpsertWithWhereUniqueWithoutArtistInput | DataSongUpsertWithWhereUniqueWithoutArtistInput[]
+    createMany?: DataSongCreateManyArtistInputEnvelope
+    set?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    disconnect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    delete?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    connect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    update?: DataSongUpdateWithWhereUniqueWithoutArtistInput | DataSongUpdateWithWhereUniqueWithoutArtistInput[]
+    updateMany?: DataSongUpdateManyWithWhereWithoutArtistInput | DataSongUpdateManyWithWhereWithoutArtistInput[]
+    deleteMany?: DataSongScalarWhereInput | DataSongScalarWhereInput[]
+  }
+
+  export type GameMusic1DaysUpdateManyWithoutArtistNestedInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput> | GameMusic1DaysCreateWithoutArtistInput[] | GameMusic1DaysUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutArtistInput | GameMusic1DaysCreateOrConnectWithoutArtistInput[]
+    upsert?: GameMusic1DaysUpsertWithWhereUniqueWithoutArtistInput | GameMusic1DaysUpsertWithWhereUniqueWithoutArtistInput[]
+    createMany?: GameMusic1DaysCreateManyArtistInputEnvelope
+    set?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    disconnect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    delete?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    connect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    update?: GameMusic1DaysUpdateWithWhereUniqueWithoutArtistInput | GameMusic1DaysUpdateWithWhereUniqueWithoutArtistInput[]
+    updateMany?: GameMusic1DaysUpdateManyWithWhereWithoutArtistInput | GameMusic1DaysUpdateManyWithWhereWithoutArtistInput[]
+    deleteMany?: GameMusic1DaysScalarWhereInput | GameMusic1DaysScalarWhereInput[]
+  }
+
+  export type DataSongUncheckedUpdateManyWithoutArtistNestedInput = {
+    create?: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput> | DataSongCreateWithoutArtistInput[] | DataSongUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: DataSongCreateOrConnectWithoutArtistInput | DataSongCreateOrConnectWithoutArtistInput[]
+    upsert?: DataSongUpsertWithWhereUniqueWithoutArtistInput | DataSongUpsertWithWhereUniqueWithoutArtistInput[]
+    createMany?: DataSongCreateManyArtistInputEnvelope
+    set?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    disconnect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    delete?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    connect?: DataSongWhereUniqueInput | DataSongWhereUniqueInput[]
+    update?: DataSongUpdateWithWhereUniqueWithoutArtistInput | DataSongUpdateWithWhereUniqueWithoutArtistInput[]
+    updateMany?: DataSongUpdateManyWithWhereWithoutArtistInput | DataSongUpdateManyWithWhereWithoutArtistInput[]
+    deleteMany?: DataSongScalarWhereInput | DataSongScalarWhereInput[]
+  }
+
+  export type GameMusic1DaysUncheckedUpdateManyWithoutArtistNestedInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput> | GameMusic1DaysCreateWithoutArtistInput[] | GameMusic1DaysUncheckedCreateWithoutArtistInput[]
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutArtistInput | GameMusic1DaysCreateOrConnectWithoutArtistInput[]
+    upsert?: GameMusic1DaysUpsertWithWhereUniqueWithoutArtistInput | GameMusic1DaysUpsertWithWhereUniqueWithoutArtistInput[]
+    createMany?: GameMusic1DaysCreateManyArtistInputEnvelope
+    set?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    disconnect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    delete?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    connect?: GameMusic1DaysWhereUniqueInput | GameMusic1DaysWhereUniqueInput[]
+    update?: GameMusic1DaysUpdateWithWhereUniqueWithoutArtistInput | GameMusic1DaysUpdateWithWhereUniqueWithoutArtistInput[]
+    updateMany?: GameMusic1DaysUpdateManyWithWhereWithoutArtistInput | GameMusic1DaysUpdateManyWithWhereWithoutArtistInput[]
+    deleteMany?: GameMusic1DaysScalarWhereInput | GameMusic1DaysScalarWhereInput[]
+  }
+
+  export type DataArtistCreateNestedOneWithoutSongsInput = {
+    create?: XOR<DataArtistCreateWithoutSongsInput, DataArtistUncheckedCreateWithoutSongsInput>
+    connectOrCreate?: DataArtistCreateOrConnectWithoutSongsInput
+    connect?: DataArtistWhereUniqueInput
+  }
+
+  export type DataArtistUpdateOneRequiredWithoutSongsNestedInput = {
+    create?: XOR<DataArtistCreateWithoutSongsInput, DataArtistUncheckedCreateWithoutSongsInput>
+    connectOrCreate?: DataArtistCreateOrConnectWithoutSongsInput
+    upsert?: DataArtistUpsertWithoutSongsInput
+    connect?: DataArtistWhereUniqueInput
+    update?: XOR<XOR<DataArtistUpdateToOneWithWhereWithoutSongsInput, DataArtistUpdateWithoutSongsInput>, DataArtistUncheckedUpdateWithoutSongsInput>
+  }
+
   export type DataMovieCreateNestedOneWithoutGameDaysInput = {
     create?: XOR<DataMovieCreateWithoutGameDaysInput, DataMovieUncheckedCreateWithoutGameDaysInput>
     connectOrCreate?: DataMovieCreateOrConnectWithoutGameDaysInput
@@ -28625,6 +34923,76 @@ export namespace Prisma {
     upsert?: GameCinema2DaysUpsertWithoutTriesInput
     connect?: GameCinema2DaysWhereUniqueInput
     update?: XOR<XOR<GameCinema2DaysUpdateToOneWithWhereWithoutTriesInput, GameCinema2DaysUpdateWithoutTriesInput>, GameCinema2DaysUncheckedUpdateWithoutTriesInput>
+  }
+
+  export type DataArtistCreateNestedOneWithoutGameMusic1DaysInput = {
+    create?: XOR<DataArtistCreateWithoutGameMusic1DaysInput, DataArtistUncheckedCreateWithoutGameMusic1DaysInput>
+    connectOrCreate?: DataArtistCreateOrConnectWithoutGameMusic1DaysInput
+    connect?: DataArtistWhereUniqueInput
+  }
+
+  export type GameMusic1TriesCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput> | GameMusic1TriesCreateWithoutDayInput[] | GameMusic1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameMusic1TriesCreateOrConnectWithoutDayInput | GameMusic1TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameMusic1TriesCreateManyDayInputEnvelope
+    connect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+  }
+
+  export type GameMusic1TriesUncheckedCreateNestedManyWithoutDayInput = {
+    create?: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput> | GameMusic1TriesCreateWithoutDayInput[] | GameMusic1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameMusic1TriesCreateOrConnectWithoutDayInput | GameMusic1TriesCreateOrConnectWithoutDayInput[]
+    createMany?: GameMusic1TriesCreateManyDayInputEnvelope
+    connect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+  }
+
+  export type DataArtistUpdateOneRequiredWithoutGameMusic1DaysNestedInput = {
+    create?: XOR<DataArtistCreateWithoutGameMusic1DaysInput, DataArtistUncheckedCreateWithoutGameMusic1DaysInput>
+    connectOrCreate?: DataArtistCreateOrConnectWithoutGameMusic1DaysInput
+    upsert?: DataArtistUpsertWithoutGameMusic1DaysInput
+    connect?: DataArtistWhereUniqueInput
+    update?: XOR<XOR<DataArtistUpdateToOneWithWhereWithoutGameMusic1DaysInput, DataArtistUpdateWithoutGameMusic1DaysInput>, DataArtistUncheckedUpdateWithoutGameMusic1DaysInput>
+  }
+
+  export type GameMusic1TriesUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput> | GameMusic1TriesCreateWithoutDayInput[] | GameMusic1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameMusic1TriesCreateOrConnectWithoutDayInput | GameMusic1TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameMusic1TriesUpsertWithWhereUniqueWithoutDayInput | GameMusic1TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameMusic1TriesCreateManyDayInputEnvelope
+    set?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    disconnect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    delete?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    connect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    update?: GameMusic1TriesUpdateWithWhereUniqueWithoutDayInput | GameMusic1TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameMusic1TriesUpdateManyWithWhereWithoutDayInput | GameMusic1TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameMusic1TriesScalarWhereInput | GameMusic1TriesScalarWhereInput[]
+  }
+
+  export type GameMusic1TriesUncheckedUpdateManyWithoutDayNestedInput = {
+    create?: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput> | GameMusic1TriesCreateWithoutDayInput[] | GameMusic1TriesUncheckedCreateWithoutDayInput[]
+    connectOrCreate?: GameMusic1TriesCreateOrConnectWithoutDayInput | GameMusic1TriesCreateOrConnectWithoutDayInput[]
+    upsert?: GameMusic1TriesUpsertWithWhereUniqueWithoutDayInput | GameMusic1TriesUpsertWithWhereUniqueWithoutDayInput[]
+    createMany?: GameMusic1TriesCreateManyDayInputEnvelope
+    set?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    disconnect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    delete?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    connect?: GameMusic1TriesWhereUniqueInput | GameMusic1TriesWhereUniqueInput[]
+    update?: GameMusic1TriesUpdateWithWhereUniqueWithoutDayInput | GameMusic1TriesUpdateWithWhereUniqueWithoutDayInput[]
+    updateMany?: GameMusic1TriesUpdateManyWithWhereWithoutDayInput | GameMusic1TriesUpdateManyWithWhereWithoutDayInput[]
+    deleteMany?: GameMusic1TriesScalarWhereInput | GameMusic1TriesScalarWhereInput[]
+  }
+
+  export type GameMusic1DaysCreateNestedOneWithoutTriesInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutTriesInput, GameMusic1DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutTriesInput
+    connect?: GameMusic1DaysWhereUniqueInput
+  }
+
+  export type GameMusic1DaysUpdateOneRequiredWithoutTriesNestedInput = {
+    create?: XOR<GameMusic1DaysCreateWithoutTriesInput, GameMusic1DaysUncheckedCreateWithoutTriesInput>
+    connectOrCreate?: GameMusic1DaysCreateOrConnectWithoutTriesInput
+    upsert?: GameMusic1DaysUpsertWithoutTriesInput
+    connect?: GameMusic1DaysWhereUniqueInput
+    update?: XOR<XOR<GameMusic1DaysUpdateToOneWithWhereWithoutTriesInput, GameMusic1DaysUpdateWithoutTriesInput>, GameMusic1DaysUncheckedUpdateWithoutTriesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -28876,6 +35244,42 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AvatarCreateWithoutUserInput = {
@@ -31324,6 +37728,226 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GameCinema2Days"> | Date | string
   }
 
+  export type DataSongCreateWithoutArtistInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    createdAt?: Date | string
+  }
+
+  export type DataSongUncheckedCreateWithoutArtistInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    createdAt?: Date | string
+  }
+
+  export type DataSongCreateOrConnectWithoutArtistInput = {
+    where: DataSongWhereUniqueInput
+    create: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput>
+  }
+
+  export type DataSongCreateManyArtistInputEnvelope = {
+    data: DataSongCreateManyArtistInput | DataSongCreateManyArtistInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GameMusic1DaysCreateWithoutArtistInput = {
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameMusic1TriesCreateNestedManyWithoutDayInput
+  }
+
+  export type GameMusic1DaysUncheckedCreateWithoutArtistInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+    tries?: GameMusic1TriesUncheckedCreateNestedManyWithoutDayInput
+  }
+
+  export type GameMusic1DaysCreateOrConnectWithoutArtistInput = {
+    where: GameMusic1DaysWhereUniqueInput
+    create: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput>
+  }
+
+  export type GameMusic1DaysCreateManyArtistInputEnvelope = {
+    data: GameMusic1DaysCreateManyArtistInput | GameMusic1DaysCreateManyArtistInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DataSongUpsertWithWhereUniqueWithoutArtistInput = {
+    where: DataSongWhereUniqueInput
+    update: XOR<DataSongUpdateWithoutArtistInput, DataSongUncheckedUpdateWithoutArtistInput>
+    create: XOR<DataSongCreateWithoutArtistInput, DataSongUncheckedCreateWithoutArtistInput>
+  }
+
+  export type DataSongUpdateWithWhereUniqueWithoutArtistInput = {
+    where: DataSongWhereUniqueInput
+    data: XOR<DataSongUpdateWithoutArtistInput, DataSongUncheckedUpdateWithoutArtistInput>
+  }
+
+  export type DataSongUpdateManyWithWhereWithoutArtistInput = {
+    where: DataSongScalarWhereInput
+    data: XOR<DataSongUpdateManyMutationInput, DataSongUncheckedUpdateManyWithoutArtistInput>
+  }
+
+  export type DataSongScalarWhereInput = {
+    AND?: DataSongScalarWhereInput | DataSongScalarWhereInput[]
+    OR?: DataSongScalarWhereInput[]
+    NOT?: DataSongScalarWhereInput | DataSongScalarWhereInput[]
+    id?: StringFilter<"DataSong"> | string
+    title?: StringFilter<"DataSong"> | string
+    previewUrl?: StringNullableFilter<"DataSong"> | string | null
+    deezerLink?: StringFilter<"DataSong"> | string
+    duration?: IntFilter<"DataSong"> | number
+    rank?: IntNullableFilter<"DataSong"> | number | null
+    explicit?: BoolFilter<"DataSong"> | boolean
+    artistId?: StringFilter<"DataSong"> | string
+    createdAt?: DateTimeFilter<"DataSong"> | Date | string
+  }
+
+  export type GameMusic1DaysUpsertWithWhereUniqueWithoutArtistInput = {
+    where: GameMusic1DaysWhereUniqueInput
+    update: XOR<GameMusic1DaysUpdateWithoutArtistInput, GameMusic1DaysUncheckedUpdateWithoutArtistInput>
+    create: XOR<GameMusic1DaysCreateWithoutArtistInput, GameMusic1DaysUncheckedCreateWithoutArtistInput>
+  }
+
+  export type GameMusic1DaysUpdateWithWhereUniqueWithoutArtistInput = {
+    where: GameMusic1DaysWhereUniqueInput
+    data: XOR<GameMusic1DaysUpdateWithoutArtistInput, GameMusic1DaysUncheckedUpdateWithoutArtistInput>
+  }
+
+  export type GameMusic1DaysUpdateManyWithWhereWithoutArtistInput = {
+    where: GameMusic1DaysScalarWhereInput
+    data: XOR<GameMusic1DaysUpdateManyMutationInput, GameMusic1DaysUncheckedUpdateManyWithoutArtistInput>
+  }
+
+  export type GameMusic1DaysScalarWhereInput = {
+    AND?: GameMusic1DaysScalarWhereInput | GameMusic1DaysScalarWhereInput[]
+    OR?: GameMusic1DaysScalarWhereInput[]
+    NOT?: GameMusic1DaysScalarWhereInput | GameMusic1DaysScalarWhereInput[]
+    id?: IntFilter<"GameMusic1Days"> | number
+    date?: DateTimeFilter<"GameMusic1Days"> | Date | string
+    artistId?: StringFilter<"GameMusic1Days"> | string
+    createdAt?: DateTimeFilter<"GameMusic1Days"> | Date | string
+  }
+
+  export type DataArtistCreateWithoutSongsInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    GameMusic1Days?: GameMusic1DaysCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistUncheckedCreateWithoutSongsInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    GameMusic1Days?: GameMusic1DaysUncheckedCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistCreateOrConnectWithoutSongsInput = {
+    where: DataArtistWhereUniqueInput
+    create: XOR<DataArtistCreateWithoutSongsInput, DataArtistUncheckedCreateWithoutSongsInput>
+  }
+
+  export type DataArtistUpsertWithoutSongsInput = {
+    update: XOR<DataArtistUpdateWithoutSongsInput, DataArtistUncheckedUpdateWithoutSongsInput>
+    create: XOR<DataArtistCreateWithoutSongsInput, DataArtistUncheckedCreateWithoutSongsInput>
+    where?: DataArtistWhereInput
+  }
+
+  export type DataArtistUpdateToOneWithWhereWithoutSongsInput = {
+    where?: DataArtistWhereInput
+    data: XOR<DataArtistUpdateWithoutSongsInput, DataArtistUncheckedUpdateWithoutSongsInput>
+  }
+
+  export type DataArtistUpdateWithoutSongsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    GameMusic1Days?: GameMusic1DaysUpdateManyWithoutArtistNestedInput
+  }
+
+  export type DataArtistUncheckedUpdateWithoutSongsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    GameMusic1Days?: GameMusic1DaysUncheckedUpdateManyWithoutArtistNestedInput
+  }
+
   export type DataMovieCreateWithoutGameDaysInput = {
     tmdbId: number
     title: string
@@ -31827,6 +38451,209 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     movieId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataArtistCreateWithoutGameMusic1DaysInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    songs?: DataSongCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistUncheckedCreateWithoutGameMusic1DaysInput = {
+    id?: string
+    name: string
+    listeners: number
+    source: string
+    mbid?: string | null
+    type: string
+    country?: string | null
+    gender?: string | null
+    startDate?: Date | string | null
+    isDead?: boolean | null
+    mainGenres?: DataArtistCreatemainGenresInput | string[]
+    aliases?: DataArtistCreatealiasesInput | string[]
+    members?: DataArtistCreatemembersInput | string[]
+    imageUrl?: string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: Date | string | null
+    deezerFans?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    songs?: DataSongUncheckedCreateNestedManyWithoutArtistInput
+  }
+
+  export type DataArtistCreateOrConnectWithoutGameMusic1DaysInput = {
+    where: DataArtistWhereUniqueInput
+    create: XOR<DataArtistCreateWithoutGameMusic1DaysInput, DataArtistUncheckedCreateWithoutGameMusic1DaysInput>
+  }
+
+  export type GameMusic1TriesCreateWithoutDayInput = {
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1TriesUncheckedCreateWithoutDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1TriesCreateOrConnectWithoutDayInput = {
+    where: GameMusic1TriesWhereUniqueInput
+    create: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameMusic1TriesCreateManyDayInputEnvelope = {
+    data: GameMusic1TriesCreateManyDayInput | GameMusic1TriesCreateManyDayInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DataArtistUpsertWithoutGameMusic1DaysInput = {
+    update: XOR<DataArtistUpdateWithoutGameMusic1DaysInput, DataArtistUncheckedUpdateWithoutGameMusic1DaysInput>
+    create: XOR<DataArtistCreateWithoutGameMusic1DaysInput, DataArtistUncheckedCreateWithoutGameMusic1DaysInput>
+    where?: DataArtistWhereInput
+  }
+
+  export type DataArtistUpdateToOneWithWhereWithoutGameMusic1DaysInput = {
+    where?: DataArtistWhereInput
+    data: XOR<DataArtistUpdateWithoutGameMusic1DaysInput, DataArtistUncheckedUpdateWithoutGameMusic1DaysInput>
+  }
+
+  export type DataArtistUpdateWithoutGameMusic1DaysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: DataSongUpdateManyWithoutArtistNestedInput
+  }
+
+  export type DataArtistUncheckedUpdateWithoutGameMusic1DaysInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    listeners?: IntFieldUpdateOperationsInput | number
+    source?: StringFieldUpdateOperationsInput | string
+    mbid?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDead?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    mainGenres?: DataArtistUpdatemainGenresInput | string[]
+    aliases?: DataArtistUpdatealiasesInput | string[]
+    members?: DataArtistUpdatemembersInput | string[]
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    albumsJson?: NullableJsonNullValueInput | InputJsonValue
+    firstAlbumDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deezerFans?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    songs?: DataSongUncheckedUpdateManyWithoutArtistNestedInput
+  }
+
+  export type GameMusic1TriesUpsertWithWhereUniqueWithoutDayInput = {
+    where: GameMusic1TriesWhereUniqueInput
+    update: XOR<GameMusic1TriesUpdateWithoutDayInput, GameMusic1TriesUncheckedUpdateWithoutDayInput>
+    create: XOR<GameMusic1TriesCreateWithoutDayInput, GameMusic1TriesUncheckedCreateWithoutDayInput>
+  }
+
+  export type GameMusic1TriesUpdateWithWhereUniqueWithoutDayInput = {
+    where: GameMusic1TriesWhereUniqueInput
+    data: XOR<GameMusic1TriesUpdateWithoutDayInput, GameMusic1TriesUncheckedUpdateWithoutDayInput>
+  }
+
+  export type GameMusic1TriesUpdateManyWithWhereWithoutDayInput = {
+    where: GameMusic1TriesScalarWhereInput
+    data: XOR<GameMusic1TriesUpdateManyMutationInput, GameMusic1TriesUncheckedUpdateManyWithoutDayInput>
+  }
+
+  export type GameMusic1TriesScalarWhereInput = {
+    AND?: GameMusic1TriesScalarWhereInput | GameMusic1TriesScalarWhereInput[]
+    OR?: GameMusic1TriesScalarWhereInput[]
+    NOT?: GameMusic1TriesScalarWhereInput | GameMusic1TriesScalarWhereInput[]
+    id?: IntFilter<"GameMusic1Tries"> | number
+    userId?: IntFilter<"GameMusic1Tries"> | number
+    dayId?: IntFilter<"GameMusic1Tries"> | number
+    guess?: StringFilter<"GameMusic1Tries"> | string
+    correct?: BoolFilter<"GameMusic1Tries"> | boolean
+    createdAt?: DateTimeFilter<"GameMusic1Tries"> | Date | string
+  }
+
+  export type GameMusic1DaysCreateWithoutTriesInput = {
+    date: Date | string
+    createdAt?: Date | string
+    artist: DataArtistCreateNestedOneWithoutGameMusic1DaysInput
+  }
+
+  export type GameMusic1DaysUncheckedCreateWithoutTriesInput = {
+    id?: number
+    date: Date | string
+    artistId: string
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1DaysCreateOrConnectWithoutTriesInput = {
+    where: GameMusic1DaysWhereUniqueInput
+    create: XOR<GameMusic1DaysCreateWithoutTriesInput, GameMusic1DaysUncheckedCreateWithoutTriesInput>
+  }
+
+  export type GameMusic1DaysUpsertWithoutTriesInput = {
+    update: XOR<GameMusic1DaysUpdateWithoutTriesInput, GameMusic1DaysUncheckedUpdateWithoutTriesInput>
+    create: XOR<GameMusic1DaysCreateWithoutTriesInput, GameMusic1DaysUncheckedCreateWithoutTriesInput>
+    where?: GameMusic1DaysWhereInput
+  }
+
+  export type GameMusic1DaysUpdateToOneWithWhereWithoutTriesInput = {
+    where?: GameMusic1DaysWhereInput
+    data: XOR<GameMusic1DaysUpdateWithoutTriesInput, GameMusic1DaysUncheckedUpdateWithoutTriesInput>
+  }
+
+  export type GameMusic1DaysUpdateWithoutTriesInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    artist?: DataArtistUpdateOneRequiredWithoutGameMusic1DaysNestedInput
+  }
+
+  export type GameMusic1DaysUncheckedUpdateWithoutTriesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    artistId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -32578,6 +39405,75 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DataSongCreateManyArtistInput = {
+    id?: string
+    title: string
+    previewUrl?: string | null
+    deezerLink: string
+    duration: number
+    rank?: number | null
+    explicit: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1DaysCreateManyArtistInput = {
+    id?: number
+    date: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DataSongUpdateWithoutArtistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataSongUncheckedUpdateWithoutArtistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DataSongUncheckedUpdateManyWithoutArtistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    previewUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deezerLink?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    rank?: NullableIntFieldUpdateOperationsInput | number | null
+    explicit?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1DaysUpdateWithoutArtistInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameMusic1TriesUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameMusic1DaysUncheckedUpdateWithoutArtistInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tries?: GameMusic1TriesUncheckedUpdateManyWithoutDayNestedInput
+  }
+
+  export type GameMusic1DaysUncheckedUpdateManyWithoutArtistInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GameCinema1TriesCreateManyDayInput = {
     id?: number
     userId: number
@@ -32633,6 +39529,37 @@ export namespace Prisma {
   }
 
   export type GameCinema2TriesUncheckedUpdateManyWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesCreateManyDayInput = {
+    id?: number
+    userId: number
+    guess: string
+    correct?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GameMusic1TriesUpdateWithoutDayInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesUncheckedUpdateWithoutDayInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    guess?: StringFieldUpdateOperationsInput | string
+    correct?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameMusic1TriesUncheckedUpdateManyWithoutDayInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     guess?: StringFieldUpdateOperationsInput | string
