@@ -32,6 +32,16 @@ jest.mock("../prisma/prisma.service", () => ({
 jest.mock("fs");
 jest.mock("sharp");
 
+const sharpMock = {
+    png: jest.fn().mockReturnThis(),
+    resize: jest.fn().mockReturnThis(),
+    composite: jest.fn().mockReturnThis(),
+    ensureAlpha: jest.fn().mockReturnThis(),
+    toBuffer: jest.fn().mockResolvedValue(Buffer.from("mocked")),
+};
+
+((sharp as unknown) as jest.Mock).mockImplementation(() => sharpMock);
+
 describe("AvatarService", () => {
     let avatarService: AvatarService;
     const mockSupabase = {

@@ -30,6 +30,8 @@ jobs:
                       path: backend/ms-game-cinema-1
                     - name: ms-game-cinema-2
                       path: backend/ms-game-cinema-2
+                    - name: ms-game-music-1
+                      path: backend/ms-game-music-1
 
         steps:
             - uses: actions/checkout@v4
@@ -116,6 +118,9 @@ jobs:
                     - name: ms-game-cinema-2
                       path: backend/ms-game-cinema-2
                       dockerfile: backend/ms-game-cinema-2/Dockerfile
+                    - name: ms-game-music-1
+                      path: backend/ms-game-music-1
+                      dockerfile: backend/ms-game-music-1/Dockerfile
 
         steps:
             - uses: actions/checkout@v4
