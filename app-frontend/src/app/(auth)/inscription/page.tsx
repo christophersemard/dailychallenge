@@ -10,6 +10,8 @@ import Link from "next/link"
 import clsx from "clsx"
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth"
 import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes"
+import { useSession } from "next-auth/react"
+import { useEffect } from "react"
 
 export default function Inscription() {
     const [pseudo, setPseudo] = useState("")
@@ -20,6 +22,19 @@ export default function Inscription() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     const router = useRouter()
+
+    const { data: session } = useSession();
+
+
+
+    // Redirection si l'utilisateur est déjà connecté
+    useEffect(() => {
+        if (session) {
+            const sp = new URLSearchParams(window.location.search);
+            const callbackUrl = sp.get("callbackUrl") || "/";
+            router.push(callbackUrl);
+        }
+    }, [session, router]);
 
     const handleRegister = async () => {
         setLoading(true)
