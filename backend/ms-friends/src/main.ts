@@ -13,13 +13,12 @@ async function bootstrap() {
             port,
         },
     });
-    await app.listen();
-    console.log("ms-friends démarré sur le port 3002");
-
     app.useGlobalFilters(
         new PrismaRpcExceptionFilter(),
         new GlobalRpcExceptionFilter()
     );
+    await app.listen();
+    console.log("ms-friends démarré sur le port 3002");
 }
 
 bootstrap();

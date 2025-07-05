@@ -27,7 +27,6 @@ export default async function GameLayoutWrapper({
         "/api/leaderboard/games-and-categories"
     );
 
-    console.log("GameLayoutWrapper", { gameInfos, error });
 
     if (error || !gameInfos) {
         redirect("/");

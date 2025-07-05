@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, Suspense, useRef } from "react";
+import { useState, useEffect, Suspense, useRef, use } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
@@ -11,6 +11,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import FloatingBackgroundShapes from "@/components/layout/FloatingBackgroundShapes";
 import { useSearchParams } from "next/navigation";
+
+
 
 function SearchParamHandler() {
     const searchParams = useSearchParams();
@@ -41,8 +43,19 @@ export default function Connexion() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
+    const { data: session } = useSession();
 
     const callbackUrlRef = useRef("/");
+
+
+    // Redirection si l'utilisateur est déjà connecté
+    useEffect(() => {
+        if (session) {
+            const sp = new URLSearchParams(window.location.search);
+            const callbackUrl = sp.get("callbackUrl") || "/";
+            router.push(callbackUrl);
+        }
+    }, [session, router]);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
