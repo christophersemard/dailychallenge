@@ -21,6 +21,8 @@ type Props = {
 export default function HeaderClient({ isAuthenticated, user }: Props) {
     const [showFriends, setShowFriends] = useState(false);
 
+    console.log("HeaderClient rendered", { isAuthenticated, user });
+
     return (
         <header className="fixed top-0 w-full z-50 py-2 md:py-4">
             <div className="mx-auto max-w-8xl  px-4 py-2 md:py-3 flex items-center justify-between">
@@ -86,7 +88,7 @@ export default function HeaderClient({ isAuthenticated, user }: Props) {
                             </>
                         ) : (
                             <>
-                                {user!.vip ? (
+                                {user!.vip && user!.vip.status == "active" ? (
                                     <Button
                                         variant="primary"
                                         className="justify-start text-sm whitespace-nowrap hidden md:flex h-10 gap-2 items-center fill-black text-black"

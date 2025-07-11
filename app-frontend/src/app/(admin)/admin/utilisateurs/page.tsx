@@ -253,13 +253,17 @@ export default function AdminUsersPage() {
                                 </td>
                                 <td className="px-4 py-2">
                                     {user.vip?.status === "active" ||
-                                    user.vip?.status === "custom" ? (
+                                        user.vip?.status === "custom" ? (
                                         <Badge className="bg-yellow-400 text-black">
                                             VIP{" "}
                                             {user.vip.status === "custom"
                                                 ? "(perso)"
                                                 : ""}
                                         </Badge>
+                                    ) : user.vip?.status === "expired" ? (
+                                        <span className="text-muted-foreground">
+                                            Expiré
+                                        </span>
                                     ) : (
                                         <span className="text-muted-foreground">
                                             —
@@ -406,7 +410,7 @@ export default function AdminUsersPage() {
                             <Switch
                                 disabled={
                                     selectedUser?.vip &&
-                                    selectedUser?.vip?.plan != "manual"
+                                        selectedUser?.vip?.plan != "manual"
                                         ? true
                                         : false
                                 }
@@ -427,7 +431,7 @@ export default function AdminUsersPage() {
                             <Input
                                 disabled={
                                     selectedUser?.vip &&
-                                    selectedUser?.vip?.plan != "manual"
+                                        selectedUser?.vip?.plan != "manual"
                                         ? true
                                         : false
                                 }
@@ -436,7 +440,7 @@ export default function AdminUsersPage() {
                                 type="date"
                                 defaultValue={
                                     selectedUser?.vip?.status === "custom" &&
-                                    selectedUser.vip.until
+                                        selectedUser.vip.until
                                         ? selectedUser.vip.until.split("T")[0]
                                         : ""
                                 }
