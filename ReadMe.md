@@ -8,7 +8,7 @@ DailyChallenge est une plateforme SaaS de jeux quotidiens construite avec une ar
 
 - Node.js 18+
 - Docker + Docker Compose
-- [PNPM](https://pnpm.io/installation) ()
+- [PNPM](https://pnpm.io/installation)
 
 ```bash
 npm i -g pnpm
@@ -27,10 +27,11 @@ dailychallenge/
 │   ├── ms-users/             → Microservice utilisateurs
 │   ├── ms-friends/           → Microservice amis
 │   ├── ms-leaderboard/       → Microservice classement
-│   └── ms-game-cinema-1/     → Microservice jeu cinéma
+│   └── ms-game-cinema-1/     → Microservice jeu cinéma 1
+│   └── ms-game-cinema-2/     → Microservice jeu cinéma 2
+│   └── ms-game-music-1/      → Microservice jeu musique 1
 ├── packages/
 │   └── database/             → Prisma + gestion base de données
-├── docker-compose-db.yml     → Docker Compose PostgreSQL
 └── pnpm-workspace.yaml
 ```
 
@@ -38,20 +39,11 @@ dailychallenge/
 
 ## ⚙️ Installation et initialisation
 
-Lance ce script pour tout configurer automatiquement :
+Lancer ce script pour installer toutes les dépendances :
 
 ```bash
-pnpm run setup
+pnpm install
 ```
-
-Cela effectue les étapes suivantes :
-
-1. Installation des dépendances avec PNPM
-2. Démarrage de la base de données avec Docker
-3. Génération du client Prisma
-4. Compilation du package `database`
-5. Application des migrations
-6. Seed de la base de données (utilisateurs, avatars...)
 
 ---
 
@@ -85,12 +77,6 @@ pnpm run stop:services
 pnpm run test:all
 ```
 
-### Tous les tests en série (évite les conflits DB)
-
-```bash
-pnpm run test:all2
-```
-
 
 ## 📦 Infos complémentaires
 
@@ -98,15 +84,4 @@ pnpm run test:all2
 - La communication entre microservices se fait en **TCP via NestJS**.
 - Le frontend communique uniquement avec la **Gateway** (`ms-gateway`), qui relaie les requêtes vers les autres services.
 
----
-
-## 🧼 En cas de souci
-
-Si besoin de réinitialiser complètement la base :
-
-```bash
-pnpm run rebuild:db
-pnpm run db:migrate
-pnpm run db:seed
-```
 
