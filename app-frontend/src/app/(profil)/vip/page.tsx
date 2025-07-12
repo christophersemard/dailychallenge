@@ -73,7 +73,7 @@ export default function VipPage() {
                     );
                     return;
                 }
-                if (user?.vip) {
+                if (user?.vip && user.vip.status === "active") {
                     toast.success("Vous êtes déjà VIP !");
                     window.location.href = "/mon-profil";
                     return;
