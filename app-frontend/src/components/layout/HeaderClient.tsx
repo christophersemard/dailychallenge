@@ -21,7 +21,6 @@ type Props = {
 export default function HeaderClient({ isAuthenticated, user }: Props) {
     const [showFriends, setShowFriends] = useState(false);
 
-    console.log("HeaderClient rendered", { isAuthenticated, user });
 
     return (
         <header className="fixed top-0 w-full z-50 py-2 md:py-4">

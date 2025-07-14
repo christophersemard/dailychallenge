@@ -70,7 +70,7 @@ export async function fetchServerWithAuth<T>(
 
         const result: T = await res.json();
 
-        console.log("Résultat de la requête :", result);
+        // console.log("Résultat de la requête :", result);
 
         return { data: result, error: null };
     } catch (err) {

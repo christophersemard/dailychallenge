@@ -28,6 +28,8 @@ export default function AvatarEditor({
 }) {
     const [state, setState] = useState<AvatarConfig>(config);
 
+    console.log("AvatarEditor initial userVIPStatus:", userVIPStatus);
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-[400px_1px_1fr] gap-8 relative">
             {/* Aperçu gauche */}

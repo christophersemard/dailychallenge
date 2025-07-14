@@ -36,10 +36,13 @@ export default async function ModifierAvatarPage() {
 
     }
 
+
+    const isVip = data.vip && data.vip.status == "active" ? true : false;
+
     return (
         <div className="max-w-6xl w-full mx-auto   flex flex-col gap-6">
             <Card title="Modifier mon avatar" color="primary">
-                <AvatarEditor config={config} userLevel={data.userStats.level} userVIPStatus={data.vip ? true : false} />
+                <AvatarEditor config={config} userLevel={data.userStats.level} userVIPStatus={isVip} />
             </Card>
         </div>
     );

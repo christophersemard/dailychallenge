@@ -11,6 +11,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { AssetItem } from "@/types/user.types";
+import { cn } from "@/lib/utils";
 
 type Props = {
     items: AssetItem[];
@@ -28,11 +29,16 @@ export default function AssetGrid({
     isVip,
 }: Props) {
     return (
-        <div className="grid  grid-cols-8 md:grid-cols-16 gap-2">
+        <div className="grid  grid-cols-8 md:grid-cols-16 gap-2 p-3">
             {items.map((item) => {
                 const locked = item.level > userLevel || (item.vipOnly && !isVip);
                 const selected = selectedId === item.id;
 
+                // Replace all url assets /assets/avatar/ with /assets/avatar/thumbnail/
+                const displayUrl = item.url.replace(
+                    "/assets/avatar/",
+                    "/assets/avatar/thumbnail/"
+                );
 
                 return (
 
@@ -47,17 +53,20 @@ export default function AssetGrid({
                                     )}
                                 >
                                     <Image
-                                        src={item.url}
+                                        src={displayUrl}
                                         alt={item.name}
                                         width={64}
                                         height={64}
-                                        className="object-contain rounded"
+                                        className={cn("object-contain rounded",
+                                            locked && "grayscale")}
+
+                                        loading="lazy"
                                     />
                                     {locked && (
-                                        <div className="absolute inset-0 text-white text-xs flex items-center justify-center">
+                                        <div className="absolute inset-0 text-white text-xs flex items-center justify-center bg-muted/20 rounded">
                                             {item.vipOnly &&
                                                 (
-                                                    <Crown className="w-4 h-4 text-primary" />
+                                                    <Crown className="w-4 h-4 text-primary shadow-xl" />
                                                 )}
 
                                             {item.level > userLevel && (

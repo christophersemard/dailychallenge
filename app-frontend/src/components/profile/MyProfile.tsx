@@ -25,10 +25,8 @@ export default function MyProfile({ user }: Props) {
                         <div className="flex flex-col items-center gap-2">
                             <Image
                                 src={
-                                    `${user?.avatar?.url}?v=${Date.now()}` ||
-                                    `/assets/avatar/avatar-default-${Math.floor(
-                                        Math.random() * 7 + 1
-                                    )}.png`
+                                    user?.avatar ? `${user.avatar.url}?v=${Date.now()}` :
+                                        `/assets/default-avatar.webp`
                                 }
                                 width={150}
                                 height={150}

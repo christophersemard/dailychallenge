@@ -61,7 +61,7 @@ const ColorSelector = ({
                                 >
                                     {color.locked && (
                                         <div className="absolute top-0 left-0 inset-0 text-white text-xs flex items-center justify-center">
-                                            {color.vip && color.level <= userLevel && (
+                                            {color.vip && (
                                                 <Crown className="w-4 h-4 text-white" />
                                             )}
                                             {color.level > userLevel && (

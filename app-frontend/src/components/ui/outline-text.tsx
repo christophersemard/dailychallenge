@@ -80,14 +80,6 @@ export default function OutlineText({
 }: Props) {
     const windowWidth = useWindowSize()
 
-    console.log("OutlineText rendered", {
-        text,
-        color,
-        size,
-        className,
-        windowWidth,
-    })
-
     // ✅ Taille auto-ajustée selon la taille d’écran
     let fontSize = sizeMap[size] ?? sizeMap.base
     if (windowWidth !== null) {
@@ -96,7 +88,6 @@ export default function OutlineText({
         else if (windowWidth < 1024) fontSize = 22
     }
 
-    console.log("OutlineText fontSize", fontSize)
 
     const stroke = strokeMap[color as OutlineColor] ?? strokeMap.black
     const padding = fontSize * 0.2

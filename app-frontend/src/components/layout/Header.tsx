@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { fetchClientWithAuth } from "@/lib/fetchClientWithAuth";
 import { UserMe } from "@/types/user.types"; // Typage UserMe
 import HeaderClient from "./HeaderClient";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useGameEventStore } from "@/lib/store/useGameEventStore";
+
 
 export default function Header() {
     const { data: session, status } = useSession();
@@ -25,6 +26,9 @@ export default function Header() {
                         console.error("Error fetching user data:", error);
                         setUser(null);
                         setIsAuthenticated(false);
+                        signOut({
+                            callbackUrl: "/connexion",
+                        });
                         return;
                     }
 
