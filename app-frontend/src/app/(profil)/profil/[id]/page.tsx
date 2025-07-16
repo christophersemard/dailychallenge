@@ -17,7 +17,7 @@ export default async function UserPublicProfilePage({ params }: Props) {
     if (isNaN(userId)) return notFound();
 
     const { data, error } = await fetchServerAction<UserPublic>(
-        `/api/users/${userId}`
+        `/api/users/${id}`
     );
     // console.log("UserPublicProfilePage", { data, error });
 

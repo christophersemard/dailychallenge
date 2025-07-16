@@ -136,7 +136,7 @@ export default function GameCinema1({ gameId, color, date }: Props) {
                 }),
             })
 
-            console.log("res", res)
+            // console.log("res", res)
 
             if (isErrorApi(res)) {
                 toast.error(res.message)

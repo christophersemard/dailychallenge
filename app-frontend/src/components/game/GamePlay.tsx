@@ -44,12 +44,6 @@ export default function GamePlay({
     const containerRef = useRef<HTMLDivElement>(null)
 
 
-    // Debug useeffect pour le bouton Soumettre
-    useEffect(() => {
-        console.log("Selected Movie ID:", selectedMovieId)
-        console.log(loading || triesLeft <= 0 || !selectedMovieId)
-    }, [selectedMovieId])
-
 
 
     // Fermer les suggestions en cliquant à l'extérieur
@@ -91,7 +85,7 @@ export default function GamePlay({
                     console.error("Erreur API suggestions :", error)
                     setSuggestions([])
                 } else {
-                    console.log("Suggestions reçues :", data)
+                    // console.log("Suggestions reçues :", data)
                     setSuggestions(data)
                 }
 
@@ -117,7 +111,7 @@ export default function GamePlay({
     }
 
     const handleSelect = (suggestion: Suggestion) => {
-        console.log("Suggestion sélectionnée :", suggestion)
+        // console.log("Suggestion sélectionnée :", suggestion)
         inputRef.current?.blur()
         inputRef.current?.focus()
         skipNextSearchRef.current = true

@@ -17,8 +17,7 @@ export default function Header() {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            if (status === "authenticated") {
-
+            if (status == "authenticated") {
                 try {
                     const { data: userData, error } = await fetchClientWithAuth<UserMe>("/api/users/me");
 
@@ -31,6 +30,7 @@ export default function Header() {
                         });
                         return;
                     }
+
 
                     setUser(userData);
                     setIsAuthenticated(true);

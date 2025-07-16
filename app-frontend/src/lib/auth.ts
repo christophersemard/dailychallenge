@@ -21,11 +21,7 @@ export const authOptions: AuthOptions = {
                     throw new Error("Email et mot de passe requis.");
                 }
 
-                console.log(
-                    "API URL DANS CONNEXION :",
-                    process.env.NEXT_PUBLIC_API_URL ||
-                        "https://api.dailychallenge.fr"
-                );
+              
 
                 // const res = await fetch(
                 //     `${
@@ -71,12 +67,7 @@ export const authOptions: AuthOptions = {
                 const { token, user } = data;
                 const { id, email, pseudo, role } = user;
 
-                console.log("Utilisateur connecté :", {
-                    id,
-                    email,
-                    pseudo,
-                    role,
-                });
+          
 
                 return {
                     id: id.toString(),

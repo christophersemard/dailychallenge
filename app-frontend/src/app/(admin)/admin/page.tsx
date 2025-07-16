@@ -7,7 +7,7 @@ import { Crown, Users, Gamepad2, Settings } from "lucide-react";
 import { fetchServerAction } from "@/app/actions/fetch-proxy";
 
 export default async function AdminDashboardPage() {
-    console.log("[AdminDashboardPage] Fetching summary...");
+    // console.log("[AdminDashboardPage] Fetching summary...");
 
     const { data: summary, error } = await fetchServerAction<{
         totalUsers: number;
@@ -19,7 +19,7 @@ export default async function AdminDashboardPage() {
         console.error("Erreur summary admin:", error);
     }
 
-    console.log("Résumé admin:", summary);
+    // console.log("Résumé admin:", summary);
 
     return (
         <div className="space-y-6 p-4">

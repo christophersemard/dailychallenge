@@ -28,6 +28,7 @@ type Props = {
 export default function UserProfile({ user, currentUserId }: Props) {
     const [stateUser, setStateUser] = useState<UserPublic>(user);
 
+
     const handleAddFriend = async () => {
         const { data, error } = await fetchClientWithAuth(
             "/friends/" + stateUser.id + "/request",
@@ -84,7 +85,6 @@ export default function UserProfile({ user, currentUserId }: Props) {
     };
 
     useEffect(() => {
-        console.log("UserProfile effect", { user, currentUserId });
     }, [stateUser]);
 
     return (
@@ -93,10 +93,8 @@ export default function UserProfile({ user, currentUserId }: Props) {
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                     <Image
                         src={
-                            stateUser.avatarUrl ||
-                            `/assets/avatar/avatar-default-${Math.floor(
-                                Math.random() * 7 + 1
-                            )}.png`
+                            user?.avatarUrl ? `${user?.avatarUrl}?v=${Date.now()}` :
+                                `/assets/default-avatar.webp`
                         }
                         width={150}
                         height={150}

@@ -51,6 +51,8 @@ export default function Connexion() {
     // Redirection si l'utilisateur est déjà connecté
     useEffect(() => {
         if (session) {
+            // console.log("User already logged in, redirecting...");
+            // console.log("Session data:", session);
             const sp = new URLSearchParams(window.location.search);
             const callbackUrl = sp.get("callbackUrl") || "/";
             router.push(callbackUrl);

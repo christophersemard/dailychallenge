@@ -8,7 +8,7 @@ export class UsersService {
         }
 
         const user = await prisma.user.findUnique({
-            where: { id: userId, deletedAt: null },
+            where: { id: friendId, deletedAt: null },
             select: {
                 id: true,
                 pseudo: true,
@@ -148,6 +148,8 @@ export class UsersService {
                 },
             });
         }
+
+        // console.log("User profile fetched:", user);
 
         return {
             id: user.id,

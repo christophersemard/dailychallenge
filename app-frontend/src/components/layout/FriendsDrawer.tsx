@@ -70,7 +70,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
                 ...newFriend,
                 avatarUrl: newFriend.avatarUrl || "", // Ensure avatarUrl is a string
             };
-            console.log("Ami formaté :", formattedFriend);
+            // console.log("Ami formaté :", formattedFriend);
             setFriends((prev) => [...prev, formattedFriend]);
             setFriendRequestsReceived(friendRequestsReceived.filter((r) => r.user.id !== friendId));
 
@@ -178,7 +178,7 @@ export default function FriendsDrawer({ onClose, user }: FriendsDrawerProps) {
     };
 
     useEffect(() => {
-        console.log("RERENDU FRIENDS DRAWER")
+        // console.log("RERENDU FRIENDS DRAWER")
     }, [, friends, friendRequestsSent, friendRequestsReceived]);
 
     return (

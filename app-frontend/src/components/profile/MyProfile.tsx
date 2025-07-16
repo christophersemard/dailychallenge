@@ -15,7 +15,6 @@ type Props = {
 
 export default function MyProfile({ user }: Props) {
 
-    console.log("MyProfile user", user);
     return (
         <div className="flex flex-col items-center gap-8">
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 w-full max-w-6xl">
