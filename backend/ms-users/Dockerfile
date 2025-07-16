@@ -63,6 +63,7 @@ COPY --from=build /app/backend/${SERVICE_NAME}/dist ./backend/${SERVICE_NAME}/di
 # Copie des sources nécessaires
 COPY backend/${SERVICE_NAME}/package.json ./backend/${SERVICE_NAME}/package.json
 COPY backend/${SERVICE_NAME}/src/avatar/assets ./backend/${SERVICE_NAME}/src/avatar/assets
+COPY backend/${SERVICE_NAME}/src/mailer/dailychallenge-logo.png ./backend/${SERVICE_NAME}/src/mailer/dailychallenge-logo.png
 
 # Copie manuelle des assets dans le dist
 RUN mkdir -p ./backend/${SERVICE_NAME}/dist/avatar/assets && \

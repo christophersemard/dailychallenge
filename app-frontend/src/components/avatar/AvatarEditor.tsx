@@ -32,8 +32,7 @@ export default function AvatarEditor({
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-[400px_1px_1fr] gap-8 relative">
-            {/* Aperçu gauche */}
-            <div className="flex flex-col items-center gap-4">
+            {/* Aperçu gauche */}<div className="flex flex-col items-center gap-4 sticky top-20 self-start">
                 <AvatarPreview
                     config={state}
                     userLevel={userLevel}
@@ -46,7 +45,7 @@ export default function AvatarEditor({
             {/* Barre de séparation */}
 
             {/* Panel droit */}
-            <div className="space-y-4">
+            <div className="space-y-4 ">
                 <AvatarEditorPanel
                     state={state}
                     setState={setState}
