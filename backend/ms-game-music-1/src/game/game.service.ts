@@ -228,6 +228,7 @@ export class GameService {
             throw new NotFoundException("Aucun jeu trouvé pour cette date.");
 
         const a = game.artist;
+        const genderFrench = a.gender == "Male" ? "Homme" : "Femme";
         const hintsData = {
             type: a.type == "Group" ? "Groupe" : "Artiste Solo",
             country: attempts > 0 ? a.country || null : null,
@@ -235,7 +236,7 @@ export class GameService {
                 attempts > 1
                     ? a.type === "Group"
                         ? a.members.length.toString()
-                        : a.mainGenres[0] || null
+                        : genderFrench || null
                     : null,
             firstAlbum:
                 attempts > 3 && a.firstAlbumDate

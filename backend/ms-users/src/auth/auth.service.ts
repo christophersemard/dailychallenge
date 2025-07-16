@@ -53,6 +53,12 @@ export class AuthService {
         if (existingUser)
             throw new UnprocessableEntityException("Pseudo déjà pris.");
 
+        const existingEmail = await prisma.user.findUnique({
+            where: { email },
+        });
+        if (existingEmail)
+            throw new UnprocessableEntityException("Email déjà utilisé.");
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await prisma.user.create({
             data: { email, password: hashedPassword, pseudo },
@@ -61,6 +67,7 @@ export class AuthService {
         await prisma.userStats.create({
             data: { userId: user.id, xp: 0, level: 1, streak: 0 },
         });
+        console.log(`Nouvel utilisateur créé: ${user.email}`);
 
         await this.userEventsService.addEvent(user.id, "user_registered");
 

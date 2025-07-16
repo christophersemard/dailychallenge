@@ -53,6 +53,7 @@ export default function Inscription() {
                 headers: { "Content-Type": "application/json" },
             })
 
+
             if (res.error) {
                 if (res.error.statusCode === 409) {
                     setError("Cet email est déjà utilisé.")
