@@ -46,6 +46,12 @@ export default function Inscription() {
             return
         }
 
+        if (!isEmailValid(email)) {
+            setError("Email invalide.")
+            setLoading(false)
+            return
+        }
+
         try {
             const res = await fetchClientWithAuth<{ success: boolean }>("/api/auth/register", {
                 method: "POST",
@@ -82,6 +88,11 @@ export default function Inscription() {
         digit: /\d/.test(password),
         special: /[^A-Za-z0-9]/.test(password),
     }), [password])
+
+    const isEmailValid = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
     const renderRule = (label: string, isValid: boolean) => (
         <li key={label} className={clsx("text-sm flex items-center gap-2", isValid ? "text-success" : "text-danger")}>
